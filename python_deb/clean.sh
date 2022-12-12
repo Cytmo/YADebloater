@@ -1,0 +1,1 @@
+rm *.gcda *.gcno *.gcov
