@@ -5,6 +5,8 @@ import argparse
 import sys
 import utils
 import merge
+import code_remover
+import time
 parser = argparse.ArgumentParser()
 #Argument list
 parser.add_argument("-s",'--source_file', type=str,default="./gzip-1.2.4.c.origin.c" ,help='The path to source file')
@@ -71,10 +73,18 @@ def run_prog(arg,dest):
 
 
 if __name__ == '__main__':
+    # Redirect output to print.log
+    t = time.time()
+    
     fp = open("print.log", "w+")
-    sys.stdout = fp 		    
+    sys.stdout = fp 		  
+    print('{:30s}{}'.format('Now time is ',time.strftime('%Y-%m-%d %H:%M:%S')))
     print("The source file u want to run debloat with is "+args.source_file)
     utils.clean()
     compile_with_cov(args.source_file)
     run_inputs("file_input")
+    code_remover.code_remove("./cov_merged",args.source_file)
+    utils.finish(args.source_file)
+    
+    print(f'time cost:{time.time() - t:.4f}s')
    # r = subprocess.call(["gcc -fprofile-arcs -ftest-coverage"])

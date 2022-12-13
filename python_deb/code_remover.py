@@ -6,7 +6,7 @@ def code_remove(cov_merged_path,source_file):
     dest_file_name=source_file.name+".debloated.c"
     dest_file=open(dest_file_name,mode='w+')
     
-    #略过前三行的非代码部分
+    #Skipping the gcov info part...
     line_cov=cov_merged.readline()
     for i in range(3):
         dest_file.write("//"+line_cov)

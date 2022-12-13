@@ -27,6 +27,17 @@ def clean():
     # print('R u sure u want to run the following cmd '+"rm "+source_path+".*"+" Y(y) or N(n)")
     # decision = input()
     # if(decision=='y' or decision=="Y"):
-    os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1" )
+    os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
+    os.system("rm -r result" )
 
-clean()
+def finish(source_path):
+    os.system("mkdir result")
+    os.system("cp "+source_path+".debloated.c result ")
+    os.system("cp print.log result ")
+    os.system("cp "+source_path+" result ")
+    print('Debloating Finished!')
+
+
+
+if __name__ == "__main__" :
+    clean()

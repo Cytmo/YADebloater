@@ -1770,12 +1770,18 @@
     #####: 1767:    return (s);
         -: 1768:  }
         -: 1769:}
+3: 1770:char *basename(char *fname) {
         -: 1771:  char *p;
         -: 1772:
         -: 1773:  {
+3: 1774:    { p = strrchr((char const *)fname, '/'); }
+3: 1775:    if ((unsigned long)p != (unsigned long)((void *)0)) {
+3: 1776:      fname = p + 1;
         -: 1777:    }
+3: 1778:    return (fname);
         -: 1779:  }
         -: 1780:}
+3: 1781:char *add_envopt(int *argcp, char ***argvp, char *env___0) {
         -: 1782:  char *p;
         -: 1783:  char **oargv;
         -: 1784:  char **nargv;
@@ -1800,7 +1806,13 @@
         -: 1803:
         -: 1804:  {
         -: 1805:    {
+3: 1806:      oargc = *argcp;
+3: 1807:      nargc = 0;
+3: 1808:      tmp = getenv((char const *)env___0);
+3: 1809:      env___0 = tmp;
         -: 1810:    }
+3: 1811:    if ((unsigned long)env___0 == (unsigned long)((void *)0)) {
+3: 1812:      return ((char *)((void *)0));
         -: 1813:    }
         -: 1814:    {
     #####: 1815:      tmp___0 = strlen((char const *)env___0);
@@ -6445,6 +6457,7 @@
     #####: 6454:    return;
         -: 6455:  }
         -: 6456:}
+3: 6457:int main(int argc, char **argv) {
         -: 6458:  int file_count;
         -: 6459:  int proglen;
         -: 6460:  int optc;
@@ -6463,32 +6476,57 @@
         -: 6473:
         -: 6474:  {
         -: 6475:    {
+3: 6476:      progname = basename(*(argv + 0));
+3: 6477:      proglen = (int)strlen((char const *)progname);
         -: 6478:    }
+3: 6479:    if (proglen > 4) {
         -: 6480:      {
+3: 6481:        tmp = strcmp((char const *)((progname + proglen) - 4), ".exe");
         -: 6482:      }
+3: 6483:      if (tmp == 0) {
     #####: 6484:        *(progname + (proglen - 4)) = (char)'\000';
         -: 6485:      }
         -: 6486:    }
+3: 6487:    { env = add_envopt(&argc, &argv, (char *)"GZIP"); }
+3: 6488:    if ((unsigned long)env != (unsigned long)((void *)0)) {
     #####: 6489:      args = argv;
         -: 6490:    }
         -: 6491:    {
+3: 6492:      tmp___0 = signal(2, (void (*)(int))1);
+3: 6493:      foreground = (unsigned long)tmp___0 != (unsigned long)((void (*)(int))1);
         -: 6494:    }
+3: 6495:    if (foreground) {
         -: 6496:      {
+3: 6497:        signal(2, (void (*)(int))(&abort_gzip));
         -: 6498:      }
         -: 6499:    }
+3: 6500:    { tmp___1 = signal(15, (void (*)(int))1); }
+3: 6501:    if ((unsigned long)tmp___1 != (unsigned long)((void (*)(int))1)) {
         -: 6502:      {
+3: 6503:        signal(15, (void (*)(int))(&abort_gzip));
         -: 6504:      }
         -: 6505:    }
+3: 6506:    { tmp___2 = signal(1, (void (*)(int))1); }
+3: 6507:    if ((unsigned long)tmp___2 != (unsigned long)((void (*)(int))1)) {
         -: 6508:      {
+3: 6509:        signal(1, (void (*)(int))(&abort_gzip));
         -: 6510:      }
         -: 6511:    }
+3: 6512:    { tmp___5 = strncmp((char const *)progname, "un", (size_t)2); }
+3: 6513:    if (tmp___5 == 0) {
     #####: 6514:      decompress = 1;
         -: 6515:    } else {
+3: 6516:      { tmp___6 = strncmp((char const *)progname, "gun", (size_t)3); }
+3: 6517:      if (tmp___6 == 0) {
     #####: 6518:        decompress = 1;
         -: 6519:      } else {
+3: 6520:        { tmp___3 = strcmp((char const *)(progname + 1), "cat"); }
+3: 6521:        if (tmp___3 == 0) {
     #####: 6522:          to_stdout = 1;
     #####: 6523:          decompress = to_stdout;
         -: 6524:        } else {
+3: 6525:          { tmp___4 = strcmp((char const *)progname, "gzcat"); }
+3: 6526:          if (tmp___4 == 0) {
     #####: 6527:            to_stdout = 1;
     #####: 6528:            decompress = to_stdout;
         -: 6529:          }
@@ -6496,74 +6534,111 @@
         -: 6531:      }
         -: 6532:    }
         -: 6533:    {
+3: 6534:      strncpy((char * /* __restrict  */)(z_suffix),
         -: 6535:              (char const * /* __restrict  */) ".gz", sizeof(z_suffix) - 1UL);
+3: 6536:      z_len = (int)strlen((char const *)(z_suffix));
         -: 6537:    }
         -: 6538:    {
         -: 6539:      while (1) {
+4: 6540:      while_continue: /* CIL Label */;
         -: 6541:        {
+4: 6542:          optc = getopt_long(argc, (char *const *)argv,
         -: 6543:                             "ab:cdfhH?lLmMnNqrS:tvVZ123456789",
         -: 6544:                             (struct option const *)(longopts), (int *)0);
         -: 6545:        }
+4: 6546:        if (!(optc != -1)) {
+        1: 6547:          goto while_break;
         -: 6548:        }
         -: 6549:        {
+3: 6550:          if (optc == 97) {
     #####: 6551:            goto case_97;
         -: 6552:          }
+3: 6553:          if (optc == 98) {
     #####: 6554:            goto case_98;
         -: 6555:          }
+3: 6556:          if (optc == 99) {
     #####: 6557:            goto case_99;
         -: 6558:          }
+3: 6559:          if (optc == 100) {
     #####: 6560:            goto case_100;
         -: 6561:          }
+3: 6562:          if (optc == 102) {
     #####: 6563:            goto case_102;
         -: 6564:          }
+3: 6565:          if (optc == 104) {
         1: 6566:            goto case_104;
         -: 6567:          }
+        1: 6568:          if (optc == 72) {
     #####: 6569:            goto case_104;
         -: 6570:          }
+        1: 6571:          if (optc == 63) {
     #####: 6572:            goto case_104;
         -: 6573:          }
+        1: 6574:          if (optc == 108) {
     #####: 6575:            goto case_108;
         -: 6576:          }
+        1: 6577:          if (optc == 76) {
     #####: 6578:            goto case_76;
         -: 6579:          }
+        1: 6580:          if (optc == 109) {
     #####: 6581:            goto case_109;
         -: 6582:          }
+        1: 6583:          if (optc == 77) {
     #####: 6584:            goto case_77;
         -: 6585:          }
+        1: 6586:          if (optc == 110) {
     #####: 6587:            goto case_110;
         -: 6588:          }
+        1: 6589:          if (optc == 78) {
     #####: 6590:            goto case_78;
         -: 6591:          }
+        1: 6592:          if (optc == 113) {
     #####: 6593:            goto case_113;
         -: 6594:          }
+        1: 6595:          if (optc == 114) {
     #####: 6596:            goto case_114;
         -: 6597:          }
+        1: 6598:          if (optc == 83) {
     #####: 6599:            goto case_83;
         -: 6600:          }
+        1: 6601:          if (optc == 116) {
     #####: 6602:            goto case_116;
         -: 6603:          }
+        1: 6604:          if (optc == 118) {
     #####: 6605:            goto case_118;
         -: 6606:          }
+        1: 6607:          if (optc == 86) {
     #####: 6608:            goto case_86;
         -: 6609:          }
+        1: 6610:          if (optc == 90) {
     #####: 6611:            goto case_90;
         -: 6612:          }
+        1: 6613:          if (optc == 49) {
     #####: 6614:            goto case_49;
         -: 6615:          }
+        1: 6616:          if (optc == 50) {
     #####: 6617:            goto case_49;
         -: 6618:          }
+        1: 6619:          if (optc == 51) {
     #####: 6620:            goto case_49;
         -: 6621:          }
+        1: 6622:          if (optc == 52) {
     #####: 6623:            goto case_49;
         -: 6624:          }
+        1: 6625:          if (optc == 53) {
     #####: 6626:            goto case_49;
         -: 6627:          }
+        1: 6628:          if (optc == 54) {
     #####: 6629:            goto case_49;
         -: 6630:          }
+        1: 6631:          if (optc == 55) {
     #####: 6632:            goto case_49;
         -: 6633:          }
+        1: 6634:          if (optc == 56) {
     #####: 6635:            goto case_49;
         -: 6636:          }
+        1: 6637:          if (optc == 57) {
+        1: 6638:            goto case_49;
         -: 6639:          }
     #####: 6640:          goto switch_default;
     #####: 6641:        case_97: /* CIL Label */
@@ -6655,16 +6730,35 @@
     #####: 6727:          do_exit(1);
         -: 6728:        }
     #####: 6729:          goto switch_break;
+        1: 6730:        case_49: /* CIL Label */
+        1: 6731:        case_50: /* CIL Label */
+        1: 6732:        case_51: /* CIL Label */
+        1: 6733:        case_52: /* CIL Label */
+        1: 6734:        case_53: /* CIL Label */
+        1: 6735:        case_54: /* CIL Label */
+        1: 6736:        case_55: /* CIL Label */
+        1: 6737:        case_56: /* CIL Label */
+        1: 6738:        case_57: /* CIL Label */
+        1: 6739:          level = optc - 48;
+        1: 6740:          goto switch_break;
     #####: 6741:        switch_default : /* CIL Label */
         -: 6742:        {
     #####: 6743:          usage();
     #####: 6744:          do_exit(1);
         -: 6745:        }
+        1: 6746:        switch_break: /* CIL Label */;
         -: 6747:        }
         -: 6748:      }
+        1: 6749:    while_break: /* CIL Label */;
         -: 6750:    }
+        1: 6751:    if (no_time < 0) {
+        1: 6752:      no_time = decompress;
         -: 6753:    }
+        1: 6754:    if (no_name < 0) {
+        1: 6755:      no_name = decompress;
         -: 6756:    }
+        1: 6757:    file_count = argc - optind;
+        1: 6758:    if (ascii) {
     #####: 6759:      if (!quiet) {
         -: 6760:        {
     #####: 6761:          fprintf((FILE * /* __restrict  */) stderr,
@@ -6674,6 +6768,7 @@
         -: 6765:        }
         -: 6766:      }
         -: 6767:    }
+        1: 6768:    if (z_len == 0) {
     #####: 6769:      if (!decompress) {
         -: 6770:        {
     #####: 6771:          fprintf(
@@ -6686,6 +6781,8 @@
     #####: 6778:        goto _L;
         -: 6779:      }
         -: 6780:    } else {
+        1: 6781:    _L:
+        1: 6782:      if (z_len > 30) {
         -: 6783:        {
     #####: 6784:          fprintf(
         -: 6785:              (FILE * /* __restrict  */) stderr,
@@ -6695,10 +6792,12 @@
         -: 6789:        }
         -: 6790:      }
         -: 6791:    }
+        1: 6792:    if (do_lzw) {
     #####: 6793:      if (!decompress) {
     #####: 6794:        work = &lzw;
         -: 6795:      }
         -: 6796:    }
+        1: 6797:    if (file_count != 0) {
     #####: 6798:      if (to_stdout) {
     #####: 6799:        if (!test) {
     #####: 6800:          if (!list) {
@@ -6735,6 +6834,7 @@
     #####: 6831:      while_break___0: /* CIL Label */;
         -: 6832:      }
         -: 6833:    } else {
+        1: 6834:      { treat_stdin(); }
         -: 6835:    }
     #####: 6836:    if (list) {
     #####: 6837:      if (!quiet) {
@@ -6749,6 +6849,7 @@
     #####: 6846:    return (exit_code);
         -: 6847:  }
         -: 6848:}
+        1: 6849:static void treat_stdin(void) {
         -: 6850:  char const *tmp;
         -: 6851:  char const *tmp___0;
         -: 6852:  struct _IO_FILE *tmp___1;
@@ -6770,24 +6871,38 @@
         -: 6868:  char *__cil_tmp19;
         -: 6869:
         -: 6870:  {
+        1: 6871:    if (!force) {
+        1: 6872:      if (!list) {
+        1: 6873:        if (decompress) {
     #####: 6874:          tmp___1 = stdin;
         -: 6875:        } else {
+        1: 6876:          tmp___1 = stdout;
         -: 6877:        }
         -: 6878:        {
+        1: 6879:          tmp___2 = fileno(tmp___1);
+        1: 6880:          tmp___3 = isatty(tmp___2);
         -: 6881:        }
+        1: 6882:        if (tmp___3) {
+        1: 6883:          if (decompress) {
     #####: 6884:            tmp = "de";
         -: 6885:          } else {
+        1: 6886:            tmp = "";
         -: 6887:          }
+        1: 6888:          if (decompress) {
     #####: 6889:            tmp___0 = "read from";
         -: 6890:          } else {
+        1: 6891:            tmp___0 = "written to";
         -: 6892:          }
         -: 6893:          {
+        1: 6894:            fprintf((FILE * /* __restrict  */) stderr,
         -: 6895:                    (char const * /* __restrict  */) "%s: compressed data not "
         -: 6896:                                                     "%s a terminal. Use -f to "
         -: 6897:                                                     "force %scompression.\n",
         -: 6898:                    progname, tmp___0, tmp);
+        1: 6899:            fprintf((FILE * /* __restrict  */) stderr,
         -: 6900:                    (char const * /* __restrict  */) "For help, type: %s -h\n",
         -: 6901:                    progname);
+        1: 6902:            do_exit(1);
         -: 6903:          }
         -: 6904:        }
         -: 6905:      }
@@ -8756,22 +8871,28 @@
         -: 8868:  }
         -: 8869:}
         -: 8870:static int in_exit = 0;
+3: 8871:static void do_exit(int exitcode) {
         -: 8872:
         -: 8873:  {
+3: 8874:    if (in_exit) {
         -: 8875:      {
     #####: 8876:        exit(exitcode);
         -: 8877:      }
         -: 8878:    }
+3: 8879:    in_exit = 1;
+3: 8880:    if ((unsigned long)env != (unsigned long)((void *)0)) {
         -: 8881:      {
     #####: 8882:        free((void *)env);
     #####: 8883:        env = (char *)((void *)0);
         -: 8884:      }
         -: 8885:    }
+3: 8886:    if ((unsigned long)args != (unsigned long)((void *)0)) {
         -: 8887:      {
     #####: 8888:        free((void *)((char *)args));
     #####: 8889:        args = (char **)((void *)0);
         -: 8890:      }
         -: 8891:    }
+3: 8892:    { exit(exitcode); }
         -: 8893:  }
         -: 8894:}
     #####: 8895:void abort_gzip(void) {
