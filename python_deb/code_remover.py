@@ -1,4 +1,6 @@
 import utils
+import time
+import re
 def code_remove(cov_merged_path,source_file):
     print('Removing code from '+cov_merged_path+'...')
     cov_merged=open(cov_merged_path)
@@ -8,6 +10,7 @@ def code_remove(cov_merged_path,source_file):
     
     #Skipping the gcov info part...
     line_cov=cov_merged.readline()
+    dest_file.write("//"+time.strftime('%Y-%m-%d %H:%M:%S')+"\n")
     for i in range(3):
         dest_file.write("//"+line_cov)
         line_cov=cov_merged.readline()
@@ -22,7 +25,18 @@ def code_remove(cov_merged_path,source_file):
             dest_file.write(line_cov_spilted[2])
             line_reserved+=1
         elif(line_cov_spilted[0].strip()=="#####"):
-            dest_file.write("//"+line_cov_spilted[2])
+            if re.search('\w+\s+?\b(\w+)\b\(',line_cov_spilted[2]):
+                dest_file.write(line_cov_spilted[2])
+            elif '{' in line_cov_spilted[2]:
+                dest_file.write("{"+"//"+line_cov_spilted[2])
+            elif '}' in line_cov_spilted[2]:
+                dest_file.write("}"+"//"+line_cov_spilted[2])
+            # if '{' in line_cov_spilted[2]:
+            #     dest_file.write("{"+"//"+line_cov_spilted[2])
+            # if '{' in line_cov_spilted[2]:
+            #     dest_file.write("{"+"//"+line_cov_spilted[2])
+            else:
+                dest_file.write("//"+line_cov_spilted[2])
             line_removed+=1
         else:
             print("Unexpected Error at "+str(total_line)+"th line. which content is : "+str(line_cov))

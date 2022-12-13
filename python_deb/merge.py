@@ -21,7 +21,7 @@ def cov_merge(source_path,run_time):
             line_merged_spilted = line_merged.split(":")
             if(line_gcov_spilted ==line_merged_spilted):
                 #完全相同
-                print("Totally same, Writing... "+line_gcov)
+                # print("Totally same, Writing... "+line_gcov)
                 merged_gcov_file1.write(line_gcov)
             elif(line_gcov_spilted[0].strip().isdecimal()):
                 #执行了的代码段
