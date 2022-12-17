@@ -1,6 +1,7 @@
 import utils
 import time
 import re
+import pycparser
 def code_remove(cov_merged_path,source_file):
     print('Removing code from '+cov_merged_path+'...')
     cov_merged=open(cov_merged_path)

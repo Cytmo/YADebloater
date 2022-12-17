@@ -1,4 +1,4 @@
-Now time is                   2022-12-13 15:19:44
+Now time is                   2022-12-17 18:40:35
 The source file u want to run debloat with is ./gzip-1.2.4.c.origin.c
 Cleaning...
 Compiling...
@@ -389,4 +389,4 @@ Total line count is 8907
 Reserved line count is 4794
 Removed line count is 4113
 Debloating Finished!
-time cost:0.8994s
+time cost:1.0487s
