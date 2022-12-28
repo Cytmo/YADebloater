@@ -26,16 +26,16 @@ def code_remove(cov_merged_path,source_file):
     
     
     # line level remove
-    for i in range(len(f1['files'][0]['lines'])):
-        print(f1['files'][0]['lines'][i])
-        if f1['files'][0]['lines'][i]['count'] == 0 :
-            print("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" , Exec count is 0, removing...")
-            # if '{' in lines[f1['files'][0]['lines'][i]['line_number']]:
-            #     lines[f1['files'][0]['lines'][i]['line_number']]='{//'+lines[f1['files'][0]['lines'][i]['line_number']]
-            # elif '}' in lines[f1['files'][0]['lines'][i]['line_number']]:
-            #     lines[f1['files'][0]['lines'][i]['line_number']]='}//'+lines[f1['files'][0]['lines'][i]['line_number']]
-            # else:
-            lines[f1['files'][0]['lines'][i]['line_number']]='//'+lines[f1['files'][0]['lines'][i]['line_number']]
+    # for i in range(len(f1['files'][0]['lines'])):
+    #     print(f1['files'][0]['lines'][i])
+    #     if f1['files'][0]['lines'][i]['count'] == 0 :
+    #         print("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" , Exec count is 0, removing...")
+    #         # if '{' in lines[f1['files'][0]['lines'][i]['line_number']]:
+    #         #     lines[f1['files'][0]['lines'][i]['line_number']]='{//'+lines[f1['files'][0]['lines'][i]['line_number']]
+    #         # elif '}' in lines[f1['files'][0]['lines'][i]['line_number']]:
+    #         #     lines[f1['files'][0]['lines'][i]['line_number']]='}//'+lines[f1['files'][0]['lines'][i]['line_number']]
+    #         # else:
+    #         lines[f1['files'][0]['lines'][i]['line_number']]='//'+lines[f1['files'][0]['lines'][i]['line_number']]
 
     # function level remove, but keep declaration
     for i in range(len(f1['files'][0]['functions'])):
