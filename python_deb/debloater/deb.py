@@ -9,8 +9,8 @@ import code_remover
 import time
 parser = argparse.ArgumentParser()
 #Argument list
-parser.add_argument("-s",'--source_file', type=str,default="./gzip-1.2.4.c.origin.c" ,help='The path to source file')
-parser.add_argument("-i",'--original_inputs', type=str,default="./gzip-1.2.4/inputs/input" ,help='The path to ur inputs, which should contain the features u want to preserve')
+parser.add_argument("-s",'--source_file', type=str,help='The path to source file')
+parser.add_argument("-i",'--original_inputs', type=str,help='The path to ur inputs, which should contain the features u want to preserve')
 parser.add_argument("-option_string1","--o1",type=str,help="An test for optional para")
 args = parser.parse_args()
 print(args)
