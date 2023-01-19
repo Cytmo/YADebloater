@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import utils
 import time
-def cov_merge(source_path,run_time):
+def cov_merge(source_path,run_time,dir_name):
     print('Merging...'+" current run time is "+str(run_time))
     
     if(run_time!=1):
@@ -11,8 +11,8 @@ def cov_merge(source_path,run_time):
         print("Merging from "+source_file.name+".gcov to cov_merged")
         print("Merging...\n\n\n")
         gcov_file=open(source_file.name+".gcov")
-        merged_gcov_file=open("cov_merged")
-        merged_gcov_file1=open("cov_merged1",mode='w+')
+        merged_gcov_file=open(dir_name +os.sep+"cov_merged")
+        merged_gcov_file1=open(dir_name +os.sep+"cov_merged1",mode='w+')
         line_gcov=gcov_file.readline()
         line_merged=merged_gcov_file.readline()
         
@@ -48,13 +48,13 @@ def cov_merge(source_path,run_time):
         merged_gcov_file.close()
         merged_gcov_file1.close()
         source_file.close()
-        os.remove(source_file.name+".gcov")
-        os.remove('cov_merged')
+        utils.remove_file(source_file.name+".gcov")
+        utils.remove_file('cov_merged',dir_name)
         
-        shutil.copyfile('cov_merged1','cov_merged')    
+        shutil.copyfile(dir_name +os.sep+'cov_merged1',dir_name +os.sep+'cov_merged')    
     else:
         source_file=open(source_path)
-        os.system("cp *.gcov cov_merged")    
-        os.remove(source_file.name+".gcov")
+        utils.copy_file(source_file.name+".gcov",dir_name+os.sep+"cov_merged") 
+        utils.remove_file(source_file.name+".gcov")
         source_file.close()
         

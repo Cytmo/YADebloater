@@ -1,0 +1,233 @@
+Now time is                   2023-01-19 19:44:00
+The source file u want to run debloat with is ../gzip-1.2.4.c.origin.c
+Cleaning...
+Preparing...
+Copying needed files...
+Compiling...
+Compile Success
+Compiled file is ../gzip-1.2.4.c.origin.c_origin
+Input folder is temp/input
+The inputs to be ran:
+-h
+-9
+running the 0th input: -h
+Program exited normally
+gcov generate Success
+Merging... current run time is 1
+running the 1th input: -9
+Program exited with code 1
+gcov generate Success
+Merging... current run time is 2
+Merging from temp/gzip-1.2.4.c.origin.c.gcov to cov_merged
+Merging...
+
+
+
+Encountering Difference, this exec's run time is         2, Before run time is 1
+Writing... 3: 6540:      while_continue: /* CIL Label */;
+
+Encountering Difference, this exec's run time is         2, Before run time is 1
+Writing... 3: 6542:          optc = getopt_long(argc, (char *const *)argv,
+
+Encountering Difference, this exec's run time is         2, Before run time is 1
+Writing... 3: 6546:        if (!(optc != -1)) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6547:          goto while_break;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6568:          if (optc == 72) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6571:          if (optc == 63) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6574:          if (optc == 108) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6577:          if (optc == 76) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6580:          if (optc == 109) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6583:          if (optc == 77) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6586:          if (optc == 110) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6589:          if (optc == 78) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6592:          if (optc == 113) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6595:          if (optc == 114) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6598:          if (optc == 83) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6601:          if (optc == 116) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6604:          if (optc == 118) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6607:          if (optc == 86) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6610:          if (optc == 90) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6613:          if (optc == 49) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6616:          if (optc == 50) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6619:          if (optc == 51) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6622:          if (optc == 52) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6625:          if (optc == 53) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6628:          if (optc == 54) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6631:          if (optc == 55) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6634:          if (optc == 56) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6637:          if (optc == 57) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6638:            goto case_49;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6730:        case_49: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6731:        case_50: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6732:        case_51: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6733:        case_52: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6734:        case_53: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6735:        case_54: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6736:        case_55: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6737:        case_56: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6738:        case_57: /* CIL Label */
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6739:          level = optc - 48;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6740:          goto switch_break;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6746:        switch_break: /* CIL Label */;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6749:    while_break: /* CIL Label */;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6751:    if (no_time < 0) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6752:      no_time = decompress;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6754:    if (no_name < 0) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6755:      no_name = decompress;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6757:    file_count = argc - optind;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6758:    if (ascii) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6768:    if (z_len == 0) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6781:    _L:
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6782:      if (z_len > 30) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6792:    if (do_lzw) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6797:    if (file_count != 0) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6834:      { treat_stdin(); }
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6849:static void treat_stdin(void) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6871:    if (!force) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6872:      if (!list) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6873:        if (decompress) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6876:          tmp___1 = stdout;
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6879:          tmp___2 = fileno(tmp___1);
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6880:          tmp___3 = isatty(tmp___2);
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6882:        if (tmp___3) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6883:          if (decompress) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6886:            tmp = "";
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6888:          if (decompress) {
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6891:            tmp___0 = "written to";
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6894:            fprintf((FILE * /* __restrict  */) stderr,
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6899:            fprintf((FILE * /* __restrict  */) stderr,
+
+Encountering Difference, this exec's run time is         1, Before run time is 0
+Writing...         1: 6902:            do_exit(1);
+
+Removing code from ./cov_merged...
