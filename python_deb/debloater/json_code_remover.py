@@ -44,7 +44,7 @@ def code_remove(cov_merged_path,source_file):
             print("Function "+f1['files'][0]['functions'][i]['name']+"'s exec count is 0, removing...")
             start_line = f1['files'][0]['functions'][i]['start_line']
             end_line = f1['files'][0]['functions'][i]['end_line']
-            for j in range(start_line,end_line-1):
+            for j in range(start_line-1,end_line-1):
             #     if '{' in lines[j]:
             #         lines[j]='{//'+lines[j]
             #     elif '}' in lines[j]:
