@@ -81,16 +81,19 @@ def clean():
     # print('R u sure u want to run the following cmd '+"rm "+source_path+".*"+" Y(y) or N(n)")
     # decision = input()
     # if(decision=='y' or decision=="Y"):
-    os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
+    # os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
     os.system("rm -r result" )
     os.system("rm -r temp" )
 
-def finish(source_path):
+def finish(source_path,log_file):
+    print('Debloating Finished!')
     os.system("mkdir result")
     os.system("cp "+source_path+".debloated.c result ")
-    os.system("cp print.log result ")
+    
+    log_file.close()
+    os.system("cp temp/print.log result ")
     os.system("cp "+source_path+" result ")
-    print('Debloating Finished!')
+    
 
 
 

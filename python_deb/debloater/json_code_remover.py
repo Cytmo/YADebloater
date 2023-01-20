@@ -22,9 +22,6 @@ def code_remove(cov_merged_path,source_file):
     
     lines = source_file.readlines()
     
-    
-    
-    
     # line level remove
     # for i in range(len(f1['files'][0]['lines'])):
     #     print(f1['files'][0]['lines'][i])
