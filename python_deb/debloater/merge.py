@@ -10,7 +10,7 @@ def cov_merge(source_path,run_time,dir_name):
         source_file=open(source_path)
         print("Merging from "+source_file.name+".gcov to cov_merged")
         print("Merging...\n\n\n")
-        gcov_file=open(source_file.name+".gcov")
+        gcov_file=open(source_file.name+".gcov.json")
         merged_gcov_file=open(dir_name +os.sep+"cov_merged")
         merged_gcov_file1=open(dir_name +os.sep+"cov_merged1",mode='w+')
         line_gcov=gcov_file.readline()
@@ -48,13 +48,13 @@ def cov_merge(source_path,run_time,dir_name):
         merged_gcov_file.close()
         merged_gcov_file1.close()
         source_file.close()
-        utils.remove_file(source_file.name+".gcov")
+        utils.remove_file(source_file.name+".gcov.json")
         utils.remove_file('cov_merged',dir_name)
         
         shutil.copyfile(dir_name +os.sep+'cov_merged1',dir_name +os.sep+'cov_merged')    
     else:
         source_file=open(source_path)
-        utils.copy_file(source_file.name+".gcov",dir_name+os.sep+"cov_merged") 
-        utils.remove_file(source_file.name+".gcov")
+        utils.copy_file(source_file.name+".gcov.json",dir_name+os.sep+"cov_merged") 
+        utils.remove_file(source_file.name+".gcov.json")
         source_file.close()
         

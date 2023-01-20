@@ -1,0 +1,12 @@
+Now time is                   2023-01-20 14:17:25
+The source file u want to run debloat with is ../gzip-1.2.4.c.origin.c
+Compiling to temp/gzip-1.2.4.c.origin.c_origin
+Compile Success
+Compiled file is temp/gzip-1.2.4.c.origin.c_origin
+Input folder is temp/input
+The inputs to be ran:
+-h
+-9
+running the 0th input: -h
+Program exited normally
+running the 1th input: -9
