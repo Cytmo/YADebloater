@@ -118,5 +118,5 @@ if __name__ == '__main__':
     print(f'time cost:{time.time() - t:.4f}s')
     
     
-    utils.finish(args.source_file,fp)
+    utils.finish(source_path,fp)
    # r = subprocess.call(["gcc -fprofile-arcs -ftest-coverage"])
