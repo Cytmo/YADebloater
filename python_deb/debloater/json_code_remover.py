@@ -49,7 +49,7 @@ def code_remove(cov_merged_path,source_file):
             #     else:
                 lines[j]='//'+lines[j]
                 
-            # lines[start_line]=lines[start_line].replace('//','')
+            lines[start_line]=lines[start_line].replace('//','')
             lines[end_line-1]=lines[end_line-1].replace('//','')
     dest_file.writelines(lines)
     
