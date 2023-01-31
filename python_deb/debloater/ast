@@ -5209,27 +5209,6 @@ FileAST:
               Constant: int, 1
         Return: 
           Constant: int, 1
-  Decl: _IO_putc, [], [], ['extern'], []
-    FuncDecl: 
-      ParamList: 
-        Decl: __c, [], [], [], []
-          TypeDecl: __c, [], None
-            IdentifierType: ['int']
-        Decl: __fp, [], [], [], []
-          PtrDecl: []
-            TypeDecl: __fp, [], None
-              IdentifierType: ['_IO_FILE']
-      TypeDecl: _IO_putc, [], None
-        IdentifierType: ['int']
-  Decl: perror, [], [], ['extern'], []
-    FuncDecl: 
-      ParamList: 
-        Decl: __s, ['const'], [], [], []
-          PtrDecl: []
-            TypeDecl: __s, ['const'], None
-              IdentifierType: ['char']
-      TypeDecl: perror, [], None
-        IdentifierType: ['void']
   Decl: ofname, [], [], [], []
     ArrayDecl: []
       TypeDecl: ofname, [], None

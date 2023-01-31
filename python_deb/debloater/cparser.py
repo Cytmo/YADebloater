@@ -29,8 +29,18 @@ import sys
 #
 sys.path.extend(['.', '..'])
 
-from pycparser import parse_file
+from pycparser import parse_file,c_generator
 
+
+def translate_to_c(filename):
+    """ Simply use the c_generator module to emit a parsed AST.
+    """
+    ast = parse_file(filename, use_cpp=True)
+    generator = c_generator.CGenerator()
+    f = open(filename+".formatted.c",'w')
+    f.writelines(generator.visit(ast))
+    f.close()
+    return filename+".formatted.c"
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -38,7 +48,10 @@ if __name__ == "__main__":
     else:
         filename = '../gzip-1.2.4/gzip-1.2.4.c.origin.c'
 
-    ast = parse_file(filename, use_cpp=True,
-            cpp_path='gcc',
-            cpp_args=['-E', r'-Iutils/fake_libc_include'])
-    ast.show()
+    translate_to_c(filename)
+    
+    
+    # ast = parse_file(filename, use_cpp=True,
+    #         cpp_path='gcc',
+    #         cpp_args=['-E', r'-Iutils/fake_libc_include'])
+    # ast.show()
