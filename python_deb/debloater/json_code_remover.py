@@ -21,25 +21,24 @@ def code_remove(cov_merged_path,source_file):
     dest_file=open(dest_file_name,mode='w+')
     
     lines = source_file.readlines()
+ 
+        
     
-    # line level remove
-    # for i in range(len(f1['files'][0]['lines'])):
-    #     print(f1['files'][0]['lines'][i])
-    #     if f1['files'][0]['lines'][i]['count'] == 0 :
-    #         print("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" , Exec count is 0, removing...")
-    #         # if '{' in lines[f1['files'][0]['lines'][i]['line_number']]:
-    #         #     lines[f1['files'][0]['lines'][i]['line_number']]='{//'+lines[f1['files'][0]['lines'][i]['line_number']]
-    #         # elif '}' in lines[f1['files'][0]['lines'][i]['line_number']]:
-    #         #     lines[f1['files'][0]['lines'][i]['line_number']]='}//'+lines[f1['files'][0]['lines'][i]['line_number']]
-    #         # else:
-    #         lines[f1['files'][0]['lines'][i]['line_number']]='//'+lines[f1['files'][0]['lines'][i]['line_number']]
-
+    
+    
     # function level remove, but keep declaration
+    function_declaration_lines = []
     for i in range(len(f1['files'][0]['functions'])):
         # print(f1['files'][0]['functions'][i])
         if f1['files'][0]['functions'][i]['execution_count'] == 0 :
             print("Function "+f1['files'][0]['functions'][i]['name']+"'s exec count is 0, removing...")
+            
+            
             start_line = f1['files'][0]['functions'][i]['start_line']
+            # keep the line number of funciton declaration to preserve them in line level remove
+            function_declaration_lines.append(start_line)
+            
+            
             end_line = f1['files'][0]['functions'][i]['end_line']
             for j in range(start_line,end_line):
             #     if '{' in lines[j]:
@@ -47,11 +46,91 @@ def code_remove(cov_merged_path,source_file):
             #     elif '}' in lines[j]:
             #         lines[j]='}//'+lines[j]
             #     else:
+                # lines[j]='//'+lines[j]
                 lines[j]='//'+lines[j]
+            lines[start_line]=lines[start_line]+'{}'
+            
                 
-            lines[start_line]=lines[start_line].replace('//','')
-            lines[end_line-1]=lines[end_line-1].replace('//','')
-    dest_file.writelines(lines)
+            # lines[start_line]=lines[start_line].replace('//','')
+            # lines[end_line-1]=lines[end_line-1].replace('//','')
+            
+            
+    print(function_declaration_lines)        
+            
+       
+    # line level remove
+    
+
+    for i in range(len(f1['files'][0]['lines'])):
+        # print(f1['files'][0]['lines'][i])
+
+        if f1['files'][0]['lines'][i]['count'] == 0 :
+            
+            # if '{' in lines[f1['files'][0]['lines'][i]['line_number']]:
+            #     lines[f1['files'][0]['lines'][i]['line_number']]='{//'+lines[f1['files'][0]['lines'][i]['line_number']]
+            # elif '}' in lines[f1['files'][0]['lines'][i]['line_number']]:
+            #     lines[f1['files'][0]['lines'][i]['line_number']]='}//'+lines[f1['files'][0]['lines'][i]['line_number']]
+            # else:
+
+            # minus line number 1 to match the c source file line number
+            line_number_in_reality = f1['files'][0]['lines'][i]['line_number']-1
+            if_func_decl = f1['files'][0]['lines'][i]['line_number'] in function_declaration_lines
+            if( lines[f1['files'][0]['lines'][i]['line_number']].strip()=='' or if_func_decl or "//" in lines[line_number_in_reality] ):
+                continue
+            else:
+                print(f1['files'][0]['lines'][i])
+                print("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" , Exec count is 0, Content is "+ lines[line_number_in_reality].strip() +" removing...")
+                lines[line_number_in_reality]='//'+lines[line_number_in_reality]
+                
+            # keep {} ; unchanged
+            # if(';' in lines[line_number_in_reality] or '{' in lines[line_number_in_reality] or '}' in lines[line_number_in_reality]):
+            #     if(not if_func_decl):
+            #         chars_i_want = set('{};')
+            #         final_string = ''.join(c for c in lines[line_number_in_reality] if c in chars_i_want)
+            #         lines[line_number_in_reality]=final_string
+                    
+    # preserve function declaration
+    # for i in range(len(f1['files'][0]['functions'])):
+    #     # print(f1['files'][0]['functions'][i])
+    #     start_line = f1['files'][0]['functions'][i]['start_line']
+    #     end_line = f1['files'][0]['functions'][i]['end_line']
+    #     lines[start_line]=lines[start_line].replace('//','')
+    
+    
+    # process else that has no statements
+    lines_to_write = lines.copy()
+    else_to_remove = []
+    
+    
+    
+    
+    for i in range(len(lines)):
+        if('else' in lines[i]):
+            
+            
+            # match { and }
+            
+            
+            j=i
+            while lines[j].strip()!='}':
+                if['//' in lines[j]]:
+                    lines[j] = '/n'
+                j=j+1
+                print(j)
+        blocks=''
+        for k in range(i,j):
+            blocks += lines[k]
+        blocks = blocks.replace('{','')
+        blocks = blocks.replace('}','')
+        blocks = blocks.replace(';','').strip()
+
+
+        if(blocks==''):
+            else_to_remove.append(i)
+    print(else_to_remove)
+    for i in else_to_remove:
+        lines_to_write[i] = '//'+lines_to_write[i]
+    dest_file.writelines(lines_to_write)
     
     
     
