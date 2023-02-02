@@ -1,3 +1,4 @@
+from os import remove
 import sys
 import utils
 import time
@@ -98,44 +99,14 @@ def code_remove(cov_merged_path,source_file):
     
     
     # process else that has no statements
-    lines_to_write = lines.copy()
-    else_to_remove = []
+    lines_to_write,if_found_any = remove_redundant_else(lines)
+    while(True):
+        if(if_found_any):
+            lines_to_write,if_found_any = remove_redundant_else(lines_to_write)
+        else:
+            break
     
-    
-    
-    
-    for i in range(len(lines)):
-        if('else' in lines[i]):
-            
-            
-            # match { and }
-            
-            
-            j=i
-            while lines[j].strip()!='}':
-                if['//' in lines[j]]:
-                    lines[j] = '/n'
-                j=j+1
-                print(j)
-        blocks=''
-        for k in range(i,j):
-            blocks += lines[k]
-        blocks = blocks.replace('{','')
-        blocks = blocks.replace('}','')
-        blocks = blocks.replace(';','').strip()
-
-
-        if(blocks==''):
-            else_to_remove.append(i)
-    print(else_to_remove)
-    for i in else_to_remove:
-        lines_to_write[i] = '//'+lines_to_write[i]
     dest_file.writelines(lines_to_write)
-    
-    
-    
-    
-    
     
     dest_file.close()
     source_file.close()
@@ -152,8 +123,53 @@ def code_remove(cov_merged_path,source_file):
     
     
     
-    
-    
+def remove_redundant_else(lines):
+    lines_to_write = lines.copy()
+    else_to_remove = []
+    if_found_any =False
+    # remove redundant else
+    for i in range(len(lines)):
+        end_line=-1
+        if('else' in lines[i-1] and not '//' in lines[i-1]):
+            # match { and }
+            match_stack=[]
+            for j in range(i,len(lines)):
+                print(lines[j])
+                if '{' in lines[j]:
+                    match_stack.append('{')
+                elif '}' in lines[j]:
+                    match_stack.pop()
+                if(len(match_stack)==0):
+                    end_line = j
+                    break
+            print('i is '+str(i) + ' j is '+str(end_line))
+        else:
+            continue
+        
+        if(end_line==-1): # not found a redundant if/else statemtent
+            continue
+        else:
+            blocks=''
+            for k in range(i,end_line):
+                if(not '//' in lines[k]):
+                    blocks += lines[k]
+            blocks = blocks.replace('{','')
+            blocks = blocks.replace('}','')
+            blocks = blocks.replace(';','').strip()
+            if(blocks==''):
+                else_to_remove.append(i)
+                if_found_any = True
+                for k in range(i,end_line+1):
+                    if(not '//' in lines[k]):
+                        lines_to_write[k]='//'+lines_to_write[k]
+    if(not len(else_to_remove)==0):
+        print('Found redundant else statement, removing...')    
+        for i in else_to_remove:
+            print("line number is "+ str(i))
+            lines_to_write[i-1] = '//'+lines_to_write[i-1]
+
+    return lines_to_write,if_found_any
+
     # cov_merged=open(cov_merged_path)
     # source_file=open(source_file)
     # dest_file_name=source_file.name+".debloated.c"

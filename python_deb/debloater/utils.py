@@ -97,7 +97,9 @@ def clean():
 def finish(source_path,log_file):
     print('Debloating Finished!')
     os.system("mkdir result")
-    os.system("cp "+source_path+".debloated.c result ")
+    new_source_path = cparser.translate_to_c(source_path+".debloated.c",False)
+
+    os.system("cp "+new_source_path+" result ")
     
     log_file.close()
     os.system("cp temp/print.log result ")

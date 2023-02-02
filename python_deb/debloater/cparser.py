@@ -32,7 +32,7 @@ sys.path.extend(['.', '..'])
 from pycparser import parse_file,c_generator
 
 
-def translate_to_c(filename):
+def translate_to_c(filename,change_file_name=True):
     """ Simply use the c_generator module to emit a parsed AST.
     """
     ast = parse_file(filename, use_cpp=True)
@@ -40,8 +40,11 @@ def translate_to_c(filename):
     f = open(filename+".formatted.c",'w')
     f.writelines(generator.visit(ast))
     f.close()
-    return filename+".formatted.c"
-
+    if(change_file_name):
+        return filename+".formatted.c"
+    else:
+        return filename
+    
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         filename  = sys.argv[1]
