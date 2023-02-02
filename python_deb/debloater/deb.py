@@ -23,8 +23,9 @@ dir_name=""
 
 def compile_with_cov(source,dest=""):
     print('Compiling to '+source+"_origin")
+
     abspath = os.path.abspath(source)
-    ret = subprocess.call(["gcc",abspath, "-o",abspath+"_origin","-fprofile-arcs","-ftest-coverage"])
+    ret = subprocess.call(["gcc",abspath,"-w", "-o",abspath+"_origin","-fprofile-arcs","-ftest-coverage"])
     if(utils.exit_status(ret,"Compile")==0):
         utils.move_file("*.gcno",dir_name)
         global binary_path 
@@ -46,6 +47,8 @@ def parse_inputs():
         file.close()
         print('The inputs to be ran:')
         for line in inputs:
+            # divide parameter by space
+            line = line.split(" ")
             print(line)
     return inputs
 
