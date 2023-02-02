@@ -49,7 +49,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         filename  = sys.argv[1]
     else:
-        filename = '../gzip-1.2.4/gzip-1.2.4.c.origin.c'
+        filename = './gzip-1.2.4.c'
 
     translate_to_c(filename)
     

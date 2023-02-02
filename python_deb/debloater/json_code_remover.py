@@ -29,11 +29,15 @@ def code_remove(cov_merged_path,source_file):
     
     # function level remove, but keep declaration
     function_declaration_lines = []
+    deleted_functions = {}
+    
     for i in range(len(f1['files'][0]['functions'])):
         # print(f1['files'][0]['functions'][i])
         if f1['files'][0]['functions'][i]['execution_count'] == 0 :
             print("Function "+f1['files'][0]['functions'][i]['name']+"'s exec count is 0, removing...")
-            
+            # save deleted functions and its line number
+            if(not f1['files'][0]['functions'][i]['name'] in deleted_functions): 
+                deleted_functions.update({f1['files'][0]['functions'][i]['name']:[f1['files'][0]['functions'][i]['start_line'],f1['files'][0]['functions'][i]['end_line']]})
             
             start_line = f1['files'][0]['functions'][i]['start_line']
             # keep the line number of funciton declaration to preserve them in line level remove
@@ -49,11 +53,10 @@ def code_remove(cov_merged_path,source_file):
             #     else:
                 # lines[j]='//'+lines[j]
                 lines[j]='//'+lines[j]
-            lines[start_line]=lines[start_line]+'{}'
             
                 
-            # lines[start_line]=lines[start_line].replace('//','')
-            # lines[end_line-1]=lines[end_line-1].replace('//','')
+            lines[start_line]=lines[start_line].replace('//','')
+            lines[end_line-1]=lines[end_line-1].replace('//','')
             
             
     print(function_declaration_lines)        
@@ -66,7 +69,9 @@ def code_remove(cov_merged_path,source_file):
         # print(f1['files'][0]['lines'][i])
 
         if f1['files'][0]['lines'][i]['count'] == 0 :
-            
+            # check if its function is deleted
+            if(f1['files'][0]['lines'][i]['function_name'] in deleted_functions):
+                continue
             # if '{' in lines[f1['files'][0]['lines'][i]['line_number']]:
             #     lines[f1['files'][0]['lines'][i]['line_number']]='{//'+lines[f1['files'][0]['lines'][i]['line_number']]
             # elif '}' in lines[f1['files'][0]['lines'][i]['line_number']]:
@@ -105,6 +110,8 @@ def code_remove(cov_merged_path,source_file):
             lines_to_write,if_found_any = remove_redundant_else(lines_to_write)
         else:
             break
+    lines_to_write = preserve_label(lines_to_write,deleted_functions,f1)
+    
     
     dest_file.writelines(lines_to_write)
     
@@ -121,7 +128,27 @@ def code_remove(cov_merged_path,source_file):
     
     return dest_file_name
     
-    
+def preserve_label(lines,deleted_functions,line_info):
+    f1 = line_info
+    lines_to_write = lines.copy()
+    #find label using regex
+    for i in range(len(lines)):
+        if(':' in lines[i] and '//' in lines[i]):
+            #if label is in deleted funcitons, skip it
+            is_in_deleted_func =False
+            print(deleted_functions)
+            for value in deleted_functions.keys():
+                #get start and end line number
+                if(i>=deleted_functions[value][0] and i<=deleted_functions[value][1]):
+                    is_in_deleted_func = True
+            if(is_in_deleted_func):
+                continue    
+            print("found label in line "+str(i)+" which content is "+lines[i])
+            if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', lines[i].replace(':','').replace('//','').strip(), flags=0)):
+                print("Line "+str(i)+" is a label and will be preserved, which content is "+lines[i])
+                lines_to_write[i]=lines[i].replace('//','')+";"
+    return lines_to_write    
+
     
 def remove_redundant_else(lines):
     lines_to_write = lines.copy()
