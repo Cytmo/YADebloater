@@ -48,8 +48,9 @@ def parse_inputs():
         print('The inputs to be ran:')
         for line in inputs:
             # divide parameter by space
-            line = line.split(" ")
+            line = line.split()
             print(line)
+    
     return inputs
 
 
@@ -81,17 +82,22 @@ def run_inputs(mode):
 def run_prog(arg,dest):
     # 指定dest后，第二次运行run会卡死？
     # ret = subprocess.run([binary_path,arg],stdout=dest)
-    ret = subprocess.run([binary_path,arg])
-    
+    print(arg)
+    # ret = subprocess.run([binary_path,arg],timeout=10)
+    cmdline=arg
+    # for parameters in arg:
+    #     cmdline += " "+parameters 
+    print("The cmdline to be run is "+binary_path+" "+cmdline)
+    ret = os.system(binary_path+" "+cmdline)
     # move the generated file to temp folder
     # No need to move .gcov file every time because cov data will auto gain in .gcda file
     # utils.move_gcov_files(dir_name)
     
     #ret=CompletedProcess(args='gzip-1.2.4/gzip-1.2.4.c.origin.c_origin', returncode=1)
-    if(ret.returncode!=0):
-        print("Program exited with code "+str(ret.returncode))
-    else:
-        print("Program exited normally")
+    # if(ret.returncode!=0):
+    #     print("Program exited with code "+str(ret.returncode))
+    # else:
+    #     print("Program exited normally")
         
 
 
