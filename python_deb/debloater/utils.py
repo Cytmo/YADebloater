@@ -1,6 +1,7 @@
 from datetime import datetime
 import imp
 import os
+import re
 from shutil import copyfile
 import subprocess
 import argparse
@@ -50,6 +51,12 @@ def get_files_in_folder(filepath):
         files.append(file_abs)
     return files
 
+
+# format the code with clang-format GNU sytle and return the formatted code
+def formatter(filename):
+    os.system("clang-format -style=file "+filename+" > "+filename+".formatted.c")
+    return filename+".formatted.c"
+    
 def remove_file(filepath,prefix='null'):
     if(prefix=='null'):
         os.remove(filepath)
@@ -68,22 +75,61 @@ def move_gcov_files(dest_path):
 def move_file(source_path,dest_path):
     os.system("mv "+source_path+" "+dest_path)
 
-def preparation(source_path,input_path):
+def preparation(source_path,input_path,dir_name):
     print('Preparing...')
     print('Copying needed files...')
-    dir_name = create_directory('temp')
-    input_dir_name = create_directory('temp'+ os.sep +'input')
-    os.system("cp "+source_path+" "+dir_name)  
-    os.system("cp "+input_path+" "+ input_dir_name)  
+    # dir_name = create_directory('temp')
+    # input_dir_name = create_directory('temp'+ os.sep +'input')
+    # os.system("cp "+source_path+" "+dir_name)  
+    os.system("cp -r "+input_path+os.sep+"*"+" "+ dir_name)  
     new_source_path = dir_name+os.sep+get_final_filename(source_path)
     
     # use pycparser to format the input c file
-    new_source_path = cparser.translate_to_c(new_source_path)
+    # new_source_path = cparser.translate_to_c(new_source_path)
     
+    # new_source_path = formatter(new_source_path)
+    new_source_path = remove_comments(new_source_path)
+
+    
+    # use gcc to remove the comments
     
     
     new_input_path = dir_name+os.sep+get_final_filename(input_path)
     return new_source_path,new_input_path,dir_name
+
+
+def remove_comments(source_path):
+    print('Removing comments...')
+    uncmtFile = ''
+    with open(source_path, 'r') as f:
+        # uncmtFile = removeComments(f.read())
+        uncmtFile = comment_remover(f.read())
+    
+    # write back to the file
+    with open(source_path, 'w') as f:
+        f.write(uncmtFile)
+    
+    return source_path
+
+
+def comment_remover(text):
+    def replacer(match):
+        s = match.group(0)
+        if s.startswith('/'):
+            return " " # note: a space and not an empty string
+        else:
+            return s
+    pattern = re.compile(
+        r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
+        re.DOTALL | re.MULTILINE
+    )
+    return re.sub(pattern, replacer, text)
+
+def exec_cmd(cmd):
+    print('Running ', cmd)
+    p = subprocess.Popen(cmd, shell=True)
+    p.communicate()
+
     
 def clean():
     print('Cleaning...')
@@ -97,15 +143,16 @@ def clean():
 def finish(source_path,log_file):
     print('Debloating Finished!')
     os.system("mkdir result")
-    new_source_path = cparser.translate_to_c(source_path+".debloated.c",False)
-
+    # new_source_path = cparser.translate_to_c(source_path+".debloated.c",False)
+    new_source_path = source_path+".debloated.c"
     os.system("cp "+new_source_path+" result ")
     
-    log_file.close()
+
     os.system("cp temp/print.log result ")
     os.system("cp "+source_path+" result ")
-    
-
+    cmd = "python3 %s/run.py verify %s" %("temp",new_source_path)
+    exec_cmd(cmd)
+    log_file.close()
 
 
 if __name__ == "__main__" :

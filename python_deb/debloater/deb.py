@@ -9,15 +9,18 @@ import json_code_remover
 import time
 parser = argparse.ArgumentParser()
 #Argument list
+# formatted=False
 parser.add_argument("-s",'--source_file',required=True, type=str,help='The path to source file')
-parser.add_argument("-i",'--original_inputs',required=True, type=str,help='The path to ur inputs, which should contain the features u want to preserve')
+parser.add_argument("-i",'--input_folder',required=True, type=str,help='The path to ur inputs, which should contain the features u want to preserve')
+# parser.add_argument("-f",'--format',name_or_flags=formatted,help='If c file is formatted')
 parser.add_argument("-option_string1","--o1",type=str,help="An test for optional para")
 args = parser.parse_args()
 print(args)
 #Global var
+# formatted= args.format
 source_path=args.source_file
 binary_path=""
-input_path=args.original_inputs
+input_path=args.input_folder
 dir_name=""
 
 
@@ -107,20 +110,22 @@ if __name__ == '__main__':
     
 
     utils.clean()
-    
-   
-    new_source_path,new_input_path,dir_name=utils.preparation(source_path,input_path)	    
-    source_path = new_source_path
-    input_path = new_input_path
-    
+    dir_name = utils.create_directory('temp')
     fp = open("temp"+os.sep+"print.log", "w+")
     sys.stdout = fp 
+   
+    new_source_path,new_input_path,dir_name=utils.preparation(source_path,input_path,dir_name)	    
+    source_path = new_source_path
+    input_path = new_input_path
+
     	  
     print('{:30s}{}'.format('Now time is ',time.strftime('%Y-%m-%d %H:%M:%S')))
     print("The source file u want to run debloat with is "+args.source_file)
     
-    compile_with_cov(source_path)
-    run_inputs("file_input")
+    # compile_with_cov(source_path)
+    # run_inputs("file_input")
+    cmd = "python3 %s/run.py debloat %s" %(dir_name,source_path)
+    utils.exec_cmd(cmd)
     json_code_remover.code_remove(source_path+".gcov.json",source_path)
 
     
@@ -128,4 +133,5 @@ if __name__ == '__main__':
     
     
     utils.finish(source_path,fp)
+    
    # r = subprocess.call(["gcc -fprofile-arcs -ftest-coverage"])
