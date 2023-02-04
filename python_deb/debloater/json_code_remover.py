@@ -35,6 +35,12 @@ def code_remove(cov_merged_path,source_file):
         # print(f1['files'][0]['functions'][i])
         if f1['files'][0]['functions'][i]['execution_count'] == 0 :
             print("Function "+f1['files'][0]['functions'][i]['name']+"'s exec count is 0, removing...")
+            # find {
+            decl_end = 0
+            for j in range(f1['files'][0]['functions'][i]['start_line'],f1['files'][0]['functions'][i]['end_line']):
+                if '{' in lines[j]:
+                    decl_end = j
+                    break
             # save deleted functions and its line number
             if(not f1['files'][0]['functions'][i]['name'] in deleted_functions): 
                 deleted_functions.update({f1['files'][0]['functions'][i]['name']:[f1['files'][0]['functions'][i]['start_line'],f1['files'][0]['functions'][i]['end_line']]})
@@ -45,7 +51,7 @@ def code_remove(cov_merged_path,source_file):
             
             
             end_line = f1['files'][0]['functions'][i]['end_line']
-            for j in range(start_line,end_line):
+            for j in range(decl_end,end_line):
             #     if '{' in lines[j]:
             #         lines[j]='{//'+lines[j]
             #     elif '}' in lines[j]:
@@ -55,7 +61,7 @@ def code_remove(cov_merged_path,source_file):
                 lines[j]='//'+lines[j]
             
                 
-            lines[start_line]=lines[start_line].replace('//','')
+            lines[decl_end]=lines[decl_end].replace('//','')
             lines[end_line-1]=lines[end_line-1].replace('//','')
             
             
@@ -70,8 +76,43 @@ def code_remove(cov_merged_path,source_file):
 
         if f1['files'][0]['lines'][i]['count'] == 0 :
             # check if its function is deleted
-            if(f1['files'][0]['lines'][i]['function_name'] in deleted_functions):
+            if(f1['files'][0]['lines'][i]['function_name'] in deleted_functions or "//" in lines[f1['files'][0]['lines'][i]['line_number']]):
                 continue
+            # check if it is a if statement
+            # use if( to match if statement to avoid interference with *if* and  pr_sgr_end_if(sep_color);
+            # use regular expression to match if statements
+            
+            # to do: use pycparserext generated ast to identify if
+            if(re.match('if([sS]*)',lines[f1['files'][0]['lines'][i]['line_number']].strip(), flags=0)):
+                print("Found if in line "+str(f1['files'][0]['lines'][i]['line_number'])+"with line content: "+lines[f1['files'][0]['lines'][i]['line_number']])
+                i = f1['files'][0]['lines'][i]['line_number']
+                end_line = -1
+                match_stack=[]
+                for j in range(i,len(lines)):
+                    print(lines[j])
+                    if(not '{' in lines[j] and not '}' in lines[j]):
+                        continue
+                    if '{' in lines[j]:
+                        match_stack.append('{')
+                    elif '}' in lines[j]:
+                        match_stack.pop()
+                    if(len(match_stack)==0):
+                        end_line = j
+                        break
+                if(end_line==-1):
+                    print("Error: cannot find the end of if statement")
+                    continue
+                print("Removing if statement line, starts at "+str(i)+", ends at "+str(end_line))
+                for j in range(i,end_line):
+
+                    if(not "//" in lines[j]):
+                        lines[j]='//'+lines[j]
+                
+                            
+                else:
+                    continue
+                
+            
             # if '{' in lines[f1['files'][0]['lines'][i]['line_number']]:
             #     lines[f1['files'][0]['lines'][i]['line_number']]='{//'+lines[f1['files'][0]['lines'][i]['line_number']]
             # elif '}' in lines[f1['files'][0]['lines'][i]['line_number']]:
@@ -136,57 +177,109 @@ def preserve_label(lines,deleted_functions,line_info):
         if(':' in lines[i] and '//' in lines[i]):
             #if label is in deleted funcitons, skip it
             is_in_deleted_func =False
-            print(deleted_functions)
+            # print(deleted_functions)
             for value in deleted_functions.keys():
                 #get start and end line number
                 if(i>=deleted_functions[value][0] and i<=deleted_functions[value][1]):
                     is_in_deleted_func = True
             if(is_in_deleted_func):
                 continue    
-            print("found label in line "+str(i)+" which content is "+lines[i])
-            if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', lines[i].replace(':','').replace('//','').strip(), flags=0)):
+            # print("found label in line "+str(i)+" which content is "+lines[i])
+            if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', lines[i].replace(':','').replace('//','').replace(';','').strip(), flags=0)):
                 print("Line "+str(i)+" is a label and will be preserved, which content is "+lines[i])
                 lines_to_write[i]=lines[i].replace('//','')+";"
     return lines_to_write    
 
-    
+def check_if_label(line):
+    if(':' in line):
+        if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', line.replace(':','').replace('//','').replace(';','').strip(), flags=0)):
+            return True
+    return False
+
 def remove_redundant_else(lines):
+    # two kinds of redundant
+    '''
+    1. else that else {
+        nothing here
+    }
+    
+    2.
+    //if{} whose if has been removed
+    else {
+        do something;
+    }  
+    '''
+    
     lines_to_write = lines.copy()
     else_to_remove = []
     if_found_any =False
     # remove redundant else
     for i in range(len(lines)):
-        end_line=-1
+        end_line_down=-1
+        end_line_up=-1
         if('else' in lines[i-1] and not '//' in lines[i-1]):
             # match { and }
-            match_stack=[]
+            # search down for else body
+            match_stack_down=[]
             for j in range(i,len(lines)):
-                print(lines[j])
-                if '{' in lines[j]:
-                    match_stack.append('{')
-                elif '}' in lines[j]:
-                    match_stack.pop()
-                if(len(match_stack)==0):
-                    end_line = j
+                if 'if' in lines[j] and not '//' in lines[j]:
                     break
-            print('i is '+str(i) + ' j is '+str(end_line))
+                elif '{' in lines[j]:
+                    match_stack_down.append('{')
+                elif '}' in lines[j]:
+                    match_stack_down.pop()
+                if(len(match_stack_down)==0):
+                    end_line_down = j
+                    break
+            # search for else's if
+            match_stack_up=[]
+            j=i-1
+            while(j>=0):
+                if '//' in lines[j]:
+                    j-=1
+                    continue
+                elif '}' in lines[j]:
+                    j-=1
+                    match_stack_up.append('}')
+                elif '{' in lines[j]:
+                    j-=1
+                    match_stack_up.pop()
+                if(len(match_stack_up)==0):
+                    end_line_up = j
+                    break
         else:
             continue
         
-        if(end_line==-1): # not found a redundant if/else statemtent
+        if(end_line_down==-1 and end_line_up == -1): # not found a redundant if/else statemtent
             continue
-        else:
-            blocks=''
-            for k in range(i,end_line):
+        if(end_line_down != -1):
+            blocks_down=''
+            for k in range(i,end_line_down):
                 if(not '//' in lines[k]):
-                    blocks += lines[k]
-            blocks = blocks.replace('{','')
-            blocks = blocks.replace('}','')
-            blocks = blocks.replace(';','').strip()
-            if(blocks==''):
+                    if(not check_if_label(lines[k])):
+                        blocks_down += lines[k]
+            blocks_down = blocks_down.replace('{','')
+            blocks_down = blocks_down.replace('}','')
+            blocks_down = blocks_down.replace(';','').strip()
+            if(blocks_down==''):
                 else_to_remove.append(i)
                 if_found_any = True
-                for k in range(i,end_line+1):
+                for k in range(i,end_line_down+1):
+                    if(not '//' in lines[k]):
+                        lines_to_write[k]='//'+lines_to_write[k]
+        if(end_line_up != -1):
+            blocks_up=''
+            for k in range(end_line_up,i):
+                if(not '//' in lines[k]):
+                    if(not check_if_label(lines[k])):
+                        blocks_up += lines[k]
+            blocks_up = blocks_up.replace('{','')
+            blocks_up = blocks_up.replace('}','')
+            blocks_up = blocks_up.replace(';','').strip()
+            if(blocks_up==''):
+                else_to_remove.append(i)
+                if_found_any = True
+                for k in range(end_line_up,i+1):
                     if(not '//' in lines[k]):
                         lines_to_write[k]='//'+lines_to_write[k]
     if(not len(else_to_remove)==0):

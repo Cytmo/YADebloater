@@ -32,6 +32,8 @@ sys.path.extend(['.', '..'])
 from pycparser import parse_file,c_generator
 
 
+
+
 def translate_to_c(filename,change_file_name=True):
     """ Simply use the c_generator module to emit a parsed AST.
     """
@@ -49,7 +51,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         filename  = sys.argv[1]
     else:
-        filename = './gzip-1.2.4.c'
+        filename = 'grep-2.19.c'
 
     translate_to_c(filename)
     
