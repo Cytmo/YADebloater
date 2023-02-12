@@ -25,26 +25,57 @@
 import os
 import sys
 from typing import TextIO
-
+from pycparserext.ext_c_generator import GnuCGenerator
+from pycparserext.ext_c_parser import GnuCParser
 # This is not required if you've installed pycparser into
 # your site-packages/ with setup.py
 #
 sys.path.extend(['.', '..'])
 
 
-def test(src):
-
-    from pycparserext.ext_c_parser import GnuCParser
+    
+def parse(src):
     p = GnuCParser()
     ast = p.parse(src)
     with open('ast.txt','w') as f:
         ast.show(buf=f,showcoord=True)
 
-
-    from pycparserext.ext_c_generator import GnuCGenerator
+    
     lines = GnuCGenerator().visit(ast)
-    with open('pp.c','w') as f:
+    with open('trans.txt', 'w') as f:
+        # Define a recursive function to traverse the AST
+        def traverse(node,level=0):
+            # Get the line number of the C source code
+            line = node.coord
+            
+            # Get the name of the syntax component
+            name = node.__class__.__name__
+
+            # Print the line number and syntax component name
+            if(line!=None):
+                f.write("{}: {}\n".format(line, name))
+            # Recursively traverse the children of the node
+            for child in node:
+                traverse(child,level + 1)
+                
+        # Start the traversal at the root of the AST
+        traverse(ast)
+    
+    
+    # with open('trans.txt', 'w') as f:
+    #     for node in ast:
+    #         f.write("Line number: {}\n".format(node.coord))
+    #         f.write("Syntax component: {}\n\n".format(node.__class__.__name__))
+
+    
+    with open('temp/pp.c','w') as f:
         f.write(lines)
+        
+def begin_parse(filename):
+    os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
+    f = open(filename+".p.c",'r')
+    parse(f.read())
+    return 'temp/pp.c'
     
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -53,7 +84,7 @@ if __name__ == "__main__":
         filename = 'grep-2.19.c'
     os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
     f = open(filename+".p.c",'r')
-    test(f.read())
+    parse(f.read())
     
     
     # ast = parse_file(filename, use_cpp=True,

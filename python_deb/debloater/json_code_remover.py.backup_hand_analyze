@@ -5,52 +5,7 @@ import time
 import re
 import json
 import pandas as pd
-
-
-# get syntax components from a trans.txt
-class SyntaxComponent:
-    data = {}
-    def __init__(self, filename):
-        self.file = filename
-        with open(self.file,'r') as f:
-            for line in f:
-                # a line looks like : grep-2.19.c:8:49: Constant
-                line=line.strip()
-                if line == "":
-                    continue
-                line=line.split(":")
-                if(line[1]!='0'):
-                    if(self.data.get(line[1]) is not None):
-                        content = self.data.get(line[1])
-                        content.append(line[3].strip())
-                        self.data[line[1]]= content
-                    else:
-                        content = [] 
-                        content.append(line[3].strip())
-                        self.data[line[1]] = content
-    # print data to a file for test use
-    def print(self):
-        with open('test.txt','w') as f:
-            f.write(str(self.data))
-    # return a line number list of C labels
-    # def 
-
-    def if_C_label(self, line_number):
-        if(self.data.get(line_number) is not None):
-            if('Label' in self.data.get(line_number)):
-                return True
-        return False
-
-    # return a line number list of C ifs
-    def C_if_list(self):
-        if_list = []
-        for line_number in self.data:
-            if('If' in self.data.get(line_number)):
-                if_list.append(line_number)
-        return if_list
-    
 def code_remove(cov_merged_path,source_file):
-    SyntaxData = SyntaxComponent('trans.txt')
     print('Removing code from '+cov_merged_path+'...')
     f=open(cov_merged_path)
     
@@ -115,8 +70,7 @@ def code_remove(cov_merged_path,source_file):
        
     # line level remove
     
-    if_list = SyntaxData.C_if_list()
-    print(if_list)
+
     for i in range(len(f1['files'][0]['lines'])):
         # print(f1['files'][0]['lines'][i])
 
@@ -128,9 +82,8 @@ def code_remove(cov_merged_path,source_file):
             # use if( to match if statement to avoid interference with *if* and  pr_sgr_end_if(sep_color);
             # use regular expression to match if statements
             
-            # use SyntaxData to check if
-            if(f1['files'][0]['lines'][i]['line_number'] in if_list):
-            # if(re.match('if([sS]*)',lines[f1['files'][0]['lines'][i]['line_number']].strip(), flags=0)):
+            # to do: use pycparserext generated ast to identify if
+            if(re.match('if([sS]*)',lines[f1['files'][0]['lines'][i]['line_number']].strip(), flags=0)):
                 print("Found if in line "+str(f1['files'][0]['lines'][i]['line_number'])+"with line content: "+lines[f1['files'][0]['lines'][i]['line_number']])
                 i = f1['files'][0]['lines'][i]['line_number']
                 end_line = -1
@@ -172,6 +125,7 @@ def code_remove(cov_merged_path,source_file):
             if( lines[f1['files'][0]['lines'][i]['line_number']].strip()=='' or if_func_decl or "//" in lines[line_number_in_reality] ):
                 continue
             else:
+                print(f1['files'][0]['lines'][i])
                 print("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" , Exec count is 0, Content is "+ lines[line_number_in_reality].strip() +" removing...")
                 lines[line_number_in_reality]='//'+lines[line_number_in_reality]
                 
@@ -241,7 +195,6 @@ def check_if_label(line):
         if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', line.replace(':','').replace('//','').replace(';','').strip(), flags=0)):
             return True
     return False
-    
 
 def remove_redundant_else(lines):
     # two kinds of redundant
@@ -279,21 +232,21 @@ def remove_redundant_else(lines):
                     end_line_down = j
                     break
             # search for else's if
-            # match_stack_up=[]
-            # j=i-1
-            # while(j>=0):
-            #     if '//' in lines[j]:
-            #         j-=1
-            #         continue
-            #     elif '}' in lines[j]:
-            #         j-=1
-            #         match_stack_up.append('}')
-            #     elif '{' in lines[j]:
-            #         j-=1
-            #         match_stack_up.pop()
-            #     if(len(match_stack_up)==0):
-            #         end_line_up = j
-            #         break
+            match_stack_up=[]
+            j=i-1
+            while(j>=0):
+                if '//' in lines[j]:
+                    j-=1
+                    continue
+                elif '}' in lines[j]:
+                    j-=1
+                    match_stack_up.append('}')
+                elif '{' in lines[j]:
+                    j-=1
+                    match_stack_up.pop()
+                if(len(match_stack_up)==0):
+                    end_line_up = j
+                    break
         else:
             continue
         
@@ -303,7 +256,6 @@ def remove_redundant_else(lines):
             blocks_down=''
             for k in range(i,end_line_down):
                 if(not '//' in lines[k]):
-                    # if(not check_if_label(lines[k])):
                     if(not check_if_label(lines[k])):
                         blocks_down += lines[k]
             blocks_down = blocks_down.replace('{','')
@@ -333,6 +285,7 @@ def remove_redundant_else(lines):
     if(not len(else_to_remove)==0):
         print('Found redundant else statement, removing...')    
         for i in else_to_remove:
+            print("line number is "+ str(i))
             lines_to_write[i-1] = '//'+lines_to_write[i-1]
 
     return lines_to_write,if_found_any

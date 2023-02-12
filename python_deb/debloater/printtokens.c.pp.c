@@ -74,10 +74,10 @@ typedef struct token_type *token;
 extern unsigned short const **( __ctype_b_loc)(void) ;
 extern struct _IO_FILE *stdin ;
 extern struct _IO_FILE *stdout ;
-extern FILE *fopen(char const * __restrict __filename , char const * __restrict __modes ) ;
-extern int fprintf(FILE * __restrict __stream , char const * __restrict __format
+extern FILE *fopen(char const  __filename , char const  __modes ) ;
+extern int fprintf(FILE  __stream , char const  __format
                    , ...) ;
-extern char *fgets(char * __restrict __s , int __n , FILE * __restrict __stream ) ;
+extern char *fgets(char  __s , int __n , FILE  __stream ) ;
 character_stream open_character_stream(string FILENAME ) ;
 CHARACTER get_char(character_stream stream_ptr ) ;
 BOOLEAN is_end_of_character_stream(character_stream stream_ptr ) ;
@@ -320,7 +320,7 @@ int main(int argc , char **argv )
   {
   if (argc > 2) {
     {
-    fprintf((FILE * __restrict )stdout, (char const * __restrict )"The format is print_tokens filename(optional)\n");
+    fprintf((FILE  )stdout, (char const  )"The format is print_tokens filename(optional)\n");
     exit(1);
     }
   }
@@ -367,12 +367,12 @@ character_stream open_character_stream(string FILENAME )
     stream_ptr->fp = stdin;
   } else {
     {
-    tmp___0 = fopen((char const * __restrict )FILENAME, (char const * __restrict )"r");
+    tmp___0 = fopen((char const  )FILENAME, (char const  )"r");
     stream_ptr->fp = tmp___0;
     }
     if ((unsigned long )tmp___0 == (unsigned long )((void *)0)) {
       {
-      fprintf((FILE * __restrict )stdout, (char const * __restrict )"The file %s doesn\'t exists\n",
+      fprintf((FILE  )stdout, (char const  )"The file %s doesn\'t exists\n",
               FILENAME);
       exit(0);
       }
@@ -389,7 +389,7 @@ CHARACTER get_char(character_stream stream_ptr )
   {
   if ((int )stream_ptr->stream[stream_ptr->stream_ind] == 0) {
     {
-    tmp = fgets((char * __restrict )(stream_ptr->stream + 5), 75, (FILE * __restrict )stream_ptr->fp);
+    tmp = fgets((char  )(stream_ptr->stream + 5), 75, (FILE  )stream_ptr->fp);
     }
     if ((unsigned long )tmp == (unsigned long )((void *)0)) {
       stream_ptr->stream[5] = (char)-1;
@@ -755,7 +755,7 @@ static int keyword(int state )
   return (16);
   switch_default:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"error\n");
+  fprintf((FILE  )stdout, (char const  )"error\n");
   }
   goto switch_break;
   switch_break: ;
@@ -814,7 +814,7 @@ static int special(int state )
   return (32);
   switch_default:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"error\n");
+  fprintf((FILE  )stdout, (char const  )"error\n");
   }
   goto switch_break;
   switch_break: ;
@@ -985,107 +985,107 @@ BOOLEAN print_token(token token_ptr )
   goto switch_default;
   case_neg_1:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"error,\t\"");
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"%s", token_ptr->token_string);
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"\".\n");
+  fprintf((FILE  )stdout, (char const  )"error,\t\"");
+  fprintf((FILE  )stdout, (char const  )"%s", token_ptr->token_string);
+  fprintf((FILE  )stdout, (char const  )"\".\n");
   }
   return (1);
   case_0:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"eof.\n");
+  fprintf((FILE  )stdout, (char const  )"eof.\n");
   }
   return (1);
   case_6:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"keyword,\t\"lambda\".\n");
+  fprintf((FILE  )stdout, (char const  )"keyword,\t\"lambda\".\n");
   }
   return (1);
   case_9:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"keyword,\t\"and\".\n");
+  fprintf((FILE  )stdout, (char const  )"keyword,\t\"and\".\n");
   }
   return (1);
   case_11:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"keyword,\t\"or\".\n");
+  fprintf((FILE  )stdout, (char const  )"keyword,\t\"or\".\n");
   }
   return (1);
   case_13:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"keyword,\t\"if\".\n");
+  fprintf((FILE  )stdout, (char const  )"keyword,\t\"if\".\n");
   }
   return (1);
   case_16:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"keyword,\t\"xor\".\n");
+  fprintf((FILE  )stdout, (char const  )"keyword,\t\"xor\".\n");
   }
   return (1);
   case_17:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"identifier,\t\"");
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"%s", token_ptr->token_string);
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"\".\n");
+  fprintf((FILE  )stdout, (char const  )"identifier,\t\"");
+  fprintf((FILE  )stdout, (char const  )"%s", token_ptr->token_string);
+  fprintf((FILE  )stdout, (char const  )"\".\n");
   }
   return (1);
   case_18:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"numeric,\t");
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"%s", token_ptr->token_string);
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )".\n");
+  fprintf((FILE  )stdout, (char const  )"numeric,\t");
+  fprintf((FILE  )stdout, (char const  )"%s", token_ptr->token_string);
+  fprintf((FILE  )stdout, (char const  )".\n");
   }
   return (1);
   case_19:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"lparen.\n");
+  fprintf((FILE  )stdout, (char const  )"lparen.\n");
   }
   return (1);
   case_20:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"rparen.\n");
+  fprintf((FILE  )stdout, (char const  )"rparen.\n");
   }
   return (1);
   case_21:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"lsquare.\n");
+  fprintf((FILE  )stdout, (char const  )"lsquare.\n");
   }
   return (1);
   case_22:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"rsquare.\n");
+  fprintf((FILE  )stdout, (char const  )"rsquare.\n");
   }
   return (1);
   case_23:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"quote.\n");
+  fprintf((FILE  )stdout, (char const  )"quote.\n");
   }
   return (1);
   case_24:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"bquote.\n");
+  fprintf((FILE  )stdout, (char const  )"bquote.\n");
   }
   return (1);
   case_25:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"comma.\n");
+  fprintf((FILE  )stdout, (char const  )"comma.\n");
   }
   return (1);
   case_27:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"string,\t");
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"%s", token_ptr->token_string);
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )".\n");
+  fprintf((FILE  )stdout, (char const  )"string,\t");
+  fprintf((FILE  )stdout, (char const  )"%s", token_ptr->token_string);
+  fprintf((FILE  )stdout, (char const  )".\n");
   }
   return (1);
   case_29:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"character,\t\"");
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"%s", token_ptr->token_string);
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"\".\n");
+  fprintf((FILE  )stdout, (char const  )"character,\t\"");
+  fprintf((FILE  )stdout, (char const  )"%s", token_ptr->token_string);
+  fprintf((FILE  )stdout, (char const  )"\".\n");
   }
   return (1);
   case_32:
   {
-  fprintf((FILE * __restrict )stdout, (char const * __restrict )"keyword,\t\"=>\".\n");
+  fprintf((FILE  )stdout, (char const  )"keyword,\t\"=>\".\n");
   }
   return (1);
   switch_default:
