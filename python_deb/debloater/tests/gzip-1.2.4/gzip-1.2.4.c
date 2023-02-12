@@ -1,3 +1,5 @@
+#define __attribute__(x)
+#define __extension__
 typedef void *voidp;
 typedef unsigned char uch;
 typedef unsigned short ush;

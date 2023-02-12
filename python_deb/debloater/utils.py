@@ -8,6 +8,7 @@ import argparse
 import sys
 import glob
 import cparser
+from cparserext import begin_parse
 
 
 def exit_with_error(fun_name,name):
@@ -83,7 +84,7 @@ def preparation(source_path,input_path,dir_name):
     # os.system("cp "+source_path+" "+dir_name)  
     os.system("cp -r "+input_path+os.sep+"*"+" "+ dir_name)  
     new_source_path = dir_name+os.sep+get_final_filename(source_path)
-    
+    new_source_path = begin_parse(new_source_path)
     # use pycparser to format the input c file
     # new_source_path = cparser.translate_to_c(new_source_path)
     
