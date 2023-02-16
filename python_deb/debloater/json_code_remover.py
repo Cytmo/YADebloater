@@ -5,7 +5,8 @@ import time
 import re
 import json
 import pandas as pd
-
+import os
+current_work_dir = os.path.dirname(__file__)
 
 # get syntax components from a trans.txt
 class SyntaxComponent:
@@ -30,7 +31,7 @@ class SyntaxComponent:
                         self.data[line[1]] = content
     # print data to a file for test use
     def print(self):
-        with open('test.txt','w') as f:
+        with open(current_work_dir+'/test.txt','w') as f:
             f.write(str(self.data))
     # return a line number list of C labels
     # def 
@@ -116,6 +117,7 @@ def code_remove(cov_merged_path,source_file):
     # line level remove
     
     if_list = SyntaxData.C_if_list()
+    removed_if_list = []
     print(if_list)
     for i in range(len(f1['files'][0]['lines'])):
         # print(f1['files'][0]['lines'][i])
@@ -150,6 +152,10 @@ def code_remove(cov_merged_path,source_file):
                     print("Error: cannot find the end of if statement")
                     continue
                 print("Removing if statement line, starts at "+str(i)+", ends at "+str(end_line))
+                
+                # keep the line number of removed if to remove its else{}
+                removed_if_list.append(i)
+                
                 for j in range(i,end_line):
 
                     if(not "//" in lines[j]):
@@ -188,6 +194,12 @@ def code_remove(cov_merged_path,source_file):
     #     start_line = f1['files'][0]['functions'][i]['start_line']
     #     end_line = f1['files'][0]['functions'][i]['end_line']
     #     lines[start_line]=lines[start_line].replace('//','')
+    
+    
+    
+    # todo : use removed if list to remove its else
+    pass
+
     
     
     # process else that has no statements
@@ -243,7 +255,7 @@ def check_if_label(line):
     return False
     
 
-def remove_redundant_else(lines):
+def remove_redundant_else(lines,):
     # two kinds of redundant
     '''
     1. else that else {
@@ -251,6 +263,7 @@ def remove_redundant_else(lines):
     }
     
     2.
+    todo: else{} whose if has been removed, remove else
     //if{} whose if has been removed
     else {
         do something;
