@@ -40,8 +40,15 @@ def parse(src):
     with open('ast.txt','w') as f:
         ast.show(buf=f,showcoord=True)
 
-    
     lines = GnuCGenerator().visit(ast)
+       
+    with open('temp/pp.c','w') as f:
+        f.write(lines)
+   
+   
+    with open('temp/pp.c','r') as f:
+        ast= p.parse(f.read())
+        
     with open('trans.txt', 'w') as f:
         # Define a recursive function to traverse the AST
         def traverse(node,level=0):
@@ -67,9 +74,6 @@ def parse(src):
     #         f.write("Line number: {}\n".format(node.coord))
     #         f.write("Syntax component: {}\n\n".format(node.__class__.__name__))
 
-    
-    with open('temp/pp.c','w') as f:
-        f.write(lines)
         
 def begin_parse(filename):
     os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))

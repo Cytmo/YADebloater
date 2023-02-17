@@ -1,4 +1,5 @@
 import os
+from platform import platform
 from shutil import copyfile
 import subprocess
 import argparse
@@ -7,6 +8,15 @@ import utils
 import merge
 import json_code_remover
 import time
+import debloat_log
+
+current_work_dir = os.path.dirname(__file__)
+file = open("test.log", 'w').close()
+logger = debloat_log.GetLog().get_log()
+
+logger.info('Debloating start...')
+
+
 parser = argparse.ArgumentParser()
 #Argument list
 # formatted=False
@@ -15,8 +25,9 @@ parser.add_argument("-i",'--input_folder',required=True, type=str,help='The path
 # parser.add_argument("-f",'--format',name_or_flags=formatted,help='If c file is formatted')
 parser.add_argument("-option_string1","--o1",type=str,help="An test for optional para")
 args = parser.parse_args()
-print(args)
-#Global var
+
+logger.info(args)
+# Global var
 # formatted= args.format
 source_path=args.source_file
 binary_path=""
@@ -25,7 +36,7 @@ dir_name=""
 
 
 def compile_with_cov(source,dest=""):
-    print('Compiling to '+source+"_origin")
+    logger.info('Compiling to '+source+"_origin")
 
     abspath = os.path.abspath(source)
     ret = subprocess.call(["gcc",abspath,"-w", "-o",abspath+"_origin","-fprofile-arcs","-ftest-coverage"])
@@ -33,10 +44,10 @@ def compile_with_cov(source,dest=""):
         utils.move_file("*.gcno",dir_name)
         global binary_path 
         binary_path = source+"_origin"
-        print('Compiled file is '+binary_path )
+        logger.info('Compiled file is '+binary_path )
         
 def parse_inputs():
-    print("Input folder is "+input_path)
+    logger.info("Input folder is "+input_path)
     files = utils.get_files_in_folder(input_path)
     for input_file in files:
         file = open(input_file)  
@@ -48,11 +59,11 @@ def parse_inputs():
             line=file.readline()
 
         file.close()
-        print('The inputs to be ran:')
+        logger.info('The inputs to be ran:')
         for line in inputs:
             # divide parameter by space
             line = line.split()
-            print(line)
+            logger.info(line)
     
     return inputs
 
@@ -62,7 +73,7 @@ def run_inputs(mode):
     parsed_inputs=parse_inputs()
     output=open(dir_name+os.sep+'output',mode='w')
     for line in parsed_inputs:
-        print("running the "+str(run_time)+"th input: "+line)
+        logger.info("running the "+str(run_time)+"th input: "+line)
         run_time+=1
         run_prog(line,output)
         
@@ -85,12 +96,12 @@ def run_inputs(mode):
 def run_prog(arg,dest):
     # 指定dest后，第二次运行run会卡死？
     # ret = subprocess.run([binary_path,arg],stdout=dest)
-    print(arg)
+    logger.info(arg)
     # ret = subprocess.run([binary_path,arg],timeout=10)
     cmdline=arg
     # for parameters in arg:
     #     cmdline += " "+parameters 
-    print("The cmdline to be run is "+binary_path+" "+cmdline)
+    logger.info("The cmdline to be run is "+binary_path+" "+cmdline)
     ret = os.system(binary_path+" "+cmdline)
     # move the generated file to temp folder
     # No need to move .gcov file every time because cov data will auto gain in .gcda file
@@ -98,9 +109,9 @@ def run_prog(arg,dest):
     
     #ret=CompletedProcess(args='gzip-1.2.4/gzip-1.2.4.c.origin.c_origin', returncode=1)
     # if(ret.returncode!=0):
-    #     print("Program exited with code "+str(ret.returncode))
+    #     logger.info("Program exited with code "+str(ret.returncode))
     # else:
-    #     print("Program exited normally")
+    #     logger.info("Program exited normally")
         
 
 
@@ -111,16 +122,16 @@ if __name__ == '__main__':
 
     utils.clean()
     dir_name = utils.create_directory('temp')
-    fp = open("temp"+os.sep+"print.log", "w+")
-    sys.stdout = fp 
+    # fp = open("temp"+os.sep+"print.log", "w+")
+    # sys.stdout = fp 
    
     new_source_path,new_input_path,dir_name=utils.preparation(source_path,input_path,dir_name)	    
     source_path = new_source_path
     input_path = new_input_path
 
     	  
-    print('{:30s}{}'.format('Now time is ',time.strftime('%Y-%m-%d %H:%M:%S')))
-    print("The source file u want to run debloat with is "+args.source_file)
+    logger.info('{:30s}{}'.format('Now time is ',time.strftime('%Y-%m-%d %H:%M:%S')))
+    logger.info("The source file u want to run debloat with is "+args.source_file)
     
     # compile_with_cov(source_path)
     # run_inputs("file_input")
@@ -129,9 +140,9 @@ if __name__ == '__main__':
     json_code_remover.code_remove(source_path+".gcov.json",source_path)
 
     
-    print(f'time cost:{time.time() - t:.4f}s')
+    logger.info(f'time cost:{time.time() - t:.4f}s')
     
     
-    utils.finish(source_path,fp)
+    utils.finish(source_path)
     
    # r = subprocess.call(["gcc -fprofile-arcs -ftest-coverage"])
