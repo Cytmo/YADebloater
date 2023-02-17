@@ -1,5 +1,6 @@
 from os import remove
 import sys
+from standard_test.run import test
 import utils
 import time
 import re
@@ -115,14 +116,14 @@ def code_remove(cov_merged_path,source_file):
             lines[end_line-1]=lines[end_line-1].replace('//','')
             
             
-    logger.info("Function def line:{}".format(function_declaration_lines))        
+    logger.debug("Function def line:{}".format(function_declaration_lines))        
             
        
     # line level remove
     
     if_list = SyntaxData.C_if_list()
     removed_if_list = []
-    logger.info("If line:{}".format(if_list))
+    logger.debug("If line:{}".format(if_list))
     for i in range(len(f1['files'][0]['lines'])):
         # logger.info(f1['files'][0]['lines'][i])
 
@@ -135,9 +136,15 @@ def code_remove(cov_merged_path,source_file):
             # use regular expression to match if statements
             
             # use SyntaxData to check if
-            if(f1['files'][0]['lines'][i]['line_number'] in if_list):
+            logger.info("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" is not executed, checking its if...")
+            
+            
+            test_list1 = [1,2,3]
+            
+            # check if line number is in if_list
+            if(str(f1['files'][0]['lines'][i]['line_number']) in if_list):
             # if(re.match('if([sS]*)',lines[f1['files'][0]['lines'][i]['line_number']].strip(), flags=0)):
-                logger.info("Found if in line "+str(f1['files'][0]['lines'][i]['line_number'])+"with line content: "+lines[f1['files'][0]['lines'][i]['line_number']])
+                logger.info("Found if in line "+str(f1['files'][0]['lines'][i]['line_number'])+" with line content: "+lines[f1['files'][0]['lines'][i]['line_number']])
                 i = f1['files'][0]['lines'][i]['line_number']
                 end_line = -1
                 match_stack=[]
@@ -160,7 +167,7 @@ def code_remove(cov_merged_path,source_file):
                 # keep the line number of removed if to remove its else{}
                 removed_if_list.append(i)
                 
-                for j in range(i,end_line):
+                for j in range(i+1,end_line):
 
                     if(not "//" in lines[j]):
                         lines[j]='//'+lines[j]
@@ -203,6 +210,7 @@ def code_remove(cov_merged_path,source_file):
     
     # todo : use removed if list to remove its else
     for removed_if in removed_if_list:
+        logger.info(f'Removed if list: {removed_if_list}')
         logger.info(f'Removing else statement for if statement on line {removed_if}')
         # find if's else
         if_counter = 0

@@ -38,7 +38,7 @@ def debloat():
     
 def verify():
     run_tests("tmp.log2")
-    cmd = 'diff tmp.log tmp.log2'
+    cmd = 'diff temp/tmp.log temp/tmp.log2'
     ret = execute(cmd)    
     if(ret==0):
         print("Verify successed!")
@@ -83,7 +83,7 @@ def run_tests(output_file="tmp.log"):
     cmds.append(cmd9)
     
     for cmd in cmds:
-        execute(cmd0)
+        execute(cmd)
     
 
 
