@@ -3,6 +3,9 @@ import utils
 import time
 import re
 import pycparser
+current_work_dir = os.path.dirname(__file__)
+
+
 
 def code_remove(cov_merged_path,source_file):
     print('Removing code from '+cov_merged_path+'...')
