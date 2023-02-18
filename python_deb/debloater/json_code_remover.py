@@ -208,9 +208,10 @@ def code_remove(cov_merged_path,source_file):
     
     
     
-    # todo : use removed if list to remove its else
+    # use removed if list to remove its else
+    logger.info(f'Removed if list: {removed_if_list}')
     for removed_if in removed_if_list:
-        logger.info(f'Removed if list: {removed_if_list}')
+
         logger.info(f'Removing else statement for if statement on line {removed_if}')
         # find if's else
         if_counter = 0
