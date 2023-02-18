@@ -1,6 +1,6 @@
 [line:17]-INFO-Debloating start...
 [line:29]-INFO-Namespace(input_folder='tests/gzip-1.2.4', o1=None, source_file='tests/gzip-1.2.4/gzip-1.2.4.c')
-[line:133]-INFO-Now time is                   2023-02-17 14:52:42
+[line:133]-INFO-Now time is                   2023-02-18 13:18:04
 [line:134]-INFO-The source file u want to run debloat with is tests/gzip-1.2.4/gzip-1.2.4.c
 [line:60]-INFO-Removing code from temp/pp.c.gcov.json...
 [line:88]-INFO-Function fillbuf's exec count is 0, removing...
@@ -2215,4 +2215,4 @@
 [line:280]-INFO-Line 9069 is a label and will be preserved, which content is //          while_continue___0:
 [line:280]-INFO-Line 9084 is a label and will be preserved, which content is //        while_break___0:
 [line:252]-INFO-Code remove completed!
-[line:143]-INFO-time cost:5.0942s
+[line:143]-INFO-time cost:5.5180s
