@@ -141,6 +141,7 @@ def clean():
     # os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
     os.system("rm -r result" )
     os.system("rm -r temp" )
+    os.system("rm tmp.log tmp.log2 test.log trans.txt ast.txt")
     
     
 def finish(source_path):
