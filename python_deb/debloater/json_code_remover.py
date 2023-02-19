@@ -53,9 +53,12 @@ class SyntaxComponent:
                 if_list.append(line_number)
         return if_list
     
+SyntaxData = ''
+ 
 def code_remove(cov_merged_path,source_file):
+    global SyntaxData
     SyntaxData = SyntaxComponent('trans.txt')
-    SyntaxData.print_to_file()
+    SyntaxData.print_to_file()  
     logger.info('Removing code from '+cov_merged_path+'...')
     f=open(cov_merged_path)
     
@@ -284,6 +287,8 @@ def preserve_label(lines,deleted_functions,line_info):
 def check_if_label(line):
     if(':' in line):
         if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', line.replace(':','').replace('//','').replace(';','').strip(), flags=0)):
+            # if(SyntaxData.if_C_label(line)!=True):
+            #     print("Not match at line {}".format(line))
             return True
     return False
     
@@ -350,7 +355,7 @@ def remove_redundant_else(lines,):
             for k in range(i,end_line_down):
                 if(not '//' in lines[k]):
                     # if(not check_if_label(lines[k])):
-                    if(not check_if_label(lines[k])):
+                    if(not SyntaxData.if_C_label(k)):
                         blocks_down += lines[k]
             blocks_down = blocks_down.replace('{','')
             blocks_down = blocks_down.replace('}','')
@@ -365,7 +370,7 @@ def remove_redundant_else(lines,):
             blocks_up=''
             for k in range(end_line_up,i):
                 if(not '//' in lines[k]):
-                    if(not check_if_label(lines[k])):
+                    if(not SyntaxData.if_C_label(k)):
                         blocks_up += lines[k]
             blocks_up = blocks_up.replace('{','')
             blocks_up = blocks_up.replace('}','')
