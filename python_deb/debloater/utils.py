@@ -11,20 +11,63 @@ import glob
 import cparser
 from cparserext import begin_parse
 
+current_work_dir = os.path.dirname(__file__)
+
+
+
+
+class GetLog(object):
+    def __init__(self):
+        self.name = 'log'
+        self.level = logging.DEBUG
+        self.filename = 'test.log'
+        logging.info("Logging to",self.filename)
+
+
+    def get_log(self):
+
+        #设置logger
+        logger = logging.getLogger(name=self.name)
+        logger.setLevel(level=self.level)
+
+
+        if not logger.handlers:
+            # 初始化handler
+            stream_handler = logging.StreamHandler()
+            file_handler = logging.FileHandler(filename=self.filename)
+
+            # 设置handler等级
+            stream_handler.setLevel(level=logging.WARNING)
+            file_handler.setLevel(level=self.level)
+
+            # 设置日志格式
+            sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
+            sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
+            stream_handler.setFormatter(sf_format)
+            file_handler.setFormatter(sf_format)
+            
+            # 将handler添加到self.__logger
+            # logger.addHandler(stream_handler)
+            logger.addHandler(file_handler)
+
+        #返回logger
+        return logger
+    
+logger = GetLog().get_log()
 
 def exit_with_error(fun_name,name):
-    exit("Program exited at function   "+fun_name+"()   because of   "+name+" failed")
+    exit("Program exited at function   {}()   because of   {} failed".format(fun_name,name))
     
 def exit_status(ret,name="This Process"):
     if ret != 0:
         if ret < 0:
-         logging.info(name+" Killed by signal", -ret)
+         logger.info("{} Killed by signal {}".format(name,ret))
          exit_with_error(sys._getframe().f_code.co_name,name)
         else:
-         logging.info(name+" failed with return code", ret)
+         logger.info("{} failed with return code {}".format(name,ret))
          exit_with_error(sys._getframe().f_code.co_name,name)
     else:
-        logging.info(name+" Success")
+        logger.info("{} Success".format(name))
         return 0
     return 1
 
@@ -78,8 +121,8 @@ def move_file(source_path,dest_path):
     os.system("mv "+source_path+" "+dest_path)
 
 def preparation(source_path,input_path,dir_name):
-    logging.info('Preparing...')
-    logging.info('Copying needed files...')
+    logger.info('Preparing...')
+    logger.info('Copying needed files...')
     # dir_name = create_directory('temp')
     # input_dir_name = create_directory('temp'+ os.sep +'input')
     # os.system("cp "+source_path+" "+dir_name)  
@@ -101,7 +144,7 @@ def preparation(source_path,input_path,dir_name):
 
 
 def remove_comments(source_path):
-    logging.info('Removing comments...')
+    logger.info('Removing comments...')
     uncmtFile = ''
     with open(source_path, 'r') as f:
         # uncmtFile = removeComments(f.read())
@@ -128,24 +171,24 @@ def comment_remover(text):
     return re.sub(pattern, replacer, text)
 
 def exec_cmd(cmd):
-    logging.info('Running ', cmd)
+    logger.info('Running '+cmd)
     p = subprocess.Popen(cmd, shell=True)
     p.communicate()
 
     
 def clean():
-    logging.info('Cleaning...')
-    # logging.info('R u sure u want to run the following cmd '+"rm "+source_path+".*"+" Y(y) or N(n)")
+    logger.info('Cleaning...')
+    # logger.info('R u sure u want to run the following cmd '+"rm "+source_path+".*"+" Y(y) or N(n)")
     # decision = input()
     # if(decision=='y' or decision=="Y"):
     # os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
     os.system("rm -r result" )
     os.system("rm -r temp" )
-    os.system("rm tmp.log tmp.log2 test.log trans.txt ast.txt")
+    os.system("rm tmp.log tmp.log2 trans.txt ast.txt")
     
     
 def finish(source_path):
-    logging.info('Debloating Finished!')
+    logger.info('Debloating Finished!')
     os.system("mkdir result")
     # new_source_path = cparser.translate_to_c(source_path+".debloated.c",False)
     new_source_path = source_path+".debloated.c"
@@ -161,4 +204,4 @@ def finish(source_path):
 
 if __name__ == "__main__" :
     clean()
-    # logging.info(get_final_subfolder(create_output_directory('temp')))
+    # logger.info(get_final_subfolder(create_output_directory('temp')))

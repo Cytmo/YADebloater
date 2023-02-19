@@ -7,9 +7,8 @@ import re
 import json
 import pandas as pd
 import os
-import debloat_log
 current_work_dir = os.path.dirname(__file__)
-logger = debloat_log.GetLog().get_log()
+logger = utils.GetLog().get_log()
 
 
 # get syntax components from a trans.txt
