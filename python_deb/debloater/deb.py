@@ -8,12 +8,10 @@ import utils
 import merge
 import json_code_remover
 import time
-import debloat_log
 
 current_work_dir = os.path.dirname(__file__)
 file = open("test.log", 'w').close()
-logger = debloat_log.GetLog().get_log()
-
+logger = utils.GetLog().get_log()
 logger.info('Debloating start...')
 
 

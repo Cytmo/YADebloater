@@ -21,17 +21,17 @@ class GetLog(object):
 
         if not logger.handlers:
             # 初始化handler
-            # stream_handler = logging.StreamHandler()
+            stream_handler = logging.StreamHandler()
             file_handler = logging.FileHandler(filename=self.filename)
 
             # 设置handler等级
-            # stream_handler.setLevel(level=logging.WARNING)
+            stream_handler.setLevel(level=logging.WARNING)
             file_handler.setLevel(level=self.level)
 
             # 设置日志格式
-            # sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
+            sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
             sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
-            # stream_handler.setFormatter(sf_format)
+            stream_handler.setFormatter(sf_format)
             file_handler.setFormatter(sf_format)
             
             # 将handler添加到self.__logger

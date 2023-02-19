@@ -1,3 +1,10 @@
+# 1 "temp/grep-2.19.c"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 31 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 32 "<command-line>" 2
+# 1 "temp/grep-2.19.c"
 enum strtol_error
 {
   LONGINT_OK = 0,
@@ -5023,6 +5030,9 @@ int openat_safer(int fd, const char *file, int flags, ...)
     if (flags & 64)
     {
       {
+
+
+
       }
     }
 
@@ -5046,6 +5056,9 @@ int open_safer(const char *file, int flags, ...)
     if (flags & 64)
     {
       {
+
+
+
       }
     }
 
@@ -12126,6 +12139,8 @@ int rpl_fcntl(int fd, int action, ...)
     goto switch_default;
     case_1030:
     {
+
+
     }
 
     if (0 <= have_dupfd_cloexec)
@@ -12209,6 +12224,9 @@ int rpl_fcntl(int fd, int action, ...)
     goto switch_break;
     switch_default:
     {
+
+
+
     }
 
     goto switch_break;
@@ -22230,22 +22248,7 @@ static void atom(void)
         addtok((token) 256);
       }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 22260 "temp/grep-2.19.c"
     return;
   }
 }
@@ -33043,4 +33046,3 @@ int main(int argc, char **argv)
     }
   }
 }
-
