@@ -1,0 +1,108 @@
+static size_t do_execute(const char *buf, size_t size, size_t *match_size, const char *start_ptr)
+{
+  size_t result;
+  const char *line_next;
+  size_t tmp;
+  size_t tmp___0;
+  const char *line_buf;
+  const char *line_end;
+  const char *tmp___1;
+  {
+    if (((unsigned long) execute) == ((unsigned long) (& Fexecute)))
+    {
+      goto _L;
+    }
+    else
+      if (((unsigned long) execute) == ((unsigned long) (& Pexecute)))
+    {
+      _L:
+      {
+        tmp___0 = __ctype_get_mb_cur_max();
+      }
+
+      if (tmp___0 == 1UL)
+      {
+        {
+          tmp = (* execute)(buf, size, match_size, start_ptr);
+        }
+        return tmp;
+      }
+      else
+        if (! match_icase)
+      {
+        {
+          tmp = (* execute)(buf, size, match_size, start_ptr);
+        }
+        return tmp;
+      }
+
+
+    }
+    else
+    {
+      {
+        tmp = (* execute)(buf, size, match_size, start_ptr);
+      }
+      return tmp;
+    }
+
+
+    line_next = buf;
+    {
+      while (1)
+      {
+        while_continue:
+        ;
+
+        if (! (((unsigned long) line_next) < ((unsigned long) (buf + size))))
+        {
+          goto while_break;
+        }
+
+        {
+          line_buf = line_next;
+          tmp___1 = (const char *) memchr((const void *) line_buf, (int) eolbyte, (size_t) ((buf + size) - line_buf));
+          line_end = tmp___1;
+        }
+        if (((unsigned long) line_end) == ((unsigned long) ((void *) 0)))
+        {
+          line_end = buf + size;
+          line_next = line_end;
+        }
+        else
+        {
+          line_next = line_end + 1;
+        }
+
+        if (start_ptr)
+        {
+          if (((unsigned long) start_ptr) >= ((unsigned long) line_end))
+          {
+            goto __Cont;
+          }
+
+        }
+
+        {
+          result = (* execute)(line_buf, (size_t) (line_next - line_buf), match_size, start_ptr);
+        }
+        if (result != 0xffffffffffffffffUL)
+        {
+          return ((size_t) (line_buf - buf)) + result;
+        }
+
+        __Cont:
+        ;
+
+      }
+
+      while_break___0:
+      ;
+
+    }
+    while_break:
+    ;
+
+    return (size_t) (- 1);
+  }
+}

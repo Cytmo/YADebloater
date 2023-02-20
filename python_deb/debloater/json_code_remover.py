@@ -14,6 +14,7 @@ logger = utils.GetLog().get_log()
 # get syntax components from a trans.txt
 class SyntaxComponent:
     data = {}
+    label_list=[]
     def __init__(self, filename):
         self.file = filename
         with open(self.file,'r') as f:
@@ -38,13 +39,15 @@ class SyntaxComponent:
             f.write(str(self.data))
     # return a line number list of C labels
     # def 
-
-    def if_C_label(self, line_number):
-        if(self.data.get(line_number) is not None):
+    def C_label_list(self):
+        for line_number in self.data:
             if('Label' in self.data.get(line_number)):
-                return True
-        return False
-
+                self.label_list.append(line_number)
+        return self.label_list
+    
+    def if_C_label(self,line_number):
+        if line_number+1 in self.label_list:
+            return True
     # return a line number list of C ifs
     def C_if_list(self):
         if_list = []
@@ -58,7 +61,8 @@ SyntaxData = ''
 def code_remove(cov_merged_path,source_file):
     global SyntaxData
     SyntaxData = SyntaxComponent('trans.txt')
-    SyntaxData.print_to_file()  
+    SyntaxData.print_to_file()
+    label_list = SyntaxData.C_label_list()
     logger.info('Removing code from '+cov_merged_path+'...')
     f=open(cov_merged_path)
     
@@ -111,8 +115,9 @@ def code_remove(cov_merged_path,source_file):
             #         lines[j]='}//'+lines[j]
             #     else:
                 # lines[j]='//'+lines[j]
+                logger.debug('Removing line '+str(j)+'...')
                 lines[j]='//'+lines[j]
-            
+
                 
             lines[decl_end]=lines[decl_end].replace('//','')
             lines[end_line-1]=lines[end_line-1].replace('//','')
@@ -122,7 +127,7 @@ def code_remove(cov_merged_path,source_file):
             
        
     # line level remove
-    
+    removed_lines = []
     if_list = SyntaxData.C_if_list()
     removed_if_list = []
     logger.debug("If line:{}".format(if_list))
@@ -134,14 +139,11 @@ def code_remove(cov_merged_path,source_file):
             if(f1['files'][0]['lines'][i]['function_name'] in deleted_functions or "//" in lines[f1['files'][0]['lines'][i]['line_number']]):
                 continue
             # check if it is a if statement
-            # use if( to match if statement to avoid interference with *if* and  pr_sgr_end_if(sep_color);
-            # use regular expression to match if statements
             
             # use SyntaxData to check if
             logger.info("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" is not executed, checking its if...")
             
             
-            test_list1 = [1,2,3]
             
             # check if line number is in if_list
             if(str(f1['files'][0]['lines'][i]['line_number']) in if_list):
@@ -150,8 +152,12 @@ def code_remove(cov_merged_path,source_file):
                 i = f1['files'][0]['lines'][i]['line_number']
                 end_line = -1
                 match_stack=[]
+                labels_after_if=[]
                 for j in range(i,len(lines)):
                     logger.info(lines[j])
+                    if str(j) in label_list:
+                        # logger.info('Found label after if at line {}'.format(j))
+                        labels_after_if.append(j)
                     if(not '{' in lines[j] and not '}' in lines[j]):
                         continue
                     if '{' in lines[j]:
@@ -164,16 +170,25 @@ def code_remove(cov_merged_path,source_file):
                 if(end_line==-1):
                     logger.info("Error: cannot find the end of if statement")
                     continue
+                if(len(labels_after_if) != 0):
+                    logger.info("Removing if which contains label, starts at "+str(i)+", ends at "+str(labels_after_if[0]))
+                    continue
+                    # removed_if_list.append(i)
+                    # for j in range(i+1,labels_after_if[0]):
+                    #     if(not "//" in lines[j]):
+                    #         logger.debug('Removing line '+str(j)+'...')
+                    #         lines[j]='//'+lines[j]
                 logger.info("Removing if statement line, starts at "+str(i)+", ends at "+str(end_line))
                 
                 # keep the line number of removed if to remove its else{}
                 removed_if_list.append(i)
-                
+ 
+                    
                 for j in range(i+1,end_line):
 
                     if(not "//" in lines[j]):
+                        logger.debug('Removing line '+str(j)+'...')
                         lines[j]='//'+lines[j]
-                
                             
                 else:
                     continue
@@ -193,7 +208,7 @@ def code_remove(cov_merged_path,source_file):
             else:
                 logger.info("Line "+str(f1['files'][0]['lines'][i]['line_number'])+" , Exec count is 0, Content is "+ lines[line_number_in_reality].strip() +" removing...")
                 lines[line_number_in_reality]='//'+lines[line_number_in_reality]
-                
+                removed_lines.append(line_number_in_reality)
             # keep {} ; unchanged
             # if(';' in lines[line_number_in_reality] or '{' in lines[line_number_in_reality] or '}' in lines[line_number_in_reality]):
             #     if(not if_func_decl):
@@ -241,7 +256,8 @@ def code_remove(cov_merged_path,source_file):
             lines_to_write,if_found_any = remove_redundant_else(lines_to_write)
         else:
             break
-    lines_to_write = preserve_label(lines_to_write,deleted_functions,f1)
+
+    lines_to_write = preserve_label(lines_to_write,deleted_functions,f1,label_list)
     
     
     dest_file.writelines(lines_to_write)
@@ -263,10 +279,10 @@ def code_remove(cov_merged_path,source_file):
 
 
     
-def preserve_label(lines,deleted_functions,line_info):
+def preserve_label(lines,deleted_functions,line_info,label_list):
     f1 = line_info
     lines_to_write = lines.copy()
-    #find label using regex
+    #find label
     for i in range(len(lines)):
         if(':' in lines[i] and '//' in lines[i]):
             #if label is in deleted funcitons, skip it
@@ -278,10 +294,17 @@ def preserve_label(lines,deleted_functions,line_info):
                     is_in_deleted_func = True
             if(is_in_deleted_func):
                 continue    
-            # logger.info("found label in line "+str(i)+" which content is "+lines[i])
-            if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', lines[i].replace(':','').replace('//','').replace(';','').strip(), flags=0)):
+            logger.info("found label in line "+str(i)+" which content is "+lines[i])
+            # logger.info(label_list)
+            # if( re.match('^[A-Za-z_][A-Za-z0-9_]*$', lines[i].replace(':','').replace('//','').replace(';','').strip(), flags=0)):
+            # i+1 is the line number in the source file
+            # skip the goto label 
+            if str(i+1) in label_list:
                 logger.info("Line "+str(i)+" is a label and will be preserved, which content is "+lines[i].strip())
-                lines_to_write[i]=lines[i].replace('//','')+";"
+                if not lines[i+1].strip() == ';':
+                    lines_to_write[i]=lines[i].strip().replace('//','')+";\n"
+                else:
+                    lines_to_write[i]=lines[i].strip().replace('//','')+"\n"
     return lines_to_write    
 
 def check_if_label(line):

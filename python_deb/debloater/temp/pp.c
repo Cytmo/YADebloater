@@ -1737,43 +1737,45 @@ void mbiter_multi_next(struct mbiter_multi *iter)
         iter->cur.wc_valid = (_Bool) 0;
       }
       else
+      {
         if (iter->cur.bytes == 0xfffffffffffffffeUL)
-      {
-        iter->cur.bytes = (size_t) (iter->limit - iter->cur.ptr);
-        iter->cur.wc_valid = (_Bool) 0;
-      }
-      else
-      {
-        if (iter->cur.bytes == 0UL)
         {
-          iter->cur.bytes = (size_t) 1;
-          if (! (((const int) (* iter->cur.ptr)) == 0))
+          iter->cur.bytes = (size_t) (iter->limit - iter->cur.ptr);
+          iter->cur.wc_valid = (_Bool) 0;
+        }
+        else
+        {
+          if (iter->cur.bytes == 0UL)
           {
+            iter->cur.bytes = (size_t) 1;
+            if (! (((const int) (* iter->cur.ptr)) == 0))
             {
-              __assert_fail("*iter->cur.ptr == \'\\0\'", "/home/khheo/project/benchmark/grep-2.19/lib/mbiter.h", 169U, "mbiter_multi_next");
+              {
+                __assert_fail("*iter->cur.ptr == \'\\0\'", "/home/khheo/project/benchmark/grep-2.19/lib/mbiter.h", 169U, "mbiter_multi_next");
+              }
             }
+
+            if (! (iter->cur.wc == 0))
+            {
+              {
+                __assert_fail("iter->cur.wc == 0", "/home/khheo/project/benchmark/grep-2.19/lib/mbiter.h", 170U, "mbiter_multi_next");
+              }
+            }
+
           }
 
-          if (! (iter->cur.wc == 0))
           {
-            {
-              __assert_fail("iter->cur.wc == 0", "/home/khheo/project/benchmark/grep-2.19/lib/mbiter.h", 170U, "mbiter_multi_next");
-            }
+            iter->cur.wc_valid = (_Bool) 1;
+            tmp___0 = mbsinit((const mbstate_t *) (& iter->state));
+          }
+          if (tmp___0)
+          {
+            iter->in_shift = (_Bool) 0;
           }
 
         }
 
-        {
-          iter->cur.wc_valid = (_Bool) 1;
-          tmp___0 = mbsinit((const mbstate_t *) (& iter->state));
-        }
-        if (tmp___0)
-        {
-          iter->in_shift = (_Bool) 0;
-        }
-
       }
-
 
     }
 
@@ -1991,15 +1993,22 @@ char *trim2(const char *s, int how)
 
             }
             else
-              _L:
-            if (state == 2U)
             {
-              if (i.cur.wc_valid)
+              _L:
+              if (state == 2U)
               {
+                if (i.cur.wc_valid)
                 {
-                  tmp___6 = iswspace((wint_t) i.cur.wc);
+                  {
+                    tmp___6 = iswspace((wint_t) i.cur.wc);
+                  }
+                  if (! tmp___6)
+                  {
+                    state = 1U;
+                  }
+
                 }
-                if (! tmp___6)
+                else
                 {
                   state = 1U;
                 }
@@ -2010,13 +2019,8 @@ char *trim2(const char *s, int how)
                 state = 1U;
               }
 
-            }
-            else
-            {
-              state = 1U;
-            }
 
-
+            }
 
             __Cont:
             i.cur.ptr += i.cur.bytes;
@@ -3300,11 +3304,13 @@ static size_t quotearg_buffer_restyled(char *buffer___0, size_t buffersize, cons
           c = (unsigned char) '0';
         }
         else
-          if (flags & 1)
         {
-          goto __Cont;
-        }
+          if (flags & 1)
+          {
+            goto __Cont;
+          }
 
+        }
 
 
         goto switch_break___0;
@@ -3719,124 +3725,128 @@ static size_t quotearg_buffer_restyled(char *buffer___0, size_t buffersize, cons
                 goto while_break___14;
               }
               else
+              {
                 if (bytes == 0xffffffffffffffffUL)
-              {
-                printable = (_Bool) 0;
-                goto while_break___14;
-              }
-              else
-                if (bytes == 0xfffffffffffffffeUL)
-              {
-                printable = (_Bool) 0;
                 {
-                  while (1)
-                  {
-                    while_continue___15:
-                    ;
-
-                    if ((i + m) < argsize)
-                    {
-                      if (! (* (arg + (i + m))))
-                      {
-                        goto while_break___15;
-                      }
-
-                    }
-                    else
-                    {
-                      goto while_break___15;
-                    }
-
-                    m++;
-                  }
-
-                  while_break___43:
-                  ;
-
+                  printable = (_Bool) 0;
+                  goto while_break___14;
                 }
-                while_break___15:
-                ;
-
-                goto while_break___14;
-              }
-              else
-              {
-                if (elide_outer_quotes)
+                else
                 {
-                  if (((unsigned int) quoting_style) == 2U)
+                  if (bytes == 0xfffffffffffffffeUL)
                   {
-                    j = (size_t) 1;
+                    printable = (_Bool) 0;
                     {
                       while (1)
                       {
-                        while_continue___16:
+                        while_continue___15:
                         ;
 
-                        if (! (j < bytes))
+                        if ((i + m) < argsize)
                         {
-                          goto while_break___16;
+                          if (! (* (arg + (i + m))))
+                          {
+                            goto while_break___15;
+                          }
+
+                        }
+                        else
+                        {
+                          goto while_break___15;
                         }
 
-                        if (((const int) (* (arg + ((i + m) + j)))) == 91)
-                        {
-                          goto case_91___0;
-                        }
-
-                        if (((const int) (* (arg + ((i + m) + j)))) == 92)
-                        {
-                          goto case_91___0;
-                        }
-
-                        if (((const int) (* (arg + ((i + m) + j)))) == 94)
-                        {
-                          goto case_91___0;
-                        }
-
-                        if (((const int) (* (arg + ((i + m) + j)))) == 96)
-                        {
-                          goto case_91___0;
-                        }
-
-                        if (((const int) (* (arg + ((i + m) + j)))) == 124)
-                        {
-                          goto case_91___0;
-                        }
-
-                        goto switch_default___3;
-                        case_91___0:
-                        goto force_outer_quoting_style;
-
-                        switch_default___3:
-                        goto switch_break___3;
-
-                        switch_break___3:
-                        j++;
-
+                        m++;
                       }
 
-                      while_break___44:
+                      while_break___43:
                       ;
 
                     }
-                    while_break___16:
+                    while_break___15:
                     ;
 
+                    goto while_break___14;
+                  }
+                  else
+                  {
+                    if (elide_outer_quotes)
+                    {
+                      if (((unsigned int) quoting_style) == 2U)
+                      {
+                        j = (size_t) 1;
+                        {
+                          while (1)
+                          {
+                            while_continue___16:
+                            ;
+
+                            if (! (j < bytes))
+                            {
+                              goto while_break___16;
+                            }
+
+                            if (((const int) (* (arg + ((i + m) + j)))) == 91)
+                            {
+                              goto case_91___0;
+                            }
+
+                            if (((const int) (* (arg + ((i + m) + j)))) == 92)
+                            {
+                              goto case_91___0;
+                            }
+
+                            if (((const int) (* (arg + ((i + m) + j)))) == 94)
+                            {
+                              goto case_91___0;
+                            }
+
+                            if (((const int) (* (arg + ((i + m) + j)))) == 96)
+                            {
+                              goto case_91___0;
+                            }
+
+                            if (((const int) (* (arg + ((i + m) + j)))) == 124)
+                            {
+                              goto case_91___0;
+                            }
+
+                            goto switch_default___3;
+                            case_91___0:
+                            goto force_outer_quoting_style;
+
+                            switch_default___3:
+                            goto switch_break___3;
+
+                            switch_break___3:
+                            j++;
+
+                          }
+
+                          while_break___44:
+                          ;
+
+                        }
+                        while_break___16:
+                        ;
+
+                      }
+
+                    }
+
+                    {
+                      tmp___5 = iswprint((wint_t) w);
+                    }
+                    if (! tmp___5)
+                    {
+                      printable = (_Bool) 0;
+                    }
+
+                    m += bytes;
                   }
 
                 }
 
-                {
-                  tmp___5 = iswprint((wint_t) w);
-                }
-                if (! tmp___5)
-                {
-                  printable = (_Bool) 0;
-                }
-
-                m += bytes;
               }
-
-
 
               {
                 tmp___6 = mbsinit((const mbstate_t *) (& mbstate));
@@ -3863,173 +3873,177 @@ static size_t quotearg_buffer_restyled(char *buffer___0, size_t buffersize, cons
           goto _L___0;
         }
         else
-          if (backslash_escapes)
         {
-          if (! printable)
+          if (backslash_escapes)
           {
-            _L___0:
-            ilim = i + m;
-
+            if (! printable)
             {
-              while (1)
+              _L___0:
+              ilim = i + m;
+
               {
-                while_continue___17:
-                ;
-
-                if (backslash_escapes)
+                while (1)
                 {
-                  if (! printable)
+                  while_continue___17:
+                  ;
+
+                  if (backslash_escapes)
                   {
-                    if (elide_outer_quotes)
+                    if (! printable)
                     {
-                      goto force_outer_quoting_style;
-                    }
-
-                    {
-                      while (1)
+                      if (elide_outer_quotes)
                       {
-                        while_continue___18:
-                        ;
-
-                        if (len < buffersize)
-                        {
-                          * (buffer___0 + len) = (char) '\\';
-                        }
-
-                        len++;
-                        goto while_break___18;
+                        goto force_outer_quoting_style;
                       }
 
-                      while_break___46:
-                      ;
-
-                    }
-                    while_break___18:
-                    ;
-
-                    {
-                      while (1)
                       {
-                        while_continue___19:
-                        ;
-
-                        if (len < buffersize)
+                        while (1)
                         {
-                          * (buffer___0 + len) = (char) (48 + (((int) c) >> 6));
+                          while_continue___18:
+                          ;
+
+                          if (len < buffersize)
+                          {
+                            * (buffer___0 + len) = (char) '\\';
+                          }
+
+                          len++;
+                          goto while_break___18;
                         }
 
-                        len++;
-                        goto while_break___19;
-                      }
-
-                      while_break___47:
-                      ;
-
-                    }
-                    while_break___19:
-                    ;
-
-                    {
-                      while (1)
-                      {
-                        while_continue___20:
+                        while_break___46:
                         ;
 
-                        if (len < buffersize)
-                        {
-                          * (buffer___0 + len) = (char) (48 + ((((int) c) >> 3) & 7));
-                        }
-
-                        len++;
-                        goto while_break___20;
                       }
-
-                      while_break___48:
+                      while_break___18:
                       ;
 
+                      {
+                        while (1)
+                        {
+                          while_continue___19:
+                          ;
+
+                          if (len < buffersize)
+                          {
+                            * (buffer___0 + len) = (char) (48 + (((int) c) >> 6));
+                          }
+
+                          len++;
+                          goto while_break___19;
+                        }
+
+                        while_break___47:
+                        ;
+
+                      }
+                      while_break___19:
+                      ;
+
+                      {
+                        while (1)
+                        {
+                          while_continue___20:
+                          ;
+
+                          if (len < buffersize)
+                          {
+                            * (buffer___0 + len) = (char) (48 + ((((int) c) >> 3) & 7));
+                          }
+
+                          len++;
+                          goto while_break___20;
+                        }
+
+                        while_break___48:
+                        ;
+
+                      }
+                      while_break___20:
+                      c = (unsigned char) (48 + (((int) c) & 7));
+
                     }
-                    while_break___20:
-                    c = (unsigned char) (48 + (((int) c) & 7));
+                    else
+                    {
+                      goto _L;
+                    }
 
                   }
                   else
                   {
-                    goto _L;
+                    _L:
+                    if (is_right_quote)
+                    {
+                      {
+                        while (1)
+                        {
+                          while_continue___21:
+                          ;
+
+                          if (len < buffersize)
+                          {
+                            * (buffer___0 + len) = (char) '\\';
+                          }
+
+                          len++;
+                          goto while_break___21;
+                        }
+
+                        while_break___49:
+                        ;
+
+                      }
+                      while_break___21:
+                      is_right_quote = (_Bool) 0;
+
+                    }
+
+
                   }
 
-                }
-                else
-                  _L:
-                if (is_right_quote)
-                {
+                  if (ilim <= (i + 1UL))
+                  {
+                    goto while_break___17;
+                  }
+
                   {
                     while (1)
                     {
-                      while_continue___21:
+                      while_continue___22:
                       ;
 
                       if (len < buffersize)
                       {
-                        * (buffer___0 + len) = (char) '\\';
+                        * (buffer___0 + len) = (char) c;
                       }
 
                       len++;
-                      goto while_break___21;
+                      goto while_break___22;
                     }
 
-                    while_break___49:
+                    while_break___50:
                     ;
 
                   }
-                  while_break___21:
-                  is_right_quote = (_Bool) 0;
+                  while_break___22:
+                  i++;
 
+                  c = (unsigned char) (* (arg + i));
                 }
 
+                while_break___45:
+                ;
 
-
-                if (ilim <= (i + 1UL))
-                {
-                  goto while_break___17;
-                }
-
-                {
-                  while (1)
-                  {
-                    while_continue___22:
-                    ;
-
-                    if (len < buffersize)
-                    {
-                      * (buffer___0 + len) = (char) c;
-                    }
-
-                    len++;
-                    goto while_break___22;
-                  }
-
-                  while_break___50:
-                  ;
-
-                }
-                while_break___22:
-                i++;
-
-                c = (unsigned char) (* (arg + i));
               }
-
-              while_break___45:
+              while_break___17:
               ;
 
+              goto store_c;
             }
-            while_break___17:
-            ;
 
-            goto store_c;
           }
 
         }
-
 
         switch_break___0:
         ;
@@ -4039,33 +4053,37 @@ static size_t quotearg_buffer_restyled(char *buffer___0, size_t buffersize, cons
           goto _L___3;
         }
         else
-          if (elide_outer_quotes)
         {
-          _L___3:
-          if (quote_these_too)
+          if (elide_outer_quotes)
           {
-            if (! (((* (quote_these_too + (((unsigned long) c) / ((sizeof(int)) * 8UL)))) >> (((unsigned long) c) % ((sizeof(int)) * 8UL))) & 1U))
+            _L___3:
+            if (quote_these_too)
+            {
+              if (! (((* (quote_these_too + (((unsigned long) c) / ((sizeof(int)) * 8UL)))) >> (((unsigned long) c) % ((sizeof(int)) * 8UL))) & 1U))
+              {
+                goto _L___2;
+              }
+
+            }
+            else
             {
               goto _L___2;
             }
 
+
           }
           else
           {
-            goto _L___2;
+            _L___2:
+            if (! is_right_quote)
+            {
+              goto store_c;
+            }
+
+
           }
 
-
         }
-        else
-          _L___2:
-        if (! is_right_quote)
-        {
-          goto store_c;
-        }
-
-
-
 
         store_escape:
         if (elide_outer_quotes)
@@ -4466,45 +4484,47 @@ void mbuiter_multi_next(struct mbuiter_multi *iter)
         iter->cur.wc_valid = (_Bool) 0;
       }
       else
+      {
         if (iter->cur.bytes == 0xfffffffffffffffeUL)
-      {
         {
-          iter->cur.bytes = strlen(iter->cur.ptr);
-          iter->cur.wc_valid = (_Bool) 0;
-        }
-      }
-      else
-      {
-        if (iter->cur.bytes == 0UL)
-        {
-          iter->cur.bytes = (size_t) 1;
-          if (! (((const int) (* iter->cur.ptr)) == 0))
           {
+            iter->cur.bytes = strlen(iter->cur.ptr);
+            iter->cur.wc_valid = (_Bool) 0;
+          }
+        }
+        else
+        {
+          if (iter->cur.bytes == 0UL)
+          {
+            iter->cur.bytes = (size_t) 1;
+            if (! (((const int) (* iter->cur.ptr)) == 0))
             {
-              __assert_fail("*iter->cur.ptr == \'\\0\'", "/home/khheo/project/benchmark/grep-2.19/lib/mbuiter.h", 178U, "mbuiter_multi_next");
+              {
+                __assert_fail("*iter->cur.ptr == \'\\0\'", "/home/khheo/project/benchmark/grep-2.19/lib/mbuiter.h", 178U, "mbuiter_multi_next");
+              }
             }
+
+            if (! (iter->cur.wc == 0))
+            {
+              {
+                __assert_fail("iter->cur.wc == 0", "/home/khheo/project/benchmark/grep-2.19/lib/mbuiter.h", 179U, "mbuiter_multi_next");
+              }
+            }
+
           }
 
-          if (! (iter->cur.wc == 0))
           {
-            {
-              __assert_fail("iter->cur.wc == 0", "/home/khheo/project/benchmark/grep-2.19/lib/mbuiter.h", 179U, "mbuiter_multi_next");
-            }
+            iter->cur.wc_valid = (_Bool) 1;
+            tmp___2 = mbsinit((const mbstate_t *) (& iter->state));
+          }
+          if (tmp___2)
+          {
+            iter->in_shift = (_Bool) 0;
           }
 
         }
 
-        {
-          iter->cur.wc_valid = (_Bool) 1;
-          tmp___2 = mbsinit((const mbstate_t *) (& iter->state));
-        }
-        if (tmp___2)
-        {
-          iter->in_shift = (_Bool) 0;
-        }
-
       }
-
 
     }
 
@@ -5110,11 +5130,13 @@ void *memchr2(const void *s, int c1_in, int c2_in, size_t n)
           return (void *) void_ptr;
         }
         else
-          if (((const int) (* char_ptr)) == ((const int) c2))
         {
-          return (void *) void_ptr;
-        }
+          if (((const int) (* char_ptr)) == ((const int) c2))
+          {
+            return (void *) void_ptr;
+          }
 
+        }
 
         void_ptr = (const void *) (char_ptr + 1);
         n--;
@@ -5209,11 +5231,13 @@ void *memchr2(const void *s, int c1_in, int c2_in, size_t n)
           return (void *) char_ptr;
         }
         else
-          if (((const int) (* char_ptr)) == ((const int) c2))
         {
-          return (void *) char_ptr;
-        }
+          if (((const int) (* char_ptr)) == ((const int) c2))
+          {
+            return (void *) char_ptr;
+          }
 
+        }
 
         n--;
         char_ptr++;
@@ -5369,17 +5393,19 @@ static _Bool knuth_morris_pratt(const unsigned char *haystack, const unsigned ch
 
         }
         else
+        {
           if (j___0 > 0UL)
-        {
-          rhaystack += * (table + j___0);
-          j___0 -= * (table + j___0);
-        }
-        else
-        {
-          rhaystack++;
-          phaystack++;
-        }
+          {
+            rhaystack += * (table + j___0);
+            j___0 -= * (table + j___0);
+          }
+          else
+          {
+            rhaystack++;
+            phaystack++;
+          }
 
+        }
 
       }
 
@@ -5719,96 +5745,98 @@ static _Bool knuth_morris_pratt_multibyte(const char *haystack, const char *need
 
         }
         else
-          if (j___1 > 0UL)
         {
-          count = * (table + j___1);
-          j___1 -= count;
+          if (j___1 > 0UL)
           {
-            while (1)
+            count = * (table + j___1);
+            j___1 -= count;
             {
-              while_continue___3:
-              ;
+              while (1)
+              {
+                while_continue___3:
+                ;
 
-              if (! (count > 0UL))
-              {
-                goto while_break___3;
-              }
-
-              {
-                mbuiter_multi_next(& rhaystack);
-              }
-              if (rhaystack.cur.wc_valid)
-              {
-                if (rhaystack.cur.wc == 0)
+                if (! (count > 0UL))
                 {
-                  tmp___10 = 0;
+                  goto while_break___3;
+                }
+
+                {
+                  mbuiter_multi_next(& rhaystack);
+                }
+                if (rhaystack.cur.wc_valid)
+                {
+                  if (rhaystack.cur.wc == 0)
+                  {
+                    tmp___10 = 0;
+                  }
+                  else
+                  {
+                    tmp___10 = 1;
+                  }
+
                 }
                 else
                 {
                   tmp___10 = 1;
                 }
 
-              }
-              else
-              {
-                tmp___10 = 1;
-              }
-
-              if (! tmp___10)
-              {
+                if (! tmp___10)
                 {
-                  abort();
+                  {
+                    abort();
+                  }
                 }
+
+                rhaystack.cur.ptr += rhaystack.cur.bytes;
+                rhaystack.next_done = (_Bool) 0;
+                count--;
               }
 
-              rhaystack.cur.ptr += rhaystack.cur.bytes;
-              rhaystack.next_done = (_Bool) 0;
-              count--;
-            }
+              while_break___8:
+              ;
 
-            while_break___8:
+            }
+            while_break___3:
             ;
 
           }
-          while_break___3:
-          ;
-
-        }
-        else
-        {
+          else
           {
-            mbuiter_multi_next(& rhaystack);
-          }
-          if (rhaystack.cur.wc_valid)
-          {
-            if (rhaystack.cur.wc == 0)
             {
-              tmp___11 = 0;
+              mbuiter_multi_next(& rhaystack);
+            }
+            if (rhaystack.cur.wc_valid)
+            {
+              if (rhaystack.cur.wc == 0)
+              {
+                tmp___11 = 0;
+              }
+              else
+              {
+                tmp___11 = 1;
+              }
+
             }
             else
             {
               tmp___11 = 1;
             }
 
-          }
-          else
-          {
-            tmp___11 = 1;
-          }
-
-          if (! tmp___11)
-          {
+            if (! tmp___11)
             {
-              abort();
+              {
+                abort();
+              }
             }
+
+            rhaystack.cur.ptr += rhaystack.cur.bytes;
+            rhaystack.next_done = (_Bool) 0;
+            phaystack.cur.ptr += phaystack.cur.bytes;
+            phaystack.next_done = (_Bool) 0;
           }
 
-          rhaystack.cur.ptr += rhaystack.cur.bytes;
-          rhaystack.next_done = (_Bool) 0;
-          phaystack.cur.ptr += phaystack.cur.bytes;
-          phaystack.next_done = (_Bool) 0;
         }
-
 
       }
 
@@ -6265,122 +6293,124 @@ char *mbsstr(const char *haystack, const char *needle)
 
     }
     else
-      if (((const int) (* needle)) != 0)
     {
-      try_kmp___0 = (_Bool) 1;
-      outer_loop_count___0 = (size_t) 0;
-      comparison_count___0 = (size_t) 0;
-      last_ccount___0 = (size_t) 0;
-      needle_last_ccount = needle;
-      tmp___13 = needle;
-      needle++;
-      b = (char) (* tmp___13);
+      if (((const int) (* needle)) != 0)
       {
-        while (1)
+        try_kmp___0 = (_Bool) 1;
+        outer_loop_count___0 = (size_t) 0;
+        comparison_count___0 = (size_t) 0;
+        last_ccount___0 = (size_t) 0;
+        needle_last_ccount = needle;
+        tmp___13 = needle;
+        needle++;
+        b = (char) (* tmp___13);
         {
-          while_continue___2:
-          ;
-
-          if (((const int) (* haystack)) == 0)
+          while (1)
           {
-            return (char *) ((void *) 0);
-          }
+            while_continue___2:
+            ;
 
-          if (try_kmp___0)
-          {
-            if (outer_loop_count___0 >= 10UL)
+            if (((const int) (* haystack)) == 0)
             {
-              if (comparison_count___0 >= (5UL * outer_loop_count___0))
+              return (char *) ((void *) 0);
+            }
+
+            if (try_kmp___0)
+            {
+              if (outer_loop_count___0 >= 10UL)
               {
-                if (((unsigned long) needle_last_ccount) != ((unsigned long) ((void *) 0)))
+                if (comparison_count___0 >= (5UL * outer_loop_count___0))
                 {
+                  if (((unsigned long) needle_last_ccount) != ((unsigned long) ((void *) 0)))
                   {
-                    tmp___14 = strnlen(needle_last_ccount, comparison_count___0 - last_ccount___0);
-                    needle_last_ccount += tmp___14;
-                  }
-                  if (((const int) (* needle_last_ccount)) == 0)
-                  {
-                    needle_last_ccount = (const char *) ((void *) 0);
+                    {
+                      tmp___14 = strnlen(needle_last_ccount, comparison_count___0 - last_ccount___0);
+                      needle_last_ccount += tmp___14;
+                    }
+                    if (((const int) (* needle_last_ccount)) == 0)
+                    {
+                      needle_last_ccount = (const char *) ((void *) 0);
+                    }
+
+                    last_ccount___0 = comparison_count___0;
                   }
 
-                  last_ccount___0 = comparison_count___0;
-                }
-
-                if (((unsigned long) needle_last_ccount) == ((unsigned long) ((void *) 0)))
-                {
+                  if (((unsigned long) needle_last_ccount) == ((unsigned long) ((void *) 0)))
                   {
-                    tmp___15 = strlen(needle - 1);
-                    tmp___16 = knuth_morris_pratt((const unsigned char *) haystack, (const unsigned char *) (needle - 1), tmp___15, & result___0);
-                    success___0 = tmp___16;
-                  }
-                  if (success___0)
-                  {
-                    return (char *) result___0;
+                    {
+                      tmp___15 = strlen(needle - 1);
+                      tmp___16 = knuth_morris_pratt((const unsigned char *) haystack, (const unsigned char *) (needle - 1), tmp___15, & result___0);
+                      success___0 = tmp___16;
+                    }
+                    if (success___0)
+                    {
+                      return (char *) result___0;
+                    }
+
+                    try_kmp___0 = (_Bool) 0;
                   }
 
-                  try_kmp___0 = (_Bool) 0;
                 }
 
               }
 
             }
 
-          }
-
-          outer_loop_count___0++;
-          comparison_count___0++;
-          if (((const int) (* haystack)) == ((const int) b))
-          {
-            rhaystack___0 = haystack + 1;
-            rneedle___0 = needle;
+            outer_loop_count___0++;
+            comparison_count___0++;
+            if (((const int) (* haystack)) == ((const int) b))
             {
-              while (1)
+              rhaystack___0 = haystack + 1;
+              rneedle___0 = needle;
               {
-                while_continue___3:
+                while (1)
+                {
+                  while_continue___3:
+                  ;
+
+                  if (((const int) (* rneedle___0)) == 0)
+                  {
+                    return (char *) haystack;
+                  }
+
+                  if (((const int) (* rhaystack___0)) == 0)
+                  {
+                    return (char *) ((void *) 0);
+                  }
+
+                  comparison_count___0++;
+                  if (((const int) (* rhaystack___0)) != ((const int) (* rneedle___0)))
+                  {
+                    goto while_break___3;
+                  }
+
+                  rhaystack___0++;
+                  rneedle___0++;
+                }
+
+                while_break___7:
                 ;
 
-                if (((const int) (* rneedle___0)) == 0)
-                {
-                  return (char *) haystack;
-                }
-
-                if (((const int) (* rhaystack___0)) == 0)
-                {
-                  return (char *) ((void *) 0);
-                }
-
-                comparison_count___0++;
-                if (((const int) (* rhaystack___0)) != ((const int) (* rneedle___0)))
-                {
-                  goto while_break___3;
-                }
-
-                rhaystack___0++;
-                rneedle___0++;
               }
-
-              while_break___7:
+              while_break___3:
               ;
 
             }
-            while_break___3:
-            ;
 
+            haystack++;
           }
 
-          haystack++;
+          while_break___6:
+          ;
+
         }
-
-        while_break___6:
-        ;
-
       }
-    }
-    else
-    {
-      return (char *) haystack;
-    }
+      else
+      {
+        return (char *) haystack;
+      }
 
+    }
 
     return (char *) 0;
   }
@@ -6959,11 +6989,13 @@ static const char *get_charset_aliases(void)
         dir = "/usr/local/lib";
       }
       else
-        if (((const int) (* (dir + 0))) == 0)
       {
-        dir = "/usr/local/lib";
-      }
+        if (((const int) (* (dir + 0))) == 0)
+        {
+          dir = "/usr/local/lib";
+        }
 
+      }
 
       {
         tmp = strlen(dir);
@@ -7055,17 +7087,21 @@ static const char *get_charset_aliases(void)
                   goto __Cont;
                 }
                 else
+                {
                   if (c == 32)
-                {
-                  goto __Cont;
-                }
-                else
-                  if (c == 9)
-                {
-                  goto __Cont;
-                }
+                  {
+                    goto __Cont;
+                  }
+                  else
+                  {
+                    if (c == 9)
+                    {
+                      goto __Cont;
+                    }
 
+                  }
 
+                }
 
                 if (c == 35)
                 {
@@ -7083,11 +7119,13 @@ static const char *get_charset_aliases(void)
                         goto while_break___0;
                       }
                       else
-                        if (c == 10)
                       {
-                        goto while_break___0;
-                      }
+                        if (c == 10)
+                        {
+                          goto while_break___0;
+                        }
 
+                      }
 
                     }
 
@@ -7233,19 +7271,21 @@ const char *locale_charset(void)
           goto while_break;
         }
         else
-          if (((const int) (* (aliases + 0))) == 42)
         {
-          if (((const int) (* (aliases + 1))) == 0)
+          if (((const int) (* (aliases + 0))) == 42)
           {
+            if (((const int) (* (aliases + 1))) == 0)
             {
-              tmp___1 = strlen(aliases);
-              codeset = (aliases + tmp___1) + 1;
+              {
+                tmp___1 = strlen(aliases);
+                codeset = (aliases + tmp___1) + 1;
+              }
+              goto while_break;
             }
-            goto while_break;
+
           }
 
         }
-
 
         {
           tmp = strlen(aliases);
@@ -8903,17 +8943,19 @@ static void cwd_advance_fd(FTS *sp, int fd, _Bool chdir_down_one)
 
     }
     else
-      if (! (sp->fts_options & 4))
     {
-      if (0 <= old)
+      if (! (sp->fts_options & 4))
       {
+        if (0 <= old)
         {
-          close(old);
+          {
+            close(old);
+          }
         }
+
       }
 
     }
-
 
     sp->fts_cwd_fd = fd;
     return;
@@ -9164,15 +9206,17 @@ FTS *fts_open(char *const *argv, int options, int (*compar)(const FTSENT **, con
       tmp___8 = 1;
     }
     else
+    {
       if (sp->fts_options & 1024)
-    {
-      tmp___8 = 1;
-    }
-    else
-    {
-      tmp___8 = 0;
-    }
+      {
+        tmp___8 = 1;
+      }
+      else
+      {
+        tmp___8 = 0;
+      }
 
+    }
 
     defer_stat = (_Bool) tmp___8;
     root = (FTSENT *) ((void *) 0);
@@ -9398,16 +9442,18 @@ static void fts_load(FTS *sp, FTSENT *p)
         }
       }
       else
-        if (* (cp + 1))
       {
+        if (* (cp + 1))
         {
-          cp++;
-          len = strlen((const char *) cp);
-          memmove((void *) p->fts_name, (const void *) cp, len + 1UL);
-          p->fts_namelen = len;
+          {
+            cp++;
+            len = strlen((const char *) cp);
+            memmove((void *) p->fts_name, (const void *) cp, len + 1UL);
+            p->fts_namelen = len;
+          }
         }
-      }
 
+      }
 
     }
 
@@ -9503,36 +9549,38 @@ int fts_close(FTS *sp)
 
     }
     else
-      if (! (sp->fts_options & 4))
     {
-      {
-        tmp___2 = fchdir(sp->fts_rfd);
-      }
-      if (tmp___2)
+      if (! (sp->fts_options & 4))
       {
         {
-          tmp___1 = __errno_location();
-          saved_errno = * tmp___1;
+          tmp___2 = fchdir(sp->fts_rfd);
         }
-      }
-
-      {
-        tmp___4 = close(sp->fts_rfd);
-      }
-      if (tmp___4)
-      {
-        if (saved_errno == 0)
+        if (tmp___2)
         {
           {
-            tmp___3 = __errno_location();
-            saved_errno = * tmp___3;
+            tmp___1 = __errno_location();
+            saved_errno = * tmp___1;
           }
+        }
+
+        {
+          tmp___4 = close(sp->fts_rfd);
+        }
+        if (tmp___4)
+        {
+          if (saved_errno == 0)
+          {
+            {
+              tmp___3 = __errno_location();
+              saved_errno = * tmp___3;
+            }
+          }
+
         }
 
       }
 
     }
-
 
     {
       fd_ring_clear(& sp->fts_fd_ring);
@@ -9781,11 +9829,13 @@ FTSENT *fts_read(FTS *sp)
       return (FTSENT *) ((void *) 0);
     }
     else
-      if (sp->fts_options & 16384)
     {
-      return (FTSENT *) ((void *) 0);
-    }
+      if (sp->fts_options & 16384)
+      {
+        return (FTSENT *) ((void *) 0);
+      }
 
+    }
 
     p = sp->fts_cur;
     instr = p->fts_instr;
@@ -9805,41 +9855,43 @@ FTSENT *fts_read(FTS *sp)
         goto _L;
       }
       else
-        if (((int) p->fts_info) == 13)
       {
-        _L:
+        if (((int) p->fts_info) == 13)
         {
-          p->fts_info = fts_stat(sp, p, (_Bool) 1);
-        }
-
-        if (((int) p->fts_info) == 1)
-        {
-          if (! (sp->fts_options & 4))
+          _L:
           {
-            {
-              tmp___1 = diropen((const FTS *) sp, ".");
-              p->fts_symfd = tmp___1;
-            }
-            if (tmp___1 < 0)
+            p->fts_info = fts_stat(sp, p, (_Bool) 1);
+          }
+
+          if (((int) p->fts_info) == 1)
+          {
+            if (! (sp->fts_options & 4))
             {
               {
-                tmp___0 = __errno_location();
-                p->fts_errno = * tmp___0;
-                p->fts_info = (unsigned short) 7;
+                tmp___1 = diropen((const FTS *) sp, ".");
+                p->fts_symfd = tmp___1;
               }
-            }
-            else
-            {
-              p->fts_flags = (unsigned short) (((int) p->fts_flags) | 2);
+              if (tmp___1 < 0)
+              {
+                {
+                  tmp___0 = __errno_location();
+                  p->fts_errno = * tmp___0;
+                  p->fts_info = (unsigned short) 7;
+                }
+              }
+              else
+              {
+                p->fts_flags = (unsigned short) (((int) p->fts_flags) | 2);
+              }
+
             }
 
           }
 
+          goto check_for_dir;
         }
 
-        goto check_for_dir;
       }
-
 
     }
 
@@ -9850,52 +9902,54 @@ FTSENT *fts_read(FTS *sp)
         goto _L___0;
       }
       else
-        if (sp->fts_options & 64)
       {
-        if (p->fts_statp[0].st_dev != sp->fts_dev)
+        if (sp->fts_options & 64)
         {
-          _L___0:
-          if (((int) p->fts_flags) & 2)
+          if (p->fts_statp[0].st_dev != sp->fts_dev)
           {
+            _L___0:
+            if (((int) p->fts_flags) & 2)
             {
-              close(p->fts_symfd);
+              {
+                close(p->fts_symfd);
+              }
             }
-          }
 
 
-          if (sp->fts_child)
-          {
+            if (sp->fts_child)
             {
-              fts_lfree(sp->fts_child);
-              sp->fts_child = (struct _ftsent *) ((void *) 0);
+              {
+                fts_lfree(sp->fts_child);
+                sp->fts_child = (struct _ftsent *) ((void *) 0);
+              }
             }
-          }
 
-          p->fts_info = (unsigned short) 6;
-          {
-            while (1)
+            p->fts_info = (unsigned short) 6;
             {
-              while_continue:
+              while (1)
+              {
+                while_continue:
+                ;
+
+                {
+                  leave_dir(sp, p);
+                }
+                goto while_break;
+              }
+
+              while_break___5:
               ;
 
-              {
-                leave_dir(sp, p);
-              }
-              goto while_break;
             }
-
-            while_break___5:
+            while_break:
             ;
 
+            return p;
           }
-          while_break:
-          ;
 
-          return p;
         }
 
       }
-
 
       if (((unsigned long) sp->fts_child) != ((unsigned long) ((void *) 0)))
       {
@@ -10289,63 +10343,67 @@ FTSENT *fts_read(FTS *sp)
 
     }
     else
+    {
       if (((int) p->fts_flags) & 2)
-    {
-      if (! (sp->fts_options & 4))
       {
-        if (sp->fts_options & 512)
+        if (! (sp->fts_options & 4))
         {
+          if (sp->fts_options & 512)
           {
-            cwd_advance_fd(sp, p->fts_symfd, (_Bool) 1);
-            tmp___21 = 0;
+            {
+              cwd_advance_fd(sp, p->fts_symfd, (_Bool) 1);
+              tmp___21 = 0;
+            }
           }
-        }
-        else
-        {
+          else
           {
-            tmp___20 = fchdir(p->fts_symfd);
-            tmp___21 = tmp___20;
+            {
+              tmp___20 = fchdir(p->fts_symfd);
+              tmp___21 = tmp___20;
+            }
           }
+
+          if (tmp___21)
+          {
+            {
+              tmp___17 = __errno_location();
+              saved_errno = * tmp___17;
+              close(p->fts_symfd);
+              tmp___18 = __errno_location();
+              * tmp___18 = saved_errno;
+              tmp___19 = __errno_location();
+              p->fts_errno = * tmp___19;
+              sp->fts_options |= 16384;
+            }
+          }
+
         }
 
-        if (tmp___21)
+        {
+          close(p->fts_symfd);
+        }
+      }
+      else
+      {
+        if (! (((int) p->fts_flags) & 1))
         {
           {
-            tmp___17 = __errno_location();
-            saved_errno = * tmp___17;
-            close(p->fts_symfd);
-            tmp___18 = __errno_location();
-            * tmp___18 = saved_errno;
-            tmp___19 = __errno_location();
-            p->fts_errno = * tmp___19;
-            sp->fts_options |= 16384;
+            tmp___23 = fts_safe_changedir(sp, p->fts_parent, - 1, "..");
           }
+          if (tmp___23)
+          {
+            {
+              tmp___22 = __errno_location();
+              p->fts_errno = * tmp___22;
+              sp->fts_options |= 16384;
+            }
+          }
+
         }
 
       }
 
-      {
-        close(p->fts_symfd);
-      }
     }
-    else
-      if (! (((int) p->fts_flags) & 1))
-    {
-      {
-        tmp___23 = fts_safe_changedir(sp, p->fts_parent, - 1, "..");
-      }
-      if (tmp___23)
-      {
-        {
-          tmp___22 = __errno_location();
-          p->fts_errno = * tmp___22;
-          sp->fts_options |= 16384;
-        }
-      }
-
-    }
-
-
 
     if (p->fts_errno)
     {
@@ -10706,41 +10764,43 @@ static FTSENT *fts_build(FTS *sp, int type)
         }
       }
       else
-        if (sp->fts_options & 256)
       {
+        if (sp->fts_options & 256)
         {
-          while (1)
           {
-            while_continue___3:
+            while (1)
+            {
+              while_continue___3:
+              ;
+
+              {
+                leave_dir(sp, cur);
+              }
+              goto while_break___0;
+            }
+
+            while_break___7:
             ;
 
-            {
-              leave_dir(sp, cur);
-            }
-            goto while_break___0;
           }
-
-          while_break___7:
-          ;
-
-        }
-        while_break___0:
-        {
-          fts_stat(sp, cur, (_Bool) 0);
-          tmp___6 = enter_dir(sp, cur);
-        }
-
-        if (! tmp___6)
-        {
+          while_break___0:
           {
-            tmp___5 = __errno_location();
-            * tmp___5 = 12;
+            fts_stat(sp, cur, (_Bool) 0);
+            tmp___6 = enter_dir(sp, cur);
           }
-          return (FTSENT *) ((void *) 0);
+
+          if (! tmp___6)
+          {
+            {
+              tmp___5 = __errno_location();
+              * tmp___5 = 12;
+            }
+            return (FTSENT *) ((void *) 0);
+          }
+
         }
 
       }
-
 
     }
 
@@ -10760,21 +10820,29 @@ static FTSENT *fts_build(FTS *sp, int type)
       nostat = (_Bool) 0;
     }
     else
-      if (sp->fts_options & 8)
     {
-      if (sp->fts_options & 16)
+      if (sp->fts_options & 8)
       {
-        if (sp->fts_options & 32)
+        if (sp->fts_options & 16)
         {
-          tmp___8 = 0;
+          if (sp->fts_options & 32)
+          {
+            tmp___8 = 0;
+          }
+          else
+          {
+            tmp___8 = 2;
+          }
+
+          nlinks = cur->fts_statp[0].st_nlink - ((__nlink_t) tmp___8);
+          nostat = (_Bool) 1;
         }
         else
         {
-          tmp___8 = 2;
+          nlinks = (nlink_t) (- 1);
+          nostat = (_Bool) 0;
         }
 
-        nlinks = cur->fts_statp[0].st_nlink - ((__nlink_t) tmp___8);
-        nostat = (_Bool) 1;
       }
       else
       {
@@ -10783,115 +10851,113 @@ static FTSENT *fts_build(FTS *sp, int type)
       }
 
     }
-    else
-    {
-      nlinks = (nlink_t) (- 1);
-      nostat = (_Bool) 0;
-    }
-
 
     if (continue_readdir)
     {
       descend = (_Bool) 1;
     }
     else
+    {
       if (nlinks)
-    {
-      goto _L___0;
-    }
-    else
-      if (type == 3)
-    {
-      _L___0:
-      if (sp->fts_options & 512)
       {
-        {
-          dir_fd = dup_safer(dir_fd);
-        }
-        if (0 <= dir_fd)
-        {
-          {
-            set_cloexec_flag(dir_fd, (_Bool) 1);
-          }
-        }
-
-      }
-
-
-      if (dir_fd < 0)
-      {
-        goto _L;
+        goto _L___0;
       }
       else
       {
+        if (type == 3)
         {
-          tmp___10 = fts_safe_changedir(sp, cur, dir_fd, (const char *) ((void *) 0));
-        }
-        if (tmp___10)
-        {
-          _L:
-          if (nlinks)
-          {
-            if (type == 3)
-            {
-              {
-                tmp___9 = __errno_location();
-                cur->fts_errno = * tmp___9;
-              }
-            }
-
-          }
-
-
-          cur->fts_flags = (unsigned short) (((int) cur->fts_flags) | 1);
-          descend = (_Bool) 0;
-          {
-            while (1)
-            {
-              while_continue___4:
-              ;
-
-              {
-                closedir(cur->fts_dirp);
-                cur->fts_dirp = (DIR *) ((void *) 0);
-              }
-              goto while_break___1;
-            }
-
-            while_break___8:
-            ;
-
-          }
-          while_break___1:
-          ;
-
+          _L___0:
           if (sp->fts_options & 512)
           {
+            {
+              dir_fd = dup_safer(dir_fd);
+            }
             if (0 <= dir_fd)
             {
               {
-                close(dir_fd);
+                set_cloexec_flag(dir_fd, (_Bool) 1);
               }
             }
 
           }
 
-          cur->fts_dirp = (DIR *) ((void *) 0);
+
+          if (dir_fd < 0)
+          {
+            goto _L;
+          }
+          else
+          {
+            {
+              tmp___10 = fts_safe_changedir(sp, cur, dir_fd, (const char *) ((void *) 0));
+            }
+            if (tmp___10)
+            {
+              _L:
+              if (nlinks)
+              {
+                if (type == 3)
+                {
+                  {
+                    tmp___9 = __errno_location();
+                    cur->fts_errno = * tmp___9;
+                  }
+                }
+
+              }
+
+
+              cur->fts_flags = (unsigned short) (((int) cur->fts_flags) | 1);
+              descend = (_Bool) 0;
+              {
+                while (1)
+                {
+                  while_continue___4:
+                  ;
+
+                  {
+                    closedir(cur->fts_dirp);
+                    cur->fts_dirp = (DIR *) ((void *) 0);
+                  }
+                  goto while_break___1;
+                }
+
+                while_break___8:
+                ;
+
+              }
+              while_break___1:
+              ;
+
+              if (sp->fts_options & 512)
+              {
+                if (0 <= dir_fd)
+                {
+                  {
+                    close(dir_fd);
+                  }
+                }
+
+              }
+
+              cur->fts_dirp = (DIR *) ((void *) 0);
+            }
+            else
+            {
+              descend = (_Bool) 1;
+            }
+
+          }
+
         }
         else
         {
-          descend = (_Bool) 1;
+          descend = (_Bool) 0;
         }
 
       }
 
     }
-    else
-    {
-      descend = (_Bool) 0;
-    }
-
-
 
     if (((int) (* (cur->fts_path + (cur->fts_pathlen - 1UL)))) == 47)
     {
@@ -10953,15 +11019,17 @@ static FTSENT *fts_build(FTS *sp, int type)
               goto while_continue___2;
             }
             else
-              if (((int) dp___0->d_name[1]) == 46)
             {
-              if (! dp___0->d_name[2])
+              if (((int) dp___0->d_name[1]) == 46)
               {
-                goto while_continue___2;
+                if (! dp___0->d_name[2])
+                {
+                  goto while_continue___2;
+                }
+
               }
 
             }
-
 
           }
 
@@ -11089,18 +11157,25 @@ static FTSENT *fts_build(FTS *sp, int type)
           goto _L___1;
         }
         else
-          if (sp->fts_options & 1024)
         {
-          _L___1:
-          if (sp->fts_options & 16)
+          if (sp->fts_options & 1024)
           {
-            if (sp->fts_options & 8)
+            _L___1:
+            if (sp->fts_options & 16)
             {
-              if (((int) dp___0->d_type) != 0)
+              if (sp->fts_options & 8)
               {
-                if (! (((int) dp___0->d_type) == 4))
+                if (((int) dp___0->d_type) != 0)
                 {
-                  tmp___17 = 1;
+                  if (! (((int) dp___0->d_type) == 4))
+                  {
+                    tmp___17 = 1;
+                  }
+                  else
+                  {
+                    tmp___17 = 0;
+                  }
+
                 }
                 else
                 {
@@ -11119,67 +11194,66 @@ static FTSENT *fts_build(FTS *sp, int type)
               tmp___17 = 0;
             }
 
-          }
-          else
-          {
-            tmp___17 = 0;
-          }
 
-
-          {
-            skip_stat = (_Bool) tmp___17;
-            p->fts_info = (unsigned short) 11;
-            set_stat_type(p->fts_statp, (unsigned int) dp___0->d_type);
-            fts_set_stat_required(p, (_Bool) (! skip_stat));
-          }
-          if (sp->fts_options & 16)
-          {
-            if (((int) dp___0->d_type) == 4)
             {
-              tmp___18 = 1;
+              skip_stat = (_Bool) tmp___17;
+              p->fts_info = (unsigned short) 11;
+              set_stat_type(p->fts_statp, (unsigned int) dp___0->d_type);
+              fts_set_stat_required(p, (_Bool) (! skip_stat));
+            }
+            if (sp->fts_options & 16)
+            {
+              if (((int) dp___0->d_type) == 4)
+              {
+                tmp___18 = 1;
+              }
+              else
+              {
+                tmp___18 = 0;
+              }
+
             }
             else
             {
               tmp___18 = 0;
             }
 
+            is_dir = (_Bool) tmp___18;
           }
           else
           {
-            tmp___18 = 0;
+            {
+              p->fts_info = fts_stat(sp, p, (_Bool) 0);
+            }
+            if (((int) p->fts_info) == 1)
+            {
+              tmp___19 = 1;
+            }
+            else
+            {
+              if (((int) p->fts_info) == 2)
+              {
+                tmp___19 = 1;
+              }
+              else
+              {
+                if (((int) p->fts_info) == 5)
+                {
+                  tmp___19 = 1;
+                }
+                else
+                {
+                  tmp___19 = 0;
+                }
+
+              }
+
+            }
+
+            is_dir = (_Bool) tmp___19;
           }
 
-          is_dir = (_Bool) tmp___18;
         }
-        else
-        {
-          {
-            p->fts_info = fts_stat(sp, p, (_Bool) 0);
-          }
-          if (((int) p->fts_info) == 1)
-          {
-            tmp___19 = 1;
-          }
-          else
-            if (((int) p->fts_info) == 2)
-          {
-            tmp___19 = 1;
-          }
-          else
-            if (((int) p->fts_info) == 5)
-          {
-            tmp___19 = 1;
-          }
-          else
-          {
-            tmp___19 = 0;
-          }
-
-
-
-          is_dir = (_Bool) tmp___19;
-        }
-
 
         if (nlinks > 0UL)
         {
@@ -11257,11 +11331,13 @@ static FTSENT *fts_build(FTS *sp, int type)
         cp--;
       }
       else
-        if (nitems == 0UL)
       {
-        cp--;
-      }
+        if (nitems == 0UL)
+        {
+          cp--;
+        }
 
+      }
 
       * cp = (char) '\000';
     }
@@ -11275,37 +11351,39 @@ static FTSENT *fts_build(FTS *sp, int type)
           goto _L___2;
         }
         else
-          if (! nitems)
         {
-          _L___2:
-          if (cur->fts_level == 0L)
+          if (! nitems)
           {
+            _L___2:
+            if (cur->fts_level == 0L)
             {
-              tmp___20 = restore_initial_cwd(sp);
-              tmp___22 = tmp___20;
+              {
+                tmp___20 = restore_initial_cwd(sp);
+                tmp___22 = tmp___20;
+              }
             }
-          }
-          else
-          {
+            else
             {
-              tmp___21 = fts_safe_changedir(sp, cur->fts_parent, - 1, "..");
-              tmp___22 = tmp___21;
+              {
+                tmp___21 = fts_safe_changedir(sp, cur->fts_parent, - 1, "..");
+                tmp___22 = tmp___21;
+              }
             }
-          }
 
 
-          if (tmp___22)
-          {
+            if (tmp___22)
             {
-              cur->fts_info = (unsigned short) 7;
-              sp->fts_options |= 16384;
-              fts_lfree(head);
+              {
+                cur->fts_info = (unsigned short) 7;
+                sp->fts_options |= 16384;
+                fts_lfree(head);
+              }
+              return (FTSENT *) ((void *) 0);
             }
-            return (FTSENT *) ((void *) 0);
+
           }
 
         }
-
 
       }
 
@@ -11392,62 +11470,64 @@ static unsigned short fts_stat(FTS *sp, FTSENT *p, _Bool follow)
       goto _L;
     }
     else
-      if (follow)
     {
-      _L:
+      if (follow)
       {
-        tmp___3 = stat((const char *) ((const char *) p->fts_accpath), (struct stat *) sbp);
-      }
-
-      if (tmp___3)
-      {
+        _L:
         {
-          tmp = __errno_location();
-          saved_errno = * tmp;
-          tmp___1 = __errno_location();
+          tmp___3 = stat((const char *) ((const char *) p->fts_accpath), (struct stat *) sbp);
         }
-        if ((* tmp___1) == 2)
+
+        if (tmp___3)
         {
           {
-            tmp___2 = lstat((const char *) ((const char *) p->fts_accpath), (struct stat *) sbp);
+            tmp = __errno_location();
+            saved_errno = * tmp;
+            tmp___1 = __errno_location();
           }
-          if (tmp___2 == 0)
+          if ((* tmp___1) == 2)
           {
             {
-              tmp___0 = __errno_location();
-              * tmp___0 = 0;
+              tmp___2 = lstat((const char *) ((const char *) p->fts_accpath), (struct stat *) sbp);
             }
-            return (unsigned short) 13;
+            if (tmp___2 == 0)
+            {
+              {
+                tmp___0 = __errno_location();
+                * tmp___0 = 0;
+              }
+              return (unsigned short) 13;
+            }
+
           }
 
+          p->fts_errno = saved_errno;
+          goto err;
         }
 
-        p->fts_errno = saved_errno;
-        goto err;
+      }
+      else
+      {
+        {
+          tmp___5 = fstatat(sp->fts_cwd_fd, (const char *) ((const char *) p->fts_accpath), (struct stat *) sbp, 256);
+        }
+        if (tmp___5)
+        {
+          {
+            tmp___4 = __errno_location();
+            p->fts_errno = * tmp___4;
+          }
+          err:
+          {
+            memset((void *) sbp, 0, sizeof(struct stat));
+          }
+
+          return (unsigned short) 10;
+        }
+
       }
 
     }
-    else
-    {
-      {
-        tmp___5 = fstatat(sp->fts_cwd_fd, (const char *) ((const char *) p->fts_accpath), (struct stat *) sbp, 256);
-      }
-      if (tmp___5)
-      {
-        {
-          tmp___4 = __errno_location();
-          p->fts_errno = * tmp___4;
-        }
-        err:
-        {
-          memset((void *) sbp, 0, sizeof(struct stat));
-        }
-
-        return (unsigned short) 10;
-      }
-
-    }
-
 
     if ((sbp->st_mode & 61440U) == 16384U)
     {
@@ -11468,26 +11548,28 @@ static unsigned short fts_stat(FTS *sp, FTSENT *p, _Bool follow)
           goto _L___0;
         }
         else
-          if (((int) p->fts_name[1]) == 46)
         {
-          if (! p->fts_name[2])
+          if (((int) p->fts_name[1]) == 46)
           {
-            _L___0:
-            if (p->fts_level == 0L)
+            if (! p->fts_name[2])
             {
-              tmp___7 = 1;
-            }
-            else
-            {
-              tmp___7 = 5;
-            }
+              _L___0:
+              if (p->fts_level == 0L)
+              {
+                tmp___7 = 1;
+              }
+              else
+              {
+                tmp___7 = 5;
+              }
 
 
-            return (unsigned short) tmp___7;
+              return (unsigned short) tmp___7;
+            }
+
           }
 
         }
-
 
       }
 
@@ -11992,49 +12074,53 @@ static int fts_safe_changedir(FTS *sp, FTSENT *p, int fd, const char *dir)
       goto _L;
     }
     else
-      if (dir)
     {
+      if (dir)
       {
-        tmp___4 = strcmp(dir, "..");
-      }
-      if (tmp___4 == 0)
-      {
-        _L:
         {
-          tmp___2 = fstat(newfd, & sb);
+          tmp___4 = strcmp(dir, "..");
         }
-
-        if (tmp___2)
+        if (tmp___4 == 0)
         {
-          ret = - 1;
-          goto bail;
-        }
-
-        if (p->fts_statp[0].st_dev != sb.st_dev)
-        {
+          _L:
           {
-            tmp___3 = __errno_location();
-            * tmp___3 = 2;
-            ret = - 1;
+            tmp___2 = fstat(newfd, & sb);
           }
-          goto bail;
-        }
-        else
-          if (p->fts_statp[0].st_ino != sb.st_ino)
-        {
-          {
-            tmp___3 = __errno_location();
-            * tmp___3 = 2;
-            ret = - 1;
-          }
-          goto bail;
-        }
 
+          if (tmp___2)
+          {
+            ret = - 1;
+            goto bail;
+          }
+
+          if (p->fts_statp[0].st_dev != sb.st_dev)
+          {
+            {
+              tmp___3 = __errno_location();
+              * tmp___3 = 2;
+              ret = - 1;
+            }
+            goto bail;
+          }
+          else
+          {
+            if (p->fts_statp[0].st_ino != sb.st_ino)
+            {
+              {
+                tmp___3 = __errno_location();
+                * tmp___3 = 2;
+                ret = - 1;
+              }
+              goto bail;
+            }
+
+          }
+
+        }
 
       }
 
     }
-
 
     if (sp->fts_options & 512)
     {
@@ -12697,78 +12783,82 @@ static int fnmatch_no_wildcards(const char *pattern, const char *f, int options)
       return tmp___1;
     }
     else
-      if (! (options & (1 << 4)))
     {
+      if (! (options & (1 << 4)))
       {
-        tmp___2 = strlen(pattern);
-        patlen = tmp___2;
-        tmp___3 = strncmp(pattern, f, patlen);
-        r = tmp___3;
-      }
-      if (! r)
-      {
-        r = (int) (* (f + patlen));
-        if (r == 47)
         {
-          r = 0;
+          tmp___2 = strlen(pattern);
+          patlen = tmp___2;
+          tmp___3 = strncmp(pattern, f, patlen);
+          r = tmp___3;
+        }
+        if (! r)
+        {
+          r = (int) (* (f + patlen));
+          if (r == 47)
+          {
+            r = 0;
+          }
+
         }
 
+        return r;
       }
-
-      return r;
-    }
-    else
-    {
+      else
       {
-        tmp___4 = xstrdup(f);
-        fcopy = tmp___4;
-        p = fcopy;
-      }
-      {
-        while (1)
         {
-          while_continue:
+          tmp___4 = xstrdup(f);
+          fcopy = tmp___4;
+          p = fcopy;
+        }
+        {
+          while (1)
+          {
+            while_continue:
+            ;
+
+            {
+              p = strchr((const char *) p, '/');
+            }
+            if (p)
+            {
+              * p = (char) '\000';
+            }
+
+            {
+              r___0 = mbscasecmp(pattern, (const char *) fcopy);
+            }
+            if (! p)
+            {
+              goto while_break;
+            }
+            else
+            {
+              if (r___0 <= 0)
+              {
+                goto while_break;
+              }
+
+            }
+
+            tmp___5 = p;
+            p++;
+            * tmp___5 = (char) '/';
+          }
+
+          while_break___0:
           ;
 
-          {
-            p = strchr((const char *) p, '/');
-          }
-          if (p)
-          {
-            * p = (char) '\000';
-          }
-
-          {
-            r___0 = mbscasecmp(pattern, (const char *) fcopy);
-          }
-          if (! p)
-          {
-            goto while_break;
-          }
-          else
-            if (r___0 <= 0)
-          {
-            goto while_break;
-          }
-
-
-          tmp___5 = p;
-          p++;
-          * tmp___5 = (char) '/';
+        }
+        while_break:
+        {
+          free((void *) fcopy);
         }
 
-        while_break___0:
-        ;
-
-      }
-      while_break:
-      {
-        free((void *) fcopy);
+        return r___0;
       }
 
-      return r___0;
     }
-
 
   }
 }
@@ -13382,15 +13472,17 @@ int add_exclude_fp(void (*add_func)(struct exclude *, const char *, int, void *)
       tmp___2 = 0;
     }
     else
+    {
       if (((int) (* (buf + (buf_count - 1UL)))) == ((int) line_end))
-    {
-      tmp___2 = 0;
-    }
-    else
-    {
-      tmp___2 = 1;
-    }
+      {
+        tmp___2 = 0;
+      }
+      else
+      {
+        tmp___2 = 1;
+      }
 
+    }
 
     {
       lim = (const char *) ((buf + buf_count) + tmp___2);
@@ -13800,36 +13892,38 @@ int close_stream(FILE *stream)
       goto _L___0;
     }
     else
-      if (fclose_fail)
     {
-      if (some_pending)
+      if (fclose_fail)
       {
-        goto _L___0;
-      }
-      else
-      {
+        if (some_pending)
         {
-          tmp___3 = __errno_location();
+          goto _L___0;
         }
-        if ((* tmp___3) != 9)
+        else
         {
-          _L___0:
-          if (! fclose_fail)
           {
+            tmp___3 = __errno_location();
+          }
+          if ((* tmp___3) != 9)
+          {
+            _L___0:
+            if (! fclose_fail)
             {
-              tmp___2 = __errno_location();
-              * tmp___2 = 0;
+              {
+                tmp___2 = __errno_location();
+                * tmp___2 = 0;
+              }
             }
+
+
+            return - 1;
           }
 
-
-          return - 1;
         }
 
       }
 
     }
-
 
     return 0;
   }
@@ -13944,39 +14038,49 @@ _Bool c_isspace(int c)
       tmp = 1;
     }
     else
+    {
       if (c == 9)
-    {
-      tmp = 1;
-    }
-    else
-      if (c == 10)
-    {
-      tmp = 1;
-    }
-    else
-      if (c == 11)
-    {
-      tmp = 1;
-    }
-    else
-      if (c == 12)
-    {
-      tmp = 1;
-    }
-    else
-      if (c == 13)
-    {
-      tmp = 1;
-    }
-    else
-    {
-      tmp = 0;
-    }
+      {
+        tmp = 1;
+      }
+      else
+      {
+        if (c == 10)
+        {
+          tmp = 1;
+        }
+        else
+        {
+          if (c == 11)
+          {
+            tmp = 1;
+          }
+          else
+          {
+            if (c == 12)
+            {
+              tmp = 1;
+            }
+            else
+            {
+              if (c == 13)
+              {
+                tmp = 1;
+              }
+              else
+              {
+                tmp = 0;
+              }
 
+            }
 
+          }
 
+        }
 
+      }
 
+    }
 
     return (_Bool) tmp;
   }
@@ -14074,28 +14178,32 @@ ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vall
             return (ptrdiff_t) i;
           }
           else
+          {
             if (matchind == (- 1L))
-          {
-            matchind = (ptrdiff_t) i;
-          }
-          else
-            if (((unsigned long) vallist) == ((unsigned long) ((void *) 0)))
-          {
-            ambiguous = (_Bool) 1;
-          }
-          else
-          {
             {
-              tmp = memcmp((const void *) (vallist + (valsize * ((size_t) matchind))), (const void *) (vallist + (valsize * i)), valsize);
+              matchind = (ptrdiff_t) i;
             }
-            if (tmp)
+            else
             {
-              ambiguous = (_Bool) 1;
+              if (((unsigned long) vallist) == ((unsigned long) ((void *) 0)))
+              {
+                ambiguous = (_Bool) 1;
+              }
+              else
+              {
+                {
+                  tmp = memcmp((const void *) (vallist + (valsize * ((size_t) matchind))), (const void *) (vallist + (valsize * i)), valsize);
+                }
+                if (tmp)
+                {
+                  ambiguous = (_Bool) 1;
+                }
+
+              }
+
             }
 
           }
-
-
 
         }
 
@@ -15113,15 +15221,17 @@ size_t Fexecute(const char *buf, size_t size, size_t *match_size, const char *st
                 len = kwsmatch.size[0];
               }
               else
+              {
                 if (! start_ptr)
-              {
-                goto success;
-              }
-              else
-              {
-                goto success_in_beg_and_len;
-              }
+                {
+                  goto success;
+                }
+                else
+                {
+                  goto success_in_beg_and_len;
+                }
 
+              }
 
             }
 
@@ -15595,175 +15705,177 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
             }
             else
-              _L___0:
-            if (((unsigned int) dirs[depth___0]) == 1U)
             {
-              links[depth___0]->balance = (char) (((int) links[depth___0]->balance) + 1);
-              if (links[depth___0]->balance)
+              _L___0:
+              if (((unsigned int) dirs[depth___0]) == 1U)
               {
-                _L:
-                if (((int) links[depth___0]->balance) == (- 2))
+                links[depth___0]->balance = (char) (((int) links[depth___0]->balance) + 1);
+                if (links[depth___0]->balance)
                 {
-                  goto case_neg_2;
-                }
+                  _L:
+                  if (((int) links[depth___0]->balance) == (- 2))
+                  {
+                    goto case_neg_2;
+                  }
 
 
-                if (((int) links[depth___0]->balance) == 2)
-                {
-                  goto case_2;
-                }
+                  if (((int) links[depth___0]->balance) == 2)
+                  {
+                    goto case_2;
+                  }
 
-                goto switch_default___1;
-                case_neg_2:
-                if (((unsigned int) dirs[depth___0 + 1]) == 0U)
-                {
-                  goto case_0;
-                }
-
-
-                if (((unsigned int) dirs[depth___0 + 1]) == 1U)
-                {
-                  goto case_1;
-                }
-
-                goto switch_default;
-                case_0:
-                r = links[depth___0];
-
-                t = r->llink;
-                rl = t->rlink;
-                t->rlink = r;
-                r->llink = rl;
-                tmp___6 = (char) 0;
-                r->balance = tmp___6;
-                t->balance = tmp___6;
-                goto switch_break___0;
-                case_1:
-                r = links[depth___0];
-
-                l = r->llink;
-                t = l->rlink;
-                rl = t->rlink;
-                lr = t->llink;
-                t->llink = l;
-                l->rlink = lr;
-                t->rlink = r;
-                r->llink = rl;
-                if (((int) t->balance) != 1)
-                {
-                  l->balance = (char) 0;
-                }
-                else
-                {
-                  l->balance = (char) (- 1);
-                }
-
-                if (((int) t->balance) != (- 1))
-                {
-                  r->balance = (char) 0;
-                }
-                else
-                {
-                  r->balance = (char) 1;
-                }
-
-                t->balance = (char) 0;
-                goto switch_break___0;
-                switch_default:
-                {
-                  abort();
-                }
-
-                switch_break___0:
-                ;
-
-                goto switch_break;
-                case_2:
-                if (((unsigned int) dirs[depth___0 + 1]) == 1U)
-                {
-                  goto case_1___0;
-                }
+                  goto switch_default___1;
+                  case_neg_2:
+                  if (((unsigned int) dirs[depth___0 + 1]) == 0U)
+                  {
+                    goto case_0;
+                  }
 
 
-                if (((unsigned int) dirs[depth___0 + 1]) == 0U)
-                {
-                  goto case_0___0;
-                }
+                  if (((unsigned int) dirs[depth___0 + 1]) == 1U)
+                  {
+                    goto case_1;
+                  }
 
-                goto switch_default___0;
-                case_1___0:
-                l = links[depth___0];
+                  goto switch_default;
+                  case_0:
+                  r = links[depth___0];
 
-                t = l->rlink;
-                lr = t->llink;
-                t->llink = l;
-                l->rlink = lr;
-                tmp___7 = (char) 0;
-                l->balance = tmp___7;
-                t->balance = tmp___7;
-                goto switch_break___1;
-                case_0___0:
-                l = links[depth___0];
+                  t = r->llink;
+                  rl = t->rlink;
+                  t->rlink = r;
+                  r->llink = rl;
+                  tmp___6 = (char) 0;
+                  r->balance = tmp___6;
+                  t->balance = tmp___6;
+                  goto switch_break___0;
+                  case_1:
+                  r = links[depth___0];
 
-                r = l->rlink;
-                t = r->llink;
-                lr = t->llink;
-                rl = t->rlink;
-                t->llink = l;
-                l->rlink = lr;
-                t->rlink = r;
-                r->llink = rl;
-                if (((int) t->balance) != 1)
-                {
-                  l->balance = (char) 0;
-                }
-                else
-                {
-                  l->balance = (char) (- 1);
-                }
+                  l = r->llink;
+                  t = l->rlink;
+                  rl = t->rlink;
+                  lr = t->llink;
+                  t->llink = l;
+                  l->rlink = lr;
+                  t->rlink = r;
+                  r->llink = rl;
+                  if (((int) t->balance) != 1)
+                  {
+                    l->balance = (char) 0;
+                  }
+                  else
+                  {
+                    l->balance = (char) (- 1);
+                  }
 
-                if (((int) t->balance) != (- 1))
-                {
-                  r->balance = (char) 0;
-                }
-                else
-                {
-                  r->balance = (char) 1;
-                }
+                  if (((int) t->balance) != (- 1))
+                  {
+                    r->balance = (char) 0;
+                  }
+                  else
+                  {
+                    r->balance = (char) 1;
+                  }
 
-                t->balance = (char) 0;
-                goto switch_break___1;
-                switch_default___0:
-                {
-                  abort();
-                }
+                  t->balance = (char) 0;
+                  goto switch_break___0;
+                  switch_default:
+                  {
+                    abort();
+                  }
 
-                switch_break___1:
-                ;
+                  switch_break___0:
+                  ;
 
-                goto switch_break;
-                switch_default___1:
-                {
-                  abort();
-                }
+                  goto switch_break;
+                  case_2:
+                  if (((unsigned int) dirs[depth___0 + 1]) == 1U)
+                  {
+                    goto case_1___0;
+                  }
 
-                switch_break:
-                ;
 
-                if (((unsigned int) dirs[depth___0 - 1]) == 0U)
-                {
-                  links[depth___0 - 1]->llink = t;
-                }
-                else
-                {
-                  links[depth___0 - 1]->rlink = t;
+                  if (((unsigned int) dirs[depth___0 + 1]) == 0U)
+                  {
+                    goto case_0___0;
+                  }
+
+                  goto switch_default___0;
+                  case_1___0:
+                  l = links[depth___0];
+
+                  t = l->rlink;
+                  lr = t->llink;
+                  t->llink = l;
+                  l->rlink = lr;
+                  tmp___7 = (char) 0;
+                  l->balance = tmp___7;
+                  t->balance = tmp___7;
+                  goto switch_break___1;
+                  case_0___0:
+                  l = links[depth___0];
+
+                  r = l->rlink;
+                  t = r->llink;
+                  lr = t->llink;
+                  rl = t->rlink;
+                  t->llink = l;
+                  l->rlink = lr;
+                  t->rlink = r;
+                  r->llink = rl;
+                  if (((int) t->balance) != 1)
+                  {
+                    l->balance = (char) 0;
+                  }
+                  else
+                  {
+                    l->balance = (char) (- 1);
+                  }
+
+                  if (((int) t->balance) != (- 1))
+                  {
+                    r->balance = (char) 0;
+                  }
+                  else
+                  {
+                    r->balance = (char) 1;
+                  }
+
+                  t->balance = (char) 0;
+                  goto switch_break___1;
+                  switch_default___0:
+                  {
+                    abort();
+                  }
+
+                  switch_break___1:
+                  ;
+
+                  goto switch_break;
+                  switch_default___1:
+                  {
+                    abort();
+                  }
+
+                  switch_break:
+                  ;
+
+                  if (((unsigned int) dirs[depth___0 - 1]) == 0U)
+                  {
+                    links[depth___0 - 1]->llink = t;
+                  }
+                  else
+                  {
+                    links[depth___0 - 1]->rlink = t;
+                  }
+
                 }
 
               }
 
+
             }
-
-
 
           }
 
@@ -17647,89 +17759,91 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
       goto _L;
     }
     else
-      if (match_lines)
     {
-      _L:
-      {
-        bk = ! (syntax_bits___0 & (((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1));
-        tmp___1 = (char *) xmalloc((((sizeof(word_beg_bk)) - 1UL) + size) + (sizeof(word_end_bk)));
-        n = tmp___1;
-      }
-
       if (match_lines)
       {
-        if (bk)
+        _L:
         {
-          tmp___2 = line_beg_bk;
+          bk = ! (syntax_bits___0 & (((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1));
+          tmp___1 = (char *) xmalloc((((sizeof(word_beg_bk)) - 1UL) + size) + (sizeof(word_end_bk)));
+          n = tmp___1;
+        }
+
+        if (match_lines)
+        {
+          if (bk)
+          {
+            tmp___2 = line_beg_bk;
+          }
+          else
+          {
+            tmp___2 = line_beg_no_bk;
+          }
+
+          tmp___4 = tmp___2;
         }
         else
         {
-          tmp___2 = line_beg_no_bk;
+          if (bk)
+          {
+            tmp___3 = word_beg_bk;
+          }
+          else
+          {
+            tmp___3 = word_beg_no_bk;
+          }
+
+          tmp___4 = tmp___3;
         }
 
-        tmp___4 = tmp___2;
+        {
+          strcpy((char *) n, (const char *) tmp___4);
+          total = strlen((const char *) n);
+          memcpy((void *) ((void *) (n + total)), (const void *) ((const void *) pattern), size);
+          total += size;
+        }
+        if (match_lines)
+        {
+          if (bk)
+          {
+            tmp___5 = line_end_bk;
+          }
+          else
+          {
+            tmp___5 = line_end_no_bk;
+          }
+
+          tmp___7 = tmp___5;
+        }
+        else
+        {
+          if (bk)
+          {
+            tmp___6 = word_end_bk;
+          }
+          else
+          {
+            tmp___6 = word_end_no_bk;
+          }
+
+          tmp___7 = tmp___6;
+        }
+
+        {
+          strcpy((char *) (n + total), (const char *) tmp___7);
+          tmp___8 = strlen((const char *) (n + total));
+          total += tmp___8;
+          motif = n;
+          pattern = (const char *) motif;
+          size = total;
+        }
       }
       else
       {
-        if (bk)
-        {
-          tmp___3 = word_beg_bk;
-        }
-        else
-        {
-          tmp___3 = word_beg_no_bk;
-        }
-
-        tmp___4 = tmp___3;
+        motif = (char *) ((void *) 0);
       }
 
-      {
-        strcpy((char *) n, (const char *) tmp___4);
-        total = strlen((const char *) n);
-        memcpy((void *) ((void *) (n + total)), (const void *) ((const void *) pattern), size);
-        total += size;
-      }
-      if (match_lines)
-      {
-        if (bk)
-        {
-          tmp___5 = line_end_bk;
-        }
-        else
-        {
-          tmp___5 = line_end_no_bk;
-        }
-
-        tmp___7 = tmp___5;
-      }
-      else
-      {
-        if (bk)
-        {
-          tmp___6 = word_end_bk;
-        }
-        else
-        {
-          tmp___6 = word_end_no_bk;
-        }
-
-        tmp___7 = tmp___6;
-      }
-
-      {
-        strcpy((char *) (n + total), (const char *) tmp___7);
-        tmp___8 = strlen((const char *) (n + total));
-        total += tmp___8;
-        motif = n;
-        pattern = (const char *) motif;
-        size = total;
-      }
     }
-    else
-    {
-      motif = (char *) ((void *) 0);
-    }
-
 
     {
       dfa = dfaalloc();
@@ -17844,22 +17958,8 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
               end = match;
             }
             else
+            {
               if (! dfafast)
-            {
-              end = match;
-            }
-            else
-            {
-              if (16L > (match - beg))
-              {
-                tmp___7 = 16L;
-              }
-              else
-              {
-                tmp___7 = match - beg;
-              }
-
-              if (tmp___7 < ((match - prev_beg) >> 2))
               {
                 end = match;
               }
@@ -17867,36 +17967,52 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
               {
                 if (16L > (match - beg))
                 {
-                  tmp___6 = 16L;
+                  tmp___7 = 16L;
                 }
                 else
                 {
-                  tmp___6 = match - beg;
+                  tmp___7 = match - beg;
                 }
 
-                if (tmp___6 < ((buflim___0 - prev_beg) >> 2))
+                if (tmp___7 < ((match - prev_beg) >> 2))
+                {
+                  end = match;
+                }
+                else
                 {
                   if (16L > (match - beg))
                   {
-                    tmp___4 = 16L;
+                    tmp___6 = 16L;
                   }
                   else
                   {
-                    tmp___4 = match - beg;
+                    tmp___6 = match - beg;
                   }
 
-                  tmp___5 = prev_beg + (4L * tmp___4);
-                }
-                else
-                {
-                  tmp___5 = buflim___0;
+                  if (tmp___6 < ((buflim___0 - prev_beg) >> 2))
+                  {
+                    if (16L > (match - beg))
+                    {
+                      tmp___4 = 16L;
+                    }
+                    else
+                    {
+                      tmp___4 = match - beg;
+                    }
+
+                    tmp___5 = prev_beg + (4L * tmp___4);
+                  }
+                  else
+                  {
+                    tmp___5 = buflim___0;
+                  }
+
+                  end = tmp___5;
                 }
 
-                end = tmp___5;
               }
 
             }
-
 
             {
               end = (const char *) memchr((const void *) end, (int) eol, (size_t) (buflim___0 - end));
@@ -18003,11 +18119,13 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                 goto __Cont;
               }
               else
-                if (((unsigned long) next_beg) == ((unsigned long) end))
               {
-                goto __Cont;
-              }
+                if (((unsigned long) next_beg) == ((unsigned long) end))
+                {
+                  goto __Cont;
+                }
 
+              }
 
               {
                 end = (const char *) memchr((const void *) next_beg, (int) eol, (size_t) (buflim___0 - next_beg));
@@ -18033,11 +18151,13 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
             goto __Cont;
           }
           else
-            if (((unsigned long) next_beg) == ((unsigned long) end))
           {
-            goto __Cont;
-          }
+            if (((unsigned long) next_beg) == ((unsigned long) end))
+            {
+              goto __Cont;
+            }
 
+          }
 
           if (count != 0UL)
           {
@@ -18104,170 +18224,176 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
               }
             }
             else
-              if (0 <= start)
             {
-              len = (size_t) ((* ((patterns + i)->regs.end + 0)) - start);
-              match = beg + start;
-              if (((unsigned long) match) > ((unsigned long) best_match))
+              if (0 <= start)
               {
-                goto __Cont___0;
-              }
-
-              if (start_ptr)
-              {
-                if (! match_words)
+                len = (size_t) ((* ((patterns + i)->regs.end + 0)) - start);
+                match = beg + start;
+                if (((unsigned long) match) > ((unsigned long) best_match))
                 {
-                  goto assess_pattern_match;
+                  goto __Cont___0;
                 }
 
-              }
-
-              if (! match_lines)
-              {
-                if (! match_words)
+                if (start_ptr)
                 {
-                  match = ptr;
-                  len = (size_t) (end - ptr);
-                  goto assess_pattern_match;
+                  if (! match_words)
+                  {
+                    goto assess_pattern_match;
+                  }
+
+                }
+
+                if (! match_lines)
+                {
+                  if (! match_words)
+                  {
+                    match = ptr;
+                    len = (size_t) (end - ptr);
+                    goto assess_pattern_match;
+                  }
+                  else
+                  {
+                    goto _L;
+                  }
+
                 }
                 else
                 {
-                  goto _L;
-                }
-
-              }
-              else
-                _L:
-              if (match_lines)
-              {
-                if (len == ((size_t) ((end - ptr) - 1L)))
-                {
-                  match = ptr;
-                  len = (size_t) (end - ptr);
-                  goto assess_pattern_match;
-                }
-
-              }
-
-
-
-              if (match_words)
-              {
-                {
-                  while (1)
+                  _L:
+                  if (match_lines)
                   {
-                    while_continue___2:
-                    ;
-
-                    if (! (((unsigned long) match) <= ((unsigned long) best_match)))
+                    if (len == ((size_t) ((end - ptr) - 1L)))
                     {
-                      goto while_break___2;
+                      match = ptr;
+                      len = (size_t) (end - ptr);
+                      goto assess_pattern_match;
                     }
 
-                    {
-                      shorter_len = 0;
-                      tmp___11 = mb_prev_wc(beg, match, end - 1);
-                      tmp___12 = wordchar___0(tmp___11);
-                    }
-                    if (! tmp___12)
-                    {
-                      {
-                        tmp___13 = mb_next_wc(match + len, end - 1);
-                        tmp___14 = wordchar___0(tmp___13);
-                      }
-                      if (! tmp___14)
-                      {
-                        goto assess_pattern_match;
-                      }
+                  }
 
-                    }
 
-                    if (len > 0UL)
-                    {
-                      {
-                        len--;
-                        (patterns + i)->regexbuf.not_eol = 1U;
-                        shorter_len = re_match(& (patterns + i)->regexbuf, beg, (__re_idx_t) ((match + len) - ptr), (__re_idx_t) (match - beg), & (patterns + i)->regs);
-                      }
-                      if (shorter_len < (- 1))
-                      {
-                        {
-                          xalloc_die();
-                        }
-                      }
+                }
 
-                    }
+                if (match_words)
+                {
+                  {
+                    while (1)
+                    {
+                      while_continue___2:
+                      ;
 
-                    if (0 < shorter_len)
-                    {
-                      len = (size_t) shorter_len;
-                    }
-                    else
-                    {
-                      if (((unsigned long) match) == ((unsigned long) (end - 1)))
+                      if (! (((unsigned long) match) <= ((unsigned long) best_match)))
                       {
                         goto while_break___2;
                       }
 
                       {
-                        match++;
-                        (patterns + i)->regexbuf.not_eol = 0U;
-                        start = re_search(& (patterns + i)->regexbuf, beg, (__re_idx_t) ((end - beg) - 1L), (__re_idx_t) (match - beg), (regoff_t) ((end - match) - 1L), & (patterns + i)->regs);
+                        shorter_len = 0;
+                        tmp___11 = mb_prev_wc(beg, match, end - 1);
+                        tmp___12 = wordchar___0(tmp___11);
                       }
-                      if (start < 0)
+                      if (! tmp___12)
                       {
-                        if (start < (- 1))
+                        {
+                          tmp___13 = mb_next_wc(match + len, end - 1);
+                          tmp___14 = wordchar___0(tmp___13);
+                        }
+                        if (! tmp___14)
+                        {
+                          goto assess_pattern_match;
+                        }
+
+                      }
+
+                      if (len > 0UL)
+                      {
+                        {
+                          len--;
+                          (patterns + i)->regexbuf.not_eol = 1U;
+                          shorter_len = re_match(& (patterns + i)->regexbuf, beg, (__re_idx_t) ((match + len) - ptr), (__re_idx_t) (match - beg), & (patterns + i)->regs);
+                        }
+                        if (shorter_len < (- 1))
                         {
                           {
                             xalloc_die();
                           }
                         }
 
-                        goto while_break___2;
                       }
 
-                      len = (size_t) ((* ((patterns + i)->regs.end + 0)) - start);
-                      match = beg + start;
+                      if (0 < shorter_len)
+                      {
+                        len = (size_t) shorter_len;
+                      }
+                      else
+                      {
+                        if (((unsigned long) match) == ((unsigned long) (end - 1)))
+                        {
+                          goto while_break___2;
+                        }
+
+                        {
+                          match++;
+                          (patterns + i)->regexbuf.not_eol = 0U;
+                          start = re_search(& (patterns + i)->regexbuf, beg, (__re_idx_t) ((end - beg) - 1L), (__re_idx_t) (match - beg), (regoff_t) ((end - match) - 1L), & (patterns + i)->regs);
+                        }
+                        if (start < 0)
+                        {
+                          if (start < (- 1))
+                          {
+                            {
+                              xalloc_die();
+                            }
+                          }
+
+                          goto while_break___2;
+                        }
+
+                        len = (size_t) ((* ((patterns + i)->regs.end + 0)) - start);
+                        match = beg + start;
+                      }
+
                     }
 
-                  }
+                    while_break___6:
+                    ;
 
-                  while_break___6:
+                  }
+                  while_break___2:
                   ;
 
                 }
-                while_break___2:
-                ;
 
-              }
-
-              goto __Cont___0;
-              assess_pattern_match:
-              if (! start_ptr)
-              {
-                goto success;
-              }
+                goto __Cont___0;
+                assess_pattern_match:
+                if (! start_ptr)
+                {
+                  goto success;
+                }
 
 
-              if (((unsigned long) match) < ((unsigned long) best_match))
-              {
-                best_match = match;
-                best_len = len;
-              }
-              else
-                if (((unsigned long) match) == ((unsigned long) best_match))
-              {
-                if (len > best_len)
+                if (((unsigned long) match) < ((unsigned long) best_match))
                 {
                   best_match = match;
                   best_len = len;
                 }
+                else
+                {
+                  if (((unsigned long) match) == ((unsigned long) best_match))
+                  {
+                    if (len > best_len)
+                    {
+                      best_match = match;
+                      best_len = len;
+                    }
+
+                  }
+
+                }
 
               }
 
-
             }
-
 
             __Cont___0:
             i++;
@@ -18619,11 +18745,13 @@ static int char_context(unsigned char c)
       return 2;
     }
     else
-      if (((int) c) == 95)
     {
-      return 2;
-    }
+      if (((int) c) == 95)
+      {
+        return 2;
+      }
 
+    }
 
     return 1;
   }
@@ -18638,11 +18766,13 @@ static int wchar_context(wint_t wc)
       return 4;
     }
     else
-      if (wc == 0U)
     {
-      return 4;
-    }
+      if (wc == 0U)
+      {
+        return 4;
+      }
 
+    }
 
     if (wc == 95U)
     {
@@ -19434,39 +19564,143 @@ static token parse_bracket_exp(void)
 
           }
           else
+          {
             _L___1:
-          if (c1 == 46)
-          {
-            goto _L___0;
-          }
-          else
-            if (c1 == 61)
-          {
-            _L___0:
-            len = (size_t) 0;
-
+            if (c1 == 46)
             {
-              while (1)
+              goto _L___0;
+            }
+            else
+            {
+              if (c1 == 61)
               {
-                while_continue___3:
-                ;
+                _L___0:
+                len = (size_t) 0;
 
                 {
                   while (1)
                   {
-                    while_continue___4:
+                    while_continue___3:
+                    ;
+
+                    {
+                      while (1)
+                      {
+                        while_continue___4:
+                        ;
+
+                        if (! lexleft)
+                        {
+                          {
+                            tmp___13 = gettext("unbalanced [");
+                          }
+                          if (((unsigned long) tmp___13) != ((unsigned long) ((char *) 0)))
+                          {
+                            {
+                              tmp___12 = gettext("unbalanced [");
+                              dfaerror((const char *) tmp___12);
+                            }
+                          }
+                          else
+                          {
+                            lasttok = (token) (- 1);
+                            return lasttok;
+                          }
+
+                        }
+                        else
+                        {
+                          {
+                            tmp___14 = mbs_to_wchar(& _wc___2, lexptr, lexleft, dfa___0);
+                            nbytes___2 = tmp___14;
+                            cur_mb_len = (int) nbytes___2;
+                            wc = _wc___2;
+                          }
+                          if (nbytes___2 == 1UL)
+                          {
+                            {
+                              tmp___15 = to_uchar___0((char) (* lexptr));
+                              c = (int) tmp___15;
+                            }
+                          }
+                          else
+                          {
+                            c = - 1;
+                          }
+
+                          lexptr += nbytes___2;
+                          lexleft -= nbytes___2;
+                        }
+
+                        goto while_break___4;
+                      }
+
+                      while_break___21:
+                      ;
+
+                    }
+                    while_break___4:
+                    ;
+
+                    if (c == c1)
+                    {
+                      if (((const int) (* lexptr)) == 93)
+                      {
+                        goto while_break___3;
+                      }
+                      else
+                      {
+                        goto _L;
+                      }
+
+                    }
+                    else
+                    {
+                      _L:
+                      if (lexleft == 0UL)
+                      {
+                        goto while_break___3;
+                      }
+
+
+                    }
+
+                    if (len < 32UL)
+                    {
+                      tmp___16 = len;
+                      len++;
+                      str[tmp___16] = (char) c;
+                    }
+                    else
+                    {
+                      str[0] = (char) '\000';
+                    }
+
+                  }
+
+                  while_break___20:
+                  ;
+
+                }
+                while_break___3:
+                str[len] = (char) '\000';
+
+                {
+                  while (1)
+                  {
+                    while_continue___5:
                     ;
 
                     if (! lexleft)
                     {
                       {
-                        tmp___13 = gettext("unbalanced [");
+                        tmp___18 = gettext("unbalanced [");
                       }
-                      if (((unsigned long) tmp___13) != ((unsigned long) ((char *) 0)))
+                      if (((unsigned long) tmp___18) != ((unsigned long) ((char *) 0)))
                       {
                         {
-                          tmp___12 = gettext("unbalanced [");
-                          dfaerror((const char *) tmp___12);
+                          tmp___17 = gettext("unbalanced [");
+                          dfaerror((const char *) tmp___17);
                         }
                       }
                       else
@@ -19479,16 +19713,16 @@ static token parse_bracket_exp(void)
                     else
                     {
                       {
-                        tmp___14 = mbs_to_wchar(& _wc___2, lexptr, lexleft, dfa___0);
-                        nbytes___2 = tmp___14;
-                        cur_mb_len = (int) nbytes___2;
-                        wc = _wc___2;
+                        tmp___19 = mbs_to_wchar(& _wc___3, lexptr, lexleft, dfa___0);
+                        nbytes___3 = tmp___19;
+                        cur_mb_len = (int) nbytes___3;
+                        wc = _wc___3;
                       }
-                      if (nbytes___2 == 1UL)
+                      if (nbytes___3 == 1UL)
                       {
                         {
-                          tmp___15 = to_uchar___0((char) (* lexptr));
-                          c = (int) tmp___15;
+                          tmp___20 = to_uchar___0((char) (* lexptr));
+                          c = (int) tmp___20;
                         }
                       }
                       else
@@ -19496,285 +19730,187 @@ static token parse_bracket_exp(void)
                         c = - 1;
                       }
 
-                      lexptr += nbytes___2;
-                      lexleft -= nbytes___2;
+                      lexptr += nbytes___3;
+                      lexleft -= nbytes___3;
                     }
 
-                    goto while_break___4;
+                    goto while_break___5;
                   }
 
-                  while_break___21:
+                  while_break___22:
                   ;
 
                 }
-                while_break___4:
+                while_break___5:
                 ;
 
-                if (c == c1)
+                if (c1 == 58)
                 {
-                  if (((const int) (* lexptr)) == 93)
-                  {
-                    goto while_break___3;
-                  }
-                  else
-                  {
-                    goto _L;
-                  }
-
-                }
-                else
-                  _L:
-                if (lexleft == 0UL)
-                {
-                  goto while_break___3;
-                }
-
-
-
-                if (len < 32UL)
-                {
-                  tmp___16 = len;
-                  len++;
-                  str[tmp___16] = (char) c;
-                }
-                else
-                {
-                  str[0] = (char) '\000';
-                }
-
-              }
-
-              while_break___20:
-              ;
-
-            }
-            while_break___3:
-            str[len] = (char) '\000';
-
-            {
-              while (1)
-              {
-                while_continue___5:
-                ;
-
-                if (! lexleft)
-                {
-                  {
-                    tmp___18 = gettext("unbalanced [");
-                  }
-                  if (((unsigned long) tmp___18) != ((unsigned long) ((char *) 0)))
+                  if (case_fold)
                   {
                     {
-                      tmp___17 = gettext("unbalanced [");
-                      dfaerror((const char *) tmp___17);
+                      tmp___24 = strcmp((const char *) str, "upper");
                     }
-                  }
-                  else
-                  {
-                    lasttok = (token) (- 1);
-                    return lasttok;
-                  }
-
-                }
-                else
-                {
-                  {
-                    tmp___19 = mbs_to_wchar(& _wc___3, lexptr, lexleft, dfa___0);
-                    nbytes___3 = tmp___19;
-                    cur_mb_len = (int) nbytes___3;
-                    wc = _wc___3;
-                  }
-                  if (nbytes___3 == 1UL)
-                  {
+                    if (tmp___24 == 0)
                     {
-                      tmp___20 = to_uchar___0((char) (* lexptr));
-                      c = (int) tmp___20;
+                      tmp___23 = "alpha";
                     }
-                  }
-                  else
-                  {
-                    c = - 1;
-                  }
+                    else
+                    {
+                      {
+                        tmp___25 = strcmp((const char *) str, "lower");
+                      }
+                      if (tmp___25 == 0)
+                      {
+                        tmp___23 = "alpha";
+                      }
+                      else
+                      {
+                        tmp___23 = (const char *) str;
+                      }
 
-                  lexptr += nbytes___3;
-                  lexleft -= nbytes___3;
-                }
+                    }
 
-                goto while_break___5;
-              }
-
-              while_break___22:
-              ;
-
-            }
-            while_break___5:
-            ;
-
-            if (c1 == 58)
-            {
-              if (case_fold)
-              {
-                {
-                  tmp___24 = strcmp((const char *) str, "upper");
-                }
-                if (tmp___24 == 0)
-                {
-                  tmp___23 = "alpha";
-                }
-                else
-                {
-                  {
-                    tmp___25 = strcmp((const char *) str, "lower");
-                  }
-                  if (tmp___25 == 0)
-                  {
-                    tmp___23 = "alpha";
                   }
                   else
                   {
                     tmp___23 = (const char *) str;
                   }
 
-                }
-
-              }
-              else
-              {
-                tmp___23 = (const char *) str;
-              }
-
-              {
-                class = tmp___23;
-                tmp___26 = (const struct dfa_ctype *) find_pred(class);
-                pred = tmp___26;
-              }
-              if (! pred)
-              {
-                {
-                  tmp___27 = gettext("invalid character class");
-                  dfaerror((const char *) tmp___27);
-                }
-              }
-
-              if (dfa___0->multibyte)
-              {
-                if (! pred->single_byte_only)
-                {
                   {
-                    tmp___28 = wctype(class);
-                    wt = tmp___28;
-                    work_mbc->ch_classes = (wctype_t *) maybe_realloc((void *) work_mbc->ch_classes, work_mbc->nch_classes, & ch_classes_al, sizeof(* work_mbc->ch_classes));
-                    tmp___29 = work_mbc->nch_classes;
-                    work_mbc->nch_classes++;
-                    * (work_mbc->ch_classes + tmp___29) = wt;
+                    class = tmp___23;
+                    tmp___26 = (const struct dfa_ctype *) find_pred(class);
+                    pred = tmp___26;
                   }
-                }
+                  if (! pred)
+                  {
+                    {
+                      tmp___27 = gettext("invalid character class");
+                      dfaerror((const char *) tmp___27);
+                    }
+                  }
 
-              }
+                  if (dfa___0->multibyte)
+                  {
+                    if (! pred->single_byte_only)
+                    {
+                      {
+                        tmp___28 = wctype(class);
+                        wt = tmp___28;
+                        work_mbc->ch_classes = (wctype_t *) maybe_realloc((void *) work_mbc->ch_classes, work_mbc->nch_classes, & ch_classes_al, sizeof(* work_mbc->ch_classes));
+                        tmp___29 = work_mbc->nch_classes;
+                        work_mbc->nch_classes++;
+                        * (work_mbc->ch_classes + tmp___29) = wt;
+                      }
+                    }
 
-              c2 = 0;
-              {
-                while (1)
-                {
-                  while_continue___6:
+                  }
+
+                  c2 = 0;
+                  {
+                    while (1)
+                    {
+                      while_continue___6:
+                      ;
+
+                      if (! (c2 < 256))
+                      {
+                        goto while_break___6;
+                      }
+
+                      {
+                        tmp___30 = (* pred->func)(c2);
+                      }
+                      if (tmp___30)
+                      {
+                        {
+                          setbit((unsigned int) c2, ccl);
+                        }
+                      }
+
+                      c2++;
+                    }
+
+                    while_break___23:
+                    ;
+
+                  }
+                  while_break___6:
                   ;
-
-                  if (! (c2 < 256))
-                  {
-                    goto while_break___6;
-                  }
-
-                  {
-                    tmp___30 = (* pred->func)(c2);
-                  }
-                  if (tmp___30)
-                  {
-                    {
-                      setbit((unsigned int) c2, ccl);
-                    }
-                  }
-
-                  c2++;
-                }
-
-                while_break___23:
-                ;
-
-              }
-              while_break___6:
-              ;
-
-            }
-            else
-            {
-              known_bracket_exp = (_Bool) 0;
-            }
-
-            colon_warning_state |= 8;
-            {
-              while (1)
-              {
-                while_continue___7:
-                ;
-
-                if (! lexleft)
-                {
-                  {
-                    tmp___32 = gettext("unbalanced [");
-                  }
-                  if (((unsigned long) tmp___32) != ((unsigned long) ((char *) 0)))
-                  {
-                    {
-                      tmp___31 = gettext("unbalanced [");
-                      dfaerror((const char *) tmp___31);
-                    }
-                  }
-                  else
-                  {
-                    lasttok = (token) (- 1);
-                    return lasttok;
-                  }
 
                 }
                 else
                 {
-                  {
-                    tmp___33 = mbs_to_wchar(& _wc___4, lexptr, lexleft, dfa___0);
-                    nbytes___4 = tmp___33;
-                    cur_mb_len = (int) nbytes___4;
-                    wc1 = _wc___4;
-                  }
-                  if (nbytes___4 == 1UL)
-                  {
-                    {
-                      tmp___34 = to_uchar___0((char) (* lexptr));
-                      c1 = (int) tmp___34;
-                    }
-                  }
-                  else
-                  {
-                    c1 = - 1;
-                  }
-
-                  lexptr += nbytes___4;
-                  lexleft -= nbytes___4;
+                  known_bracket_exp = (_Bool) 0;
                 }
 
-                goto while_break___7;
+                colon_warning_state |= 8;
+                {
+                  while (1)
+                  {
+                    while_continue___7:
+                    ;
+
+                    if (! lexleft)
+                    {
+                      {
+                        tmp___32 = gettext("unbalanced [");
+                      }
+                      if (((unsigned long) tmp___32) != ((unsigned long) ((char *) 0)))
+                      {
+                        {
+                          tmp___31 = gettext("unbalanced [");
+                          dfaerror((const char *) tmp___31);
+                        }
+                      }
+                      else
+                      {
+                        lasttok = (token) (- 1);
+                        return lasttok;
+                      }
+
+                    }
+                    else
+                    {
+                      {
+                        tmp___33 = mbs_to_wchar(& _wc___4, lexptr, lexleft, dfa___0);
+                        nbytes___4 = tmp___33;
+                        cur_mb_len = (int) nbytes___4;
+                        wc1 = _wc___4;
+                      }
+                      if (nbytes___4 == 1UL)
+                      {
+                        {
+                          tmp___34 = to_uchar___0((char) (* lexptr));
+                          c1 = (int) tmp___34;
+                        }
+                      }
+                      else
+                      {
+                        c1 = - 1;
+                      }
+
+                      lexptr += nbytes___4;
+                      lexleft -= nbytes___4;
+                    }
+
+                    goto while_break___7;
+                  }
+
+                  while_break___24:
+                  ;
+
+                }
+                while_break___7:
+                ;
+
+                goto __Cont;
               }
 
-              while_break___24:
-              ;
-
             }
-            while_break___7:
-            ;
 
-            goto __Cont;
+
           }
-
-
-
 
         }
 
@@ -20729,26 +20865,32 @@ static token lex(void)
           return lasttok;
         }
         else
+        {
           if (lasttok == (- 1L))
-        {
-          lasttok = (token) 258;
-          return lasttok;
-        }
-        else
-          if (lasttok == 270L)
-        {
-          lasttok = (token) 258;
-          return lasttok;
-        }
-        else
-          if (lasttok == 269L)
-        {
-          lasttok = (token) 258;
-          return lasttok;
-        }
+          {
+            lasttok = (token) 258;
+            return lasttok;
+          }
+          else
+          {
+            if (lasttok == 270L)
+            {
+              lasttok = (token) 258;
+              return lasttok;
+            }
+            else
+            {
+              if (lasttok == 269L)
+              {
+                lasttok = (token) 258;
+                return lasttok;
+              }
 
+            }
 
+          }
 
+        }
 
         goto normal_char;
         case_36:
@@ -20764,43 +20906,50 @@ static token lex(void)
           return lasttok;
         }
         else
+        {
           if (lexleft == 0UL)
-        {
-          lasttok = (token) 259;
-          return lasttok;
-        }
-        else
-        {
-          if (syntax_bits & (((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
           {
-            if (lexleft > 0UL)
+            lasttok = (token) 259;
+            return lasttok;
+          }
+          else
+          {
+            if (syntax_bits & (((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
             {
-              if (((const int) (* lexptr)) == 41)
+              if (lexleft > 0UL)
               {
-                tmp___2 = 1;
+                if (((const int) (* lexptr)) == 41)
+                {
+                  tmp___2 = 1;
+                }
+                else
+                {
+                  tmp___2 = 0;
+                }
+
               }
               else
               {
                 tmp___2 = 0;
               }
 
+              tmp___4 = tmp___2;
             }
             else
             {
-              tmp___2 = 0;
-            }
-
-            tmp___4 = tmp___2;
-          }
-          else
-          {
-            if (lexleft > 1UL)
-            {
-              if (((const int) (* (lexptr + 0))) == 92)
+              if (lexleft > 1UL)
               {
-                if (((const int) (* (lexptr + 1))) == 41)
+                if (((const int) (* (lexptr + 0))) == 92)
                 {
-                  tmp___3 = 1;
+                  if (((const int) (* (lexptr + 1))) == 41)
+                  {
+                    tmp___3 = 1;
+                  }
+                  else
+                  {
+                    tmp___3 = 0;
+                  }
+
                 }
                 else
                 {
@@ -20813,52 +20962,52 @@ static token lex(void)
                 tmp___3 = 0;
               }
 
+              tmp___4 = tmp___3;
+            }
+
+            if (tmp___4)
+            {
+              lasttok = (token) 259;
+              return lasttok;
             }
             else
             {
-              tmp___3 = 0;
-            }
-
-            tmp___4 = tmp___3;
-          }
-
-          if (tmp___4)
-          {
-            lasttok = (token) 259;
-            return lasttok;
-          }
-          else
-          {
-            if (syntax_bits & (((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
-            {
-              if (lexleft > 0UL)
+              if (syntax_bits & (((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
               {
-                if (((const int) (* lexptr)) == 124)
+                if (lexleft > 0UL)
                 {
-                  tmp___5 = 1;
+                  if (((const int) (* lexptr)) == 124)
+                  {
+                    tmp___5 = 1;
+                  }
+                  else
+                  {
+                    tmp___5 = 0;
+                  }
+
                 }
                 else
                 {
                   tmp___5 = 0;
                 }
 
+                tmp___7 = tmp___5;
               }
               else
               {
-                tmp___5 = 0;
-              }
-
-              tmp___7 = tmp___5;
-            }
-            else
-            {
-              if (lexleft > 1UL)
-              {
-                if (((const int) (* (lexptr + 0))) == 92)
+                if (lexleft > 1UL)
                 {
-                  if (((const int) (* (lexptr + 1))) == 124)
+                  if (((const int) (* (lexptr + 0))) == 92)
                   {
-                    tmp___6 = 1;
+                    if (((const int) (* (lexptr + 1))) == 124)
+                    {
+                      tmp___6 = 1;
+                    }
+                    else
+                    {
+                      tmp___6 = 0;
+                    }
+
                   }
                   else
                   {
@@ -20871,40 +21020,37 @@ static token lex(void)
                   tmp___6 = 0;
                 }
 
+                tmp___7 = tmp___6;
+              }
+
+              if (tmp___7)
+              {
+                lasttok = (token) 259;
+                return lasttok;
               }
               else
               {
-                tmp___6 = 0;
-              }
-
-              tmp___7 = tmp___6;
-            }
-
-            if (tmp___7)
-            {
-              lasttok = (token) 259;
-              return lasttok;
-            }
-            else
-              if (syntax_bits & (((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
-            {
-              if (lexleft > 0UL)
-              {
-                if (((const int) (* lexptr)) == 10)
+                if (syntax_bits & (((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
                 {
-                  lasttok = (token) 259;
-                  return lasttok;
+                  if (lexleft > 0UL)
+                  {
+                    if (((const int) (* lexptr)) == 10)
+                    {
+                      lasttok = (token) 259;
+                      return lasttok;
+                    }
+
+                  }
+
                 }
 
               }
 
             }
 
-
           }
 
         }
-
 
         goto normal_char;
         case_49:
@@ -21112,15 +21258,17 @@ static token lex(void)
               minrep = (int) (((const int) (* p)) - 48);
             }
             else
+            {
               if (32768 < (((minrep * 10) + ((int) (* p))) - 48))
-            {
-              minrep = 32768;
-            }
-            else
-            {
-              minrep = ((minrep * 10) + ((int) (* p))) - 48;
-            }
+              {
+                minrep = 32768;
+              }
+              else
+              {
+                minrep = ((minrep * 10) + ((int) (* p))) - 48;
+              }
 
+            }
 
             p++;
           }
@@ -21170,15 +21318,17 @@ static token lex(void)
                   maxrep = (int) (((const int) (* p)) - 48);
                 }
                 else
+                {
                   if (32768 < (((maxrep * 10) + ((int) (* p))) - 48))
-                {
-                  maxrep = 32768;
-                }
-                else
-                {
-                  maxrep = ((maxrep * 10) + ((int) (* p))) - 48;
-                }
+                  {
+                    maxrep = 32768;
+                  }
+                  else
+                  {
+                    maxrep = ((maxrep * 10) + ((int) (* p))) - 48;
+                  }
 
+                }
 
               }
 
@@ -21198,28 +21348,35 @@ static token lex(void)
           goto _L___3;
         }
         else
-          if (((unsigned long) p) != ((unsigned long) lim))
         {
-          tmp___9 = p;
-          p++;
-          if (((const int) (* tmp___9)) == 92)
+          if (((unsigned long) p) != ((unsigned long) lim))
           {
-            _L___3:
-            if (((unsigned long) p) != ((unsigned long) lim))
+            tmp___9 = p;
+            p++;
+            if (((const int) (* tmp___9)) == 92)
             {
-              tmp___10 = p;
-              p++;
-              if (((const int) (* tmp___10)) == 125)
+              _L___3:
+              if (((unsigned long) p) != ((unsigned long) lim))
               {
-                if (0 <= minrep)
+                tmp___10 = p;
+                p++;
+                if (((const int) (* tmp___10)) == 125)
                 {
-                  if (! (maxrep < 0))
+                  if (0 <= minrep)
                   {
-                    if (! (minrep <= maxrep))
+                    if (! (maxrep < 0))
                     {
-                      goto _L___4;
+                      if (! (minrep <= maxrep))
+                      {
+                        goto _L___4;
+                      }
+
                     }
 
+                  }
+                  else
+                  {
+                    goto _L___4;
                   }
 
                 }
@@ -21234,35 +21391,30 @@ static token lex(void)
                 goto _L___4;
               }
 
+
             }
             else
             {
               goto _L___4;
             }
 
-
           }
           else
           {
-            goto _L___4;
+            _L___4:
+            if (syntax_bits & (((((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+            {
+              goto normal_char;
+            }
+
+
+            {
+              tmp___8 = gettext("Invalid content of \\{\\}");
+              dfaerror((const char *) tmp___8);
+            }
           }
 
         }
-        else
-        {
-          _L___4:
-          if (syntax_bits & (((((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
-          {
-            goto normal_char;
-          }
-
-
-          {
-            tmp___8 = gettext("Invalid content of \\{\\}");
-            dfaerror((const char *) tmp___8);
-          }
-        }
-
 
         if (32767 < maxrep)
         {
@@ -21298,17 +21450,21 @@ static token lex(void)
           goto normal_char;
         }
         else
+        {
           if (backslash)
-        {
-          goto normal_char;
-        }
-        else
-          if (! (syntax_bits & (((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
-        {
-          goto normal_char;
-        }
+          {
+            goto normal_char;
+          }
+          else
+          {
+            if (! (syntax_bits & (((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
+            {
+              goto normal_char;
+            }
 
+          }
 
+        }
 
 
         laststart = (_Bool) 1;
@@ -21389,11 +21545,13 @@ static token lex(void)
           goto normal_char;
         }
         else
-          if (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          goto normal_char;
-        }
+          if (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+          {
+            goto normal_char;
+          }
 
+        }
 
 
         if (! dfa___0->multibyte)
@@ -21488,11 +21646,13 @@ static token lex(void)
           goto normal_char;
         }
         else
-          if (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          goto normal_char;
-        }
+          if (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+          {
+            goto normal_char;
+          }
 
+        }
 
 
         {
@@ -21520,13 +21680,15 @@ static token lex(void)
               }
             }
             else
-              if (c2 == 95)
             {
+              if (c2 == 95)
               {
-                setbit((unsigned int) c2, ccl);
+                {
+                  setbit((unsigned int) c2, ccl);
+                }
               }
-            }
 
+            }
 
             c2++;
           }
@@ -21758,55 +21920,65 @@ static void addtok(token t)
           goto _L;
         }
         else
+        {
           if (work_mbc->nch_classes != 0UL)
-        {
-          goto _L;
-        }
-        else
-          if (work_mbc->nranges != 0UL)
-        {
-          goto _L;
-        }
-        else
-          if (work_mbc->nequivs != 0UL)
-        {
-          goto _L;
-        }
-        else
-          if (work_mbc->ncoll_elems != 0UL)
-        {
-          _L:
           {
-            addtok_mb((token) 273, (int) (((dfa___0->nmbcsets - 1UL) << 2) + 3UL));
+            goto _L;
           }
-
-          if (need_or)
+          else
           {
+            if (work_mbc->nranges != 0UL)
             {
-              addtok((token) 269);
+              goto _L;
             }
-          }
-
-        }
-        else
-          if (work_mbc->cset != (- 1L))
-        {
-          {
-            addtok(275L + work_mbc->cset);
-          }
-          if (need_or)
-          {
+            else
             {
-              addtok((token) 269);
+              if (work_mbc->nequivs != 0UL)
+              {
+                goto _L;
+              }
+              else
+              {
+                if (work_mbc->ncoll_elems != 0UL)
+                {
+                  _L:
+                  {
+                    addtok_mb((token) 273, (int) (((dfa___0->nmbcsets - 1UL) << 2) + 3UL));
+                  }
+
+                  if (need_or)
+                  {
+                    {
+                      addtok((token) 269);
+                    }
+                  }
+
+                }
+                else
+                {
+                  if (work_mbc->cset != (- 1L))
+                  {
+                    {
+                      addtok(275L + work_mbc->cset);
+                    }
+                    if (need_or)
+                    {
+                      {
+                        addtok((token) 269);
+                      }
+                    }
+
+                  }
+
+                }
+
+              }
+
             }
+
           }
 
         }
-
-
-
-
-
 
       }
       else
@@ -22089,162 +22261,188 @@ static void atom(void)
       }
     }
     else
-      if (tok == 272L)
     {
-      {
-        tmp___1 = using_utf8();
-      }
-      if (tmp___1)
+      if (tok == 272L)
       {
         {
-          add_utf8_anychar();
-          tok = lex();
+          tmp___1 = using_utf8();
         }
+        if (tmp___1)
+        {
+          {
+            add_utf8_anychar();
+            tok = lex();
+          }
+        }
+        else
+        {
+          goto _L___0;
+        }
+
       }
       else
       {
-        goto _L___0;
-      }
-
-    }
-    else
-      _L___0:
-    if (tok >= 0L)
-    {
-      if (tok < 256L)
-      {
+        _L___0:
+        if (tok >= 0L)
         {
-          addtok(tok);
-          tok = lex();
-        }
-      }
-      else
-      {
-        goto _L;
-      }
+          if (tok < 256L)
+          {
+            {
+              addtok(tok);
+              tok = lex();
+            }
+          }
+          else
+          {
+            goto _L;
+          }
 
-    }
-    else
-      _L:
-    if (tok >= 275L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 257L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 258L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 259L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 260L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 272L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 273L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 261L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 262L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 263L)
-    {
-      {
-        addtok(tok);
-        tok = lex();
-      }
-    }
-    else
-      if (tok == 270L)
-    {
-      {
-        tok = lex();
-        regexp();
-      }
-      if (tok != 271L)
-      {
+        }
+        else
         {
-          tmp___0 = gettext("unbalanced (");
-          dfaerror((const char *) tmp___0);
+          _L:
+          if (tok >= 275L)
+          {
+            {
+              addtok(tok);
+              tok = lex();
+            }
+          }
+          else
+          {
+            if (tok == 257L)
+            {
+              {
+                addtok(tok);
+                tok = lex();
+              }
+            }
+            else
+            {
+              if (tok == 258L)
+              {
+                {
+                  addtok(tok);
+                  tok = lex();
+                }
+              }
+              else
+              {
+                if (tok == 259L)
+                {
+                  {
+                    addtok(tok);
+                    tok = lex();
+                  }
+                }
+                else
+                {
+                  if (tok == 260L)
+                  {
+                    {
+                      addtok(tok);
+                      tok = lex();
+                    }
+                  }
+                  else
+                  {
+                    if (tok == 272L)
+                    {
+                      {
+                        addtok(tok);
+                        tok = lex();
+                      }
+                    }
+                    else
+                    {
+                      if (tok == 273L)
+                      {
+                        {
+                          addtok(tok);
+                          tok = lex();
+                        }
+                      }
+                      else
+                      {
+                        if (tok == 261L)
+                        {
+                          {
+                            addtok(tok);
+                            tok = lex();
+                          }
+                        }
+                        else
+                        {
+                          if (tok == 262L)
+                          {
+                            {
+                              addtok(tok);
+                              tok = lex();
+                            }
+                          }
+                          else
+                          {
+                            if (tok == 263L)
+                            {
+                              {
+                                addtok(tok);
+                                tok = lex();
+                              }
+                            }
+                            else
+                            {
+                              if (tok == 270L)
+                              {
+                                {
+                                  tok = lex();
+                                  regexp();
+                                }
+                                if (tok != 271L)
+                                {
+                                  {
+                                    tmp___0 = gettext("unbalanced (");
+                                    dfaerror((const char *) tmp___0);
+                                  }
+                                }
+
+                                {
+                                  tok = lex();
+                                }
+                              }
+                              else
+                              {
+                                {
+                                  addtok((token) 256);
+                                }
+                              }
+
+                            }
+
+                          }
+
+                        }
+
+                      }
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+
         }
+
+
       }
 
-      {
-        tok = lex();
-      }
     }
-    else
-    {
-      {
-        addtok((token) 256);
-      }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return;
   }
@@ -22407,110 +22605,114 @@ static void closure(void)
             goto _L___0;
           }
           else
-            if (maxrep)
           {
-            _L___0:
+            if (maxrep)
             {
-              ntokens = (size_t) nsubtoks(dfa___0->tindex);
-              tindex = dfa___0->tindex - ntokens;
-            }
-
-            if (maxrep < 0)
-            {
+              _L___0:
               {
-                addtok((token) 266);
+                ntokens = (size_t) nsubtoks(dfa___0->tindex);
+                tindex = dfa___0->tindex - ntokens;
               }
-            }
 
-            if (minrep == 0)
-            {
+              if (maxrep < 0)
               {
-                addtok((token) 264);
-              }
-            }
-
-            i = 1;
-            {
-              while (1)
-              {
-                while_continue___0:
-                ;
-
-                if (! (i < minrep))
                 {
-                  goto while_break___0;
-                }
-
-                {
-                  copytoks(tindex, ntokens);
-                  addtok((token) 268);
-                  i++;
+                  addtok((token) 266);
                 }
               }
 
-              while_break___3:
-              ;
-
-            }
-            while_break___0:
-            ;
-
-            {
-              while (1)
+              if (minrep == 0)
               {
-                while_continue___1:
-                ;
-
-                if (! (i < maxrep))
                 {
-                  goto while_break___1;
-                }
-
-                {
-                  copytoks(tindex, ntokens);
                   addtok((token) 264);
-                  addtok((token) 268);
-                  i++;
                 }
               }
 
-              while_break___4:
+              i = 1;
+              {
+                while (1)
+                {
+                  while_continue___0:
+                  ;
+
+                  if (! (i < minrep))
+                  {
+                    goto while_break___0;
+                  }
+
+                  {
+                    copytoks(tindex, ntokens);
+                    addtok((token) 268);
+                    i++;
+                  }
+                }
+
+                while_break___3:
+                ;
+
+              }
+              while_break___0:
               ;
 
+              {
+                while (1)
+                {
+                  while_continue___1:
+                  ;
+
+                  if (! (i < maxrep))
+                  {
+                    goto while_break___1;
+                  }
+
+                  {
+                    copytoks(tindex, ntokens);
+                    addtok((token) 264);
+                    addtok((token) 268);
+                    i++;
+                  }
+                }
+
+                while_break___4:
+                ;
+
+              }
+              while_break___1:
+              {
+                tok = lex();
+              }
+
             }
-            while_break___1:
+            else
             {
-              tok = lex();
+              goto _L;
             }
 
+          }
+
+        }
+        else
+        {
+          _L:
+          if (tok == 267L)
+          {
+            {
+              tmp = nsubtoks(dfa___0->tindex);
+              dfa___0->tindex -= (size_t) tmp;
+              tok = lex();
+              closure();
+            }
           }
           else
           {
-            goto _L;
+            {
+              addtok(tok);
+              tok = lex();
+            }
           }
 
 
         }
-        else
-          _L:
-        if (tok == 267L)
-        {
-          {
-            tmp = nsubtoks(dfa___0->tindex);
-            dfa___0->tindex -= (size_t) tmp;
-            tok = lex();
-            closure();
-          }
-        }
-        else
-        {
-          {
-            addtok(tok);
-            tok = lex();
-          }
-        }
-
-
 
       }
 
@@ -22837,26 +23039,28 @@ static void merge(const position_set *s1, const position_set *s2, position_set *
           * (m->elems + tmp) = * (s1->elems + tmp___0);
         }
         else
+        {
           if ((s1->elems + i)->index < (s2->elems + j)->index)
-        {
-          tmp___1 = m->nelem;
-          m->nelem++;
-          tmp___2 = j;
-          j++;
-          * (m->elems + tmp___1) = * (s2->elems + tmp___2);
-        }
-        else
-        {
-          tmp___3 = i;
-          i++;
-          * (m->elems + m->nelem) = * (s1->elems + tmp___3);
-          tmp___4 = m->nelem;
-          m->nelem++;
-          tmp___5 = j;
-          j++;
-          (m->elems + tmp___4)->constraint |= (s2->elems + tmp___5)->constraint;
-        }
+          {
+            tmp___1 = m->nelem;
+            m->nelem++;
+            tmp___2 = j;
+            j++;
+            * (m->elems + tmp___1) = * (s2->elems + tmp___2);
+          }
+          else
+          {
+            tmp___3 = i;
+            i++;
+            * (m->elems + m->nelem) = * (s1->elems + tmp___3);
+            tmp___4 = m->nelem;
+            m->nelem++;
+            tmp___5 = j;
+            j++;
+            (m->elems + tmp___4)->constraint |= (s2->elems + tmp___5)->constraint;
+          }
 
+        }
 
       }
 
@@ -23030,17 +23234,21 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
           goto __Cont;
         }
         else
+        {
           if (s->nelem != ((const size_t) (d->states + i)->elems.nelem))
-        {
-          goto __Cont;
-        }
-        else
-          if (context != ((int) (d->states + i)->context))
-        {
-          goto __Cont;
-        }
+          {
+            goto __Cont;
+          }
+          else
+          {
+            if (context != ((int) (d->states + i)->context))
+            {
+              goto __Cont;
+            }
 
+          }
 
+        }
 
         j = (state_num) 0;
         {
@@ -23059,11 +23267,13 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
               goto while_break___1;
             }
             else
-              if ((s->elems + j)->index != ((d->states + i)->elems.elems + j)->index)
             {
-              goto while_break___1;
-            }
+              if ((s->elems + j)->index != ((d->states + i)->elems.elems + j)->index)
+              {
+                goto while_break___1;
+              }
 
+            }
 
             j++;
           }
@@ -23131,12 +23341,14 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
 
         }
         else
-          if ((* (d->tokens + (s->elems + j)->index)) == 257L)
         {
-          (d->states + i)->constraint = (unsigned short) 1911;
-          (d->states + i)->has_backref = (_Bool) 1;
-        }
+          if ((* (d->tokens + (s->elems + j)->index)) == 257L)
+          {
+            (d->states + i)->constraint = (unsigned short) 1911;
+            (d->states + i)->has_backref = (_Bool) 1;
+          }
 
+        }
 
         j++;
       }
@@ -23671,45 +23883,53 @@ void dfaanalyze(struct dfa *d, int searchflag)
           }
         }
         else
+        {
           if ((* (d->tokens + i)) == 257L)
-        {
           {
-            copy((const position_set *) (d->follows + i), & merged);
-            epsclosure(& merged, (const struct dfa *) d, visited);
-            copy((const position_set *) (& merged), d->follows + i);
+            {
+              copy((const position_set *) (d->follows + i), & merged);
+              epsclosure(& merged, (const struct dfa *) d, visited);
+              copy((const position_set *) (& merged), d->follows + i);
+            }
           }
-        }
-        else
-          if ((* (d->tokens + i)) == 272L)
-        {
+          else
           {
-            copy((const position_set *) (d->follows + i), & merged);
-            epsclosure(& merged, (const struct dfa *) d, visited);
-            copy((const position_set *) (& merged), d->follows + i);
+            if ((* (d->tokens + i)) == 272L)
+            {
+              {
+                copy((const position_set *) (d->follows + i), & merged);
+                epsclosure(& merged, (const struct dfa *) d, visited);
+                copy((const position_set *) (& merged), d->follows + i);
+              }
+            }
+            else
+            {
+              if ((* (d->tokens + i)) == 273L)
+              {
+                {
+                  copy((const position_set *) (d->follows + i), & merged);
+                  epsclosure(& merged, (const struct dfa *) d, visited);
+                  copy((const position_set *) (& merged), d->follows + i);
+                }
+              }
+              else
+              {
+                if ((* (d->tokens + i)) >= 275L)
+                {
+                  {
+                    copy((const position_set *) (d->follows + i), & merged);
+                    epsclosure(& merged, (const struct dfa *) d, visited);
+                    copy((const position_set *) (& merged), d->follows + i);
+                  }
+                }
+
+              }
+
+            }
+
           }
+
         }
-        else
-          if ((* (d->tokens + i)) == 273L)
-        {
-          {
-            copy((const position_set *) (d->follows + i), & merged);
-            epsclosure(& merged, (const struct dfa *) d, visited);
-            copy((const position_set *) (& merged), d->follows + i);
-          }
-        }
-        else
-          if ((* (d->tokens + i)) >= 275L)
-        {
-          {
-            copy((const position_set *) (d->follows + i), & merged);
-            epsclosure(& merged, (const struct dfa *) d, visited);
-            copy((const position_set *) (& merged), d->follows + i);
-          }
-        }
-
-
-
-
 
         i++;
       }
@@ -23844,46 +24064,50 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
         }
         else
+        {
           _L___0:
-        if ((* (d->tokens + pos.index)) >= 275L)
-        {
+          if ((* (d->tokens + pos.index)) >= 275L)
           {
-            copyset((charclass_word *) (* (d->charclasses + ((* (d->tokens + pos.index)) - 275L))), matches);
-          }
-        }
-        else
-        {
-          if ((* (d->tokens + pos.index)) == 273L)
-          {
-            goto _L;
+            {
+              copyset((charclass_word *) (* (d->charclasses + ((* (d->tokens + pos.index)) - 275L))), matches);
+            }
           }
           else
-            if ((* (d->tokens + pos.index)) == 272L)
           {
-            _L:
             if ((* (d->tokens + pos.index)) == 273L)
             {
-              (d->states + s)->has_mbcset = (_Bool) 1;
+              goto _L;
             }
-
-
-            if ((d->states + s)->mbps.nelem == 0UL)
+            else
             {
+              if ((* (d->tokens + pos.index)) == 272L)
               {
-                alloc_position_set(& (d->states + s)->mbps, (size_t) 1);
+                _L:
+                if ((* (d->tokens + pos.index)) == 273L)
+                {
+                  (d->states + s)->has_mbcset = (_Bool) 1;
+                }
+
+
+                if ((d->states + s)->mbps.nelem == 0UL)
+                {
+                  {
+                    alloc_position_set(& (d->states + s)->mbps, (size_t) 1);
+                  }
+                }
+
+                {
+                  insert(pos, & (d->states + s)->mbps);
+                }
               }
+
             }
 
-            {
-              insert(pos, & (d->states + s)->mbps);
-            }
+            goto __Cont;
           }
 
 
-          goto __Cont;
         }
-
-
 
         if (pos.constraint != 1911U)
         {
@@ -24207,15 +24431,17 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
             * (trans___0 + i) = state_letter;
           }
           else
+          {
             if (i == 95UL)
-          {
-            * (trans___0 + i) = state_letter;
-          }
-          else
-          {
-            * (trans___0 + i) = state;
-          }
+            {
+              * (trans___0 + i) = state_letter;
+            }
+            else
+            {
+              * (trans___0 + i) = state;
+            }
 
+          }
 
           i++;
         }
@@ -24357,14 +24583,16 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
             }
           }
           else
-            if (! next_isnt_1st_byte)
           {
+            if (! next_isnt_1st_byte)
             {
-              merge((const position_set *) (& (d->states + 0)->elems), (const position_set *) (& follows), & tmp);
-              copy((const position_set *) (& tmp), & follows);
+              {
+                merge((const position_set *) (& (d->states + 0)->elems), (const position_set *) (& follows), & tmp);
+                copy((const position_set *) (& tmp), & follows);
+              }
             }
-          }
 
+          }
 
         }
 
@@ -24446,17 +24674,21 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
                       * (trans___0 + c) = state_letter;
                     }
                     else
+                    {
                       if (c == 95)
-                    {
-                      * (trans___0 + c) = state_letter;
-                    }
-                    else
-                      if (c < 256)
-                    {
-                      * (trans___0 + c) = state;
-                    }
+                      {
+                        * (trans___0 + c) = state_letter;
+                      }
+                      else
+                      {
+                        if (c < 256)
+                        {
+                          * (trans___0 + c) = state;
+                        }
 
+                      }
 
+                    }
 
                   }
 
@@ -24738,24 +24970,28 @@ static status_transit_state transit_state_singlebyte(struct dfa *d, state_num s,
 
         }
         else
+        {
           if (works < 0L)
-        {
-          works = (state_num) 0;
-        }
-        else
-          if (* (d->fails + works))
-        {
-          works = * ((* (d->fails + works)) + ((const int) (* p)));
-          rval = (status_transit_state) 1;
-        }
-        else
-        {
           {
-            build_state(works, d);
+            works = (state_num) 0;
           }
+          else
+          {
+            if (* (d->fails + works))
+            {
+              works = * ((* (d->fails + works)) + ((const int) (* p)));
+              rval = (status_transit_state) 1;
+            }
+            else
+            {
+              {
+                build_state(works, d);
+              }
+            }
+
+          }
+
         }
-
-
 
       }
 
@@ -24786,21 +25022,25 @@ static int match_anychar(struct dfa *d, state_num s, position pos, wint_t wc, si
 
     }
     else
-      if (wc == 0U)
     {
-      if (syntax_bits & (((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+      if (wc == 0U)
       {
-        return 0;
+        if (syntax_bits & (((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+        {
+          return 0;
+        }
+
+      }
+      else
+      {
+        if (wc == 4294967295U)
+        {
+          return 0;
+        }
+
       }
 
     }
-    else
-      if (wc == 4294967295U)
-    {
-      return 0;
-    }
-
-
 
     {
       context = wchar_context(wc);
@@ -24869,21 +25109,25 @@ static int match_mb_charset(struct dfa *d, state_num s, position pos, const char
 
     }
     else
-      if (wc == 0U)
     {
-      if (syntax_bits & (((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+      if (wc == 0U)
       {
-        return 0;
+        if (syntax_bits & (((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1))
+        {
+          return 0;
+        }
+
+      }
+      else
+      {
+        if (wc == 4294967295U)
+        {
+          return 0;
+        }
+
       }
 
     }
-    else
-      if (wc == 4294967295U)
-    {
-      return 0;
-    }
-
-
 
     {
       context = wchar_context(wc);
@@ -25339,21 +25583,23 @@ static state_num transit_state(struct dfa *d, state_num s, const unsigned char *
       goto _L;
     }
     else
-      if (maxlen == 0)
     {
-      _L:
+      if (maxlen == 0)
       {
-        rs = transit_state_singlebyte(d, s, * pp, & s1);
+        _L:
+        {
+          rs = transit_state_singlebyte(d, s, * pp, & s1);
+        }
+
+        if (((unsigned int) rs) == 1U)
+        {
+          (* pp)++;
+        }
+
+        return s1;
       }
 
-      if (((unsigned int) rs) == 1U)
-      {
-        (* pp)++;
-      }
-
-      return s1;
     }
-
 
     {
       d->mb_follows.nelem = (size_t) 0;
@@ -26049,17 +26295,21 @@ static void dfassbuild(struct dfa *d)
           i++;
         }
         else
+        {
           if ((* (d->tokens + (i + 1UL))) == 265L)
-        {
-          i++;
-        }
-        else
-          if ((* (d->tokens + (i + 1UL))) == 266L)
-        {
-          i++;
-        }
+          {
+            i++;
+          }
+          else
+          {
+            if ((* (d->tokens + (i + 1UL))) == 266L)
+            {
+              i++;
+            }
 
+          }
 
+        }
 
         have_achar = (_Bool) 1;
         goto switch_break;
@@ -26092,13 +26342,15 @@ static void dfassbuild(struct dfa *d)
 
         }
         else
-          _L:
-        if ((* (d->tokens + i)) >= 275L)
         {
-          have_nchar = (_Bool) 1;
+          _L:
+          if ((* (d->tokens + i)) >= 275L)
+          {
+            have_nchar = (_Bool) 1;
+          }
+
+
         }
-
-
 
         goto switch_break;
         switch_break:
@@ -26120,18 +26372,20 @@ static void dfassbuild(struct dfa *d)
         d->superset = sup;
       }
       else
+      {
         if (d->multibyte)
-      {
-        d->superset = sup;
-      }
-      else
-      {
         {
-          dfafree(sup);
-          free((void *) sup);
+          d->superset = sup;
         }
-      }
+        else
+        {
+          {
+            dfafree(sup);
+            free((void *) sup);
+          }
+        }
 
+      }
 
     }
     else
@@ -27187,23 +27441,36 @@ static void dfamust(struct dfa *d)
           goto _L;
         }
         else
-          if (lmp___0->begline)
         {
-          _L:
-          if (((int) (* (rmp___0->is + 0))) != 0)
+          if (lmp___0->begline)
           {
+            _L:
+            if (((int) (* (rmp___0->is + 0))) != 0)
             {
-              lmp___0->is = icatalloc(lmp___0->is, (const char *) rmp___0->is);
-              lmp___0->endline = rmp___0->endline;
+              {
+                lmp___0->is = icatalloc(lmp___0->is, (const char *) rmp___0->is);
+                lmp___0->endline = rmp___0->endline;
+              }
             }
-          }
-          else
-            if (rmp___0->endline)
-          {
+            else
             {
-              lmp___0->is = icatalloc(lmp___0->is, (const char *) rmp___0->is);
-              lmp___0->endline = rmp___0->endline;
+              if (rmp___0->endline)
+              {
+                {
+                  lmp___0->is = icatalloc(lmp___0->is, (const char *) rmp___0->is);
+                  lmp___0->endline = rmp___0->endline;
+                }
+              }
+              else
+              {
+                * (lmp___0->is + 0) = (char) '\000';
+                lmp___0->begline = (_Bool) 0;
+                lmp___0->endline = (_Bool) 0;
+              }
+
             }
+
+
           }
           else
           {
@@ -27212,16 +27479,7 @@ static void dfamust(struct dfa *d)
             lmp___0->endline = (_Bool) 0;
           }
 
-
-
         }
-        else
-        {
-          * (lmp___0->is + 0) = (char) '\000';
-          lmp___0->begline = (_Bool) 0;
-          lmp___0->endline = (_Bool) 0;
-        }
-
 
         {
           freemust(rmp___0);
@@ -27542,25 +27800,27 @@ char *mbtoupper(const char *beg, size_t *n, mb_len_map_t **len_map_p)
       goto _L;
     }
     else
-      if (outalloc == 0UL)
     {
-      _L:
-      if (1UL > (* n))
+      if (outalloc == 0UL)
       {
-        outalloc = (size_t) 1;
-      }
-      else
-      {
-        outalloc = * n;
-      }
+        _L:
+        if (1UL > (* n))
+        {
+          outalloc = (size_t) 1;
+        }
+        else
+        {
+          outalloc = * n;
+        }
 
 
-      {
-        out = (char *) xrealloc((void *) out, outalloc);
-        len_map = (mb_len_map_t *) xrealloc((void *) len_map, outalloc);
+        {
+          out = (char *) xrealloc((void *) out, outalloc);
+          len_map = (mb_len_map_t *) xrealloc((void *) len_map, outalloc);
+        }
       }
+
     }
-
 
     if (! out)
     {
@@ -27621,45 +27881,49 @@ char *mbtoupper(const char *beg, size_t *n, mb_len_map_t **len_map_p)
           goto _L___0;
         }
         else
+        {
           if (mbclen == 0xfffffffffffffffeUL)
-        {
-          goto _L___0;
-        }
-        else
-          if (mbclen == 0UL)
-        {
-          _L___0:
           {
-            tmp___0 = m;
-            m++;
-            * tmp___0 = (mb_len_map_t) 0;
-            tmp___1 = p;
-            p++;
-            tmp___2 = beg;
-            beg++;
-            * tmp___1 = (char) (* tmp___2);
-            outlen++;
-            memset((void *) (& is), 0, sizeof(is));
-            memset((void *) (& os), 0, sizeof(os));
+            goto _L___0;
+          }
+          else
+          {
+            if (mbclen == 0UL)
+            {
+              _L___0:
+              {
+                tmp___0 = m;
+                m++;
+                * tmp___0 = (mb_len_map_t) 0;
+                tmp___1 = p;
+                p++;
+                tmp___2 = beg;
+                beg++;
+                * tmp___1 = (char) (* tmp___2);
+                outlen++;
+                memset((void *) (& is), 0, sizeof(is));
+                memset((void *) (& os), 0, sizeof(os));
+              }
+
+            }
+            else
+            {
+              {
+                beg += mbclen;
+                tmp___3 = towupper((wint_t) wc);
+                ombclen = wcrtomb((char *) p, (wchar_t) tmp___3, (mbstate_t *) (& os));
+                * m = (mb_len_map_t) (mbclen - ombclen);
+                memset((void *) (m + 1), 0, ombclen - 1UL);
+                m += ombclen;
+                p += ombclen;
+                outlen += ombclen;
+                lengths_differ = (_Bool) (((int) lengths_differ) | (mbclen != ombclen));
+              }
+            }
+
           }
 
         }
-        else
-        {
-          {
-            beg += mbclen;
-            tmp___3 = towupper((wint_t) wc);
-            ombclen = wcrtomb((char *) p, (wchar_t) tmp___3, (mbstate_t *) (& os));
-            * m = (mb_len_map_t) (mbclen - ombclen);
-            memset((void *) (m + 1), 0, ombclen - 1UL);
-            m += ombclen;
-            p += ombclen;
-            outlen += ombclen;
-            lengths_differ = (_Bool) (((int) lengths_differ) | (mbclen != ombclen));
-          }
-        }
-
-
 
       }
 
@@ -28007,27 +28271,33 @@ static int is_device_mode(mode_t m)
       tmp = 1;
     }
     else
+    {
       if ((m & 61440U) == 24576U)
-    {
-      tmp = 1;
-    }
-    else
-      if ((m & 61440U) == 49152U)
-    {
-      tmp = 1;
-    }
-    else
-      if ((m & 61440U) == 4096U)
-    {
-      tmp = 1;
-    }
-    else
-    {
-      tmp = 0;
-    }
+      {
+        tmp = 1;
+      }
+      else
+      {
+        if ((m & 61440U) == 49152U)
+        {
+          tmp = 1;
+        }
+        else
+        {
+          if ((m & 61440U) == 4096U)
+          {
+            tmp = 1;
+          }
+          else
+          {
+            tmp = 0;
+          }
 
+        }
 
+      }
 
+    }
 
     return tmp;
   }
@@ -28042,15 +28312,17 @@ static int usable_st_size(const struct stat *st)
       tmp = 1;
     }
     else
+    {
       if (st->st_mode - st->st_mode)
-    {
-      tmp = 1;
-    }
-    else
-    {
-      tmp = 0;
-    }
+      {
+        tmp = 1;
+      }
+      else
+      {
+        tmp = 0;
+      }
 
+    }
 
     return tmp;
   }
@@ -28218,42 +28490,46 @@ static int skipped_file(const char *name, int command_line, int is_dir)
         tmp___0 = 1;
       }
       else
+      {
         if (command_line)
-      {
-        if (filename_prefix_len != 0UL)
         {
-          tmp___0 = 0;
+          if (filename_prefix_len != 0UL)
+          {
+            tmp___0 = 0;
+          }
+          else
+          {
+            goto _L;
+          }
+
         }
         else
         {
-          goto _L;
+          _L:
+          if (excluded_directory_patterns)
+          {
+            {
+              tmp = excluded_file_name((const struct exclude *) excluded_directory_patterns, name);
+            }
+            if (tmp)
+            {
+              tmp___0 = 1;
+            }
+            else
+            {
+              tmp___0 = 0;
+            }
+
+          }
+          else
+          {
+            tmp___0 = 0;
+          }
+
+
         }
 
       }
-      else
-        _L:
-      if (excluded_directory_patterns)
-      {
-        {
-          tmp = excluded_file_name((const struct exclude *) excluded_directory_patterns, name);
-        }
-        if (tmp)
-        {
-          tmp___0 = 1;
-        }
-        else
-        {
-          tmp___0 = 0;
-        }
-
-      }
-      else
-      {
-        tmp___0 = 0;
-      }
-
-
-
 
       tmp___3 = tmp___0;
     }
@@ -28313,13 +28589,15 @@ static int reset(int fd, const struct stat *st)
         }
       }
       else
-        if (((2UL * pagesize) + 1UL) <= pagesize)
       {
+        if (((2UL * pagesize) + 1UL) <= pagesize)
         {
-          abort();
+          {
+            abort();
+          }
         }
-      }
 
+      }
 
       if ((32768UL % pagesize) == 0UL)
       {
@@ -28422,13 +28700,15 @@ static int fillbuf(size_t save, const struct stat *st)
             }
           }
           else
-            if ((((newsize * 2UL) + pagesize) + 1UL) < (newsize * 2UL))
           {
+            if ((((newsize * 2UL) + pagesize) + 1UL) < (newsize * 2UL))
             {
-              xalloc_die();
+              {
+                xalloc_die();
+              }
             }
-          }
 
+          }
 
           newsize *= 2UL;
         }
@@ -28737,11 +29017,13 @@ static off_t dossified_pos(off_t byteno)
       return byteno;
     }
     else
-      if (dos_report_unix_offset)
     {
-      return byteno;
-    }
+      if (dos_report_unix_offset)
+      {
+        return byteno;
+      }
 
+    }
 
     pos_lo = (dos_pos_map + (out_map_idx - 1))->pos;
     pos_hi = (dos_pos_map + out_map_idx)->pos;
@@ -28779,40 +29061,42 @@ static off_t dossified_pos(off_t byteno)
 
     }
     else
-      if (byteno < pos_lo)
     {
-      out_map_idx--;
+      if (byteno < pos_lo)
       {
-        while (1)
+        out_map_idx--;
         {
-          while_continue___0:
-          ;
-
-          if (out_map_idx > 1)
+          while (1)
           {
-            if (! (byteno < (dos_pos_map + (out_map_idx - 1))->pos))
+            while_continue___0:
+            ;
+
+            if (out_map_idx > 1)
+            {
+              if (! (byteno < (dos_pos_map + (out_map_idx - 1))->pos))
+              {
+                goto while_break___0;
+              }
+
+            }
+            else
             {
               goto while_break___0;
             }
 
-          }
-          else
-          {
-            goto while_break___0;
+            out_map_idx--;
           }
 
-          out_map_idx--;
+          while_break___2:
+          ;
+
         }
-
-        while_break___2:
+        while_break___0:
         ;
 
       }
-      while_break___0:
-      ;
 
     }
-
 
     return byteno + (dos_pos_map + out_map_idx)->add;
   }
@@ -29169,11 +29453,13 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
       cur = lim;
     }
     else
-      if (mid)
     {
-      cur = mid;
-    }
+      if (mid)
+      {
+        cur = mid;
+      }
 
+    }
 
     return cur;
   }
@@ -29312,44 +29598,52 @@ static void prline(const char *beg, const char *lim, int sep)
 
     }
     else
-      _L___1:
-    if (color_option)
     {
-      if (* line_color)
+      _L___1:
+      if (color_option)
       {
-        goto _L___0;
-      }
-      else
-        if (* match_color)
-      {
-        _L___0:
-        if (matching)
+        if (* line_color)
         {
-          if (only_matching)
-          {
-            {
-              beg = print_line_middle(beg, lim, line_color, match_color);
-            }
-          }
-          else
-            if (* match_color)
-          {
-            {
-              beg = print_line_middle(beg, lim, line_color, match_color);
-            }
-          }
-
-
+          goto _L___0;
         }
-
-
-        if (! only_matching)
+        else
         {
-          if (* line_color)
+          if (* match_color)
           {
+            _L___0:
+            if (matching)
             {
-              beg = print_line_tail(beg, lim, line_color);
+              if (only_matching)
+              {
+                {
+                  beg = print_line_middle(beg, lim, line_color, match_color);
+                }
+              }
+              else
+              {
+                if (* match_color)
+                {
+                  {
+                    beg = print_line_middle(beg, lim, line_color, match_color);
+                  }
+                }
+
+              }
+
             }
+
+
+            if (! only_matching)
+            {
+              if (* line_color)
+              {
+                {
+                  beg = print_line_tail(beg, lim, line_color);
+                }
+              }
+
+            }
+
           }
 
         }
@@ -29358,8 +29652,6 @@ static void prline(const char *beg, const char *lim, int sep)
 
 
     }
-
-
 
     if (! only_matching)
     {
@@ -29560,30 +29852,32 @@ static void prtext(const char *beg, const char *lim)
         goto _L;
       }
       else
-        if (0L <= out_after)
       {
-        _L:
-        if (used)
+        if (0L <= out_after)
         {
-          if (((unsigned long) p) != ((unsigned long) lastout))
+          _L:
+          if (used)
           {
-            if (group_separator)
+            if (((unsigned long) p) != ((unsigned long) lastout))
             {
+              if (group_separator)
               {
-                pr_sgr_start_if(sep_color);
-                fputs_unlocked((const char *) group_separator, (FILE *) stdout);
-                pr_sgr_end_if(sep_color);
-                fputc_unlocked('\n', stdout);
+                {
+                  pr_sgr_start_if(sep_color);
+                  fputs_unlocked((const char *) group_separator, (FILE *) stdout);
+                  pr_sgr_end_if(sep_color);
+                  fputc_unlocked('\n', stdout);
+                }
               }
+
             }
 
           }
 
+
         }
 
-
       }
-
 
       {
         while (1)
@@ -29704,22 +29998,35 @@ static size_t do_execute(const char *buf, size_t size, size_t *match_size, const
       goto _L;
     }
     else
-      if (((unsigned long) execute) == ((unsigned long) (& Pexecute)))
     {
-      _L:
+      if (((unsigned long) execute) == ((unsigned long) (& Pexecute)))
       {
-        tmp___0 = __ctype_get_mb_cur_max();
-      }
-
-      if (tmp___0 == 1UL)
-      {
+        _L:
         {
-          tmp = (* execute)(buf, size, match_size, start_ptr);
+          tmp___0 = __ctype_get_mb_cur_max();
         }
-        return tmp;
+
+        if (tmp___0 == 1UL)
+        {
+          {
+            tmp = (* execute)(buf, size, match_size, start_ptr);
+          }
+          return tmp;
+        }
+        else
+        {
+          if (! match_icase)
+          {
+            {
+              tmp = (* execute)(buf, size, match_size, start_ptr);
+            }
+            return tmp;
+          }
+
+        }
+
       }
       else
-        if (! match_icase)
       {
         {
           tmp = (* execute)(buf, size, match_size, start_ptr);
@@ -29727,16 +30034,7 @@ static size_t do_execute(const char *buf, size_t size, size_t *match_size, const
         return tmp;
       }
 
-
     }
-    else
-    {
-      {
-        tmp = (* execute)(buf, size, match_size, start_ptr);
-      }
-      return tmp;
-    }
-
 
     line_next = buf;
     {
@@ -29856,55 +30154,59 @@ static intmax_t grepbuf(const char *beg, const char *lim)
           goto _L___0;
         }
         else
-          if (((unsigned long) p) < ((unsigned long) b))
         {
-          _L___0:
-          if (out_invert)
+          if (((unsigned long) p) < ((unsigned long) b))
           {
-            tmp___0 = p;
-          }
-          else
-          {
-            tmp___0 = b;
-          }
-
-
-          prbeg = tmp___0;
-          if (out_invert)
-          {
-            tmp___1 = b;
-          }
-          else
-          {
-            tmp___1 = endp;
-          }
-
-          {
-            prend = tmp___1;
-            prtext(prbeg, prend);
-          }
-          if (! outleft)
-          {
-            goto _L;
-          }
-          else
-            if (done_on_match)
-          {
-            _L:
-            if (exit_on_match)
+            _L___0:
+            if (out_invert)
             {
-              {
-                exit(0);
-              }
+              tmp___0 = p;
+            }
+            else
+            {
+              tmp___0 = b;
             }
 
 
-            goto while_break;
+            prbeg = tmp___0;
+            if (out_invert)
+            {
+              tmp___1 = b;
+            }
+            else
+            {
+              tmp___1 = endp;
+            }
+
+            {
+              prend = tmp___1;
+              prtext(prbeg, prend);
+            }
+            if (! outleft)
+            {
+              goto _L;
+            }
+            else
+            {
+              if (done_on_match)
+              {
+                _L:
+                if (exit_on_match)
+                {
+                  {
+                    exit(0);
+                  }
+                }
+
+
+                goto while_break;
+              }
+
+            }
+
           }
 
-
         }
-
 
         p = endp;
       }
@@ -29987,30 +30289,32 @@ static intmax_t grep(int fd, const struct stat *st)
 
     }
     else
-      _L___0:
-    if (((unsigned int) binary_files) == 2U)
     {
-      _L:
+      _L___0:
+      if (((unsigned int) binary_files) == 2U)
       {
-        tmp___2 = file_is_binary((const char *) bufbeg, (size_t) (buflim - bufbeg), fd, st);
-      }
+        _L:
+        {
+          tmp___2 = file_is_binary((const char *) bufbeg, (size_t) (buflim - bufbeg), fd, st);
+        }
 
-      if (tmp___2)
-      {
-        tmp___3 = 1;
+        if (tmp___2)
+        {
+          tmp___3 = 1;
+        }
+        else
+        {
+          tmp___3 = 0;
+        }
+
       }
       else
       {
         tmp___3 = 0;
       }
 
-    }
-    else
-    {
-      tmp___3 = 0;
-    }
 
-
+    }
 
     not_text = tmp___3;
     if (not_text)
@@ -30086,17 +30390,19 @@ static intmax_t grep(int fd, const struct stat *st)
 
           }
           else
-            _L___1:
-          if (nlines)
           {
-            if (done_on_match)
+            _L___1:
+            if (nlines)
             {
-              goto finish_grep;
+              if (done_on_match)
+              {
+                goto finish_grep;
+              }
+
             }
 
+
           }
-
-
 
         }
 
@@ -30285,21 +30591,25 @@ static int grepdirent(FTS *fts, FTSENT *ent, int command_line)
       tmp = 1;
     }
     else
+    {
       if (((int) ent->fts_info) == 2)
-    {
-      tmp = 1;
-    }
-    else
-      if (((int) ent->fts_info) == 4)
-    {
-      tmp = 1;
-    }
-    else
-    {
-      tmp = 0;
-    }
+      {
+        tmp = 1;
+      }
+      else
+      {
+        if (((int) ent->fts_info) == 4)
+        {
+          tmp = 1;
+        }
+        else
+        {
+          tmp = 0;
+        }
 
+      }
 
+    }
 
     {
       tmp___0 = skipped_file((const char *) ent->fts_name, command_line, tmp);
@@ -30318,11 +30628,18 @@ static int grepdirent(FTS *fts, FTSENT *ent, int command_line)
       tmp___1 = 1;
     }
     else
-      if (fts->fts_options & 1)
     {
-      if (command_line)
+      if (fts->fts_options & 1)
       {
-        tmp___1 = 1;
+        if (command_line)
+        {
+          tmp___1 = 1;
+        }
+        else
+        {
+          tmp___1 = 0;
+        }
+
       }
       else
       {
@@ -30330,11 +30647,6 @@ static int grepdirent(FTS *fts, FTSENT *ent, int command_line)
       }
 
     }
-    else
-    {
-      tmp___1 = 0;
-    }
-
 
     follow = tmp___1;
     if (((int) ent->fts_info) == 1)
@@ -30429,51 +30741,53 @@ static int grepdirent(FTS *fts, FTSENT *ent, int command_line)
       goto _L;
     }
     else
-      if (((unsigned int) devices) == 0U)
     {
-      if (! command_line)
+      if (((unsigned int) devices) == 0U)
       {
-        _L:
-        if (! st->st_mode)
+        if (! command_line)
         {
-          if (follow)
+          _L:
+          if (! st->st_mode)
           {
-            tmp___4 = 0;
-          }
-          else
-          {
-            tmp___4 = 256;
+            if (follow)
+            {
+              tmp___4 = 0;
+            }
+            else
+            {
+              tmp___4 = 256;
+            }
+
+            {
+              flag = tmp___4;
+              tmp___6 = fstatat(fts->fts_cwd_fd, (const char *) ((const char *) ent->fts_accpath), (struct stat *) (& st1), flag);
+            }
+            if (tmp___6 != 0)
+            {
+              {
+                tmp___5 = __errno_location();
+                suppressible_error(filename, * tmp___5);
+              }
+              return 1;
+            }
+
+            st = & st1;
           }
 
+
           {
-            flag = tmp___4;
-            tmp___6 = fstatat(fts->fts_cwd_fd, (const char *) ((const char *) ent->fts_accpath), (struct stat *) (& st1), flag);
+            tmp___7 = is_device_mode(st->st_mode);
           }
-          if (tmp___6 != 0)
+          if (tmp___7)
           {
-            {
-              tmp___5 = __errno_location();
-              suppressible_error(filename, * tmp___5);
-            }
             return 1;
           }
 
-          st = & st1;
-        }
-
-
-        {
-          tmp___7 = is_device_mode(st->st_mode);
-        }
-        if (tmp___7)
-        {
-          return 1;
         }
 
       }
 
     }
-
 
 
     goto switch_break;
@@ -30743,32 +31057,36 @@ static int grepdesc(int desc, int command_line)
 
       }
       else
+      {
         _L___0:
-      if (((unsigned int) devices) == 2U)
-      {
-        goto _L;
-      }
-      else
-        if (((unsigned int) devices) == 0U)
-      {
-        if (! command_line)
+        if (((unsigned int) devices) == 2U)
         {
-          _L:
+          goto _L;
+        }
+        else
+        {
+          if (((unsigned int) devices) == 0U)
           {
-            tmp___10 = is_device_mode(st.st_mode);
-          }
+            if (! command_line)
+            {
+              _L:
+              {
+                tmp___10 = is_device_mode(st.st_mode);
+              }
 
-          if (tmp___10)
-          {
-            goto closeout;
+              if (tmp___10)
+              {
+                goto closeout;
+              }
+
+            }
+
           }
 
         }
 
+
       }
-
-
-
 
     }
 
@@ -31436,15 +31754,17 @@ static int get_nondigit_option(int argc, char *const *argv, intmax_t *default_co
           p = buf;
         }
         else
+        {
           if (! was_digit)
-        {
-          p = buf;
-        }
-        else
-        {
-          p -= ((int) buf[0]) == 48;
-        }
+          {
+            p = buf;
+          }
+          else
+          {
+            p -= ((int) buf[0]) == 48;
+          }
 
+        }
 
         if (((unsigned long) p) == ((unsigned long) ((buf + (sizeof(buf))) - 4)))
         {
@@ -31503,11 +31823,13 @@ static void parse_grep_colors(void)
       return;
     }
     else
-      if (((const int) (* p)) == 0)
     {
-      return;
-    }
+      if (((const int) (* p)) == 0)
+      {
+        return;
+      }
 
+    }
 
     {
       q = xstrdup(p);
@@ -31525,119 +31847,131 @@ static void parse_grep_colors(void)
           goto _L;
         }
         else
-          if (((int) (* q)) == 0)
         {
-          _L:
-          c = * q;
-
-          tmp = q;
-          q++;
-          * tmp = (char) '\000';
-          cap = color_dict;
+          if (((int) (* q)) == 0)
           {
-            while (1)
+            _L:
+            c = * q;
+
+            tmp = q;
+            q++;
+            * tmp = (char) '\000';
+            cap = color_dict;
             {
-              while_continue___0:
+              while (1)
+              {
+                while_continue___0:
+                ;
+
+                if (! cap->name)
+                {
+                  goto while_break___0;
+                }
+
+                {
+                  tmp___0 = strcmp((const char *) cap->name, (const char *) name);
+                }
+                if (tmp___0 == 0)
+                {
+                  goto while_break___0;
+                }
+
+                cap++;
+              }
+
+              while_break___1:
               ;
 
-              if (! cap->name)
-              {
-                goto while_break___0;
-              }
-
-              {
-                tmp___0 = strcmp((const char *) cap->name, (const char *) name);
-              }
-              if (tmp___0 == 0)
-              {
-                goto while_break___0;
-              }
-
-              cap++;
             }
-
-            while_break___1:
+            while_break___0:
             ;
 
-          }
-          while_break___0:
-          ;
-
-          if (cap->var)
-          {
-            if (val)
+            if (cap->var)
             {
-              * cap->var = (const char *) val;
+              if (val)
+              {
+                * cap->var = (const char *) val;
+              }
+
+            }
+
+            if (cap->fct)
+            {
+              {
+                (* cap->fct)();
+              }
+            }
+
+            if (((int) c) == 0)
+            {
+              return;
+            }
+
+            name = q;
+            val = (char *) ((void *) 0);
+          }
+          else
+          {
+            if (((int) (* q)) == 61)
+            {
+              if (((unsigned long) q) == ((unsigned long) name))
+              {
+                return;
+              }
+              else
+              {
+                if (val)
+                {
+                  return;
+                }
+
+              }
+
+              tmp___1 = q;
+              q++;
+              * tmp___1 = (char) '\000';
+              val = q;
+            }
+            else
+            {
+              if (((unsigned long) val) == ((unsigned long) ((void *) 0)))
+              {
+                q++;
+              }
+              else
+              {
+                if (((int) (* q)) == 59)
+                {
+                  q++;
+                }
+                else
+                {
+                  if (((int) (* q)) >= 48)
+                  {
+                    if (((int) (* q)) <= 57)
+                    {
+                      q++;
+                    }
+                    else
+                    {
+                      return;
+                    }
+
+                  }
+                  else
+                  {
+                    return;
+                  }
+
+                }
+
+              }
+
             }
 
           }
 
-          if (cap->fct)
-          {
-            {
-              (* cap->fct)();
-            }
-          }
-
-          if (((int) c) == 0)
-          {
-            return;
-          }
-
-          name = q;
-          val = (char *) ((void *) 0);
         }
-        else
-          if (((int) (* q)) == 61)
-        {
-          if (((unsigned long) q) == ((unsigned long) name))
-          {
-            return;
-          }
-          else
-            if (val)
-          {
-            return;
-          }
-
-
-          tmp___1 = q;
-          q++;
-          * tmp___1 = (char) '\000';
-          val = q;
-        }
-        else
-          if (((unsigned long) val) == ((unsigned long) ((void *) 0)))
-        {
-          q++;
-        }
-        else
-          if (((int) (* q)) == 59)
-        {
-          q++;
-        }
-        else
-          if (((int) (* q)) >= 48)
-        {
-          if (((int) (* q)) <= 57)
-          {
-            q++;
-          }
-          else
-          {
-            return;
-          }
-
-        }
-        else
-        {
-          return;
-        }
-
-
-
-
-
 
       }
 
@@ -32859,22 +33193,24 @@ int main(int argc, char **argv)
 
     }
     else
+    {
       if (optind < argc)
-    {
       {
-        keycc = strlen((const char *) (* (argv + optind)));
-        tmp___37 = optind;
-        optind++;
-        keys = (char *) xmemdup((const void *) (* (argv + tmp___37)), keycc + 1UL);
+        {
+          keycc = strlen((const char *) (* (argv + optind)));
+          tmp___37 = optind;
+          optind++;
+          keys = (char *) xmemdup((const void *) (* (argv + tmp___37)), keycc + 1UL);
+        }
       }
-    }
-    else
-    {
+      else
       {
-        usage(2);
+        {
+          usage(2);
+        }
       }
-    }
 
+    }
 
     if (((unsigned long) compile) == ((unsigned long) (& Fcompile)))
     {
@@ -32940,13 +33276,15 @@ int main(int argc, char **argv)
 
     }
     else
-      _L___0:
-    if (with_filenames)
     {
-      out_file = 1;
+      _L___0:
+      if (with_filenames)
+      {
+        out_file = 1;
+      }
+
+
     }
-
-
 
     {
       tmp___41 = isatty(1);
@@ -33004,14 +33342,23 @@ int main(int argc, char **argv)
 
     }
     else
-      if (((unsigned int) directories) == 3U)
     {
-      if (prepended < last_recursive)
+      if (((unsigned int) directories) == 3U)
       {
+        if (prepended < last_recursive)
         {
-          filename_prefix_len = (size_t) 2;
-          status = grep_command_line_arg(".");
+          {
+            filename_prefix_len = (size_t) 2;
+            status = grep_command_line_arg(".");
+          }
         }
+        else
+        {
+          {
+            status = grep_command_line_arg("-");
+          }
+        }
+
       }
       else
       {
@@ -33021,13 +33368,6 @@ int main(int argc, char **argv)
       }
 
     }
-    else
-    {
-      {
-        status = grep_command_line_arg("-");
-      }
-    }
-
 
     if (errseen)
     {

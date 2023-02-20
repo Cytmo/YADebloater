@@ -1449,7 +1449,7 @@ void version_etc_arn(FILE *stream, const char *command_name, const char *package
     {
       tmp = gettext("(C)");
       fprintf((FILE *) stream, (const char *) version_etc_copyright, tmp, 2014);
-      tmp___0 = gettext("\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\n");
+      tmp___0 = gettext("\nLicense GPLv3+: GNU GPL version 3 or later <http:gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\n");
       fputs_unlocked((const char *) ((const char *) tmp___0), (FILE *) stream);
     }
     if (n_authors == 0UL)
@@ -13824,7 +13824,7 @@ void close_stdout(void)
       }
       else
       {
-        _L:
+        _L:;
         {
           tmp = (const char *) gettext("write error");
           write_error = tmp;
@@ -13906,7 +13906,7 @@ int close_stream(FILE *stream)
           }
           if ((* tmp___3) != 9)
           {
-            _L___0:
+            _L___0:;
             if (! fclose_fail)
             {
               {
@@ -15706,13 +15706,13 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
             }
             else
             {
-              _L___0:
+              _L___0:;
               if (((unsigned int) dirs[depth___0]) == 1U)
               {
                 links[depth___0]->balance = (char) (((int) links[depth___0]->balance) + 1);
                 if (links[depth___0]->balance)
                 {
-                  _L:
+                  _L:;
                   if (((int) links[depth___0]->balance) == (- 2))
                   {
                     goto case_neg_2;
@@ -15725,7 +15725,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   }
 
                   goto switch_default___1;
-                  case_neg_2:
+                  case_neg_2:;
                   if (((unsigned int) dirs[depth___0 + 1]) == 0U)
                   {
                     goto case_0;
@@ -15738,7 +15738,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   }
 
                   goto switch_default;
-                  case_0:
+                  case_0:;
                   r = links[depth___0];
 
                   t = r->llink;
@@ -15749,7 +15749,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   r->balance = tmp___6;
                   t->balance = tmp___6;
                   goto switch_break___0;
-                  case_1:
+                  case_1:;
                   r = links[depth___0];
 
                   l = r->llink;
@@ -15780,16 +15780,16 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
                   t->balance = (char) 0;
                   goto switch_break___0;
-                  switch_default:
+                  switch_default:;
                   {
                     abort();
                   }
 
-                  switch_break___0:
+                  switch_break___0:;
                   ;
 
                   goto switch_break;
-                  case_2:
+                  case_2:;
                   if (((unsigned int) dirs[depth___0 + 1]) == 1U)
                   {
                     goto case_1___0;
@@ -15802,7 +15802,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   }
 
                   goto switch_default___0;
-                  case_1___0:
+                  case_1___0:;
                   l = links[depth___0];
 
                   t = l->rlink;
@@ -15813,7 +15813,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   l->balance = tmp___7;
                   t->balance = tmp___7;
                   goto switch_break___1;
-                  case_0___0:
+                  case_0___0:;
                   l = links[depth___0];
 
                   r = l->rlink;
@@ -15844,21 +15844,21 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
                   t->balance = (char) 0;
                   goto switch_break___1;
-                  switch_default___0:
+                  switch_default___0:;
                   {
                     abort();
                   }
 
-                  switch_break___1:
+                  switch_break___1:;
                   ;
 
                   goto switch_break;
-                  switch_default___1:
+                  switch_default___1:;
                   {
                     abort();
                   }
 
-                  switch_break:
+                  switch_break:;
                   ;
 
                   if (((unsigned int) dirs[depth___0 - 1]) == 0U)
@@ -16760,7 +16760,7 @@ static const char *memchr_kwset(const char *s, size_t n, kwset_t kwset___1)
       ;
 
     }
-    while_break:
+    while_break:;
     n -= ntrans;
 
     if (n == 0UL)
@@ -18259,7 +18259,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                 }
                 else
                 {
-                  _L:
+                  _L:;
                   if (match_lines)
                   {
                     if (len == ((size_t) ((end - ptr) - 1L)))
@@ -19565,7 +19565,7 @@ static token parse_bracket_exp(void)
           }
           else
           {
-            _L___1:
+            _L___1:;
             if (c1 == 46)
             {
               goto _L___0;
@@ -19574,19 +19574,19 @@ static token parse_bracket_exp(void)
             {
               if (c1 == 61)
               {
-                _L___0:
+                _L___0:;
                 len = (size_t) 0;
 
                 {
                   while (1)
                   {
-                    while_continue___3:
+                    while_continue___3:;
                     ;
 
                     {
                       while (1)
                       {
-                        while_continue___4:
+                        while_continue___4:;
                         ;
 
                         if (! lexleft)
@@ -19635,11 +19635,11 @@ static token parse_bracket_exp(void)
                         goto while_break___4;
                       }
 
-                      while_break___21:
+                      while_break___21:;
                       ;
 
                     }
-                    while_break___4:
+                    while_break___4:;
                     ;
 
                     if (c == c1)
@@ -19656,7 +19656,7 @@ static token parse_bracket_exp(void)
                     }
                     else
                     {
-                      _L:
+                      _L:;
                       if (lexleft == 0UL)
                       {
                         goto while_break___3;
@@ -19678,17 +19678,17 @@ static token parse_bracket_exp(void)
 
                   }
 
-                  while_break___20:
+                  while_break___20:;
                   ;
 
                 }
-                while_break___3:
+                while_break___3:;
                 str[len] = (char) '\000';
 
                 {
                   while (1)
                   {
-                    while_continue___5:
+                    while_continue___5:;
                     ;
 
                     if (! lexleft)
@@ -19737,11 +19737,11 @@ static token parse_bracket_exp(void)
                     goto while_break___5;
                   }
 
-                  while_break___22:
+                  while_break___22:;
                   ;
 
                 }
-                while_break___5:
+                while_break___5:;
                 ;
 
                 if (c1 == 58)
@@ -19810,7 +19810,7 @@ static token parse_bracket_exp(void)
                   {
                     while (1)
                     {
-                      while_continue___6:
+                      while_continue___6:;
                       ;
 
                       if (! (c2 < 256))
@@ -19831,11 +19831,11 @@ static token parse_bracket_exp(void)
                       c2++;
                     }
 
-                    while_break___23:
+                    while_break___23:;
                     ;
 
                   }
-                  while_break___6:
+                  while_break___6:;
                   ;
 
                 }
@@ -19848,7 +19848,7 @@ static token parse_bracket_exp(void)
                 {
                   while (1)
                   {
-                    while_continue___7:
+                    while_continue___7:;
                     ;
 
                     if (! lexleft)
@@ -19897,11 +19897,11 @@ static token parse_bracket_exp(void)
                     goto while_break___7;
                   }
 
-                  while_break___24:
+                  while_break___24:;
                   ;
 
                 }
-                while_break___7:
+                while_break___7:;
                 ;
 
                 goto __Cont;
@@ -19921,7 +19921,7 @@ static token parse_bracket_exp(void)
             {
               while (1)
               {
-                while_continue___8:
+                while_continue___8:;
                 ;
 
                 if (! lexleft)
@@ -19970,11 +19970,11 @@ static token parse_bracket_exp(void)
                 goto while_break___8;
               }
 
-              while_break___25:
+              while_break___25:;
               ;
 
             }
-            while_break___8:
+            while_break___8:;
             ;
 
           }
@@ -20124,7 +20124,7 @@ static token parse_bracket_exp(void)
                 {
                   while (1)
                   {
-                    while_continue___11:
+                    while_continue___11:;
                     ;
 
                     if (! lexleft)
@@ -20173,11 +20173,11 @@ static token parse_bracket_exp(void)
                     goto while_break___11;
                   }
 
-                  while_break___28:
+                  while_break___28:;
                   ;
 
                 }
-                while_break___11:
+                while_break___11:;
                 ;
 
               }
@@ -20268,7 +20268,7 @@ static token parse_bracket_exp(void)
                 {
                   while (1)
                   {
-                    while_continue___12:
+                    while_continue___12:;
                     ;
 
                     if (! (c1 <= c2))
@@ -20282,11 +20282,11 @@ static token parse_bracket_exp(void)
                     }
                   }
 
-                  while_break___29:
+                  while_break___29:;
                   ;
 
                 }
-                while_break___12:
+                while_break___12:;
                 ;
 
                 if (case_fold)
@@ -20301,7 +20301,7 @@ static token parse_bracket_exp(void)
                   {
                     while (1)
                     {
-                      while_continue___13:
+                      while_continue___13:;
                       ;
 
                       if (! (c1 < 256))
@@ -20327,11 +20327,11 @@ static token parse_bracket_exp(void)
                       c1++;
                     }
 
-                    while_break___30:
+                    while_break___30:;
                     ;
 
                   }
-                  while_break___13:
+                  while_break___13:;
                   ;
 
                 }
@@ -21067,7 +21067,7 @@ static token lex(void)
 
 
         goto normal_char;
-        case_96:
+        case_96:;
         if (backslash)
         {
           if (! (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
@@ -21093,7 +21093,7 @@ static token lex(void)
 
 
         goto normal_char;
-        case_60:
+        case_60:;
         if (backslash)
         {
           if (! (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
@@ -21106,7 +21106,7 @@ static token lex(void)
 
 
         goto normal_char;
-        case_62:
+        case_62:;
         if (backslash)
         {
           if (! (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
@@ -21119,7 +21119,7 @@ static token lex(void)
 
 
         goto normal_char;
-        case_98:
+        case_98:;
         if (backslash)
         {
           if (! (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
@@ -21132,7 +21132,7 @@ static token lex(void)
 
 
         goto normal_char;
-        case_66:
+        case_66:;
         if (backslash)
         {
           if (! (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
@@ -21209,7 +21209,7 @@ static token lex(void)
 
         lasttok = (token) 266;
         return lasttok;
-        case_123:
+        case_123:;
         if (! (syntax_bits & (((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
         {
           goto normal_char;
@@ -21296,7 +21296,7 @@ static token lex(void)
             {
               while (1)
               {
-                while_continue___2:
+                while_continue___2:;
                 ;
 
                 p++;
@@ -21332,11 +21332,11 @@ static token lex(void)
 
               }
 
-              while_break___9:
+              while_break___9:;
               ;
 
             }
-            while_break___2:
+            while_break___2:;
             ;
 
           }
@@ -21355,7 +21355,7 @@ static token lex(void)
             p++;
             if (((const int) (* tmp___9)) == 92)
             {
-              _L___3:
+              _L___3:;
               if (((unsigned long) p) != ((unsigned long) lim))
               {
                 tmp___10 = p;
@@ -21401,7 +21401,7 @@ static token lex(void)
           }
           else
           {
-            _L___4:
+            _L___4:;
             if (syntax_bits & (((((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
             {
               goto normal_char;
@@ -21444,7 +21444,7 @@ static token lex(void)
         laststart = (_Bool) 1;
         lasttok = (token) 269;
         return lasttok;
-        case_10:
+        case_10:;
         if (syntax_bits & ((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
           goto normal_char;
@@ -21563,7 +21563,7 @@ static token lex(void)
           {
             while (1)
             {
-              while_continue___3:
+              while_continue___3:;
               ;
 
               if (! (c2 < 256))
@@ -21584,11 +21584,11 @@ static token lex(void)
               c2++;
             }
 
-            while_break___10:
+            while_break___10:;
             ;
 
           }
-          while_break___3:
+          while_break___3:;
           ;
 
           if (c == 83)
@@ -21636,11 +21636,11 @@ static token lex(void)
           ;
 
         }
-        while_break___4:
+        while_break___4:;
         laststart = (_Bool) 0;
 
         return lasttok;
-        case_119:
+        case_119:;
         if (! backslash)
         {
           goto normal_char;
@@ -21763,7 +21763,7 @@ static token lex(void)
       ;
 
     }
-    while_break:
+    while_break:;
     {
       abort();
     }
@@ -21941,7 +21941,7 @@ static void addtok(token t)
               {
                 if (work_mbc->ncoll_elems != 0UL)
                 {
-                  _L:
+                  _L:;
                   {
                     addtok_mb((token) 273, (int) (((dfa___0->nmbcsets - 1UL) << 2) + 3UL));
                   }
@@ -22300,7 +22300,7 @@ static void atom(void)
         }
         else
         {
-          _L:
+          _L:;
           if (tok >= 275L)
           {
             {
@@ -22608,7 +22608,7 @@ static void closure(void)
           {
             if (maxrep)
             {
-              _L___0:
+              _L___0:;
               {
                 ntokens = (size_t) nsubtoks(dfa___0->tindex);
                 tindex = dfa___0->tindex - ntokens;
@@ -22632,7 +22632,7 @@ static void closure(void)
               {
                 while (1)
                 {
-                  while_continue___0:
+                  while_continue___0:;
                   ;
 
                   if (! (i < minrep))
@@ -22647,17 +22647,17 @@ static void closure(void)
                   }
                 }
 
-                while_break___3:
+                while_break___3:;
                 ;
 
               }
-              while_break___0:
+              while_break___0:;
               ;
 
               {
                 while (1)
                 {
-                  while_continue___1:
+                  while_continue___1:;
                   ;
 
                   if (! (i < maxrep))
@@ -22673,11 +22673,11 @@ static void closure(void)
                   }
                 }
 
-                while_break___4:
+                while_break___4:;
                 ;
 
               }
-              while_break___1:
+              while_break___1:;
               {
                 tok = lex();
               }
@@ -23290,7 +23290,7 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
           return i;
         }
 
-        __Cont:
+        __Cont:;
         i++;
 
       }
@@ -23454,23 +23454,23 @@ static void epsclosure(position_set *s, const struct dfa *d, char *visited)
                   p.constraint &= 1792U;
 
                   goto switch_break;
-                  case_260:
+                  case_260:;
                   p.constraint &= 80U;
 
                   goto switch_break;
-                  case_261:
+                  case_261:;
                   p.constraint &= 514U;
 
                   goto switch_break;
-                  case_262:
+                  case_262:;
                   p.constraint &= 594U;
 
                   goto switch_break;
-                  case_263:
+                  case_263:;
                   p.constraint &= 1317U;
 
                   goto switch_break;
-                  switch_default:
+                  switch_default:;
                   goto switch_break;
 
                   switch_break:
@@ -23701,7 +23701,7 @@ void dfaanalyze(struct dfa *d, int searchflag)
         }
 
         goto switch_default;
-        case_256:
+        case_256:;
         stk->nullable = (_Bool) 1;
 
         tmp___3 = (size_t) 0;
@@ -24082,7 +24082,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
             {
               if ((* (d->tokens + pos.index)) == 272L)
               {
-                _L:
+                _L:;
                 if ((* (d->tokens + pos.index)) == 273L)
                 {
                   (d->states + s)->has_mbcset = (_Bool) 1;
@@ -24849,7 +24849,7 @@ static void build_state(state_num s, struct dfa *d)
         ;
 
       }
-      while_break:
+      while_break:;
       d->trcount = 0;
 
     }
@@ -25755,7 +25755,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
               while_continue___1:
               ;
 
-              while_continue___0:
+              while_continue___0:;
               t = * (trans___0 + s);
 
               if (! (((unsigned long) t) != ((unsigned long) ((void *) 0))))
@@ -25769,7 +25769,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
                 {
                   while (1)
                   {
-                    while_continue___2:
+                    while_continue___2:;
                     ;
 
                     if (! (((unsigned long) mbp) < ((unsigned long) p)))
@@ -25783,11 +25783,11 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
                     }
                   }
 
-                  while_break___4:
+                  while_break___4:;
                   ;
 
                 }
-                while_break___1:
+                while_break___1:;
                 p = mbp;
 
                 if (((unsigned long) ((char *) p)) > ((unsigned long) end))
@@ -26140,7 +26140,7 @@ static void dfaoptimize(struct dfa *d)
         }
 
         goto switch_default;
-        case_272:
+        case_272:;
         {
           abort();
         }
@@ -26313,7 +26313,7 @@ static void dfassbuild(struct dfa *d)
 
         have_achar = (_Bool) 1;
         goto switch_break;
-        case_260:
+        case_260:;
         if (d->multibyte)
         {
           tmp___3 = j;
@@ -26324,7 +26324,7 @@ static void dfassbuild(struct dfa *d)
         }
 
 
-        switch_default:
+        switch_default:;
         tmp___4 = j;
 
         j++;
@@ -26493,7 +26493,7 @@ void dfafree(struct dfa *d)
         ;
 
       }
-      while_break___0:
+      while_break___0:;
       {
         free((void *) d->follows);
       }
@@ -26525,7 +26525,7 @@ void dfafree(struct dfa *d)
         ;
 
       }
-      while_break___1:
+      while_break___1:;
       {
         free((void *) (d->trans - 1));
         free((void *) d->fails);
@@ -26833,7 +26833,7 @@ static char **comsubs(char *left, const char *right)
                 }
 
                 goto __Cont;
-                __Cont:
+                __Cont:;
                 i++;
 
               }
@@ -27210,7 +27210,7 @@ static void dfamust(struct dfa *d)
         }
 
         goto switch_break;
-        case_270:
+        case_270:;
         {
           __assert_fail("!\"neither LPAREN nor RPAREN may appear here\"", "/home/khheo/project/benchmark/grep-2.19/src/dfa.c", 3951U, "dfamust");
         }
@@ -27485,7 +27485,7 @@ static void dfamust(struct dfa *d)
           freemust(rmp___0);
         }
         goto switch_break;
-        case_0:
+        case_0:;
         goto done;
 
         switch_default:
@@ -27719,7 +27719,7 @@ void kwsinit(kwset_t *kwset___1)
         {
           while (1)
           {
-            while_continue:
+            while_continue:;
             ;
 
             if (! (i < 256))
@@ -27733,11 +27733,11 @@ void kwsinit(kwset_t *kwset___1)
             }
           }
 
-          while_break___0:
+          while_break___0:;
           ;
 
         }
-        while_break:
+        while_break:;
         {
           * kwset___1 = kwsalloc((const char *) trans);
         }
@@ -28505,7 +28505,7 @@ static int skipped_file(const char *name, int command_line, int is_dir)
         }
         else
         {
-          _L:
+          _L:;
           if (excluded_directory_patterns)
           {
             {
@@ -29610,7 +29610,7 @@ static void prline(const char *beg, const char *lim, int sep)
         {
           if (* match_color)
           {
-            _L___0:
+            _L___0:;
             if (matching)
             {
               if (only_matching)
@@ -29817,7 +29817,7 @@ static void prtext(const char *beg, const char *lim)
             {
               while (1)
               {
-                while_continue___0:
+                while_continue___0:;
                 ;
 
                 p--;
@@ -29828,11 +29828,11 @@ static void prtext(const char *beg, const char *lim)
 
               }
 
-              while_break___4:
+              while_break___4:;
               ;
 
             }
-            while_break___0:
+            while_break___0:;
             ;
 
           }
@@ -29855,7 +29855,7 @@ static void prtext(const char *beg, const char *lim)
       {
         if (0L <= out_after)
         {
-          _L:
+          _L:;
           if (used)
           {
             if (((unsigned long) p) != ((unsigned long) lastout))
@@ -30001,7 +30001,7 @@ static size_t do_execute(const char *buf, size_t size, size_t *match_size, const
     {
       if (((unsigned long) execute) == ((unsigned long) (& Pexecute)))
       {
-        _L:
+        _L:;
         {
           tmp___0 = __ctype_get_mb_cur_max();
         }
@@ -30190,7 +30190,7 @@ static intmax_t grepbuf(const char *beg, const char *lim)
             {
               if (done_on_match)
               {
-                _L:
+                _L:;
                 if (exit_on_match)
                 {
                   {
@@ -30290,10 +30290,10 @@ static intmax_t grep(int fd, const struct stat *st)
     }
     else
     {
-      _L___0:
+      _L___0:;
       if (((unsigned int) binary_files) == 2U)
       {
-        _L:
+        _L:;
         {
           tmp___2 = file_is_binary((const char *) bufbeg, (size_t) (buflim - bufbeg), fd, st);
         }
@@ -30990,7 +30990,7 @@ static int grepdesc(int desc, int command_line)
           {
             while (1)
             {
-              while_continue:
+              while_continue:;
               ;
 
               {
@@ -31007,11 +31007,11 @@ static int grepdesc(int desc, int command_line)
               }
             }
 
-            while_break___0:
+            while_break___0:;
             ;
 
           }
-          while_break:
+          while_break:;
           {
             tmp___7 = __errno_location();
           }
@@ -31069,7 +31069,7 @@ static int grepdesc(int desc, int command_line)
           {
             if (! command_line)
             {
-              _L:
+              _L:;
               {
                 tmp___10 = is_device_mode(st.st_mode);
               }
@@ -31375,8 +31375,8 @@ void usage(int status)
         tmp___17 = gettext("\nReport bugs to: %s\n");
         printf((const char *) ((const char *) tmp___17), "bug-grep@gnu.org");
         tmp___18 = gettext("GNU Grep home page: <%s>\n");
-        printf((const char *) ((const char *) tmp___18), "http://www.gnu.org/software/grep/");
-        tmp___19 = gettext("General help using GNU software: <http://www.gnu.org/gethelp/>\n");
+        printf((const char *) ((const char *) tmp___18), "http:www.gnu.org/software/grep/");
+        tmp___19 = gettext("General help using GNU software: <http:www.gnu.org/gethelp/>\n");
         fputs_unlocked((const char *) ((const char *) tmp___19), (FILE *) stdout);
       }
     }
@@ -31493,7 +31493,7 @@ static void setmatcher(const char *m)
       ;
 
     }
-    while_break:
+    while_break:;
     {
       tmp___2 = gettext("invalid matcher %s");
       error(2, 0, (const char *) tmp___2, m);
@@ -31676,10 +31676,10 @@ static int prepend_default_options(const char *options, int *pargc, char ***parg
         {
           while (1)
           {
-            while_continue___0:
+            while_continue___0:;
             ;
 
-            while_continue:
+            while_continue:;
             tmp___5 = pp;
 
             pp++;
@@ -31695,11 +31695,11 @@ static int prepend_default_options(const char *options, int *pargc, char ***parg
             goto while_continue;
           }
 
-          while_break___0:
+          while_break___0:;
           ;
 
         }
-        while_break:
+        while_break:;
         ;
 
         return (int) prepended;
@@ -32491,25 +32491,25 @@ int main(int argc, char **argv)
         }
 
         goto switch_default___0;
-        case_65:
+        case_65:;
         {
           context_length_arg((const char *) optarg, & out_after);
         }
 
         goto switch_break;
-        case_66:
+        case_66:;
         {
           context_length_arg((const char *) optarg, & out_before);
         }
 
         goto switch_break;
-        case_67:
+        case_67:;
         {
           context_length_arg((const char *) optarg, & default_context);
         }
 
         goto switch_break;
-        case_68:
+        case_68:;
         {
           tmp___2 = strcmp((const char *) optarg, "read");
         }
@@ -32544,72 +32544,72 @@ int main(int argc, char **argv)
         }
 
         goto switch_break;
-        case_70:
+        case_70:;
         {
           setmatcher("fgrep");
         }
 
         goto switch_break;
-        case_80:
+        case_80:;
         {
           setmatcher("perl");
         }
 
         goto switch_break;
-        case_71:
+        case_71:;
         {
           setmatcher("grep");
         }
 
         goto switch_break;
-        case_88:
+        case_88:;
         {
           setmatcher((const char *) optarg);
         }
 
         goto switch_break;
-        case_72:
+        case_72:;
         with_filenames = 1;
 
         no_filenames = 0;
         goto switch_break;
-        case_73:
+        case_73:;
         binary_files = (enum __anonenum_binary_files_72) 2;
 
         goto switch_break;
-        case_84:
+        case_84:;
         align_tabs = 1;
 
         goto switch_break;
-        case_85:
+        case_85:;
         {
           dos_binary();
         }
 
         goto switch_break;
-        case_117:
+        case_117:;
         {
           dos_unix_byte_offsets();
         }
 
         goto switch_break;
-        case_86:
+        case_86:;
         show_version = 1;
 
         goto switch_break;
-        case_97:
+        case_97:;
         binary_files = (enum __anonenum_binary_files_72) 1;
 
         goto switch_break;
-        case_98:
+        case_98:;
         out_byte = 1;
 
         goto switch_break;
-        case_99:
+        case_99:;
         count_matches = 1;
 
         goto switch_break;
-        case_100:
+        case_100:;
         {
           tmp___3 = __xargmatch_internal("--directories", (const char *) optarg, directories_args, (const char *) directories_types, sizeof(directories_types[0]), argmatch_die);
           directories = (enum directories_type) directories_types[tmp___3];
@@ -32621,7 +32621,7 @@ int main(int argc, char **argv)
         }
 
         goto switch_break;
-        case_101:
+        case_101:;
         {
           cc = strlen((const char *) optarg);
           keys = (char *) xrealloc((void *) keys, (keycc + cc) + 1UL);
@@ -32633,7 +32633,7 @@ int main(int argc, char **argv)
         }
 
         goto switch_break;
-        case_102:
+        case_102:;
         {
           tmp___7 = strcmp((const char *) optarg, "-");
         }
@@ -32677,7 +32677,7 @@ int main(int argc, char **argv)
           ;
 
         }
-        while_break___0:
+        while_break___0:;
         {
           keys = (char *) xrealloc((void *) keys, keyalloc);
           oldcc = keycc;
@@ -32711,7 +32711,7 @@ int main(int argc, char **argv)
           ;
 
         }
-        while_break___1:
+        while_break___1:;
         {
           tmp___9 = __errno_location();
           fread_errno = * tmp___9;
@@ -32744,7 +32744,7 @@ int main(int argc, char **argv)
         }
 
         goto switch_break;
-        case_104:
+        case_104:;
         with_filenames = 0;
 
         no_filenames = 1;
@@ -32753,15 +32753,15 @@ int main(int argc, char **argv)
         match_icase = 1;
 
         goto switch_break;
-        case_76:
+        case_76:;
         list_files = - 1;
 
         goto switch_break;
-        case_108:
+        case_108:;
         list_files = 1;
 
         goto switch_break;
-        case_109:
+        case_109:;
         {
           tmp___12 = xstrtoimax((const char *) optarg, (char **) 0, 10, & max_count, "");
         }
@@ -32777,10 +32777,10 @@ int main(int argc, char **argv)
         }
 
         goto switch_default;
-        case_0:
+        case_0:;
         goto switch_break___0;
 
-        switch_default:
+        switch_default:;
         {
           tmp___13 = gettext("invalid max count");
           error(2, 0, (const char *) tmp___13);
@@ -32798,20 +32798,20 @@ int main(int argc, char **argv)
         only_matching = 1;
 
         goto switch_break;
-        case_113:
+        case_113:;
         exit_on_match = 1;
 
         exit_failure = (volatile int) 0;
         goto switch_break;
-        case_82:
+        case_82:;
         fts_options = 778;
 
-        case_114:
+        case_114:;
         directories = (enum directories_type) 3;
 
         last_recursive = prev_optind;
         goto switch_break;
-        case_115:
+        case_115:;
         suppress_errors = 1;
 
         goto switch_break;
@@ -32827,15 +32827,15 @@ int main(int argc, char **argv)
         match_lines = 1;
 
         goto switch_break;
-        case_90:
+        case_90:;
         filename_mask = 0;
 
         goto switch_break;
-        case_122:
+        case_122:;
         eolbyte = (unsigned char) '\000';
 
         goto switch_break;
-        case_128:
+        case_128:;
         {
           tmp___17 = strcmp((const char *) optarg, "binary");
         }
@@ -32875,7 +32875,7 @@ int main(int argc, char **argv)
         }
 
         goto switch_break;
-        case_129:
+        case_129:;
         if (optarg)
         {
           {
@@ -32986,7 +32986,7 @@ int main(int argc, char **argv)
 
 
         goto switch_break;
-        case_131:
+        case_131:;
         if (! excluded_patterns)
         {
           {
@@ -33008,7 +33008,7 @@ int main(int argc, char **argv)
           add_exclude(excluded_patterns, (const char *) optarg, (1 << 28) | tmp___27);
         }
         goto switch_break;
-        case_132:
+        case_132:;
         if (! excluded_patterns)
         {
           {
@@ -33029,7 +33029,7 @@ int main(int argc, char **argv)
         }
 
         goto switch_break;
-        case_135:
+        case_135:;
         if (! excluded_directory_patterns)
         {
           {
@@ -33042,22 +33042,22 @@ int main(int argc, char **argv)
           add_exclude(excluded_directory_patterns, (const char *) optarg, 1 << 28);
         }
         goto switch_break;
-        case_136:
+        case_136:;
         group_separator = (const char *) optarg;
 
         goto switch_break;
-        case_133:
+        case_133:;
         line_buffered = 1;
 
         goto switch_break;
-        case_134:
+        case_134:;
         label = optarg;
 
         goto switch_break;
-        case_0___0:
+        case_0___0:;
         goto switch_break;
 
-        switch_default___0:
+        switch_default___0:;
         {
           usage(2);
         }
@@ -33152,7 +33152,7 @@ int main(int argc, char **argv)
     if (show_version)
     {
       {
-        tmp___34 = gettext("others, see <http://git.sv.gnu.org/cgit/grep.git/tree/AUTHORS>");
+        tmp___34 = gettext("others, see <http:git.sv.gnu.org/cgit/grep.git/tree/AUTHORS>");
         tmp___35 = proper_name("Mike Haertel");
         version_etc(stdout, program_name, "GNU grep", "2.19", tmp___35, tmp___34, (char *) ((void *) 0));
         exit(0);
@@ -33230,7 +33230,7 @@ int main(int argc, char **argv)
           }
           if (tmp___39)
           {
-            _L:
+            _L:;
             {
               fgrep_to_grep_pattern(keycc, (const char *) keys, & new_keycc, & new_keys);
               free((void *) keys);
