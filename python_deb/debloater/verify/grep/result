@@ -1,0 +1,53 @@
+16d15
+<     {
+17a17,18
+>     {
+>       _L:
+19,22c20,21
+<         _L:;
+<         {
+<           tmp___0 = __ctype_get_mb_cur_max();
+<         }
+---
+>         tmp___0 = __ctype_get_mb_cur_max();
+>       }
+24,31c23,24
+<         if (tmp___0 == 1UL)
+<         {
+<           {
+<             tmp = (* execute)(buf, size, match_size, start_ptr);
+<           }
+<           return tmp;
+<         }
+<         else
+---
+>       if (tmp___0 == 1UL)
+>       {
+33,40c26
+<           if (! match_icase)
+<           {
+<             {
+<               tmp = (* execute)(buf, size, match_size, start_ptr);
+<             }
+<             return tmp;
+<           }
+< 
+---
+>           tmp = (* execute)(buf, size, match_size, start_ptr);
+42c28
+< 
+---
+>         return tmp;
+44a31
+>         if (! match_icase)
+51a39
+> 
+52a41,48
+>     else
+>     {
+>       {
+>         tmp = (* execute)(buf, size, match_size, start_ptr);
+>       }
+>       return tmp;
+>     }
+> 
