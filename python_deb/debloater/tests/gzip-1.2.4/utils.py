@@ -1,26 +1,71 @@
 from datetime import datetime
 import imp
+import logging
 import os
+import re
 from shutil import copyfile
 import subprocess
 import argparse
 import sys
 import glob
 
+current_work_dir = os.path.dirname(__file__)
+
+
+
+
+class GetLog(object):
+    def __init__(self):
+        self.name = 'log'
+        self.level = logging.DEBUG
+        self.filename = 'test.log'
+        logging.info("Logging to",self.filename)
+
+
+    def get_log(self):
+
+        #设置logger
+        logger = logging.getLogger(name=self.name)
+        logger.setLevel(level=self.level)
+
+
+        if not logger.handlers:
+            # 初始化handler
+            stream_handler = logging.StreamHandler()
+            file_handler = logging.FileHandler(filename=self.filename)
+
+            # 设置handler等级
+            stream_handler.setLevel(level=logging.WARNING)
+            file_handler.setLevel(level=self.level)
+
+            # 设置日志格式
+            sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
+            sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
+            stream_handler.setFormatter(sf_format)
+            file_handler.setFormatter(sf_format)
+            
+            # 将handler添加到self.__logger
+            # logger.addHandler(stream_handler)
+            logger.addHandler(file_handler)
+
+        #返回logger
+        return logger
+    
+logger = GetLog().get_log()
 
 def exit_with_error(fun_name,name):
-    exit("Program exited at function   "+fun_name+"()   because of   "+name+" failed")
+    exit("Program exited at function   {}()   because of   {} failed".format(fun_name,name))
     
 def exit_status(ret,name="This Process"):
     if ret != 0:
         if ret < 0:
-         print(name+" Killed by signal", -ret)
+         logger.info("{} Killed by signal {}".format(name,ret))
          exit_with_error(sys._getframe().f_code.co_name,name)
         else:
-         print(name+" failed with return code", ret)
+         logger.info("{} failed with return code {}".format(name,ret))
          exit_with_error(sys._getframe().f_code.co_name,name)
     else:
-        print(name+" Success")
+        logger.info("{} Success".format(name))
         return 0
     return 1
 
@@ -52,7 +97,7 @@ def get_files_in_folder(filepath):
 
 # format the code with clang-format GNU sytle and return the formatted code
 def formatter(filename):
-    os.system("clang-format --style=GNU "+filename+" > "+filename+".formatted.c")
+    os.system("clang-format -style=file "+filename+" > "+filename+".formatted.c")
     return filename+".formatted.c"
     
 def remove_file(filepath,prefix='null'):
@@ -73,47 +118,39 @@ def move_gcov_files(dest_path):
 def move_file(source_path,dest_path):
     os.system("mv "+source_path+" "+dest_path)
 
-def preparation(source_path,input_path):
-    print('Preparing...')
-    print('Copying needed files...')
-    dir_name = create_directory('temp')
-    input_dir_name = create_directory('temp'+ os.sep +'input')
-    os.system("cp "+source_path+" "+dir_name)  
-    os.system("cp "+input_path+" "+ input_dir_name)  
-    new_source_path = dir_name+os.sep+get_final_filename(source_path)
-    
-    # use pycparser to format the input c file
-    # new_source_path = cparser.translate_to_c(new_source_path)
-    
-    new_source_path = formatter(new_source_path)
-    
-    
-    new_input_path = dir_name+os.sep+get_final_filename(input_path)
-    return new_source_path,new_input_path,dir_name
+
+def exec_cmd(cmd):
+    logger.info('Running '+cmd)
+    p = subprocess.Popen(cmd, shell=True)
+    p.communicate()
+
     
 def clean():
-    print('Cleaning...')
-    # print('R u sure u want to run the following cmd '+"rm "+source_path+".*"+" Y(y) or N(n)")
+    logger.info('Cleaning...')
+    # logger.info('R u sure u want to run the following cmd '+"rm "+source_path+".*"+" Y(y) or N(n)")
     # decision = input()
     # if(decision=='y' or decision=="Y"):
     # os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
     os.system("rm -r result" )
     os.system("rm -r temp" )
-
-def finish(source_path,log_file):
-    print('Debloating Finished!')
+    os.system("rm tmp.log tmp.log2 trans.txt ast.txt")
+    
+    
+def finish(source_path):
+    logger.info('Debloating Finished!')
     os.system("mkdir result")
-    new_source_path = cparser.translate_to_c(source_path+".debloated.c",False)
-
+    # new_source_path = cparser.translate_to_c(source_path+".debloated.c",False)
+    new_source_path = source_path+".debloated.c"
     os.system("cp "+new_source_path+" result ")
     
-    log_file.close()
+
     os.system("cp temp/print.log result ")
     os.system("cp "+source_path+" result ")
-    
-
+    cmd = "python3 %s/run.py verify %s" %("temp",new_source_path)
+    exec_cmd(cmd)
+    # log_file.close()
 
 
 if __name__ == "__main__" :
-    clean()
-    # print(get_final_subfolder(create_output_directory('temp')))
+    logger.info("dsa")
+    # logger.info(get_final_subfolder(create_output_directory('temp')))

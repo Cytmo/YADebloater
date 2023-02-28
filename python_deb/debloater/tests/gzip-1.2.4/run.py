@@ -4,10 +4,10 @@ import os, subprocess, sys
 import utils
 BIN = ''
 source_path=''
-
+logger=''
 
 def compile_with_cov(source,dest=""):
-    print('Compiling to '+source+"_origin")
+    logger.info('Compiling to '+source+"_origin")
 
     abspath = os.path.abspath(source)
     ret = subprocess.call(["gcc",abspath,"-w", "-o",abspath+"_origin","-fprofile-arcs","-ftest-coverage"])
@@ -15,12 +15,12 @@ def compile_with_cov(source,dest=""):
         utils.move_file("*.gcno","temp")
         global BIN 
         BIN = source+"_origin"
-        print('Compiled file is '+BIN )
+        logger.info('Compiled file is '+BIN )
 
 
 
 def execute(cmd):
-    print('running ', cmd)
+    logger.info('running '+cmd)
     p = subprocess.Popen(cmd, shell=True)
     p.communicate()
     return p.returncode
@@ -41,12 +41,18 @@ def verify():
     cmd = 'diff tmp.log tmp.log2'
     ret = execute(cmd)    
     if(ret==0):
-        print("Verify successed!")
+        logger.info("Verify successed!")
     else:
-        print("Verify failed!")
+        logger.info("Verify failed!")
     
 def run_tests(output_file="tmp.log"):
-
+    if output_file != 'tmp.log2':
+        for fname in os.listdir('temp/train'):
+            for i in range(0,10):
+                fpath = os.path.join('temp/train', fname)
+                cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+                logger.info('Generating fuzzed testfiles, cmd is {}'.format(cmd))
+                execute(cmd)
     for fname in os.listdir('temp/train'):
         fpath = os.path.join('temp/train', fname)
         # -c
@@ -79,13 +85,12 @@ def clean():
         execute('rm -rf ./' + fname)
 
 def usage():
-    print('python run.py clean|run_tests|debloat\n')
+    logger.info('python run.py clean|run_tests|debloat\n')
     sys.exit(1)
 
 def main():
-    global BIN
-    global source_path
-    
+    global BIN,logger,source_path
+    logger = utils.GetLog().get_log()
 
     if len(sys.argv) != 2 and len(sys.argv) != 3:
         usage()
