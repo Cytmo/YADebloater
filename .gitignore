@@ -1,2 +1,8 @@
 *chisel*
 chisel-bench
+*temp*
+*tmp.log*
+*pycache*
+ast.txt
+test.log
+trans.txt
