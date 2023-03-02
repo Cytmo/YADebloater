@@ -195,7 +195,7 @@ def finish(source_path):
     os.system("cp "+new_source_path+" result ")
     
 
-    os.system("cp temp/print.log result ")
+    # os.system("cp temp/print.log result ")
     os.system("cp "+source_path+" result ")
     cmd = "python3 %s/run.py verify %s" %("temp",new_source_path)
     exec_cmd(cmd)

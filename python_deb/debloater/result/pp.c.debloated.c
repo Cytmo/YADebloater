@@ -5339,124 +5339,124 @@ void bi_windup(void)
 
 void copy_block(char *buf, unsigned int len, int header)
 {
-  unsigned int tmp;
-  unsigned int tmp___0;
-  unsigned int tmp___1;
-  unsigned int tmp___2;
-  unsigned int tmp___3;
-  unsigned int tmp___4;
-  unsigned int tmp___5;
-  unsigned int tmp___6;
-  unsigned int tmp___7;
-  char *tmp___8;
-  unsigned int tmp___9;
-  {
-    {
-      bi_windup();
-    }
-    if (header)
-    {
-      if (outcnt < 16382U)
-      {
-        tmp = outcnt;
-        outcnt++;
-        outbuf[tmp] = (uch) (((int) ((ush) len)) & 255);
-        tmp___0 = outcnt;
-        outcnt++;
-        outbuf[tmp___0] = (uch) (((int) ((ush) len)) >> 8);
-      }
-      else
-      {
+//  unsigned int tmp;
+//  unsigned int tmp___0;
+//  unsigned int tmp___1;
+//  unsigned int tmp___2;
+//  unsigned int tmp___3;
+//  unsigned int tmp___4;
+//  unsigned int tmp___5;
+//  unsigned int tmp___6;
+//  unsigned int tmp___7;
+//  char *tmp___8;
+//  unsigned int tmp___9;
+//  {
+//    {
+//      bi_windup();
+//    }
+//    if (header)
+//    {
+//      if (outcnt < 16382U)
+//      {
+//        tmp = outcnt;
+//        outcnt++;
+//        outbuf[tmp] = (uch) (((int) ((ush) len)) & 255);
+//        tmp___0 = outcnt;
+//        outcnt++;
+//        outbuf[tmp___0] = (uch) (((int) ((ush) len)) >> 8);
+//      }
+//      else
+//      {
 //        tmp___1 = outcnt;
 //        outcnt++;
 //        outbuf[tmp___1] = (uch) (((int) ((ush) len)) & 255);
-        if (outcnt == 16384U)
-        {
+//        if (outcnt == 16384U)
+//        {
 //          {
 //            flush_outbuf();
 //          }
-        }
-
+//        }
+//
 //        tmp___2 = outcnt;
 //        outcnt++;
 //        outbuf[tmp___2] = (uch) (((int) ((ush) len)) >> 8);
-        if (outcnt == 16384U)
-        {
+//        if (outcnt == 16384U)
+//        {
 //          {
 //            flush_outbuf();
 //          }
-        }
-
-      }
-
-      if (outcnt < 16382U)
-      {
-        tmp___3 = outcnt;
-        outcnt++;
-        outbuf[tmp___3] = (uch) (((int) ((ush) (~ len))) & 255);
-        tmp___4 = outcnt;
-        outcnt++;
-        outbuf[tmp___4] = (uch) (((int) ((ush) (~ len))) >> 8);
-      }
-      else
-      {
+//        }
+//
+//      }
+//
+//      if (outcnt < 16382U)
+//      {
+//        tmp___3 = outcnt;
+//        outcnt++;
+//        outbuf[tmp___3] = (uch) (((int) ((ush) (~ len))) & 255);
+//        tmp___4 = outcnt;
+//        outcnt++;
+//        outbuf[tmp___4] = (uch) (((int) ((ush) (~ len))) >> 8);
+//      }
+//      else
+//      {
 //        tmp___5 = outcnt;
 //        outcnt++;
 //        outbuf[tmp___5] = (uch) (((int) ((ush) (~ len))) & 255);
-        if (outcnt == 16384U)
-        {
+//        if (outcnt == 16384U)
+//        {
 //          {
 //            flush_outbuf();
 //          }
-        }
-
+//        }
+//
 //        tmp___6 = outcnt;
 //        outcnt++;
 //        outbuf[tmp___6] = (uch) (((int) ((ush) (~ len))) >> 8);
-        if (outcnt == 16384U)
-        {
+//        if (outcnt == 16384U)
+//        {
 //          {
 //            flush_outbuf();
 //          }
-        }
-
-      }
-
-    }
-
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        tmp___9 = len;
-        len--;
-        if (! tmp___9)
-        {
-          goto while_break;
-        }
-
-        tmp___7 = outcnt;
-        outcnt++;
-        tmp___8 = buf;
-        buf++;
-        outbuf[tmp___7] = (uch) (* tmp___8);
-        if (outcnt == 16384U)
-        {
-          {
+//        }
+//
+//      }
+//
+//    }
+//
+//    {
+//      while (1)
+//      {
+//        while_continue:
+//        ;
+//
+//        tmp___9 = len;
+//        len--;
+//        if (! tmp___9)
+//        {
+//          goto while_break;
+//        }
+//
+//        tmp___7 = outcnt;
+//        outcnt++;
+//        tmp___8 = buf;
+//        buf++;
+//        outbuf[tmp___7] = (uch) (* tmp___8);
+//        if (outcnt == 16384U)
+//        {
+//          {
 //            flush_outbuf();
-          }
-        }
-
-      }
-
-      while_break:
-      ;
-
-    }
-    return;
-  }
+//          }
+//        }
+//
+//      }
+//
+//      while_break:
+//      ;
+//
+//    }
+//    return;
+//  }
 }
 
 int level;
@@ -6740,15 +6740,15 @@ ulg flush_block(char *buf, ulg stored_len, int eof)
     {
       if (eof)
       {
-        if (compressed_len == 0UL)
-        {
-          goto _L___2;
-        }
+//        if (compressed_len == 0UL)
+//        {
+//          goto _L___2;
+//        }
 //        else
 //        {
 //          goto _L___2;
 //        }
-
+//
       }
 //      else
 //      {
@@ -6762,12 +6762,12 @@ ulg flush_block(char *buf, ulg stored_len, int eof)
     {
       if (((unsigned long) buf) != ((unsigned long) ((char *) 0)))
       {
-        {
-          send_bits(eof, 3);
-          compressed_len = ((compressed_len + 3UL) + 7UL) & 0xfffffffffffffff8UL;
-          compressed_len += (stored_len + 4UL) << 3;
-          copy_block(buf, (unsigned int) stored_len, 1);
-        }
+//        {
+//          send_bits(eof, 3);
+//          compressed_len = ((compressed_len + 3UL) + 7UL) & 0xfffffffffffffff8UL;
+//          compressed_len += (stored_len + 4UL) << 3;
+//          copy_block(buf, (unsigned int) stored_len, 1);
+//        }
       }
 //      else
 //      {
