@@ -56,7 +56,7 @@ def run_tests(output_file="tmp.log"):
     for fname in os.listdir('temp/train'):
         fpath = os.path.join('temp/train', fname)
         # -c
-        cmd = BIN + ' -c < ' + fpath + ' > '+output_file
+        cmd = BIN + ' -c < ' + fpath + ' >> '+output_file
         execute(cmd)
     
 

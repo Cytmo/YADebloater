@@ -27,28 +27,72 @@ import sys
 from typing import TextIO
 from pycparserext.ext_c_generator import GnuCGenerator
 from pycparserext.ext_c_parser import GnuCParser
-# This is not required if you've installed pycparser into
-# your site-packages/ with setup.py
-#
-sys.path.extend(['.', '..'])
+import logging
+current_work_dir = os.path.dirname(__file__)
+
+
+
+
+class GetLog(object):
+    def __init__(self):
+        self.name = 'log'
+        self.level = logging.DEBUG
+        self.filename = 'test.log'
+        logging.info("Logging to",self.filename)
+
+
+    def get_log(self):
+
+        #设置logger
+        logger = logging.getLogger(name=self.name)
+        logger.setLevel(level=self.level)
+
+
+        if not logger.handlers:
+            # 初始化handler
+            stream_handler = logging.StreamHandler()
+            file_handler = logging.FileHandler(filename=self.filename)
+
+            # 设置handler等级
+            stream_handler.setLevel(level=logging.WARNING)
+            file_handler.setLevel(level=self.level)
+
+            # 设置日志格式
+            sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
+            sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
+            stream_handler.setFormatter(sf_format)
+            file_handler.setFormatter(sf_format)
+            
+            # 将handler添加到self.__logger
+            # logger.addHandler(stream_handler)
+            logger.addHandler(file_handler)
+
+        #返回logger
+        return logger
+    
+logger = GetLog().get_log()
 
 
     
 def parse(src):
     p = GnuCParser()
     ast = p.parse(src)
+    logger.info("Generating AST for the source file...")
     with open('ast.txt','w') as f:
         ast.show(buf=f,showcoord=True)
 
     lines = GnuCGenerator().visit(ast)
-       
+
+    logger.info("Rewriting the source file...")   
     with open('temp/pp.c','w') as f:
         f.write(lines)
    
    
     with open('temp/pp.c','r') as f:
         ast= p.parse(f.read())
-        
+
+
+    logger.info("Generating AST for the rewrited file...")    
     with open('trans.txt', 'w') as f:
         # Define a recursive function to traverse the AST
         def traverse(node,level=0):
@@ -76,8 +120,10 @@ def parse(src):
 
         
 def begin_parse(filename):
+    logger.info("Preprocessing %s"%filename)
     os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
     f = open(filename+".p.c",'r')
+    logger.info("Parsing %s"%filename)
     parse(f.read())
     return 'temp/pp.c'
     
