@@ -1,4 +1,4 @@
-# Simple_debloater
+# YADebloater
 ## Description
 This is a debloater based on given input, fuzz and code coverage, it automatically remove unnecessary code from c source file, and provides verify result about its input
 
