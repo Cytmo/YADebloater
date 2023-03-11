@@ -324,8 +324,8 @@ def remove_redundant_else(lines,):
     }
     
     2.
-    todo: else{} whose if has been removed, remove else
-    //if{} whose if has been removed
+    else{} whose if has been removed, remove else
+    //if{} 
     else {
         do something;
     }  
