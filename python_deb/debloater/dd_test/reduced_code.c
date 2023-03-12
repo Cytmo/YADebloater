@@ -7,49 +7,49 @@ typedef long __off64_t;
 typedef long __ssize_t;
 typedef __ssize_t ssize_t;
 typedef unsigned long size_t;
-struct _IO_FILE;
-struct _IO_FILE;
+
+
 typedef struct _IO_FILE FILE;
-typedef void _IO_lock_t;
+
 struct _IO_marker
 {
-  struct _IO_marker *_next;
-  struct _IO_FILE *_sbuf;
-  int _pos;
+
+
+
 };
 struct _IO_FILE
 {
-  int _flags;
-  char *_IO_read_ptr;
-  char *_IO_read_end;
-  char *_IO_read_base;
-  char *_IO_write_base;
-  char *_IO_write_ptr;
-  char *_IO_write_end;
-  char *_IO_buf_base;
+
+
+
+
+
+
+
+
   char *_IO_buf_end;
-  char *_IO_save_base;
-  char *_IO_backup_base;
-  char *_IO_save_end;
+
+
+
   struct _IO_marker *_markers;
-  struct _IO_FILE *_chain;
+
   int _fileno;
-  int _flags2;
+
   __off_t _old_offset;
   unsigned short _cur_column;
   signed char _vtable_offset;
   char _shortbuf[1];
-  _IO_lock_t *_lock;
+
   __off64_t _offset;
   void *__pad1;
-  void *__pad2;
-  void *__pad3;
-  void *__pad4;
+
+
+
   size_t __pad5;
-  int _mode;
+
   char _unused2[((15UL * (sizeof(int))) - (4UL * (sizeof(void *)))) - (sizeof(size_t))];
 };
-typedef unsigned char char_type;
+
 typedef long code_int;
 typedef unsigned long cmp_code_int;
 typedef struct _IO_FILE _IO_FILE;
@@ -57,7 +57,7 @@ struct huft;
 union __anonunion_v_25
 {
   ush n;
-  struct huft *t;
+
 };
 struct huft
 {
@@ -113,7 +113,7 @@ typedef long __time_t;
 typedef long __blksize_t;
 typedef long __blkcnt_t;
 typedef long __syscall_slong_t;
-typedef __off_t off_t;
+
 typedef __time_t time_t;
 struct timespec
 {
@@ -127,7 +127,7 @@ struct stat
   __ino_t st_ino;
   __nlink_t st_nlink;
   __mode_t st_mode;
-  __uid_t st_uid;
+
   __gid_t st_gid;
   int __pad0;
   __dev_t st_rdev;
@@ -136,7 +136,7 @@ struct stat
   __blkcnt_t st_blocks;
   struct timespec st_atim;
   struct timespec st_mtim;
-  struct timespec st_ctim;
+
   __syscall_slong_t __glibc_reserved[3];
 };
 struct option
@@ -148,11 +148,11 @@ struct option
 };
 struct dirent
 {
-  __ino_t d_ino;
+
   __off_t d_off;
   unsigned short d_reclen;
   unsigned char d_type;
-  char d_name[256];
+
 };
 struct __dirstream;
 struct __dirstream;
@@ -161,7 +161,7 @@ typedef struct dirent dir_type;
 struct utimbuf
 {
   __time_t actime;
-  __time_t modtime;
+
 };
 uch inbuf[32832];
 uch outbuf[18432];
@@ -180,14 +180,14 @@ void error(char *m);
 static unsigned int decode(unsigned int count, uch *buffer);
 static void decode_start(void);
 static void huf_decode_start(void);
-static unsigned int decode_c(void);
-static unsigned int decode_p(void);
+
+
 static void read_pt_len(int nn, int nbit, int i_special);
 static void read_c_len(void);
 static void fillbuf(int n);
 static unsigned int getbits(int n);
 static void init_getbits(void);
-static void make_table(int nchar, uch *bitlen, int tablebits, ush *table);
+
 static uch pt_len[19];
 static unsigned int blocksize;
 static ush pt_table[256];
@@ -196,65 +196,65 @@ static unsigned int subbitbuf;
 static int bitcount;
 static void fillbuf(int n)
 {
-  exit(-1);
+
 }
 
 static unsigned int getbits(int n)
 {
-  exit(-1);
+
 }
 
 static void init_getbits(void)
 {
-  exit(-1);
+
 }
 
 static void make_table(int nchar, uch *bitlen, int tablebits, ush *table)
 {
-  exit(-1);
+
 }
 
 static void read_pt_len(int nn, int nbit, int i_special)
 {
-  exit(-1);
+
 }
 
 static void read_c_len(void)
 {
-  exit(-1);
+
 }
 
 static unsigned int decode_c(void)
 {
-  exit(-1);
+
 }
 
 static unsigned int decode_p(void)
 {
-  exit(-1);
+
 }
 
 static void huf_decode_start(void)
 {
-  exit(-1);
+
 }
 
 static int j;
 static int done;
 static void decode_start(void)
 {
-  exit(-1);
+
 }
 
 static unsigned int i;
 static unsigned int decode(unsigned int count, uch *buffer)
 {
-  exit(-1);
+
 }
 
 int unlzh(int in, int out)
 {
-  exit(-1);
+
 }
 
 unsigned int outcnt;
@@ -271,20 +271,20 @@ static int peek_bits;
 static ulg bitbuf___0;
 static int valid;
 static void read_tree(void);
-static void build_tree(void);
+
 static void read_tree(void)
 {
-  exit(-1);
+
 }
 
 static void build_tree(void)
 {
-  exit(-1);
+
 }
 
 int unpack(int in, int out)
 {
-  exit(-1);
+
 }
 
 extern ssize_t read(int __fd, void *__buf, size_t __nbytes);
@@ -299,20 +299,20 @@ int exit_code;
 int quiet;
 int to_stdout;
 void read_error(void);
-int maxbits;
+
 int block_mode;
 int unlzw(int in, int out);
 int block_mode = 128;
 int unlzw(int in, int out)
 {
-  exit(-1);
+
 }
 
 int lzw(int in, int out);
 static int msg_done = 0;
 int lzw(int in, int out)
 {
-  exit(-1);
+
 }
 
 extern const unsigned short **__ctype_b_loc(void);
@@ -333,7 +333,7 @@ char ofname[1024];
 void abort_gzip(void);
 int copy(int in, int out);
 ulg updcrc(uch *s, unsigned int n);
-void clear_bufs(void);
+
 void flush_outbuf(void);
 char *strlwr(char *s);
 char *basename(char *fname);
@@ -357,7 +357,7 @@ ulg updcrc(uch *s, unsigned int n)
     {
       c = (ulg) 4294967295L;
     }
-    else
+
     {
       c = crc;
       if (n)
@@ -419,7 +419,7 @@ void flush_outbuf(void)
 
     {
       write_buf(ofd, (voidp) ((char *) outbuf), outcnt);
-      bytes_out = (long) (((ulg) bytes_out) + ((ulg) outcnt));
+
       outcnt = 0U;
     }
     return;
@@ -444,7 +444,7 @@ void write_buf(int fd, voidp buf, unsigned int cnt)
         {
           n = (unsigned int) write(fd, (const void *) buf, (size_t) cnt);
         }
-        if (! (n != cnt))
+
         {
           goto while_break;
         }
@@ -501,7 +501,7 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
   char **tmp___7;
   char **tmp___8;
   size_t tmp___9;
-  char **tmp___10;
+
   char *tmp___11;
   char **tmp___12;
   char **tmp___13;
@@ -570,7 +570,7 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
       exit(-1);
     }
 
-    {
+    
       while (1)
       {
         while_continue___0:
@@ -603,9 +603,9 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
       }
 
       while_break___0:
-      ;
 
-    }
+
+    
     {
       while (1)
       {
