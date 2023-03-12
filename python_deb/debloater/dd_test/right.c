@@ -196,7 +196,7 @@ static unsigned int subbitbuf;
 static int bitcount;
 static void fillbuf(int n)
 {
-  exit(-1);
+
 }
 
 static unsigned int getbits(int n)

@@ -136,7 +136,7 @@ if __name__ == '__main__':
     cmd = "python3 %s/run.py debloat %s" %(dir_name,source_path)
     utils.exec_cmd(cmd)
     json_code_remover.code_remove(source_path+".gcov.json",source_path)
-    security_ops.begin_ops()
+    # security_ops.begin_ops()
     
     logger.info(f'time cost:{time.time() - t:.4f}s')
     
