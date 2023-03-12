@@ -22,9 +22,10 @@ class deb_files():
         utils.remove_comments(self.debloated_path)
 
 
-files = deb_files('temp/pp.c.debloated.c')
+
 
 def begin_ops():
+    files = deb_files('temp/pp.c.debloated.c')
     logger.info("Beginning to add exit...")
 
     files.remove_comments()

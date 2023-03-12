@@ -28,17 +28,19 @@ def execute(cmd):
 def debloat():
     run_tests()
     # get gcov data
-    ret1 = subprocess.call(["gcov","-i",source_path])
+    utils.move_file("temp/pp.c_origin-pp.gcda","temp/pp.gcda")
+    utils.move_file("temp/pp.c_origin-pp.gcno","temp/pp.gcno")
+    ret1 = subprocess.call(["gcov","-i",'temp/pp.c'])
     utils.exit_status(ret1,"gcov generate")
     
-    utils.move_file("*.gcov.json.gz","temp")
+    utils.move_file("*.gcov.json.gz","temp/pp.c.gcov.json.gz")
     
     ret2 = subprocess.call(["gzip","-d",source_path+".gcov.json.gz"])
     utils.exit_status(ret2,"gcov decompress")
     
 def verify():
     run_tests("tmp.log2")
-    cmd = 'diff temp/tmp.log temp/tmp.log2'
+    cmd = 'diff temp/tmp.log temp/tmp.log2 >/dev/null'
     ret = execute(cmd)    
     if(ret==0):
         print("Verify successed!")
