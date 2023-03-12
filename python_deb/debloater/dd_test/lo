@@ -1,0 +1,3744 @@
+removing function getline_in_replace ...iteraion 0...granularity is 1
+Removing code from line 59 to line 59 in function getline_in_replace 
+Skipped
+Compile Failed
+Test failed, restoring code at line 59, content is ['  char *result;\n']
+increase granularity to 2
+removing function getline_in_replace ...iteraion 1...granularity is 2
+Removing code from line 60 to line 61 in function getline_in_replace 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 60, content is ['  {\n', '    {\n']
+increase granularity to 4
+removing function getline_in_replace ...iteraion 2...granularity is 4
+Removing code from line 61 to line 64 in function getline_in_replace 
+Skipped
+Skipped
+Skipped
+Skipped
+Test Failed
+Test failed, restoring code at line 61, content is ['    {\n', '      result = fgets((char *__restrict ) s, maxsize, (FILE *__restrict ) stdin);\n', '    }\n', '    return (bool) (((unsigned long) result) != ((unsigned long) ((char *) 0)));\n']
+increase granularity to 8
+removing function getline_in_replace ...iteraion 3...granularity is 8
+Removing code from line 62 to line 69 in function getline_in_replace 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 62, content is ['      result = fgets((char *__restrict ) s, maxsize, (FILE *__restrict ) stdin);\n', '    }\n', '    return (bool) (((unsigned long) result) != ((unsigned long) ((char *) 0)));\n', '  }\n', '}\n', '\n', 'int addstr(char c, char *outset, int *j, int maxset)\n', '{\n']
+increase granularity to 9
+removing function getline_in_replace ...iteraion 4...granularity is 9
+Removing code from line 63 to line 71 in function getline_in_replace 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 63, content is ['    }\n', '    return (bool) (((unsigned long) result) != ((unsigned long) ((char *) 0)));\n', '  }\n', '}\n', '\n', 'int addstr(char c, char *outset, int *j, int maxset)\n', '{\n', '  bool result;\n', '  {\n']
+removing function addstr ...iteraion 0...granularity is 1
+Removing code from line 70 to line 70 in function addstr 
+Skipped
+Compile Failed
+Test failed, restoring code at line 70, content is ['  bool result;\n']
+increase granularity to 2
+removing function addstr ...iteraion 1...granularity is 2
+Removing code from line 71 to line 72 in function addstr 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 71, content is ['  {\n', '    if ((* j) >= maxset)\n']
+increase granularity to 4
+removing function addstr ...iteraion 2...granularity is 4
+Removing code from line 72 to line 75 in function addstr 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 72, content is ['    if ((* j) >= maxset)\n', '    {\n', '      exit(-1);\n', '    }\n']
+increase granularity to 8
+removing function addstr ...iteraion 3...granularity is 8
+Removing code from line 73 to line 80 in function addstr 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 73, content is ['    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      * (outset + (* j)) = c;\n', '      (* j)++;\n', '      result = (bool) 1;\n']
+increase granularity to 16
+removing function addstr ...iteraion 4...granularity is 16
+Removing code from line 74 to line 89 in function addstr 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 74, content is ['      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      * (outset + (* j)) = c;\n', '      (* j)++;\n', '      result = (bool) 1;\n', '    }\n', '\n', '    return (int) result;\n', '  }\n', '}\n', '\n', 'char esc(char *s, int *i)\n', '{\n', '  char result;\n']
+increase granularity to 17
+removing function addstr ...iteraion 5...granularity is 17
+Removing code from line 75 to line 91 in function addstr 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 75, content is ['    }\n', '    else\n', '    {\n', '      * (outset + (* j)) = c;\n', '      (* j)++;\n', '      result = (bool) 1;\n', '    }\n', '\n', '    return (int) result;\n', '  }\n', '}\n', '\n', 'char esc(char *s, int *i)\n', '{\n', '  char result;\n', '  {\n', '    if (((int) (* (s + (* i)))) != 64)\n']
+removing function esc ...iteraion 0...granularity is 1
+Removing code from line 89 to line 89 in function esc 
+Skipped
+Compile Failed
+Test failed, restoring code at line 89, content is ['  char result;\n']
+increase granularity to 2
+removing function esc ...iteraion 1...granularity is 2
+Removing code from line 90 to line 91 in function esc 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 90, content is ['  {\n', '    if (((int) (* (s + (* i)))) != 64)\n']
+increase granularity to 4
+removing function esc ...iteraion 2...granularity is 4
+Removing code from line 91 to line 94 in function esc 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 91, content is ['    if (((int) (* (s + (* i)))) != 64)\n', '    {\n', '      result = * (s + (* i));\n', '    }\n']
+increase granularity to 8
+removing function esc ...iteraion 3...granularity is 8
+Removing code from line 92 to line 99 in function esc 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 92, content is ['    {\n', '      result = * (s + (* i));\n', '    }\n', '    else\n', '    {\n', '      if (((int) (* (s + ((* i) + 1)))) == 0)\n', '      {\n', '        exit(-1);\n']
+increase granularity to 16
+removing function esc ...iteraion 4...granularity is 16
+Removing code from line 93 to line 108 in function esc 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 93, content is ['      result = * (s + (* i));\n', '    }\n', '    else\n', '    {\n', '      if (((int) (* (s + ((* i) + 1)))) == 0)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        (* i)++;\n', '        if (((int) (* (s + (* i)))) == 110)\n', '        {\n', '          result = (char) 10;\n', '        }\n', '        else\n']
+increase granularity to 32
+removing function esc ...iteraion 5...granularity is 32
+Removing code from line 94 to line 125 in function esc 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 94, content is ['    }\n', '    else\n', '    {\n', '      if (((int) (* (s + ((* i) + 1)))) == 0)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        (* i)++;\n', '        if (((int) (* (s + (* i)))) == 110)\n', '        {\n', '          result = (char) 10;\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (s + (* i)))) == 116)\n', '          {\n', '            result = (char) 9;\n', '          }\n', '          else\n', '          {\n', '            result = * (s + (* i));\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '    }\n', '\n', '    return result;\n']
+increase granularity to 40
+removing function esc ...iteraion 6...granularity is 40
+Removing code from line 95 to line 134 in function esc 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 95, content is ['    else\n', '    {\n', '      if (((int) (* (s + ((* i) + 1)))) == 0)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        (* i)++;\n', '        if (((int) (* (s + (* i)))) == 110)\n', '        {\n', '          result = (char) 10;\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (s + (* i)))) == 116)\n', '          {\n', '            result = (char) 9;\n', '          }\n', '          else\n', '          {\n', '            result = * (s + (* i));\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '    }\n', '\n', '    return result;\n', '  }\n', '}\n', '\n', 'void change(char *pat, char *sub);\n', 'extern int isalnum();\n', 'void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)\n', '{\n', '  int k;\n', '  bool junk;\n']
+removing function dodash ...iteraion 0...granularity is 1
+Removing code from line 133 to line 133 in function dodash 
+Skipped
+Compile Failed
+Test failed, restoring code at line 133, content is ['  int k;\n']
+increase granularity to 2
+removing function dodash ...iteraion 1...granularity is 2
+Removing code from line 134 to line 135 in function dodash 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 134, content is ['  bool junk;\n', '  char escjunk;\n']
+increase granularity to 4
+removing function dodash ...iteraion 2...granularity is 4
+Removing code from line 135 to line 138 in function dodash 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 135, content is ['  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n']
+increase granularity to 8
+removing function dodash ...iteraion 3...granularity is 8
+Removing code from line 136 to line 143 in function dodash 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 136, content is ['  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  int tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n']
+increase granularity to 16
+removing function dodash ...iteraion 4...granularity is 16
+Removing code from line 137 to line 152 in function dodash 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 137, content is ['  int tmp___0;\n', '  int tmp___1;\n', '  int tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '\n', '\n', '        if (((int) (* (src + (* i)))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (src + (* i)))) != 0))\n']
+increase granularity to 32
+removing function dodash ...iteraion 5...granularity is 32
+Removing code from line 138 to line 169 in function dodash 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 138, content is ['  int tmp___1;\n', '  int tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '\n', '\n', '        if (((int) (* (src + (* i)))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (src + (* i)))) != 0))\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (src + ((* i) - 1)))) == 64)\n', '        {\n', '          {\n', '            escjunk = esc(src, i);\n', '            tmp = addstr(escjunk, dest, j, maxset);\n', '            junk = (bool) tmp;\n', '          }\n']
+increase granularity to 64
+removing function dodash ...iteraion 6...granularity is 64
+Removing code from line 139 to line 202 in function dodash 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 139, content is ['  int tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '\n', '\n', '        if (((int) (* (src + (* i)))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (src + (* i)))) != 0))\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (src + ((* i) - 1)))) == 64)\n', '        {\n', '          {\n', '            escjunk = esc(src, i);\n', '            tmp = addstr(escjunk, dest, j, maxset);\n', '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (src + (* i)))) != 45)\n', '          {\n', '            {\n', '              tmp___0 = addstr(* (src + (* i)), dest, j, maxset);\n', '              junk = (bool) tmp___0;\n', '            }\n', '          }\n', '          else\n', '          {\n', '            if ((* j) <= 1)\n', '            {\n', '              exit(-1);\n', '            }\n', '            else\n', '            {\n', '              if (((int) (* (src + ((* i) + 1)))) == 0)\n', '              {\n', '                exit(-1);\n', '              }\n', '              else\n', '              {\n', '                {\n', '                  tmp___4 = isalnum((int) (* (src + ((* i) - 1))));\n', '                  tmp___5 = isalnum((int) (* (src + ((* i) + 1))));\n', '                }\n', '                if (tmp___4 & tmp___5)\n', '                {\n', '                  if (((int) (* (src + ((* i) - 1)))) <= ((int) (* (src + ((* i) + 1)))))\n', '                  {\n', '                    k = ((int) (* (src + ((* i) - 1)))) + 1;\n']
+increase granularity to 121
+removing function dodash ...iteraion 7...granularity is 121
+Removing code from line 140 to line 260 in function dodash 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 140, content is ['  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '\n', '\n', '        if (((int) (* (src + (* i)))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (src + (* i)))) != 0))\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (src + ((* i) - 1)))) == 64)\n', '        {\n', '          {\n', '            escjunk = esc(src, i);\n', '            tmp = addstr(escjunk, dest, j, maxset);\n', '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (src + (* i)))) != 45)\n', '          {\n', '            {\n', '              tmp___0 = addstr(* (src + (* i)), dest, j, maxset);\n', '              junk = (bool) tmp___0;\n', '            }\n', '          }\n', '          else\n', '          {\n', '            if ((* j) <= 1)\n', '            {\n', '              exit(-1);\n', '            }\n', '            else\n', '            {\n', '              if (((int) (* (src + ((* i) + 1)))) == 0)\n', '              {\n', '                exit(-1);\n', '              }\n', '              else\n', '              {\n', '                {\n', '                  tmp___4 = isalnum((int) (* (src + ((* i) - 1))));\n', '                  tmp___5 = isalnum((int) (* (src + ((* i) + 1))));\n', '                }\n', '                if (tmp___4 & tmp___5)\n', '                {\n', '                  if (((int) (* (src + ((* i) - 1)))) <= ((int) (* (src + ((* i) + 1)))))\n', '                  {\n', '                    k = ((int) (* (src + ((* i) - 1)))) + 1;\n', '                    {\n', '                      while (1)\n', '                      {\n', '                        while_continue___0:\n', '                        ;\n', '\n', '                        if (! (k <= ((int) (* (src + ((* i) + 1))))))\n', '                        {\n', '                          goto while_break___0;\n', '                        }\n', '\n', '                        {\n', '                          tmp___2 = addstr((char) k, dest, j, maxset);\n', '\n', '                          k++;\n', '                        }\n', '                      }\n', '\n', '                      while_break___0:\n', '                      ;\n', '\n', '                    }\n', '                    (* i)++;\n', '                  }\n', '\n', '                }\n', '                else\n', '                {\n', '                  {\n', "                    tmp___3 = addstr((char) '-', dest, j, maxset);\n", '                    junk = (bool) tmp___3;\n', '                  }\n', '                }\n', '\n', '              }\n', '\n', '            }\n', '\n', '          }\n', '\n', '        }\n', '\n', '        (* i)++;\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return;\n', '  }\n', '}\n', '\n', 'bool getccl(char *arg, int *i, char *pat, int *j)\n', '{\n', '  int jstart;\n', '  bool junk;\n', '  int tmp;\n']
+removing function getccl ...iteraion 0...granularity is 1
+Removing code from line 258 to line 258 in function getccl 
+Skipped
+Compile Failed
+Test failed, restoring code at line 258, content is ['  int jstart;\n']
+increase granularity to 2
+removing function getccl ...iteraion 1...granularity is 2
+Removing code from line 259 to line 260 in function getccl 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 259, content is ['  bool junk;\n', '  int tmp;\n']
+increase granularity to 4
+removing function getccl ...iteraion 2...granularity is 4
+Removing code from line 260 to line 263 in function getccl 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 260, content is ['  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  {\n']
+increase granularity to 8
+removing function getccl ...iteraion 3...granularity is 8
+Removing code from line 261 to line 268 in function getccl 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 261, content is ['  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    (* i)++;\n', '    if (((int) (* (arg + (* i)))) == 94)\n', '    {\n', '      {\n', "        tmp = addstr((char) '!', pat, j, 100);\n"]
+increase granularity to 16
+removing function getccl ...iteraion 4...granularity is 16
+Removing code from line 262 to line 277 in function getccl 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 262, content is ['  int tmp___1;\n', '  {\n', '    (* i)++;\n', '    if (((int) (* (arg + (* i)))) == 94)\n', '    {\n', '      {\n', "        tmp = addstr((char) '!', pat, j, 100);\n", '        junk = (bool) tmp;\n', '        (* i)++;\n', '      }\n', '    }\n', '    else\n', '    {\n', '      {\n', "        tmp___0 = addstr((char) '[', pat, j, 100);\n", '        junk = (bool) tmp___0;\n']
+increase granularity to 32
+removing function getccl ...iteraion 5...granularity is 32
+Removing code from line 263 to line 294 in function getccl 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 263, content is ['  {\n', '    (* i)++;\n', '    if (((int) (* (arg + (* i)))) == 94)\n', '    {\n', '      {\n', "        tmp = addstr((char) '!', pat, j, 100);\n", '        junk = (bool) tmp;\n', '        (* i)++;\n', '      }\n', '    }\n', '    else\n', '    {\n', '      {\n', "        tmp___0 = addstr((char) '[', pat, j, 100);\n", '        junk = (bool) tmp___0;\n', '      }\n', '    }\n', '\n', '    {\n', '      jstart = * j;\n', '      tmp___1 = addstr((char) 0, pat, j, 100);\n', '      junk = (bool) tmp___1;\n', "      dodash((char) ']', arg, i, pat, j, 100);\n", '      * (pat + jstart) = (char) (((* j) - jstart) - 1);\n', '    }\n', '    return (bool) (((int) (* (arg + (* i)))) == 93);\n', '  }\n', '}\n', '\n', 'void stclose(char *pat, int *j, int lastj)\n', '{\n', '  int jt;\n']
+increase granularity to 34
+removing function getccl ...iteraion 6...granularity is 34
+Removing code from line 264 to line 297 in function getccl 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 264, content is ['    (* i)++;\n', '    if (((int) (* (arg + (* i)))) == 94)\n', '    {\n', '      {\n', "        tmp = addstr((char) '!', pat, j, 100);\n", '        junk = (bool) tmp;\n', '        (* i)++;\n', '      }\n', '    }\n', '    else\n', '    {\n', '      {\n', "        tmp___0 = addstr((char) '[', pat, j, 100);\n", '        junk = (bool) tmp___0;\n', '      }\n', '    }\n', '\n', '    {\n', '      jstart = * j;\n', '      tmp___1 = addstr((char) 0, pat, j, 100);\n', '      junk = (bool) tmp___1;\n', "      dodash((char) ']', arg, i, pat, j, 100);\n", '      * (pat + jstart) = (char) (((* j) - jstart) - 1);\n', '    }\n', '    return (bool) (((int) (* (arg + (* i)))) == 93);\n', '  }\n', '}\n', '\n', 'void stclose(char *pat, int *j, int lastj)\n', '{\n', '  int jt;\n', '  int jp;\n', '  bool junk;\n', '  int tmp;\n']
+removing function stclose ...iteraion 0...granularity is 1
+Removing code from line 294 to line 294 in function stclose 
+Skipped
+Compile Failed
+Test failed, restoring code at line 294, content is ['  int jt;\n']
+increase granularity to 2
+removing function stclose ...iteraion 1...granularity is 2
+Removing code from line 295 to line 296 in function stclose 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 295, content is ['  int jp;\n', '  bool junk;\n']
+increase granularity to 4
+removing function stclose ...iteraion 2...granularity is 4
+Removing code from line 296 to line 299 in function stclose 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 296, content is ['  bool junk;\n', '  int tmp;\n', '  {\n', '    jp = (* j) - 1;\n']
+increase granularity to 8
+removing function stclose ...iteraion 3...granularity is 8
+Removing code from line 297 to line 304 in function stclose 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 297, content is ['  int tmp;\n', '  {\n', '    jp = (* j) - 1;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n']
+increase granularity to 16
+removing function stclose ...iteraion 4...granularity is 16
+Removing code from line 298 to line 313 in function stclose 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 298, content is ['  {\n', '    jp = (* j) - 1;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (jp >= lastj))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          jt = jp + 1;\n', '          tmp = addstr(* (pat + jp), pat, & jt, 100);\n']
+increase granularity to 32
+removing function stclose ...iteraion 5...granularity is 32
+Removing code from line 299 to line 330 in function stclose 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 299, content is ['    jp = (* j) - 1;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (jp >= lastj))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          jt = jp + 1;\n', '          tmp = addstr(* (pat + jp), pat, & jt, 100);\n', '          junk = (bool) tmp;\n', '          jp--;\n', '        }\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    (* j)++;\n', "    * (pat + lastj) = (char) '*';\n", '    return;\n', '  }\n', '}\n', '\n', 'bool in_set_2(char c)\n', '{\n']
+increase granularity to 35
+removing function stclose ...iteraion 6...granularity is 35
+Removing code from line 300 to line 334 in function stclose 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 300, content is ['    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (jp >= lastj))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          jt = jp + 1;\n', '          tmp = addstr(* (pat + jp), pat, & jt, 100);\n', '          junk = (bool) tmp;\n', '          jp--;\n', '        }\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    (* j)++;\n', "    * (pat + lastj) = (char) '*';\n", '    return;\n', '  }\n', '}\n', '\n', 'bool in_set_2(char c)\n', '{\n', '  int tmp;\n', '  {\n', '    if (((int) c) == 37)\n', '    {\n']
+removing function in_set_2 ...iteraion 0...granularity is 1
+Removing code from line 331 to line 331 in function in_set_2 
+Skipped
+Compile Failed
+Test failed, restoring code at line 331, content is ['  int tmp;\n']
+increase granularity to 2
+removing function in_set_2 ...iteraion 1...granularity is 2
+Removing code from line 332 to line 333 in function in_set_2 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 332, content is ['  {\n', '    if (((int) c) == 37)\n']
+increase granularity to 4
+removing function in_set_2 ...iteraion 2...granularity is 4
+Removing code from line 333 to line 336 in function in_set_2 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 333, content is ['    if (((int) c) == 37)\n', '    {\n', '      exit(-1);\n', '    }\n']
+increase granularity to 8
+removing function in_set_2 ...iteraion 3...granularity is 8
+Removing code from line 334 to line 341 in function in_set_2 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 334, content is ['    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      if (((int) c) == 36)\n', '      {\n', '        exit(-1);\n']
+increase granularity to 16
+removing function in_set_2 ...iteraion 4...granularity is 16
+Removing code from line 335 to line 350 in function in_set_2 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 335, content is ['      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      if (((int) c) == 36)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        if (((int) c) == 42)\n', '        {\n', '          tmp = 1;\n', '        }\n', '        else\n', '        {\n']
+increase granularity to 31
+removing function in_set_2 ...iteraion 5...granularity is 31
+Removing code from line 336 to line 366 in function in_set_2 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 336, content is ['    }\n', '    else\n', '    {\n', '      if (((int) c) == 36)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        if (((int) c) == 42)\n', '        {\n', '          tmp = 1;\n', '        }\n', '        else\n', '        {\n', '          tmp = 0;\n', '        }\n', '\n', '      }\n', '\n', '    }\n', '\n', '    return (bool) tmp;\n', '  }\n', '}\n', '\n', 'bool in_pat_set(char c)\n', '{\n', '  int tmp;\n', '  {\n', '    if (((int) c) == 99)\n']
+removing function in_pat_set ...iteraion 0...granularity is 1
+Removing code from line 364 to line 364 in function in_pat_set 
+Skipped
+Compile Failed
+Test failed, restoring code at line 364, content is ['  int tmp;\n']
+increase granularity to 2
+removing function in_pat_set ...iteraion 1...granularity is 2
+Removing code from line 365 to line 366 in function in_pat_set 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 365, content is ['  {\n', '    if (((int) c) == 99)\n']
+increase granularity to 4
+removing function in_pat_set ...iteraion 2...granularity is 4
+Removing code from line 366 to line 369 in function in_pat_set 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 366, content is ['    if (((int) c) == 99)\n', '    {\n', '      tmp = 1;\n', '    }\n']
+increase granularity to 8
+removing function in_pat_set ...iteraion 3...granularity is 8
+Removing code from line 367 to line 374 in function in_pat_set 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 367, content is ['    {\n', '      tmp = 1;\n', '    }\n', '    else\n', '    {\n', '      if (((int) c) == 37)\n', '      {\n', '        tmp = 1;\n']
+increase granularity to 16
+removing function in_pat_set ...iteraion 4...granularity is 16
+Removing code from line 368 to line 383 in function in_pat_set 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 368, content is ['      tmp = 1;\n', '    }\n', '    else\n', '    {\n', '      if (((int) c) == 37)\n', '      {\n', '        tmp = 1;\n', '      }\n', '      else\n', '      {\n', '        if (((int) c) == 36)\n', '        {\n', '\n', '        }\n', '        else\n', '        {\n']
+increase granularity to 32
+removing function in_pat_set ...iteraion 5...granularity is 32
+Removing code from line 369 to line 400 in function in_pat_set 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 369, content is ['    }\n', '    else\n', '    {\n', '      if (((int) c) == 37)\n', '      {\n', '        tmp = 1;\n', '      }\n', '      else\n', '      {\n', '        if (((int) c) == 36)\n', '        {\n', '\n', '        }\n', '        else\n', '        {\n', '          if (((int) c) == 63)\n', '          {\n', '            tmp = 1;\n', '          }\n', '          else\n', '          {\n', '            if (((int) c) == 91)\n', '            {\n', '\n', '            }\n', '            else\n', '            {\n', '              if (((int) c) == 33)\n', '              {\n', '                tmp = 1;\n', '              }\n', '              else\n']
+increase granularity to 57
+removing function in_pat_set ...iteraion 6...granularity is 57
+Removing code from line 370 to line 426 in function in_pat_set 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 370, content is ['    else\n', '    {\n', '      if (((int) c) == 37)\n', '      {\n', '        tmp = 1;\n', '      }\n', '      else\n', '      {\n', '        if (((int) c) == 36)\n', '        {\n', '\n', '        }\n', '        else\n', '        {\n', '          if (((int) c) == 63)\n', '          {\n', '            tmp = 1;\n', '          }\n', '          else\n', '          {\n', '            if (((int) c) == 91)\n', '            {\n', '\n', '            }\n', '            else\n', '            {\n', '              if (((int) c) == 33)\n', '              {\n', '                tmp = 1;\n', '              }\n', '              else\n', '              {\n', '                if (((int) c) == 42)\n', '                {\n', '                  tmp = 1;\n', '                }\n', '\n', '              }\n', '\n', '            }\n', '\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '    }\n', '\n', '    return (bool) tmp;\n', '  }\n', '}\n', '\n', 'int makepat(char *arg, int start, char delim, char *pat)\n', '{\n', '  int result;\n', '  int i;\n']
+removing function makepat ...iteraion 0...granularity is 1
+Removing code from line 425 to line 425 in function makepat 
+Skipped
+Compile Failed
+Test failed, restoring code at line 425, content is ['  int result;\n']
+increase granularity to 2
+removing function makepat ...iteraion 1...granularity is 2
+Removing code from line 426 to line 427 in function makepat 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 426, content is ['  int i;\n', '  int j;\n']
+increase granularity to 4
+removing function makepat ...iteraion 2...granularity is 4
+Removing code from line 427 to line 430 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 427, content is ['  int j;\n', '  int lastj;\n', '  int lj;\n', '  bool done;\n']
+increase granularity to 8
+removing function makepat ...iteraion 3...granularity is 8
+Removing code from line 428 to line 435 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 428, content is ['  int lastj;\n', '  int lj;\n', '  bool done;\n', '  bool junk;\n', '  bool getres;\n', '  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n']
+increase granularity to 16
+removing function makepat ...iteraion 4...granularity is 16
+Removing code from line 429 to line 444 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 429, content is ['  int lj;\n', '  bool done;\n', '  bool junk;\n', '  bool getres;\n', '  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  bool tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    j = 0;\n', '    i = start;\n', '    lastj = 0;\n']
+increase granularity to 32
+removing function makepat ...iteraion 5...granularity is 32
+Removing code from line 430 to line 461 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 430, content is ['  bool done;\n', '  bool junk;\n', '  bool getres;\n', '  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  bool tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    j = 0;\n', '    i = start;\n', '    lastj = 0;\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (((int) (* (arg + i))) != ((int) delim))\n', '          {\n', '            if (! (((int) (* (arg + i))) != 0))\n', '            {\n', '              exit(-1);\n', '            }\n', '\n', '          }\n']
+increase granularity to 64
+removing function makepat ...iteraion 6...granularity is 64
+Removing code from line 431 to line 494 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 431, content is ['  bool junk;\n', '  bool getres;\n', '  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  bool tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    j = 0;\n', '    i = start;\n', '    lastj = 0;\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (((int) (* (arg + i))) != ((int) delim))\n', '          {\n', '            if (! (((int) (* (arg + i))) != 0))\n', '            {\n', '              exit(-1);\n', '            }\n', '\n', '          }\n', '          else\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        lj = j;\n', '        if (((int) (* (arg + i))) == 63)\n', '        {\n', '          {\n', "            tmp = addstr((char) '?', pat, & j, 100);\n", '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (arg + i))) == 37)\n', '          {\n', '            if (i == start)\n', '            {\n', '              {\n', "                tmp___0 = addstr((char) '%', pat, & j, 100);\n", '                junk = (bool) tmp___0;\n', '              }\n', '            }\n', '\n', '          }\n', '          else\n']
+increase granularity to 128
+removing function makepat ...iteraion 7...granularity is 128
+Removing code from line 432 to line 559 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 432, content is ['  bool getres;\n', '  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  bool tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    j = 0;\n', '    i = start;\n', '    lastj = 0;\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (((int) (* (arg + i))) != ((int) delim))\n', '          {\n', '            if (! (((int) (* (arg + i))) != 0))\n', '            {\n', '              exit(-1);\n', '            }\n', '\n', '          }\n', '          else\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        lj = j;\n', '        if (((int) (* (arg + i))) == 63)\n', '        {\n', '          {\n', "            tmp = addstr((char) '?', pat, & j, 100);\n", '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (arg + i))) == 37)\n', '          {\n', '            if (i == start)\n', '            {\n', '              {\n', "                tmp___0 = addstr((char) '%', pat, & j, 100);\n", '                junk = (bool) tmp___0;\n', '              }\n', '            }\n', '\n', '          }\n', '          else\n', '          {\n', '            _L___0:\n', '            if (((int) (* (arg + i))) == 36)\n', '            {\n', '              if (((int) (* (arg + (i + 1)))) == ((int) delim))\n', '              {\n', '                {\n', "                  tmp___1 = addstr((char) '$', pat, & j, 100);\n", '                  junk = (bool) tmp___1;\n', '                }\n', '              }\n', '\n', '            }\n', '            else\n', '            {\n', '              _L:\n', '              if (((int) (* (arg + i))) == 91)\n', '              {\n', '                {\n', '                  getres = getccl(arg, & i, pat, & j);\n', '                  done = (bool) (((int) getres) == 0);\n', '                }\n', '              }\n', '              else\n', '              {\n', '                if (((int) (* (arg + i))) == 42)\n', '                {\n', '                  if (i > start)\n', '                  {\n', '                    {\n', '                      lj = lastj;\n', '                      tmp___2 = in_set_2(* (pat + lj));\n', '                    }\n', '                    if (tmp___2)\n', '                    {\n', '                      done = (bool) 1;\n', '                    }\n', '                    else\n', '                    {\n', '                      {\n', '                        stclose(pat, & j, lastj);\n', '                      }\n', '                    }\n', '\n', '                  }\n', '\n', '                }\n', '                else\n', '                {\n', '                  {\n', "                    tmp___3 = addstr((char) 'c', pat, & j, 100);\n", '                    junk = (bool) tmp___3;\n', '                    escjunk = esc(arg, & i);\n', '                    tmp___4 = addstr(escjunk, pat, & j, 100);\n', '                    junk = (bool) tmp___4;\n', '                  }\n', '                }\n', '\n', '              }\n', '\n', '\n', '            }\n', '\n', '\n', '          }\n']
+increase granularity to 183
+removing function makepat ...iteraion 8...granularity is 183
+Removing code from line 433 to line 615 in function makepat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 433, content is ['  char escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  bool tmp___2;\n', '  int tmp___3;\n', '  int tmp___4;\n', '  int tmp___5;\n', '  {\n', '    j = 0;\n', '    i = start;\n', '    lastj = 0;\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (((int) (* (arg + i))) != ((int) delim))\n', '          {\n', '            if (! (((int) (* (arg + i))) != 0))\n', '            {\n', '              exit(-1);\n', '            }\n', '\n', '          }\n', '          else\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        lj = j;\n', '        if (((int) (* (arg + i))) == 63)\n', '        {\n', '          {\n', "            tmp = addstr((char) '?', pat, & j, 100);\n", '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (((int) (* (arg + i))) == 37)\n', '          {\n', '            if (i == start)\n', '            {\n', '              {\n', "                tmp___0 = addstr((char) '%', pat, & j, 100);\n", '                junk = (bool) tmp___0;\n', '              }\n', '            }\n', '\n', '          }\n', '          else\n', '          {\n', '            _L___0:\n', '            if (((int) (* (arg + i))) == 36)\n', '            {\n', '              if (((int) (* (arg + (i + 1)))) == ((int) delim))\n', '              {\n', '                {\n', "                  tmp___1 = addstr((char) '$', pat, & j, 100);\n", '                  junk = (bool) tmp___1;\n', '                }\n', '              }\n', '\n', '            }\n', '            else\n', '            {\n', '              _L:\n', '              if (((int) (* (arg + i))) == 91)\n', '              {\n', '                {\n', '                  getres = getccl(arg, & i, pat, & j);\n', '                  done = (bool) (((int) getres) == 0);\n', '                }\n', '              }\n', '              else\n', '              {\n', '                if (((int) (* (arg + i))) == 42)\n', '                {\n', '                  if (i > start)\n', '                  {\n', '                    {\n', '                      lj = lastj;\n', '                      tmp___2 = in_set_2(* (pat + lj));\n', '                    }\n', '                    if (tmp___2)\n', '                    {\n', '                      done = (bool) 1;\n', '                    }\n', '                    else\n', '                    {\n', '                      {\n', '                        stclose(pat, & j, lastj);\n', '                      }\n', '                    }\n', '\n', '                  }\n', '\n', '                }\n', '                else\n', '                {\n', '                  {\n', "                    tmp___3 = addstr((char) 'c', pat, & j, 100);\n", '                    junk = (bool) tmp___3;\n', '                    escjunk = esc(arg, & i);\n', '                    tmp___4 = addstr(escjunk, pat, & j, 100);\n', '                    junk = (bool) tmp___4;\n', '                  }\n', '                }\n', '\n', '              }\n', '\n', '\n', '            }\n', '\n', '\n', '          }\n', '\n', '        }\n', '\n', '        lastj = lj;\n', '        if (! done)\n', '        {\n', '          i++;\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    {\n', "      tmp___5 = addstr((char) '\\000', pat, & j, 100);\n", '      junk = (bool) tmp___5;\n', '    }\n', '    if (done)\n', '    {\n', '      result = 0;\n', '    }\n', '    else\n', '    {\n', '      if (((int) (* (arg + i))) != ((int) delim))\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        if (! junk)\n', '        {\n', '          exit(-1);\n', '        }\n', '        else\n', '        {\n', '          result = i;\n', '        }\n', '\n', '      }\n', '\n', '    }\n', '\n', '    return result;\n', '  }\n', '}\n', '\n', 'int getpat(char *arg, char *pat)\n', '{\n', '  int makeres;\n', '  {\n', '    {\n', "      makeres = makepat(arg, 0, (char) '\\000', pat);\n", '    }\n', '    return makeres > 0;\n']
+removing function getpat ...iteraion 0...granularity is 1
+Removing code from line 610 to line 610 in function getpat 
+Skipped
+Compile Failed
+Test failed, restoring code at line 610, content is ['  int makeres;\n']
+increase granularity to 2
+removing function getpat ...iteraion 1...granularity is 2
+Removing code from line 611 to line 612 in function getpat 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 611, content is ['  {\n', '    {\n']
+increase granularity to 4
+removing function getpat ...iteraion 2...granularity is 4
+Removing code from line 612 to line 615 in function getpat 
+Skipped
+Skipped
+Skipped
+Skipped
+Test Failed
+Test failed, restoring code at line 612, content is ['    {\n', "      makeres = makepat(arg, 0, (char) '\\000', pat);\n", '    }\n', '    return makeres > 0;\n']
+increase granularity to 8
+removing function getpat ...iteraion 3...granularity is 8
+Removing code from line 613 to line 620 in function getpat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 613, content is ["      makeres = makepat(arg, 0, (char) '\\000', pat);\n", '    }\n', '    return makeres > 0;\n', '  }\n', '}\n', '\n', 'int makesub(char *arg, int from, character delim, char *sub)\n', '{\n']
+increase granularity to 9
+removing function getpat ...iteraion 4...granularity is 9
+Removing code from line 614 to line 622 in function getpat 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 614, content is ['    }\n', '    return makeres > 0;\n', '  }\n', '}\n', '\n', 'int makesub(char *arg, int from, character delim, char *sub)\n', '{\n', '  int result;\n', '  int i;\n']
+removing function makesub ...iteraion 0...granularity is 1
+Removing code from line 621 to line 621 in function makesub 
+Skipped
+Compile Failed
+Test failed, restoring code at line 621, content is ['  int result;\n']
+increase granularity to 2
+removing function makesub ...iteraion 1...granularity is 2
+Removing code from line 622 to line 623 in function makesub 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 622, content is ['  int i;\n', '  int j;\n']
+increase granularity to 4
+removing function makesub ...iteraion 2...granularity is 4
+Removing code from line 623 to line 626 in function makesub 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 623, content is ['  int j;\n', '  bool junk;\n', '  character escjunk;\n', '  int tmp;\n']
+increase granularity to 8
+removing function makesub ...iteraion 3...granularity is 8
+Removing code from line 624 to line 631 in function makesub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 624, content is ['  bool junk;\n', '  character escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    j = 0;\n', '    i = from;\n']
+increase granularity to 16
+removing function makesub ...iteraion 4...granularity is 16
+Removing code from line 625 to line 640 in function makesub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 625, content is ['  character escjunk;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    j = 0;\n', '    i = from;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (((int) (* (arg + i))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (arg + i))) != 0))\n']
+increase granularity to 32
+removing function makesub ...iteraion 5...granularity is 32
+Removing code from line 626 to line 657 in function makesub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 626, content is ['  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    j = 0;\n', '    i = from;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (((int) (* (arg + i))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (arg + i))) != 0))\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((unsigned int) (* (arg + i))) == 38U)\n', '        {\n', '          {\n', '            tmp = addstr((char) (- 1), sub, & j, 100);\n', '            junk = (bool) tmp;\n', '          }\n', '        }\n']
+increase granularity to 64
+removing function makesub ...iteraion 6...granularity is 64
+Removing code from line 627 to line 690 in function makesub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 627, content is ['  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    j = 0;\n', '    i = from;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (((int) (* (arg + i))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (arg + i))) != 0))\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((unsigned int) (* (arg + i))) == 38U)\n', '        {\n', '          {\n', '            tmp = addstr((char) (- 1), sub, & j, 100);\n', '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          {\n', '            escjunk = esc(arg, & i);\n', '            tmp___0 = addstr(escjunk, sub, & j, 100);\n', '            junk = (bool) tmp___0;\n', '          }\n', '        }\n', '\n', '        i++;\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    if (((int) (* (arg + i))) != ((int) delim))\n', '    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', "        tmp___1 = addstr((char) '\\000', sub, & j, 100);\n", '        junk = (bool) tmp___1;\n', '      }\n', '      if (! junk)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        result = i;\n']
+increase granularity to 78
+removing function makesub ...iteraion 7...granularity is 78
+Removing code from line 628 to line 705 in function makesub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 628, content is ['  int tmp___1;\n', '  {\n', '    j = 0;\n', '    i = from;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (((int) (* (arg + i))) != ((int) delim))\n', '        {\n', '          if (! (((int) (* (arg + i))) != 0))\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((unsigned int) (* (arg + i))) == 38U)\n', '        {\n', '          {\n', '            tmp = addstr((char) (- 1), sub, & j, 100);\n', '            junk = (bool) tmp;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          {\n', '            escjunk = esc(arg, & i);\n', '            tmp___0 = addstr(escjunk, sub, & j, 100);\n', '            junk = (bool) tmp___0;\n', '          }\n', '        }\n', '\n', '        i++;\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    if (((int) (* (arg + i))) != ((int) delim))\n', '    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', "        tmp___1 = addstr((char) '\\000', sub, & j, 100);\n", '        junk = (bool) tmp___1;\n', '      }\n', '      if (! junk)\n', '      {\n', '        exit(-1);\n', '      }\n', '      else\n', '      {\n', '        result = i;\n', '      }\n', '\n', '    }\n', '\n', '    return result;\n', '  }\n', '}\n', '\n', 'bool getsub(char *arg, char *sub)\n', '{\n', '  int makeres;\n', '  {\n', '    {\n', "      makeres = makesub(arg, 0, (character) '\\000', sub);\n", '    }\n']
+removing function getsub ...iteraion 0...granularity is 1
+Removing code from line 701 to line 701 in function getsub 
+Skipped
+Compile Failed
+Test failed, restoring code at line 701, content is ['  int makeres;\n']
+increase granularity to 2
+removing function getsub ...iteraion 1...granularity is 2
+Removing code from line 702 to line 703 in function getsub 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 702, content is ['  {\n', '    {\n']
+increase granularity to 4
+removing function getsub ...iteraion 2...granularity is 4
+Removing code from line 703 to line 706 in function getsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Test Failed
+Test failed, restoring code at line 703, content is ['    {\n', "      makeres = makesub(arg, 0, (character) '\\000', sub);\n", '    }\n', '    return (bool) (makeres > 0);\n']
+increase granularity to 8
+removing function getsub ...iteraion 3...granularity is 8
+Removing code from line 704 to line 711 in function getsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 704, content is ["      makeres = makesub(arg, 0, (character) '\\000', sub);\n", '    }\n', '    return (bool) (makeres > 0);\n', '  }\n', '}\n', '\n', 'void subline(char *lin, char *pat, char *sub);\n', 'bool locate(character c, char *pat, int offset)\n']
+increase granularity to 9
+removing function getsub ...iteraion 4...granularity is 9
+Removing code from line 705 to line 713 in function getsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 705, content is ['    }\n', '    return (bool) (makeres > 0);\n', '  }\n', '}\n', '\n', 'void subline(char *lin, char *pat, char *sub);\n', 'bool locate(character c, char *pat, int offset)\n', '{\n', '  int i;\n']
+removing function locate ...iteraion 0...granularity is 1
+Removing code from line 713 to line 713 in function locate 
+Skipped
+Compile Failed
+Test failed, restoring code at line 713, content is ['  int i;\n']
+increase granularity to 2
+removing function locate ...iteraion 1...granularity is 2
+Removing code from line 714 to line 715 in function locate 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 714, content is ['  bool flag;\n', '  {\n']
+increase granularity to 4
+removing function locate ...iteraion 2...granularity is 4
+Removing code from line 715 to line 718 in function locate 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 715, content is ['  {\n', '    flag = (bool) 0;\n', '    i = offset + ((int) (* (pat + offset)));\n', '    {\n']
+increase granularity to 8
+removing function locate ...iteraion 3...granularity is 8
+Removing code from line 716 to line 723 in function locate 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 716, content is ['    flag = (bool) 0;\n', '    i = offset + ((int) (* (pat + offset)));\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n']
+increase granularity to 16
+removing function locate ...iteraion 4...granularity is 16
+Removing code from line 717 to line 732 in function locate 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 717, content is ['    i = offset + ((int) (* (pat + offset)));\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (i > offset))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) c) == ((int) (* (pat + i))))\n', '        {\n', '          flag = (bool) 1;\n', '          i = offset;\n']
+increase granularity to 32
+removing function locate ...iteraion 5...granularity is 32
+Removing code from line 718 to line 749 in function locate 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 718, content is ['    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (i > offset))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) c) == ((int) (* (pat + i))))\n', '        {\n', '          flag = (bool) 1;\n', '          i = offset;\n', '        }\n', '        else\n', '        {\n', '          i--;\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return flag;\n', '  }\n', '}\n', '\n', 'extern int abort();\n']
+increase granularity to 36
+removing function locate ...iteraion 6...granularity is 36
+Removing code from line 719 to line 754 in function locate 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 719, content is ['      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (i > offset))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) c) == ((int) (* (pat + i))))\n', '        {\n', '          flag = (bool) 1;\n', '          i = offset;\n', '        }\n', '        else\n', '        {\n', '          i--;\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return flag;\n', '  }\n', '}\n', '\n', 'extern int abort();\n', 'bool omatch(char *lin, int *i, char *pat, int j)\n', '{\n', '  char advance;\n', '  bool result;\n', '  bool tmp;\n']
+removing function omatch ...iteraion 0...granularity is 1
+Removing code from line 752 to line 752 in function omatch 
+Skipped
+Compile Failed
+Test failed, restoring code at line 752, content is ['  char advance;\n']
+increase granularity to 2
+removing function omatch ...iteraion 1...granularity is 2
+Removing code from line 753 to line 754 in function omatch 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 753, content is ['  bool result;\n', '  bool tmp;\n']
+increase granularity to 4
+removing function omatch ...iteraion 2...granularity is 4
+Removing code from line 754 to line 757 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 754, content is ['  bool tmp;\n', '  bool tmp___0;\n', '  bool tmp___1;\n', '  {\n']
+increase granularity to 8
+removing function omatch ...iteraion 3...granularity is 8
+Removing code from line 755 to line 762 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 755, content is ['  bool tmp___0;\n', '  bool tmp___1;\n', '  {\n', '    advance = (char) (- 1);\n', '    if (((int) (* (lin + (* i)))) == 0)\n', '    {\n', '      exit(-1);\n', '    }\n']
+increase granularity to 16
+removing function omatch ...iteraion 4...granularity is 16
+Removing code from line 756 to line 771 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 756, content is ['  bool tmp___1;\n', '  {\n', '    advance = (char) (- 1);\n', '    if (((int) (* (lin + (* i)))) == 0)\n', '    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', '        tmp___1 = in_pat_set(* (pat + j));\n', '      }\n', '      if (tmp___1)\n', '      {\n', '        {\n', '          if (((int) (* (pat + j))) == 99)\n']
+increase granularity to 32
+removing function omatch ...iteraion 5...granularity is 32
+Removing code from line 757 to line 788 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 757, content is ['  {\n', '    advance = (char) (- 1);\n', '    if (((int) (* (lin + (* i)))) == 0)\n', '    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', '        tmp___1 = in_pat_set(* (pat + j));\n', '      }\n', '      if (tmp___1)\n', '      {\n', '        {\n', '          if (((int) (* (pat + j))) == 99)\n', '          {\n', '            goto case_99;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 37)\n', '          {\n', '            goto case_37;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 63)\n', '          {\n', '            goto case_63;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 36)\n', '          {\n', '            exit(-1);\n']
+increase granularity to 64
+removing function omatch ...iteraion 6...granularity is 64
+Removing code from line 758 to line 821 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 758, content is ['    advance = (char) (- 1);\n', '    if (((int) (* (lin + (* i)))) == 0)\n', '    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', '        tmp___1 = in_pat_set(* (pat + j));\n', '      }\n', '      if (tmp___1)\n', '      {\n', '        {\n', '          if (((int) (* (pat + j))) == 99)\n', '          {\n', '            goto case_99;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 37)\n', '          {\n', '            goto case_37;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 63)\n', '          {\n', '            goto case_63;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 36)\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 91)\n', '          {\n', '            goto case_91;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 33)\n', '          {\n', '            goto case_33;\n', '          }\n', '\n', '          case_99:\n', '          if (((int) (* (lin + (* i)))) == ((int) (* (pat + (j + 1)))))\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_37:\n', '          if ((* i) == 0)\n', '          {\n', '            advance = (char) 0;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_63:\n', '          if (((int) (* (lin + (* i)))) != 10)\n', '          {\n', '            advance = (char) 1;\n', '          }\n']
+increase granularity to 128
+removing function omatch ...iteraion 7...granularity is 128
+Removing code from line 759 to line 886 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 759, content is ['    if (((int) (* (lin + (* i)))) == 0)\n', '    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', '        tmp___1 = in_pat_set(* (pat + j));\n', '      }\n', '      if (tmp___1)\n', '      {\n', '        {\n', '          if (((int) (* (pat + j))) == 99)\n', '          {\n', '            goto case_99;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 37)\n', '          {\n', '            goto case_37;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 63)\n', '          {\n', '            goto case_63;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 36)\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 91)\n', '          {\n', '            goto case_91;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 33)\n', '          {\n', '            goto case_33;\n', '          }\n', '\n', '          case_99:\n', '          if (((int) (* (lin + (* i)))) == ((int) (* (pat + (j + 1)))))\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_37:\n', '          if ((* i) == 0)\n', '          {\n', '            advance = (char) 0;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_63:\n', '          if (((int) (* (lin + (* i)))) != 10)\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_36:\n', '          ;\n', '\n', '          if (((int) (* (lin + (* i)))) == 10)\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '          case_91:\n', '          {\n', '            tmp = locate(* (lin + (* i)), pat, j + 1);\n', '          }\n', '\n', '          if (tmp)\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '          goto switch_break;\n', '          case_33:\n', '          if (((int) (* (lin + (* i)))) != 10)\n', '          {\n', '            {\n', '              tmp___0 = locate(* (lin + (* i)), pat, j + 1);\n', '            }\n', '            if (! tmp___0)\n', '            {\n', '              advance = (char) 1;\n', '            }\n', '\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          switch_default:\n', '          ;\n', '\n', '          {\n', '          }\n', '          switch_break:\n', '          ;\n', '\n', '        }\n', '      }\n', '\n', '    }\n', '\n', '    if (((int) advance) >= 0)\n', '    {\n', '      * i += (int) advance;\n', '      result = (bool) 1;\n', '    }\n', '    else\n', '    {\n', '      result = (bool) 0;\n', '    }\n', '\n', '    return result;\n', '  }\n', '}\n', '\n', 'int patsize(char *pat, int n)\n']
+increase granularity to 134
+removing function omatch ...iteraion 8...granularity is 134
+Removing code from line 760 to line 893 in function omatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 760, content is ['    {\n', '      exit(-1);\n', '    }\n', '    else\n', '    {\n', '      {\n', '        tmp___1 = in_pat_set(* (pat + j));\n', '      }\n', '      if (tmp___1)\n', '      {\n', '        {\n', '          if (((int) (* (pat + j))) == 99)\n', '          {\n', '            goto case_99;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 37)\n', '          {\n', '            goto case_37;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 63)\n', '          {\n', '            goto case_63;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 36)\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 91)\n', '          {\n', '            goto case_91;\n', '          }\n', '\n', '          if (((int) (* (pat + j))) == 33)\n', '          {\n', '            goto case_33;\n', '          }\n', '\n', '          case_99:\n', '          if (((int) (* (lin + (* i)))) == ((int) (* (pat + (j + 1)))))\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_37:\n', '          if ((* i) == 0)\n', '          {\n', '            advance = (char) 0;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_63:\n', '          if (((int) (* (lin + (* i)))) != 10)\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          case_36:\n', '          ;\n', '\n', '          if (((int) (* (lin + (* i)))) == 10)\n', '          {\n', '            exit(-1);\n', '          }\n', '\n', '          case_91:\n', '          {\n', '            tmp = locate(* (lin + (* i)), pat, j + 1);\n', '          }\n', '\n', '          if (tmp)\n', '          {\n', '            advance = (char) 1;\n', '          }\n', '\n', '          goto switch_break;\n', '          case_33:\n', '          if (((int) (* (lin + (* i)))) != 10)\n', '          {\n', '            {\n', '              tmp___0 = locate(* (lin + (* i)), pat, j + 1);\n', '            }\n', '            if (! tmp___0)\n', '            {\n', '              advance = (char) 1;\n', '            }\n', '\n', '          }\n', '\n', '\n', '          goto switch_break;\n', '          switch_default:\n', '          ;\n', '\n', '          {\n', '          }\n', '          switch_break:\n', '          ;\n', '\n', '        }\n', '      }\n', '\n', '    }\n', '\n', '    if (((int) advance) >= 0)\n', '    {\n', '      * i += (int) advance;\n', '      result = (bool) 1;\n', '    }\n', '    else\n', '    {\n', '      result = (bool) 0;\n', '    }\n', '\n', '    return result;\n', '  }\n', '}\n', '\n', 'int patsize(char *pat, int n)\n', '{\n', '  int size;\n', '  bool tmp;\n', '  {\n', '    {\n', '      tmp = in_pat_set(* (pat + n));\n', '    }\n']
+removing function patsize ...iteraion 0...granularity is 1
+Removing code from line 888 to line 888 in function patsize 
+Skipped
+Compile Failed
+Test failed, restoring code at line 888, content is ['  int size;\n']
+increase granularity to 2
+removing function patsize ...iteraion 1...granularity is 2
+Removing code from line 889 to line 890 in function patsize 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 889, content is ['  bool tmp;\n', '  {\n']
+increase granularity to 4
+removing function patsize ...iteraion 2...granularity is 4
+Removing code from line 890 to line 893 in function patsize 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 890, content is ['  {\n', '    {\n', '      tmp = in_pat_set(* (pat + n));\n', '    }\n']
+increase granularity to 8
+removing function patsize ...iteraion 3...granularity is 8
+Removing code from line 891 to line 898 in function patsize 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 891, content is ['    {\n', '      tmp = in_pat_set(* (pat + n));\n', '    }\n', '    if (tmp)\n', '    {\n', '      {\n', '        if (((int) (* (pat + n))) == 99)\n', '        {\n']
+increase granularity to 16
+removing function patsize ...iteraion 4...granularity is 16
+Removing code from line 892 to line 907 in function patsize 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 892, content is ['      tmp = in_pat_set(* (pat + n));\n', '    }\n', '    if (tmp)\n', '    {\n', '      {\n', '        if (((int) (* (pat + n))) == 99)\n', '        {\n', '          goto case_99;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 63)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 36)\n']
+increase granularity to 32
+removing function patsize ...iteraion 5...granularity is 32
+Removing code from line 893 to line 924 in function patsize 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 893, content is ['    }\n', '    if (tmp)\n', '    {\n', '      {\n', '        if (((int) (* (pat + n))) == 99)\n', '        {\n', '          goto case_99;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 63)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 36)\n', '        {\n', '          exit(-1);\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 37)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 33)\n', '        {\n', '          goto case_33;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 91)\n', '        {\n', '          goto case_33;\n']
+increase granularity to 64
+removing function patsize ...iteraion 6...granularity is 64
+Removing code from line 894 to line 957 in function patsize 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 894, content is ['    if (tmp)\n', '    {\n', '      {\n', '        if (((int) (* (pat + n))) == 99)\n', '        {\n', '          goto case_99;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 63)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 36)\n', '        {\n', '          exit(-1);\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 37)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 33)\n', '        {\n', '          goto case_33;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 91)\n', '        {\n', '          goto case_33;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 42)\n', '        {\n', '          goto case_42;\n', '        }\n', '\n', '        case_99:\n', '        size = 2;\n', '\n', '        goto switch_break;\n', '        case_63:\n', '        case_36:\n', '        case_37:\n', '        size = 1;\n', '\n', '\n', '\n', '        goto switch_break;\n', '        case_33:\n', '        case_91:\n', '        size = ((int) (* (pat + (n + 1)))) + 2;\n', '\n', '\n', '        goto switch_break;\n', '        case_42:\n', '        size = 1;\n', '\n', '        goto switch_break;\n', '        switch_default:\n', '        ;\n', '\n', '        {\n']
+increase granularity to 81
+removing function patsize ...iteraion 7...granularity is 81
+Removing code from line 895 to line 975 in function patsize 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 895, content is ['    {\n', '      {\n', '        if (((int) (* (pat + n))) == 99)\n', '        {\n', '          goto case_99;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 63)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 36)\n', '        {\n', '          exit(-1);\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 37)\n', '        {\n', '          goto case_63;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 33)\n', '        {\n', '          goto case_33;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 91)\n', '        {\n', '          goto case_33;\n', '        }\n', '\n', '        if (((int) (* (pat + n))) == 42)\n', '        {\n', '          goto case_42;\n', '        }\n', '\n', '        case_99:\n', '        size = 2;\n', '\n', '        goto switch_break;\n', '        case_63:\n', '        case_36:\n', '        case_37:\n', '        size = 1;\n', '\n', '\n', '\n', '        goto switch_break;\n', '        case_33:\n', '        case_91:\n', '        size = ((int) (* (pat + (n + 1)))) + 2;\n', '\n', '\n', '        goto switch_break;\n', '        case_42:\n', '        size = 1;\n', '\n', '        goto switch_break;\n', '        switch_default:\n', '        ;\n', '\n', '        {\n', '        }\n', '        switch_break:\n', '        ;\n', '\n', '      }\n', '    }\n', '\n', '    return size;\n', '  }\n', '}\n', '\n', 'int amatch(char *lin, int offset, char *pat, int j)\n', '{\n', '  int i;\n', '  int k;\n', '  bool result;\n', '  bool done;\n', '  int tmp;\n']
+removing function amatch ...iteraion 0...granularity is 1
+Removing code from line 971 to line 971 in function amatch 
+Skipped
+Compile Failed
+Test failed, restoring code at line 971, content is ['  int i;\n']
+increase granularity to 2
+removing function amatch ...iteraion 1...granularity is 2
+Removing code from line 972 to line 973 in function amatch 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 972, content is ['  int k;\n', '  bool result;\n']
+increase granularity to 4
+removing function amatch ...iteraion 2...granularity is 4
+Removing code from line 973 to line 976 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 973, content is ['  bool result;\n', '  bool done;\n', '  int tmp;\n', '  int tmp___0;\n']
+increase granularity to 8
+removing function amatch ...iteraion 3...granularity is 8
+Removing code from line 974 to line 981 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 974, content is ['  bool done;\n', '  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n']
+increase granularity to 16
+removing function amatch ...iteraion 4...granularity is 16
+Removing code from line 975 to line 990 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 975, content is ['  int tmp;\n', '  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (! (((int) (* (pat + j))) != 0))\n', '          {\n', '            goto while_break;\n']
+increase granularity to 32
+removing function amatch ...iteraion 5...granularity is 32
+Removing code from line 976 to line 1007 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 976, content is ['  int tmp___0;\n', '  int tmp___1;\n', '  {\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (! (((int) (* (pat + j))) != 0))\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (pat + j))) == 42)\n', '        {\n', '          {\n', '            tmp = patsize(pat, j);\n', '            j += tmp;\n', '            i = offset;\n', '          }\n', '          {\n', '            while (1)\n']
+increase granularity to 64
+removing function amatch ...iteraion 6...granularity is 64
+Removing code from line 977 to line 1040 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 977, content is ['  int tmp___1;\n', '  {\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (! (((int) (* (pat + j))) != 0))\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (pat + j))) == 42)\n', '        {\n', '          {\n', '            tmp = patsize(pat, j);\n', '            j += tmp;\n', '            i = offset;\n', '          }\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___0:\n', '              ;\n', '\n', '              if (! done)\n', '              {\n', '                if (! (((int) (* (lin + i))) != 0))\n', '                {\n', '                  exit(-1);\n', '                }\n', '\n', '              }\n', '              else\n', '              {\n', '                goto while_break___0;\n', '              }\n', '\n', '              {\n', '                result = omatch(lin, & i, pat, j);\n', '              }\n', '              if (! result)\n', '              {\n', '                done = (bool) 1;\n', '              }\n', '\n', '            }\n', '\n', '            while_break___0:\n', '            ;\n', '\n', '          }\n', '          done = (bool) 0;\n', '          {\n']
+increase granularity to 128
+removing function amatch ...iteraion 7...granularity is 128
+Removing code from line 978 to line 1105 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 978, content is ['  {\n', '    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (! (((int) (* (pat + j))) != 0))\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (pat + j))) == 42)\n', '        {\n', '          {\n', '            tmp = patsize(pat, j);\n', '            j += tmp;\n', '            i = offset;\n', '          }\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___0:\n', '              ;\n', '\n', '              if (! done)\n', '              {\n', '                if (! (((int) (* (lin + i))) != 0))\n', '                {\n', '                  exit(-1);\n', '                }\n', '\n', '              }\n', '              else\n', '              {\n', '                goto while_break___0;\n', '              }\n', '\n', '              {\n', '                result = omatch(lin, & i, pat, j);\n', '              }\n', '              if (! result)\n', '              {\n', '                done = (bool) 1;\n', '              }\n', '\n', '            }\n', '\n', '            while_break___0:\n', '            ;\n', '\n', '          }\n', '          done = (bool) 0;\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___1:\n', '              ;\n', '\n', '              if (! done)\n', '              {\n', '                if (! (i >= offset))\n', '                {\n', '                  goto while_break___1;\n', '                }\n', '\n', '              }\n', '              else\n', '              {\n', '                goto while_break___1;\n', '              }\n', '\n', '              {\n', '                tmp___0 = patsize(pat, j);\n', '                k = amatch(lin, i, pat, j + tmp___0);\n', '              }\n', '              if (k >= 0)\n', '              {\n', '                done = (bool) 1;\n', '              }\n', '              else\n', '              {\n', '                i--;\n', '              }\n', '\n', '            }\n', '\n', '            while_break___1:\n', '            ;\n', '\n', '          }\n', '          offset = k;\n', '          done = (bool) 1;\n', '        }\n', '        else\n', '        {\n', '          {\n', '            result = omatch(lin, & offset, pat, j);\n', '          }\n', '          if (! result)\n', '          {\n', '            offset = - 1;\n', '            done = (bool) 1;\n', '          }\n', '          else\n', '          {\n', '            {\n', '              tmp___1 = patsize(pat, j);\n', '              j += tmp___1;\n', '            }\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n']
+increase granularity to 140
+removing function amatch ...iteraion 8...granularity is 140
+Removing code from line 979 to line 1118 in function amatch 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 979, content is ['    done = (bool) 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! done)\n', '        {\n', '          if (! (((int) (* (pat + j))) != 0))\n', '          {\n', '            goto while_break;\n', '          }\n', '\n', '        }\n', '        else\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (pat + j))) == 42)\n', '        {\n', '          {\n', '            tmp = patsize(pat, j);\n', '            j += tmp;\n', '            i = offset;\n', '          }\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___0:\n', '              ;\n', '\n', '              if (! done)\n', '              {\n', '                if (! (((int) (* (lin + i))) != 0))\n', '                {\n', '                  exit(-1);\n', '                }\n', '\n', '              }\n', '              else\n', '              {\n', '                goto while_break___0;\n', '              }\n', '\n', '              {\n', '                result = omatch(lin, & i, pat, j);\n', '              }\n', '              if (! result)\n', '              {\n', '                done = (bool) 1;\n', '              }\n', '\n', '            }\n', '\n', '            while_break___0:\n', '            ;\n', '\n', '          }\n', '          done = (bool) 0;\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___1:\n', '              ;\n', '\n', '              if (! done)\n', '              {\n', '                if (! (i >= offset))\n', '                {\n', '                  goto while_break___1;\n', '                }\n', '\n', '              }\n', '              else\n', '              {\n', '                goto while_break___1;\n', '              }\n', '\n', '              {\n', '                tmp___0 = patsize(pat, j);\n', '                k = amatch(lin, i, pat, j + tmp___0);\n', '              }\n', '              if (k >= 0)\n', '              {\n', '                done = (bool) 1;\n', '              }\n', '              else\n', '              {\n', '                i--;\n', '              }\n', '\n', '            }\n', '\n', '            while_break___1:\n', '            ;\n', '\n', '          }\n', '          offset = k;\n', '          done = (bool) 1;\n', '        }\n', '        else\n', '        {\n', '          {\n', '            result = omatch(lin, & offset, pat, j);\n', '          }\n', '          if (! result)\n', '          {\n', '            offset = - 1;\n', '            done = (bool) 1;\n', '          }\n', '          else\n', '          {\n', '            {\n', '              tmp___1 = patsize(pat, j);\n', '              j += tmp___1;\n', '            }\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return offset;\n', '  }\n', '}\n', '\n', 'void putsub(char *lin, int s1, int s2, char *sub)\n', '{\n', '  int i;\n', '  int j;\n', '  {\n', '    i = 0;\n', '    {\n', '      while (1)\n']
+removing function putsub ...iteraion 0...granularity is 1
+Removing code from line 1113 to line 1113 in function putsub 
+Skipped
+Compile Failed
+Test failed, restoring code at line 1113, content is ['  int i;\n']
+increase granularity to 2
+removing function putsub ...iteraion 1...granularity is 2
+Removing code from line 1114 to line 1115 in function putsub 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1114, content is ['  int j;\n', '  {\n']
+increase granularity to 4
+removing function putsub ...iteraion 2...granularity is 4
+Removing code from line 1115 to line 1118 in function putsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1115, content is ['  {\n', '    i = 0;\n', '    {\n', '      while (1)\n']
+increase granularity to 8
+removing function putsub ...iteraion 3...granularity is 8
+Removing code from line 1116 to line 1123 in function putsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1116, content is ['    i = 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (sub + i))) != 0))\n']
+increase granularity to 16
+removing function putsub ...iteraion 4...granularity is 16
+Removing code from line 1117 to line 1132 in function putsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1117, content is ['    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (sub + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (sub + i))) == (- 1))\n', '        {\n', '          j = s1;\n', '          {\n', '            while (1)\n']
+increase granularity to 32
+removing function putsub ...iteraion 5...granularity is 32
+Removing code from line 1118 to line 1149 in function putsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1118, content is ['      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (sub + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (sub + i))) == (- 1))\n', '        {\n', '          j = s1;\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___0:\n', '              ;\n', '\n', '              if (! (j < s2))\n', '              {\n', '                goto while_break___0;\n', '              }\n', '\n', '              {\n', '                fputc((int) (* (lin + j)), stdout);\n', '                j++;\n', '              }\n', '            }\n', '\n', '            while_break___0:\n', '            ;\n']
+increase granularity to 58
+removing function putsub ...iteraion 6...granularity is 58
+Removing code from line 1119 to line 1176 in function putsub 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1119, content is ['      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (sub + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        if (((int) (* (sub + i))) == (- 1))\n', '        {\n', '          j = s1;\n', '          {\n', '            while (1)\n', '            {\n', '              while_continue___0:\n', '              ;\n', '\n', '              if (! (j < s2))\n', '              {\n', '                goto while_break___0;\n', '              }\n', '\n', '              {\n', '                fputc((int) (* (lin + j)), stdout);\n', '                j++;\n', '              }\n', '            }\n', '\n', '            while_break___0:\n', '            ;\n', '\n', '          }\n', '        }\n', '        else\n', '        {\n', '          {\n', '            fputc((int) (* (sub + i)), stdout);\n', '          }\n', '        }\n', '\n', '        i++;\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return;\n', '  }\n', '}\n', '\n', 'void subline(char *lin, char *pat, char *sub)\n', '{\n', '  int i;\n', '  int lastm;\n', '  int m;\n', '  {\n']
+removing function subline ...iteraion 0...granularity is 1
+Removing code from line 1173 to line 1173 in function subline 
+Skipped
+Compile Failed
+Test failed, restoring code at line 1173, content is ['  int i;\n']
+increase granularity to 2
+removing function subline ...iteraion 1...granularity is 2
+Removing code from line 1174 to line 1175 in function subline 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1174, content is ['  int lastm;\n', '  int m;\n']
+increase granularity to 4
+removing function subline ...iteraion 2...granularity is 4
+Removing code from line 1175 to line 1178 in function subline 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1175, content is ['  int m;\n', '  {\n', '    lastm = - 1;\n', '    i = 0;\n']
+increase granularity to 8
+removing function subline ...iteraion 3...granularity is 8
+Removing code from line 1176 to line 1183 in function subline 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1176, content is ['  {\n', '    lastm = - 1;\n', '    i = 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n']
+increase granularity to 16
+removing function subline ...iteraion 4...granularity is 16
+Removing code from line 1177 to line 1192 in function subline 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1177, content is ['    lastm = - 1;\n', '    i = 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (lin + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          m = amatch(lin, i, pat, 0);\n', '        }\n']
+increase granularity to 32
+removing function subline ...iteraion 5...granularity is 32
+Removing code from line 1178 to line 1209 in function subline 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1178, content is ['    i = 0;\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (lin + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          m = amatch(lin, i, pat, 0);\n', '        }\n', '        if (m >= 0)\n', '        {\n', '          if (lastm != m)\n', '          {\n', '            {\n', '              putsub(lin, i, m, sub);\n', '              lastm = m;\n', '            }\n', '          }\n', '\n', '        }\n', '\n', '        if (m == (- 1))\n', '        {\n', '          {\n', '            fputc((int) (* (lin + i)), stdout);\n', '            i++;\n']
+increase granularity to 64
+removing function subline ...iteraion 6...granularity is 64
+Removing code from line 1179 to line 1242 in function subline 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1179, content is ['    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (lin + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          m = amatch(lin, i, pat, 0);\n', '        }\n', '        if (m >= 0)\n', '        {\n', '          if (lastm != m)\n', '          {\n', '            {\n', '              putsub(lin, i, m, sub);\n', '              lastm = m;\n', '            }\n', '          }\n', '\n', '        }\n', '\n', '        if (m == (- 1))\n', '        {\n', '          {\n', '            fputc((int) (* (lin + i)), stdout);\n', '            i++;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (m == i)\n', '          {\n', '            {\n', '              fputc((int) (* (lin + i)), stdout);\n', '              i++;\n', '            }\n', '          }\n', '          else\n', '          {\n', '            i = m;\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return;\n', '  }\n', '}\n', '\n', 'void change(char *pat, char *sub)\n', '{\n', '  string line;\n', '  bool result;\n', '  {\n']
+increase granularity to 65
+removing function subline ...iteraion 7...granularity is 65
+Removing code from line 1180 to line 1244 in function subline 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1180, content is ['      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! (((int) (* (lin + i))) != 0))\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          m = amatch(lin, i, pat, 0);\n', '        }\n', '        if (m >= 0)\n', '        {\n', '          if (lastm != m)\n', '          {\n', '            {\n', '              putsub(lin, i, m, sub);\n', '              lastm = m;\n', '            }\n', '          }\n', '\n', '        }\n', '\n', '        if (m == (- 1))\n', '        {\n', '          {\n', '            fputc((int) (* (lin + i)), stdout);\n', '            i++;\n', '          }\n', '        }\n', '        else\n', '        {\n', '          if (m == i)\n', '          {\n', '            {\n', '              fputc((int) (* (lin + i)), stdout);\n', '              i++;\n', '            }\n', '          }\n', '          else\n', '          {\n', '            i = m;\n', '          }\n', '\n', '        }\n', '\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return;\n', '  }\n', '}\n', '\n', 'void change(char *pat, char *sub)\n', '{\n', '  string line;\n', '  bool result;\n', '  {\n', '    {\n', '      result = getline_in_replace(line, 100);\n']
+removing function change ...iteraion 0...granularity is 1
+Removing code from line 1240 to line 1240 in function change 
+Skipped
+Compile Failed
+Test failed, restoring code at line 1240, content is ['  string line;\n']
+increase granularity to 2
+removing function change ...iteraion 1...granularity is 2
+Removing code from line 1241 to line 1242 in function change 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1241, content is ['  bool result;\n', '  {\n']
+increase granularity to 4
+removing function change ...iteraion 2...granularity is 4
+Removing code from line 1242 to line 1245 in function change 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1242, content is ['  {\n', '    {\n', '      result = getline_in_replace(line, 100);\n', '    }\n']
+increase granularity to 8
+removing function change ...iteraion 3...granularity is 8
+Removing code from line 1243 to line 1250 in function change 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1243, content is ['    {\n', '      result = getline_in_replace(line, 100);\n', '    }\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n']
+increase granularity to 16
+removing function change ...iteraion 4...granularity is 16
+Removing code from line 1244 to line 1259 in function change 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1244, content is ['      result = getline_in_replace(line, 100);\n', '    }\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! result)\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          subline(line, pat, sub);\n', '          result = getline_in_replace(line, 100);\n']
+increase granularity to 31
+removing function change ...iteraion 5...granularity is 31
+Removing code from line 1245 to line 1275 in function change 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1245, content is ['    }\n', '    {\n', '      while (1)\n', '      {\n', '        while_continue:\n', '        ;\n', '\n', '        if (! result)\n', '        {\n', '          goto while_break;\n', '        }\n', '\n', '        {\n', '          subline(line, pat, sub);\n', '          result = getline_in_replace(line, 100);\n', '        }\n', '      }\n', '\n', '      while_break:\n', '      ;\n', '\n', '    }\n', '    return;\n', '  }\n', '}\n', '\n', 'int main(int argc, char **argv)\n', '{\n', '  string pat;\n', '  string sub;\n', '  bool result;\n']
+removing function main ...iteraion 0...granularity is 1
+Removing code from line 1273 to line 1273 in function main 
+Skipped
+Compile Failed
+Test failed, restoring code at line 1273, content is ['  string pat;\n']
+increase granularity to 2
+removing function main ...iteraion 1...granularity is 2
+Removing code from line 1274 to line 1275 in function main 
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1274, content is ['  string sub;\n', '  bool result;\n']
+increase granularity to 4
+removing function main ...iteraion 2...granularity is 4
+Removing code from line 1275 to line 1278 in function main 
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1275, content is ['  bool result;\n', '  int tmp;\n', '  {\n', '    if (argc < 2)\n']
+increase granularity to 8
+removing function main ...iteraion 3...granularity is 8
+Removing code from line 1276 to line 1283 in function main 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1276, content is ['  int tmp;\n', '  {\n', '    if (argc < 2)\n', '    {\n', '      exit(-1);\n', '    }\n', '\n', '    {\n']
+increase granularity to 16
+removing function main ...iteraion 4...granularity is 16
+Removing code from line 1277 to line 1292 in function main 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Compile Failed
+Test failed, restoring code at line 1277, content is ['  {\n', '    if (argc < 2)\n', '    {\n', '      exit(-1);\n', '    }\n', '\n', '    {\n', '      tmp = getpat(* (argv + 1), pat);\n', '      result = (bool) tmp;\n', '    }\n', '    if (! result)\n', '    {\n', '      {\n', '        fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "change: illegal \\"from\\" pattern\\n");\n', '        exit(2);\n', '      }\n']
+increase granularity to 32
+removing function main ...iteraion 5...granularity is 32
+Removing code from line 1278 to line 1309 in function main 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Test Failed
+Test failed, restoring code at line 1278, content is ['    if (argc < 2)\n', '    {\n', '      exit(-1);\n', '    }\n', '\n', '    {\n', '      tmp = getpat(* (argv + 1), pat);\n', '      result = (bool) tmp;\n', '    }\n', '    if (! result)\n', '    {\n', '      {\n', '        fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "change: illegal \\"from\\" pattern\\n");\n', '        exit(2);\n', '      }\n', '    }\n', '\n', '    if (argc >= 3)\n', '    {\n', '      {\n', '        result = getsub(* (argv + 2), sub);\n', '      }\n', '      if (! result)\n', '      {\n', '        exit(-1);\n', '      }\n', '\n', '    }\n', '\n', '    {\n', '      change(pat, sub);\n', '    }\n']
+increase granularity to 41
+removing function main ...iteraion 6...granularity is 41
+Removing code from line 1279 to line 1319 in function main 
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+Skipped
+[<multiprocessing.pool.ApplyResult object at 0x7f4e7400c880>]
