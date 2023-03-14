@@ -8,6 +8,7 @@ import subprocess
 import argparse
 import sys
 import glob
+import time
 import cparser
 from cparserext import begin_parse
 
@@ -21,34 +22,34 @@ class GetLog(object):
         self.name = 'log'
         self.level = logging.DEBUG
         self.filename = 'test.log'
-        logging.info("Logging to",self.filename)
+        logging.info("Logging to %s", self.filename)
 
 
     def get_log(self):
 
         #设置logger
+        logging.getLogger().handlers = []
         logger = logging.getLogger(name=self.name)
         logger.setLevel(level=self.level)
 
-
-        if not logger.handlers:
+        logger.handlers = []
             # 初始化handler
-            stream_handler = logging.StreamHandler()
-            file_handler = logging.FileHandler(filename=self.filename)
+        stream_handler = logging.StreamHandler()
+        file_handler = logging.FileHandler(filename=self.filename)
 
-            # 设置handler等级
-            stream_handler.setLevel(level=logging.WARNING)
-            file_handler.setLevel(level=self.level)
+        # 设置handler等级
+        stream_handler.setLevel(level=logging.INFO)
+        file_handler.setLevel(level=self.level)
 
-            # 设置日志格式
-            sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
-            sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
-            stream_handler.setFormatter(sf_format)
-            file_handler.setFormatter(sf_format)
-            
-            # 将handler添加到self.__logger
-            # logger.addHandler(stream_handler)
-            logger.addHandler(file_handler)
+        # 设置日志格式
+        sf_format = logging.Formatter("%(asctime)s-[line:%(lineno)d]-%(levelname)s-%(message)s", "%H:%M:%S")
+        stream_handler.setFormatter(sf_format)
+        sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
+        file_handler.setFormatter(sf_format)
+        
+        # 将handler添加到self.__logger
+        logger.addHandler(stream_handler)
+        logger.addHandler(file_handler)
 
         #返回logger
         return logger
@@ -184,7 +185,6 @@ def clean():
     # os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
     os.system("rm -r result" )
     os.system("rm -r temp" )
-    os.system("rm tmp.log tmp.log2 trans.txt ast.txt")
     
     
 def finish(source_path):

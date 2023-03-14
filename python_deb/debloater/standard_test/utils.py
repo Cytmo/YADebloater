@@ -8,6 +8,7 @@ import subprocess
 import argparse
 import sys
 import glob
+import time
 
 current_work_dir = os.path.dirname(__file__)
 
@@ -19,34 +20,34 @@ class GetLog(object):
         self.name = 'log'
         self.level = logging.DEBUG
         self.filename = 'test.log'
-        logging.info("Logging to",self.filename)
+        logging.info("Logging to %s", self.filename)
 
 
     def get_log(self):
 
         #设置logger
+        logging.getLogger().handlers = []
         logger = logging.getLogger(name=self.name)
         logger.setLevel(level=self.level)
 
-
-        if not logger.handlers:
+        logger.handlers = []
             # 初始化handler
-            stream_handler = logging.StreamHandler()
-            file_handler = logging.FileHandler(filename=self.filename)
+        stream_handler = logging.StreamHandler()
+        file_handler = logging.FileHandler(filename=self.filename)
 
-            # 设置handler等级
-            stream_handler.setLevel(level=logging.WARNING)
-            file_handler.setLevel(level=self.level)
+        # 设置handler等级
+        stream_handler.setLevel(level=logging.INFO)
+        file_handler.setLevel(level=self.level)
 
-            # 设置日志格式
-            sf_format = logging.Formatter("%(asctime)s-%(name)s-[line:%(lineno)d]-%(levelname)s-%(message)s")
-            sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
-            stream_handler.setFormatter(sf_format)
-            file_handler.setFormatter(sf_format)
-            
-            # 将handler添加到self.__logger
-            # logger.addHandler(stream_handler)
-            logger.addHandler(file_handler)
+        # 设置日志格式
+        sf_format = logging.Formatter("%(asctime)s-[line:%(lineno)d]-%(levelname)s-%(message)s", "%H:%M:%S")
+        stream_handler.setFormatter(sf_format)
+        sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
+        file_handler.setFormatter(sf_format)
+        
+        # 将handler添加到self.__logger
+        logger.addHandler(stream_handler)
+        logger.addHandler(file_handler)
 
         #返回logger
         return logger
@@ -116,8 +117,35 @@ def move_gcov_files(dest_path):
     
 
 def move_file(source_path,dest_path):
-    os.system("mv "+source_path+" "+dest_path)
+    os.system("mv "+source_path+" "+dest_path + ' > /dev/null 2>&1' )
 
+
+def remove_comments(source_path):
+    logger.info('Removing comments...')
+    uncmtFile = ''
+    with open(source_path, 'r') as f:
+        # uncmtFile = removeComments(f.read())
+        uncmtFile = comment_remover(f.read())
+    
+    # write back to the file
+    with open(source_path, 'w') as f:
+        f.write(uncmtFile)
+    
+    return source_path
+
+
+def comment_remover(text):
+    def replacer(match):
+        s = match.group(0)
+        if s.startswith('/'):
+            return " " # note: a space and not an empty string
+        else:
+            return s
+    pattern = re.compile(
+        r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
+        re.DOTALL | re.MULTILINE
+    )
+    return re.sub(pattern, replacer, text)
 
 def exec_cmd(cmd):
     logger.info('Running '+cmd)
@@ -144,7 +172,7 @@ def finish(source_path):
     os.system("cp "+new_source_path+" result ")
     
 
-    os.system("cp temp/print.log result ")
+    # os.system("cp temp/print.log result ")
     os.system("cp "+source_path+" result ")
     cmd = "python3 %s/run.py verify %s" %("temp",new_source_path)
     exec_cmd(cmd)
@@ -152,5 +180,5 @@ def finish(source_path):
 
 
 if __name__ == "__main__" :
-    logger.info("dsa")
+    clean()
     # logger.info(get_final_subfolder(create_output_directory('temp')))
