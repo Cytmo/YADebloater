@@ -24,11 +24,14 @@ class deb_files():
 
 
 
-def begin_ops():
-    files = deb_files('temp/pp.c.debloated.c')
-    logger.info("Beginning to add exit...")
+def begin_ops(only_remove_comments=False):
 
+    files = deb_files('temp/pp.c.debloated.c')
     files.remove_comments()
+    if only_remove_comments:
+        logger.info("Comments removed")
+        return
+    logger.info("Beginning to add exit...")
     # parse and find empty blocks
     # Parse some C code into an AST
         # Parse the C code and obtain the AST

@@ -9,6 +9,7 @@ import merge
 import json_code_remover
 import time
 import security_ops
+import delta_debugging
 current_work_dir = os.path.dirname(__file__)
 file = open("test.log", 'w').close()
 logger = utils.GetLog().get_log()
@@ -135,7 +136,10 @@ if __name__ == '__main__':
     # run_inputs("file_input")
     cmd = "python3 %s/run.py debloat %s" %(dir_name,source_path)
     utils.exec_cmd(cmd)
-    json_code_remover.code_remove(source_path+".gcov.json",source_path)
+    file_name,deleted_functions = json_code_remover.code_remove(source_path+".gcov.json",source_path)
+    security_ops.begin_ops(only_remove_comments=True)
+    security_ops.begin_ops()
+    delta_debugging.run_dd(deleted_functions) 
     security_ops.begin_ops()
     
     logger.info(f'time cost:{time.time() - t:.4f}s')

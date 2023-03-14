@@ -4,7 +4,35 @@ import os, subprocess, sys
 import utils
 BIN = ''
 source_path=''
-logger=''
+logger=utils.GetLog().get_log()
+
+
+    
+def run_tests(output_file="standard_output"):
+    # if output_file == "standard_output":
+    #     for fname in os.listdir('temp/train'):
+    #         for i in range(0,10):
+    #             fpath = os.path.join('temp/train', fname)
+    #             cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+    #             logger.info('Generating fuzzed testfiles, cmd is {}'.format(cmd))
+    #             execute(cmd)
+    current_work_dir = os.path.dirname(__file__)
+    output_file = current_work_dir + os.sep + output_file
+
+    # if output_file already exists, remove it
+    os.system('rm {} > /dev/null 2>&1'.format(output_file))
+    
+    for fname in os.listdir('temp/train'):
+        fpath = os.path.join('temp/train', fname)
+        # -c
+        cmd = BIN + ' -c < ' + fpath + ' >> '+output_file
+        ret = execute(cmd)
+        if ret != 0 and ret != 256 and ret != 512:
+            logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+            return False
+    return True
+    
+
 
 def compile_with_cov(source,dest=""):
     logger.info('Compiling to '+source+"_origin")
@@ -20,10 +48,16 @@ def compile_with_cov(source,dest=""):
 
 
 def execute(cmd):
-    logger.info('running '+cmd)
-    p = subprocess.Popen(cmd, shell=True)
-    p.communicate()
-    return p.returncode
+    logger.debug('Running {}'.format(cmd))
+    # print('Executing {}'.format(cmd))
+    p = os.system('timeout -s SIGKILL 1 {} 2>&1'.format(cmd))
+    # try:
+    #     p.communicate(timeout=0.2)
+    # except subprocess.TimeoutExpired:
+    #     p.kill()
+    #     p.communicate()
+    #     return 1
+    return p 
 
 def debloat():
     run_tests()
@@ -37,40 +71,43 @@ def debloat():
     
     ret2 = subprocess.call(["gzip","-d",source_path+".gcov.json.gz"])
     utils.exit_status(ret2,"gcov decompress")
-    
-def verify():
-    run_tests("tmp.log2")
-    cmd = 'diff tmp.log tmp.log2'
-    ret = execute(cmd)    
-    if(ret==0):
-        logger.info("Verify successed!")
+
+
+def verifier(num):
+    global BIN
+    BIN = 'temp/deb_{}.out'.format(num)
+    if not run_tests("output_{}".format(num)):
+        sys.exit(1)
+    if verify(dd=True,num=num):
+        sys.exit(0)
     else:
-        logger.info("Verify failed!")
-    
-def run_tests(output_file="tmp.log"):
-    if output_file != 'tmp.log2':
-        for fname in os.listdir('temp/train'):
-            for i in range(0,10):
-                fpath = os.path.join('temp/train', fname)
-                cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
-                logger.info('Generating fuzzed testfiles, cmd is {}'.format(cmd))
-                execute(cmd)
-    for fname in os.listdir('temp/train'):
-        fpath = os.path.join('temp/train', fname)
-        # -c
-        cmd = BIN + ' -c < ' + fpath + ' >> '+output_file
-        execute(cmd)
-    
+        sys.exit(1)
 
 
-def test():
-    BIN = './gzip.orig_temp/gzip.orig.debloated'
+def verify(dd=False,num=-1):
+    if not dd:
+        run_tests("tmp.log2")
+        cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
+        ret = execute(cmd)    
+        if(ret==0):
+            logger.info("Verify successed!")
+            return True
+        else:
+            logger.info("Verify failed!")
+            return False    
+    else:
+        assert num!=-1
+        cmd2 = 'diff temp/standard_output temp/output_{} > /dev/null 2>&1'.format(num)
+        ret = execute(cmd2)
+        if(ret==0):
+            logger.debug("Verify successed!")
+            return True
+        else:
+            logger.debug("Verify failed!")
+            return False    
 
-    for fname in os.listdir('test'):
-        fpath = os.path.join('test', fname)
-        # -c
-        cmd = BIN + ' -c < ' + fpath + ' > tmp.log'
-        execute(cmd)
+
+
 
 
 def clean():
@@ -87,12 +124,11 @@ def clean():
         execute('rm -rf ./' + fname)
 
 def usage():
-    logger.info('python run.py clean|run_tests|debloat\n')
+    logger.info('python run.py clean|run_tests|verify|dd_verify\n')
     sys.exit(1)
 
 def main():
-    global BIN,logger,source_path
-    logger = utils.GetLog().get_log()
+    global BIN,source_path
 
     if len(sys.argv) != 2 and len(sys.argv) != 3:
         usage()
@@ -111,6 +147,9 @@ def main():
         compile_with_cov(source_path)
         BIN =  "./"+source_path + "_origin"
         verify()
+    elif sys.argv[1] == 'dd_verify':
+        num = sys.argv[2]
+        verifier(num)
     
     else:
         usage()

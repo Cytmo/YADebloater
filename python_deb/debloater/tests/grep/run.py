@@ -4,7 +4,7 @@ import os, subprocess, sys
 import utils
 BIN = ''
 source_path=''
-logger = ''
+logger=utils.GetLog().get_log()
 
 def compile_with_cov(source,dest=""):
     logger.info('Compiling to '+source+"_origin")
@@ -20,10 +20,17 @@ def compile_with_cov(source,dest=""):
 
 
 def execute(cmd):
-    logger.info('running '+ cmd)
-    p = subprocess.Popen(cmd, shell=True)
-    p.communicate(timeout=5)
-    return p.returncode
+    logger.debug('Running {}'.format(cmd))
+    # print('Executing {}'.format(cmd))
+    p = os.system('timeout -s SIGKILL 1 {} 2>&1'.format(cmd))
+    # try:
+    #     p.communicate(timeout=0.2)
+    # except subprocess.TimeoutExpired:
+    #     p.kill()
+    #     p.communicate()
+    #     return 1
+    return p 
+
 
 def debloat():
     run_tests()
@@ -38,21 +45,16 @@ def debloat():
     ret2 = subprocess.call(["gzip","-d",source_path+".gcov.json.gz"])
     utils.exit_status(ret2,"gcov decompress")
     
-def verify():
-    run_tests("tmp.log2")
-    cmd = 'diff temp/tmp.log temp/tmp.log2 >/dev/null'
-    ret = execute(cmd)    
-    if(ret==0):
-        print("Verify successed!")
-    else:
-        print("Verify failed!")
     
     
 def begin_run(arg):
     cmd = BIN + ' ' + arg
-    execute(cmd)
+    if execute(cmd) == 0:
+        return
+    # else:
+    #     os._exit(1)
 
-def run_tests(output_file="tmp.log"):
+def run_tests(output_file="standard_output"):
     cmds = []
     current_work_dir = os.path.dirname(__file__)
     output_file = current_work_dir + os.sep + output_file
@@ -79,23 +81,62 @@ def run_tests(output_file="tmp.log"):
     
     # for cmd in cmds:
     #     execute(cmd)
-    return
+    return True
 
-def test():
-    BIN = './gzip.orig_temp/gzip.orig.debloated'
+def debloat():
+    run_tests()
+    # get gcov data
+    utils.move_file("temp/pp.c_origin-pp.gcda","temp/pp.gcda")
+    utils.move_file("temp/pp.c_origin-pp.gcno","temp/pp.gcno")
+    ret1 = subprocess.call(["gcov","-i",'temp/pp.c'])
+    utils.exit_status(ret1,"gcov generate")
+    
+    utils.move_file("*.gcov.json.gz","temp/pp.c.gcov.json.gz")
+    
+    ret2 = subprocess.call(["gzip","-d",source_path+".gcov.json.gz"])
+    utils.exit_status(ret2,"gcov decompress")
 
-    for fname in os.listdir('test'):
-        fpath = os.path.join('test', fname)
-        # -c
-        cmd = BIN + ' -c < ' + fpath + ' >> tmp.log'
-        execute(cmd)
+
+def verifier(num):
+    global BIN
+    BIN = 'temp/deb_{}.out'.format(num)
+    if not run_tests("output_{}".format(num)):
+        sys.exit(1)
+    if verify(dd=True,num=num):
+        sys.exit(0)
+    else:
+        sys.exit(1)
+
+
+def verify(dd=False,num=-1):
+    if not dd:
+        run_tests("tmp.log2")
+        cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
+        ret = execute(cmd)    
+        if(ret==0):
+            logger.info("Verify successed!")
+            return True
+        else:
+            logger.info("Verify failed!")
+            return False    
+    else:
+        assert num!=-1
+        cmd2 = 'diff temp/standard_output temp/output_{} > /dev/null 2>&1'.format(num)
+        ret = execute(cmd2)
+        if(ret==0):
+            logger.debug("Verify successed!")
+            return True
+        else:
+            logger.debug("Verify failed!")
+            return False    
+
+
+
 
 
 def clean():
     for fname in os.listdir('./'):
         if fname == "run.py" or fname == "utils.py":
-            continue
-        if fname.startswith('test') or fname.startswith('train') or fname == "backup":
             continue
         
         if fname == 'test' or fname == 'train' or fname == "backup":
@@ -107,13 +148,11 @@ def clean():
         execute('rm -rf ./' + fname)
 
 def usage():
-    print('python run.py clean|run_tests|debloat\n')
+    logger.info('python run.py clean|run_tests|verify|dd_verify\n')
     sys.exit(1)
 
 def main():
-    global BIN,logger,source_path
-    logger = utils.GetLog().get_log()
-    
+    global BIN,source_path
 
     if len(sys.argv) != 2 and len(sys.argv) != 3:
         usage()
@@ -132,6 +171,9 @@ def main():
         compile_with_cov(source_path)
         BIN =  "./"+source_path + "_origin"
         verify()
+    elif sys.argv[1] == 'dd_verify':
+        num = sys.argv[2]
+        verifier(num)
     
     else:
         usage()
