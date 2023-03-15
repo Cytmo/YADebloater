@@ -189,12 +189,14 @@ def verifier(src, num=0):
 
 
 def ddmin_execute(code, test_func, line_list):
+    # add a test_cache to reduce the unnecessary exec of same reduced functions
+    cache = {}
     # Initialize the starting granularity to the size of code (coarsest granularity)
     max_length = len(code)
     original_length = len(line_list)
-    granularity = 8
+    granularity = 1
     last_reduced_line = 0
-    with tqdm(total=max_length,) as pbar:  # initialize tqdm progress bar
+    with tqdm(total=max_length,desc='gran {}'.format(granularity) ) as pbar:  # initialize tqdm progress bar
         while len(code) > 0 and granularity >= 1:
             # Initialize the candidate to the original code
             candidate = copy.deepcopy(code)
@@ -204,6 +206,7 @@ def ddmin_execute(code, test_func, line_list):
 
             if last_reduced_line != 0:
                 i = last_reduced_line
+                pbar.update(last_reduced_line - pbar.n)
             else:
                 i = 0
 
@@ -212,59 +215,35 @@ def ddmin_execute(code, test_func, line_list):
                 if not i in line_list:
                     i += 1
                     pbar.update(1)
+                    continue
                 deleted = False
                 # Remove the code at the current index if it is in the line list
-                if i + granularity <= max_length:
-                    # delete only the lines in line_list
-                    logger.debug(
-                        "Removing code from line {} to line {} ... ".format(
-                            i, i + granularity
-                        )
-                    )
-                    for j in range(i, i + granularity):
-                        if j in line_list:
-                            if (
-                                not candidate[j]
-                                .replace("{", "")
-                                .replace("}", "")
-                                .replace(";", "")
-                                .strip()
-                                == ""
-                            ):
-                                removed_code.append(candidate[j])
-                                logger.debug("deleted {}".format(candidate[j]))
-                                candidate[j] = "\n"
-                                line_list_reduced.remove(j)
-                                deleted = True
-                            i += 1
-
-                    # line_list = [x - granularity if x >= i + granularity else x for x in line_list]
-                else:
-                    logger.debug(
+                logger.debug(
                         "Removing code from line {} to line {} ... ".format(
                             i, max_length
                         )
                     )
-                    for j in range(i, max_length):
-                        if j in line_list:
-                            if (
-                                not candidate[j]
-                                .replace("{", "")
-                                .replace("}", "")
-                                .replace(";", "")
-                                .strip()
-                                == ""
-                            ):
-                                removed_code.append(candidate[j])
-                                logger.debug("deleted {}".format(candidate[j]))
-                                candidate[j] = "\n"
-                                line_list_reduced.remove(j)
-                                deleted = True
-                            i += 1
-                    # line_list = [x - (max_length - i) if x >= max_length else x for x in line_list]
+                for j in range(i, min(i + granularity, max_length)):
+                    if j in line_list and candidate[j].strip() not in ("", "{", "}", ";"):
+                            removed_code.append(candidate[j])
+                            logger.debug("deleted {}".format(candidate[j]))
+                            candidate[j] = "\n"
+                            line_list_reduced.remove(j)
+
+
+                line_list_str = ''.join(str(line_list_reduced))
+                cache_key = hashlib.md5(line_list_str.encode('utf-8')).hexdigest()
+
+                if cache_key in cache:
+                    test_result = cache[cache_key]
+                    logger.debug('Already have result in cache, skip the test')
+                else:
+                    test_result = test_func(candidate)
+                    cache[cache_key] = test_result
+
+                # line_list = [x - (max_length - i) if x >= max_length else x for x in line_list]
                 # Call the test function with the reduced code
-                if deleted and test_func(candidate):
-                    # write_to_file(removed_code,True)
+                if removed_code and test_func(candidate):                    # write_to_file(removed_code,True)
                     # If the test passes, update the original code and reduce granularity
                     code = copy.deepcopy(candidate)
                     reduced = True
@@ -274,13 +253,13 @@ def ddmin_execute(code, test_func, line_list):
                     #     granularity //= 2  # Reduce granularity
                     #     logger.info('decrease granularity to {}'.format(granularity))
                     # fixme
-                    # write_to_file(code,True)
+                    write_to_file(code,True)
                     break
                 # write_to_file(code,False)
                 # If the test fails, restore the removed code and move to the next index
                 if i in line_list:
                     logger.debug("Restored line {}".format(i))
-                # write_to_file(removed_code,False)
+                write_to_file(removed_code,False)
                 candidate = copy.deepcopy(code)
                 line_list_reduced = copy.deepcopy(line_list)
 
@@ -299,6 +278,8 @@ def ddmin_execute(code, test_func, line_list):
                     break
     logger.info('Removed {} lines'.format(original_length - len(line_list)))
         # Return the reduced code
+    # output the smallest_code for debug use
+
     return code
 
 
@@ -368,7 +349,12 @@ def ddmin_function_level(code, test_func, function_list, num):
     # Initialize the starting granularity to 1 (line by line)
     # Initialize the candidate to the original code
     candidate = copy.deepcopy(code)
-
+    # keep track of each function's smaller set for multiprocessing
+    smallest_set = {}
+    # add a test_cache to reduce the unnecessary exec of same reduced functions
+    test_cache={}
+    for func in function_list:
+        smallest_set.update({func['name']: None})
     # Flag to indicate if the code was reduced in the current iteration
     for func in tqdm(function_list, position=1,desc="Reducing functions...",):
         reduced = False
@@ -376,9 +362,7 @@ def ddmin_function_level(code, test_func, function_list, num):
         granularity = 1
         max_length = func["end_line"] + 1 - func["start_line"] - 2
         code_length = len(code)
-        # Keep track of the smallest set of lines for the function
-        smallest_set = None
-        smallest_size = float("inf")
+
         while True:
             candidate = copy.deepcopy(code)
             desc = "Removing {} (gran {} iter {})...".format(func['name'], granularity,cnt)
@@ -397,6 +381,7 @@ def ddmin_function_level(code, test_func, function_list, num):
                             i, i + granularity - 1, func["name"]
                         )
                     )
+                    
                     skip_indicator = ""
                     # make sure i+granularity is not out of range
                     if i + granularity > func["end_line"]:
@@ -406,33 +391,15 @@ def ddmin_function_level(code, test_func, function_list, num):
                                 skip_indicator += candidate[k]
                                 candidate[k] = "\n"
                             except IndexError:
-                                logger.error("IndexError k = {}".format(k))
-                                logger.error("max_length = {}".format(max_length))
-                                logger.error("func[end_line] = {}".format(func["end_line"]))
-                                logger.error("i = {}".format(i))
-                                logger.error("granularity = {}".format(granularity))
-                                logger.error("k = {}".format(k))
-                                logger.error(candidate)
-                                logger.error("len(candidate) = {}".format(len(candidate)))
-                                logger.error("len(code) = {}".format(len(code)))
                                 os._exit()
                             # logger.error('Skipped')
                     else:
+                        skip_indicator = ""
                         for k in range(i - 1, i + granularity - 1):
-                            skip_indicator = ""
                             try:
                                 skip_indicator += candidate[k]
                                 candidate[k] = "\n"
                             except IndexError:
-                                logger.error("IndexError k = {}".format(k))
-                                logger.error("max_length = {}".format(max_length))
-                                logger.error("func[end_line] = {}".format(func["end_line"]))
-                                logger.error("i = {}".format(i))
-                                logger.error("granularity = {}".format(granularity))
-                                logger.error("k = {}".format(k))
-                                logger.error(candidate)
-                                logger.error("len(candidate) = {}".format(len(candidate)))
-                                logger.error("len(code) = {}".format(len(code)))
                                 os._exit()
                             # logger.info('Skipped')
                     # Call the test function with the reduced code
@@ -450,25 +417,37 @@ def ddmin_function_level(code, test_func, function_list, num):
                         == ""
                     ):
                         logger.debug("Skipped")
+                        continue
+                    candidate_func_code = ''.join(candidate[func["start_line"]:func["end_line"]])
+                    candidate_func_code_no_blank_lines = ''.join(line for line in candidate_func_code.splitlines(True) if line.strip())
+                    cache_key = candidate_func_code_no_blank_lines
+                    if cache_key in test_cache:
+                        result = test_cache[cache_key]
+                        logger.debug('Already have result in cache, skip the test')
                     else:
                         result = test_func(candidate, num)
-                        if result:
-                            # If the test passes, update the original code and reduce granularity
-                            code = copy.deepcopy(candidate)
-                            total_removed += 1
-                            reduced = True
-                            # Update the smallest set of lines for the function
-                            # if smallest_set is None or len(range(func['start_line'], i+granularity)) < smallest_size:
-                            #     smallest_set = list(range(func['start_line'], i+granularity))
-                            #     smallest_size = len(smallest_set)
-                        else:
-                            logger.debug(
-                                "Test failed, restoring code at line {}, content is {}".format(
-                                    i, code[i - 1 : i + granularity - 1]
-                                )
+                        test_cache[cache_key] = result
+                    if result:
+                        # If the test passes, update the original code and reduce granularity
+                        code = copy.deepcopy(candidate)
+                        total_removed += 1
+                        reduced = True
+                        # Update the smallest set of lines for the function
+                        new_smallest_func = []
+                        for i in range(func["start_line"] + 1, func["end_line"]):
+                            if code[i] != "\n":
+                                new_smallest_func.append(candidate[i])
+                        smallest_set[func['name']] = new_smallest_func
+
+
+                    else:
+                        logger.debug(
+                            "Test failed, restoring code at line {}, content is {}".format(
+                                i, code[i - 1 : i + granularity - 1]
                             )
-                            # If the test fails, restore the removed code and move to the next index
-                            candidate = copy.deepcopy(code)
+                        )
+                        # If the test fails, restore the removed code and move to the next index
+                        candidate = copy.deepcopy(code)
                     # If no code was reduced in the current iteration, increase the granularity
                 if reduced:
                     if granularity < max_length:
@@ -486,6 +465,8 @@ def ddmin_function_level(code, test_func, function_list, num):
                             granularity
                         )
                     )
+        # Clear the cache for the current function before moving to the next one
+        test_cache.clear()
         # If the function code was reduced in the current iteration, update its smallest set of lines
         # if smallest_set is not None:
         #     func['lines'] = smallest_set
@@ -507,6 +488,10 @@ def ddmin_function_level(code, test_func, function_list, num):
     logger.info("Total removed {} lines".format(total_removed))
     with open("temp/reduced_code.c", "w") as f:
         f.writelines(code)
+
+    with open('smallest_code', 'w') as f:
+        f.write(smallest_set)
+        f.write(function_list)
     return [code, function_list]
 
 

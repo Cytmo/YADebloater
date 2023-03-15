@@ -112,7 +112,9 @@ def verify(dd=False,num=-1):
     if not dd:
         run_tests("tmp.log2")
         cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
-        ret = execute(cmd)    
+
+        ret = execute(cmd)   
+        os.system('rm temp/tmp.log2') 
         if(ret==0):
             logger.info("Verify successed!")
             return True
@@ -122,7 +124,9 @@ def verify(dd=False,num=-1):
     else:
         assert num!=-1
         cmd2 = 'diff temp/standard_output temp/output_{} > /dev/null 2>&1'.format(num)
+        
         ret = execute(cmd2)
+        os.system('rm temp/output_{}'.format(num))
         if(ret==0):
             logger.debug("Verify successed!")
             return True
