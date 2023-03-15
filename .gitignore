@@ -2,10 +2,6 @@
 chisel-bench
 *temp*
 *tmp.log*
-<<<<<<< HEAD
 *pycache*
 *dataset*
 *test.log*
-=======
-*pycache*
->>>>>>> f9559e9320e5cf25b4fb122712b8a03b13b2528d
