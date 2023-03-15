@@ -20,51 +20,62 @@ def compile_with_cov(source,dest=""):
 
 
 def execute(cmd):
-    logger.debug('Running {}'.format(cmd))
+    # logger.debug('Running {}'.format(cmd))
     # print('Executing {}'.format(cmd))
-    p = os.system('timeout -s SIGKILL 1 {} 2>&1'.format(cmd))
-    # try:
-    #     p.communicate(timeout=0.2)
-    # except subprocess.TimeoutExpired:
-    #     p.kill()
-    #     p.communicate()
-    #     return 1
-    return p 
+    ret = os.system('timeout -s SIGKILL 1 {} 2>&1'.format(cmd))
+    if ret >512:
+        logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+        return 1
+    return 0
 
 
+def debloat():
+    run_tests()
+    # get gcov data
+    utils.move_file("temp/pp.c_origin-pp.gcda","temp/pp.gcda")
+    utils.move_file("temp/pp.c_origin-pp.gcno","temp/pp.gcno")
+    ret1 = subprocess.call(["gcov","-i",'temp/pp.c'])
+    utils.exit_status(ret1,"gcov generate")
+    
+    utils.move_file("*.gcov.json.gz","temp/pp.c.gcov.json.gz")
+    
+    ret2 = subprocess.call(["gzip","-d",source_path+".gcov.json.gz"])
+    utils.exit_status(ret2,"gcov decompress")
     
     
     
 def begin_run(arg):
     cmd = BIN + ' ' + arg
-    if execute(cmd) == 0:
-        return
-    # else:
-    #     os._exit(1)
+    if execute(cmd)==0:
+        return True
+    else:
+        return False
 
 def run_tests(output_file="standard_output"):
     cmds = []
+    if os.path.isfile("temp/{}".format(output_file)):
+        os.system("rm temp/{}".format(output_file))
     current_work_dir = os.path.dirname(__file__)
     output_file = current_work_dir + os.sep + output_file
-    begin_run( """ "a" temp/train1  >> {}""".format(output_file))
-    begin_run( """ -n "si" temp/train1  >> {}""".format(output_file))
-    begin_run( """ -o [r][a][n][d]* temp/train1  >> {}""".format(output_file))
-    begin_run( """ -v "a" temp/train1  >> {}""".format(output_file))
-    begin_run( """ -i "Si" temp/train1  >> {}""".format(output_file))
-    begin_run( """ -w "Si" temp/train1  >> {}""".format(output_file))
-    begin_run( """ -x "Don't" temp/train1  >> {}""".format(output_file))
-    begin_run( """ -E "randomtext*" temp/train1  >> {}""".format(output_file))
-    begin_run( """ "ye " temp/train1  >> {}""".format(output_file))
-    begin_run( """ "cold" temp/train1  >> {}""".format(output_file))
-    begin_run( """ "not exist" temp/train1  >> {}""".format(output_file))
-    begin_run( """ ^D  temp/train1  >> {}""".format(output_file))
-    begin_run( """ .$  temp/train1  >> {}""".format(output_file))
-    begin_run( """ \^  temp/train1  >> {}""".format(output_file))
-    begin_run( """ \^$  temp/train1  >> {}""".format(output_file))
-    begin_run( """ ^[AEIOU]  temp/train1  >> {}""".format(output_file))
-    begin_run( """ ^[^AEIOU]  temp/train1  >> {}""".format(output_file))
-    begin_run( """ -E "free[^[:space:]]+"  temp/train1  >> {}""".format(output_file))
-    begin_run( """ -E '\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\.)3}}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'  temp/train1  >> {}""".format(output_file))
+    if not begin_run( """ "a" temp/train1  >> {}""".format(output_file)): return False
+    if not begin_run( """ -n "si" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -o [r][a][n][d]* temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -v "a" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -i "Si" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -w "Si" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -x "Don't" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -E "randomtext*" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ "ye " temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ "cold" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ "not exist" temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ ^D  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ .$  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ \^  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ \^$  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ ^[AEIOU]  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ ^[^AEIOU]  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -E "free[^[:space:]]+"  temp/train1  >> {}""".format(output_file)):return False
+    if not begin_run( """ -E '\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\.)3}}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'  temp/train1  >> {}""".format(output_file)):return False
     # cmds.append(cmd9)
     
     # for cmd in cmds:
@@ -100,9 +111,7 @@ def verify(dd=False,num=-1):
     if not dd:
         run_tests("tmp.log2")
         cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
-
-        ret = execute(cmd)   
-        os.system('rm temp/tmp.log2') 
+        ret = execute(cmd)    
         if(ret==0):
             logger.info("Verify successed!")
             return True
@@ -112,9 +121,8 @@ def verify(dd=False,num=-1):
     else:
         assert num!=-1
         cmd2 = 'diff temp/standard_output temp/output_{} > /dev/null 2>&1'.format(num)
-        
         ret = execute(cmd2)
-        os.system('rm temp/output_{}'.format(num))
+
         if(ret==0):
             logger.debug("Verify successed!")
             return True
