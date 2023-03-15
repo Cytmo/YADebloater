@@ -10,6 +10,7 @@ import sys
 import glob
 import time
 import cparser
+import colorlog
 from cparserext import begin_parse
 
 current_work_dir = os.path.dirname(__file__)
@@ -42,7 +43,17 @@ class GetLog(object):
         file_handler.setLevel(level=self.level)
 
         # 设置日志格式
-        sf_format = logging.Formatter("%(asctime)s-[line:%(lineno)d]-%(levelname)s-%(message)s", "%H:%M:%S")
+        sf_format = colorlog.ColoredFormatter(
+                "%(log_color)s%(asctime)s-[line:%(lineno)d]-%(levelname)s-%(message)s",
+                datefmt="%H:%M:%S",
+                log_colors={
+                    'DEBUG': 'cyan',
+                    'INFO': 'green',
+                    'WARNING': 'yellow',
+                    'ERROR': 'red',
+                    'CRITICAL': 'red,bg_white',
+                })
+
         stream_handler.setFormatter(sf_format)
         sf_format = logging.Formatter("[line:%(lineno)d]-%(levelname)s-%(message)s")
         file_handler.setFormatter(sf_format)
