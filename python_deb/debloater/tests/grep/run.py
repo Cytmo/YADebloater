@@ -32,6 +32,21 @@ def execute(cmd):
     return p 
 
 
+<<<<<<< HEAD
+=======
+def debloat():
+    run_tests()
+    # get gcov data
+    utils.move_file("temp/pp.c_origin-pp.gcda","temp/pp.gcda")
+    utils.move_file("temp/pp.c_origin-pp.gcno","temp/pp.gcno")
+    ret1 = subprocess.call(["gcov","-i",'temp/pp.c'])
+    utils.exit_status(ret1,"gcov generate")
+    
+    utils.move_file("*.gcov.json.gz","temp/pp.c.gcov.json.gz")
+    
+    ret2 = subprocess.call(["gzip","-d",source_path+".gcov.json.gz"])
+    utils.exit_status(ret2,"gcov decompress")
+>>>>>>> f9559e9320e5cf25b4fb122712b8a03b13b2528d
     
     
     
