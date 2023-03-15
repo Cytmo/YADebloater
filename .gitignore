@@ -3,3 +3,5 @@ chisel-bench
 *temp*
 *tmp.log*
 *pycache*
+*dataset*
+*test.log*

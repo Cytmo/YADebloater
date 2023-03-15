@@ -10,7 +10,20 @@ import multiprocessing
 import utils
 from tqdm import tqdm
 import time
-
+import cProfile
+import pstats
+from io import StringIO
+def profile(func, *args, **kwargs):
+    pr = cProfile.Profile()
+    pr.enable()
+    result = func(*args, **kwargs)
+    pr.disable()
+    s = StringIO()
+    sortby = "cumulative"
+    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+    ps.print_stats()
+    print(s.getvalue())
+    return result
 # init logger
 logger = utils.GetLog().get_log()
 
@@ -410,11 +423,11 @@ def ddmin_function_level(code, test_func, function_list, num):
                     )
 
                     if (
-                        skip_indicator.strip()
-                        .replace("}", "")
-                        .replace("{", "")
-                        .replace(";", "")
-                        == ""
+                        not check_brackets_balance(skip_indicator) or skip_indicator.strip()
+                            .replace("}", "")
+                            .replace("{", "")
+                            .replace(";", "")
+                            == "" 
                     ):
                         logger.debug("Skipped")
                         continue
@@ -450,7 +463,9 @@ def ddmin_function_level(code, test_func, function_list, num):
                         candidate = copy.deepcopy(code)
                     # If no code was reduced in the current iteration, increase the granularity
                 if reduced:
-                    if granularity < max_length:
+
+                    if granularity <= 8:
+                    # if granularity < max_length:
                         granularity = min(max_length, granularity * 2)
                         logger.debug("increase granularity to {}".format(granularity))
                         reduced = False
@@ -490,10 +505,25 @@ def ddmin_function_level(code, test_func, function_list, num):
         f.writelines(code)
 
     with open('smallest_code', 'w') as f:
-        f.write(smallest_set)
-        f.write(function_list)
+        f.write(str(smallest_set))
+        f.write(str(function_list))
     return [code, function_list]
 
+
+def check_brackets_balance(s):
+    count = 0
+    for char in s:
+        if char == '{':
+            count += 1
+        elif char == '}':
+            count -= 1
+            if count < 0:
+                return False
+    if count == 0:
+        return True
+    else :
+        logger.debug('Brackets not balanced')
+        return False
 
 def divide_list(lst, n):
     """Divide a list into n parts with the first method of part1:[0,n,2n...]"""
@@ -589,6 +619,7 @@ def run_dd(deleted_functions=[]):
 
     other_lines = extract_other_lines(code_lines, function_list)
     logger.info("Reducing global variables and other codes...")
+    # reduced_code = profile(ddmin_execute,code_lines, verifier, other_lines)
     reduced_code = ddmin_execute(code_lines, verifier, other_lines)
 
     with open("temp/pp.c.debloated.c", "w+") as f:
@@ -608,6 +639,7 @@ def run_dd(deleted_functions=[]):
             if f["name"] == func:
                 function_list.remove(f)
                 logger.debug("Removed function " + func)
+    # reduced_code = profile( ddmin_function_level,reduced_code, verifier, function_list,1)
     reduced_code = ddmin_function_level(reduced_code, verifier, function_list, 1)
 
     # reduced_code= ddmin_function_level_multiprocess(code_lines,run_test,function_list,1)
