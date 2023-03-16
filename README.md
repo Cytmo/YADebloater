@@ -1,6 +1,6 @@
 # YADebloater
 ## Description
-This is a debloater based on given input, fuzz and code coverage, it automatically remove unnecessary code from c source file, and provides verify result about its input
+This is a debloater based on given input, code coverage and delta debugging, it automatically remove unnecessary code from c source file, and provides verify result.
 
 ## Requirements
 - pycparserext https://github.com/inducer/pycparserext `python3 -m pip install pycparserext `
@@ -8,6 +8,8 @@ This is a debloater based on given input, fuzz and code coverage, it automatical
 - GadgetSetAnalyzer https://github.com/michaelbrownuc/GadgetSetAnalyzer
 - pandas https://github.com/pandas-dev/pandas `python3 -m pip install pandas`
 - pcre : needed to compile some test programs `apt-get install libpcre3 libpcre3-dev`
+- tqdm `python3 -m pip install tqdm`
+- colorlog `python3 -m pip install colorlog`
 - radamsa https://gitlab.com/akihe/radamsa 
 ```
 apt-get install gcc make git wget
