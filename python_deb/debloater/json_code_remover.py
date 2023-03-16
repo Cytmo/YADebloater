@@ -18,6 +18,8 @@ class SyntaxComponent:
         self.file = filename
         with open(self.file,'r') as f:
             for line in f:
+                # fix a bug that line like :6152: Asm will cause an error
+                if 'Asm' in line: continue
                 # a line looks like : grep-2.19.c:8:49: Constant
                 line=line.strip()
                 if line == "":

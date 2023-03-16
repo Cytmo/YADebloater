@@ -266,13 +266,13 @@ def ddmin_execute(code, test_func, line_list):
                     #     granularity //= 2  # Reduce granularity
                     #     logger.info('decrease granularity to {}'.format(granularity))
                     # fixme
-                    write_to_file(code,True)
+                    # write_to_file(code,True)
                     break
                 # write_to_file(code,False)
                 # If the test fails, restore the removed code and move to the next index
                 if i in line_list:
                     logger.debug("Restored line {}".format(i))
-                write_to_file(removed_code,False)
+                # write_to_file(removed_code,False)
                 candidate = copy.deepcopy(code)
                 line_list_reduced = copy.deepcopy(line_list)
 
@@ -378,7 +378,7 @@ def ddmin_function_level(code, test_func, function_list, num):
 
         while True:
             candidate = copy.deepcopy(code)
-            desc = "Removing {} (gran {} iter {})...".format(func['name'], granularity,cnt)
+            desc = "Reducing {} (gran {} iter {})...".format(func['name'], granularity,cnt)
             with tqdm(total=max_length, desc=desc, position=2,leave=False) as pbar:
                 logger.debug(
                     "removing function {} ...granularity is {}".format(
@@ -618,7 +618,7 @@ def run_dd(deleted_functions=[]):
     function_list = begin_to_get_functions()
 
     other_lines = extract_other_lines(code_lines, function_list)
-    logger.info("Reducing global variables and other codes...")
+    logger.info("Running delta debugging to reduce global variables and other codes...")
     # reduced_code = profile(ddmin_execute,code_lines, verifier, other_lines)
     reduced_code = ddmin_execute(code_lines, verifier, other_lines)
 
@@ -633,7 +633,7 @@ def run_dd(deleted_functions=[]):
     logger.info("Reducing functions...")
     function_list = begin_to_get_functions()
     # remove deleted functions from function list
-    logger.info("Removing deleted functions from function list...")
+    logger.info("Running delta debugging to remove deleted functions from function list...")
     for func in deleted_functions:
         for f in function_list:
             if f["name"] == func:
