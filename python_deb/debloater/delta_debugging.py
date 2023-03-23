@@ -431,14 +431,28 @@ def ddmin_function_level(code, test_func, function_list, num):
                     ):
                         logger.debug("Skipped")
                         continue
-                    candidate_func_code = ''.join(candidate[func["start_line"]:func["end_line"]])
+                    # get the reduced version of the function to check if it is syntaxly correct or not
+                    # to save the time to compile whole file
+
+
+                    candidate_func_code = ''.join(candidate[func["start_line"]-2:func["end_line"]])
+
                     candidate_func_code_no_blank_lines = ''.join(line for line in candidate_func_code.splitlines(True) if line.strip())
                     cache_key = candidate_func_code_no_blank_lines
                     if cache_key in test_cache:
                         result = test_cache[cache_key]
                         logger.debug('Already have result in cache, skip the test')
                     else:
-                        result = test_func(candidate, num)
+                        # get the reduced version of the function to check if it is syntaxly correct or not
+                        # to save the time to compile whole file
+                        # logger.debug(candidate_func_code)
+                        if True:
+                            # logger.debug('Syntax correct, run the test')
+                            result = test_func(candidate, num)
+                        else:
+                            logger.debug('Syntax error, skip the test')
+
+                            result = False
                         test_cache[cache_key] = result
                     if result:
                         # If the test passes, update the original code and reduce granularity
@@ -509,6 +523,17 @@ def ddmin_function_level(code, test_func, function_list, num):
         f.write(str(function_list))
     return [code, function_list]
 
+
+def check_syntax(code):
+    return True
+    # """Check if the code is syntaxly correct"""
+    # parser = GnuCParser()
+    # try:
+    #     parser.parse(code)
+    #     return True
+    # except Exception as e:
+    #     logger.debug(e)
+    #     return False
 
 def check_brackets_balance(s):
     count = 0

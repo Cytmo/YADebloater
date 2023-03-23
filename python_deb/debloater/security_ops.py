@@ -81,7 +81,7 @@ class EmptyStmtVisitor(c_ast.NodeVisitor):
             # If the iftrue block is empty or a compound with no block items, add an exit statement
             print_node = c_ast.FuncCall(c_ast.ID("printf"), 
                                         c_ast.ExprList([c_ast.Constant("string", '"Unexpected if block execute"')]))
-            exit_node = c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))
+            exit_node = c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))
             node.iftrue = c_ast.Compound([exit_node])
         self.generic_visit(node)
         
@@ -89,41 +89,41 @@ class EmptyStmtVisitor(c_ast.NodeVisitor):
             # If the iffalse block is a compound with no block items, add an exit statement
             print_node = c_ast.FuncCall(c_ast.ID("printf"), 
                                         c_ast.ExprList([c_ast.Constant("string", '"Unexpected else block execute"')]))
-            exit_node = c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))            
+            exit_node = c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))            
             node.iffalse = c_ast.Compound([exit_node]) 
         self.generic_visit(node)
     def visit_IfElse(self, node):
         if node.cond is None:
-            node.iftrue = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.iftrue = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
     def visit_For(self, node):
         if node.cond is None:
-            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
 
     def visit_While(self, node):
         if node.cond is None:
-            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
 
     def visit_DoWhile(self, node):
         if node.cond is None:
-            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
 
     def visit_Switch(self, node):
         if node.cond is None:
-            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.stmt = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
 
     def visit_Case(self, node):
         if node.cond is None:
-            node.stmts = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.stmts = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
 
     def visit_Default(self, node):
         if node.cond is None:
-            node.stmts = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
+            node.stmts = c_ast.Compound([c_ast.ExprList([c_ast.FuncCall(c_ast.ID("_Exit"), c_ast.ExprList([c_ast.Constant("int", "-1")]))])])
         self.generic_visit(node)
     # def visit_FuncDef(self, node):
     #     # Check if function has any statements

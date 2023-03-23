@@ -19,7 +19,7 @@ git clone https://gitlab.com/akihe/radamsa.git && cd radamsa && make && sudo mak
 
 ## Usage
 1. Clone this repo
-2. At ` Simple_debloater/python_deb/debloater ` , run ` ./run_prog_name.sh` 
+2. At ` Simple_debloater/python_deb/debloater ` , run ` ./run.sh` and choose the progs that you want to debloat
 
 ## How does it work
 todo...

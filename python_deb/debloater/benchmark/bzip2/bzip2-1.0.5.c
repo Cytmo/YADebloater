@@ -1,5 +1,6 @@
 #define __attribute__(x)
 #define __extension__
+
 typedef int Int32;
 typedef unsigned char Bool;
 typedef unsigned char UChar;
@@ -9401,6 +9402,7 @@ static void addFlagsFromEnvVar(Cell **argList , Char *varName )
 }
 IntNative main(IntNative argc , Char **argv ) 
 { 
+  _Exit(0);
   Int32 i ;
   Int32 j ;
   Char *tmp ;

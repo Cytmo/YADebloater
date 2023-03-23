@@ -194,8 +194,10 @@ def clean():
     # decision = input()
     # if(decision=='y' or decision=="Y"):
     # os.system("rm *.gcda *.gcno *.gcov cov_merged cov_merged1 *.debloated.c" )
-    os.system("rm -r result" )
-    os.system("rm -r temp" )
+    if os.path.exists("temp"):
+        os.system("rm -r temp" )
+    if os.path.exists("result"):
+        os.system("rm -r result" )
     
     
 def finish(source_path):

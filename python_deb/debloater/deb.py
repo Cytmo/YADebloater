@@ -138,9 +138,8 @@ if __name__ == '__main__':
     utils.exec_cmd(cmd)
     file_name,deleted_functions = json_code_remover.code_remove(source_path+".gcov.json",source_path)
     security_ops.begin_ops(only_remove_comments=True)
-    security_ops.begin_ops()
     delta_debugging.run_dd(deleted_functions) 
-    security_ops.begin_ops()
+    security_ops.begin_ops(only_remove_comments=True)
     
     logger.info(f'time cost:{time.time() - t:.4f}s')
     
