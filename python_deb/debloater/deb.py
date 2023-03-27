@@ -29,15 +29,20 @@ logger.info(args)
 # Global var
 # formatted= args.format
 source_path=args.source_file
+if not os.path.exists(source_path):
+    logger.error('Error: source_file does not exist')
+    exit(1)
 binary_path=""
 robust_mode = args.robust_mode
+input_path=args.input_folder
+if not os.path.exists(input_path+os.sep+"run.py"):
+    logger.error('Error: inputs does not exist, do you forget to put run.py in?')
+    exit(1)
+dir_name=""
 if robust_mode:
     logger.info("Robustness mode enabled")
 else:
     logger.info("Robustness mode disabled")
-input_path=args.input_folder
-dir_name=""
-
 
 def compile_with_cov(source,dest=""):
     logger.info('Compiling to '+source+"_origin")

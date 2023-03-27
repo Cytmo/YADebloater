@@ -122,7 +122,7 @@ logger = utils.GetLog().get_log()
 
 
 
-class FuncDefVisitor(c_ast.NodeVisitor):
+class FuncListVisitor(c_ast.NodeVisitor):
     def __init__(self):
         self.functions = []
         # Create a generator object as an attribute
@@ -185,10 +185,10 @@ def remove_function(code, function_name):
 def get_functions(code):
     parser = GnuCParser()
     ast = parser.parse(code)
-    visitor = FuncDefVisitor()
+    visitor = FuncListVisitor()
     visitor.visit(ast)
-    for func in visitor.functions:
-        func["lines"] = code.splitlines()[func["start_line"] - 1 : func["end_line"]]
+    # for func in visitor.functions:
+    #     func["lines"] = code.splitlines()[func["start_line"] - 1 : func["end_line"]]
     return visitor.functions
 
 
@@ -298,6 +298,7 @@ def verifier(src, num=0):
 def ddmin_execute(code, test_func, line_list):
     # add a test_cache to reduce the unnecessary exec of same reduced functions
     cache = {}
+    # logger.info("line list is "+str(line_list))
     # Initialize the starting granularity to the size of code (coarsest granularity)
     max_length = len(code)
     original_length = len(line_list)
@@ -704,14 +705,17 @@ def ddmin_function_level_multiprocess(code, test_func, function_list, n=1):
 def extract_other_lines(src, func_list):
     length = len(src)
     other_lines = []
+    # logger.info("function list is {}".format(func_list))
     # iterate through the lines of the code
     for line_num in range(0, length):
         other_lines.append(line_num)
     for func in func_list:
         # iterate through the lines of the function
-        for line_num in range(func["start_line"] - 2, func["end_line"]):
+        for line_num in range(func["start_line"] - 1, func["end_line"]):
             # remove the line number of the function from the list of all line numbers
+
             if line_num in other_lines:
+                logger.info("Removed line {} from line list".format(line_num))
                 other_lines.remove(line_num)
 
     # now we get other lines' number, we should remove blank lines from it
@@ -727,6 +731,14 @@ def run_dd(deleted_functions=[]):
         code = f.read()
     with open("temp/pp.c.debloated.c", "r") as f:
         code_lines = f.readlines()
+
+    # Rewrite the code to get correct line numbers
+    p = GnuCParser()
+    ast = p.parse(code)
+    lines = GnuCGenerator().visit(ast)
+    logger.info("Rewriting file...")   
+    with open('temp/pp.c.debloated.c','w') as f:
+        f.write(lines)
     # first run
     if verifier(code_lines):
         logger.info("Test Passed On First Run")

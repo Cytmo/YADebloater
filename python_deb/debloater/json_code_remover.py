@@ -254,6 +254,7 @@ def code_remove(cov_merged_path,source_file):
     
     # process else that has no statements
     lines_to_write,if_found_any = remove_redundant_else(lines)
+    logger.info('Removing redundant else statements...')
     while(True):
         if(if_found_any):
             lines_to_write,if_found_any = remove_redundant_else(lines_to_write)
@@ -321,7 +322,7 @@ def check_if_label(line):
     
 
 def remove_redundant_else(lines,):
-    logger.info('Removing redundant else statements...')
+
     # two kinds of redundant
     '''
     1. else that else {
