@@ -715,7 +715,7 @@ def extract_other_lines(src, func_list):
             # remove the line number of the function from the list of all line numbers
 
             if line_num in other_lines:
-                logger.info("Removed line {} from line list".format(line_num))
+                # logger.info("Removed line {} from line list".format(line_num))
                 other_lines.remove(line_num)
 
     # now we get other lines' number, we should remove blank lines from it
@@ -727,25 +727,29 @@ def extract_other_lines(src, func_list):
 
 
 def run_dd(deleted_functions=[]):
-    with open("temp/pp.c.debloated.c", "r") as f:
-        code = f.read()
-    with open("temp/pp.c.debloated.c", "r") as f:
-        code_lines = f.readlines()
+
 
     # Rewrite the code to get correct line numbers
+    with open("temp/pp.c.debloated.c", "r") as f:
+        code = f.read()
     p = GnuCParser()
     ast = p.parse(code)
     lines = GnuCGenerator().visit(ast)
     logger.info("Rewriting file...")   
     with open('temp/pp.c.debloated.c','w') as f:
         f.write(lines)
+
+
+    with open("temp/pp.c.debloated.c", "r") as f:
+        code = f.read()
+    with open("temp/pp.c.debloated.c", "r") as f:
+        code_lines = f.readlines()
     # first run
     if verifier(code_lines):
         logger.info("Test Passed On First Run")
     else:
         logger.info("Test Failed On First Run")
         exit(0)
-
     function_list = begin_to_get_functions()
     # Q_learning(code=code_lines, test_func=verifier,num=0)
     other_lines = extract_other_lines(code_lines, function_list)
