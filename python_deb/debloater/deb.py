@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-s",'--source_file',required=True, type=str,help='The path to source file')
 parser.add_argument("-i",'--input_folder',required=True, type=str,help='The path to ur inputs, which should contain the features u want to preserve')
 # parser.add_argument("-f",'--format',name_or_flags=formatted,help='If c file is formatted')
-parser.add_argument("-option_string1","--o1",type=str,help="An test for optional para")
+parser.add_argument("-r","--robust_mode", action="store_true",help="Generate an more robust debloated version, but with less code reduction rate ")
 args = parser.parse_args()
 
 logger.info(args)
@@ -30,6 +30,11 @@ logger.info(args)
 # formatted= args.format
 source_path=args.source_file
 binary_path=""
+robust_mode = args.robust_mode
+if robust_mode:
+    logger.info("Robustness mode enabled")
+else:
+    logger.info("Robustness mode disabled")
 input_path=args.input_folder
 dir_name=""
 
@@ -139,7 +144,10 @@ if __name__ == '__main__':
     file_name,deleted_functions = json_code_remover.code_remove(source_path+".gcov.json",source_path)
     security_ops.begin_ops(only_remove_comments=True)
     delta_debugging.run_dd(deleted_functions) 
-    security_ops.begin_ops(only_remove_comments=True)
+    if robust_mode:
+        security_ops.begin_ops(only_remove_comments=False)
+    else:
+        security_ops.begin_ops(only_remove_comments=True)
     
     logger.info(f'time cost:{time.time() - t:.4f}s')
     

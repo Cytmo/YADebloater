@@ -28,6 +28,100 @@ def profile(func, *args, **kwargs):
 logger = utils.GetLog().get_log()
 
 
+
+# import numpy as np
+# import copy
+# from tqdm import tqdm
+# import logging
+
+# logger = logging.getLogger(__name__)
+
+
+# def reward_function(candidate, code, action, test_cache, test_func, num):
+#     if action == -1:
+#         return 0
+
+#     i = action
+#     skip_indicator = candidate[i]
+#     candidate[i] = "\n"
+    
+#     candidate_code = "".join(candidate)
+#     cache_key = candidate_code
+    
+#     if cache_key in test_cache:
+#         result = test_cache[cache_key]
+#     else:
+#         result = test_func(candidate, num)
+#         test_cache[cache_key] = result
+
+#     if result:
+#         reward = 1
+#     else:
+#         reward = -1
+#         candidate[i] = skip_indicator
+
+#     return reward
+
+
+
+# def Q_learning(code, test_func, num):
+#     # Q-learning setup
+#     code_lines = len(code)
+#     actions = list(range(code_lines)) + [-1]
+#     q_table = np.zeros((code_lines + 1, len(actions)))
+#     alpha = 0.1
+#     gamma = 0.99
+#     epsilon = 0.1
+#     episodes = 1000
+
+#     # Q-learning algorithm
+#     for episode in range(episodes):
+#         state = 0
+#         done = False
+
+#         while not done:
+#             if np.random.uniform(0, 1) < epsilon:
+#                 action = np.random.choice(actions)
+#             else:
+#                 action = np.argmax(q_table[state])
+
+#             candidate = copy.deepcopy(code)
+#             test_cache = {}
+
+#             reward = reward_function(candidate, code, action, test_cache, test_func, num)
+#             next_state = state + 1 if state < code_lines - 1 else 0
+
+#             q_table[state, action] += alpha * (reward + gamma * np.max(q_table[next_state]) - q_table[state, action])
+
+#             state = next_state
+#             done = state == 0
+
+#     policy = np.argmax(q_table, axis=1)
+
+# # Modify the ddmin_function_level to use the learned policy
+# def ddmin_function_level(code, test_func, function_list, num):
+#     # ...
+#     # Replace the loop that decides which line to remove with the following:
+#     for i in range(func["start_line"] + 1, func["end_line"]):
+#         action = policy[state]
+#         reward = reward_function(candidate, code, action, test_cache, test_func, num)
+        
+#         if reward > 0:
+#             code = copy.deepcopy(candidate)
+#             total_removed += 1
+#             reduced = True
+#         else:
+#             candidate = copy.deepcopy(code)
+
+#         state = next_state
+#         done = state == 0
+#     # ...
+
+
+
+
+
+
 class FuncDefVisitor(c_ast.NodeVisitor):
     def __init__(self):
         self.functions = []
@@ -641,7 +735,7 @@ def run_dd(deleted_functions=[]):
         exit(0)
 
     function_list = begin_to_get_functions()
-
+    # Q_learning(code=code_lines, test_func=verifier,num=0)
     other_lines = extract_other_lines(code_lines, function_list)
     logger.info("Running delta debugging to reduce global variables and other codes...")
     # reduced_code = profile(ddmin_execute,code_lines, verifier, other_lines)

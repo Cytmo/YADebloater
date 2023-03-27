@@ -2,6 +2,7 @@ typedef unsigned long size_t;
 typedef long __off_t;
 typedef long __off64_t;
 
+struct _IO_FILE;
 typedef struct _IO_FILE FILE;
 typedef void _IO_lock_t;
 struct _IO_marker
@@ -42,97 +43,65 @@ struct _IO_FILE
   int _mode;
   char _unused2[((15UL * (sizeof(int))) - (4UL * (sizeof(void *)))) - (sizeof(size_t))];
 };
-typedef char bool;
-typedef char character;
-typedef char string[100];
-#pragma merger("0","./empty.i","-w")
-#pragma merger("0","./replace.i","-w")
-extern void exit();
-extern struct _IO_FILE *stdin;
+typedef int bool;
+#pragma merger("0","/tmp/cil-C6YVQbeH.i","")
+#pragma merger("0","/tmp/cil-JY7GYS94.i","")
 extern struct _IO_FILE *stdout;
-
-
-
-
-bool getline_in_replace(char *s, int maxsize)
+extern int fprintf(FILE *__restrict __stream, const char *__restrict __format, ...);
+int Cur_Vertical_Sep;
+bool High_Confidence;
+bool Two_of_Three_Reports_Valid;
+int Own_Tracked_Alt;
+int Own_Tracked_Alt_Rate;
+int Other_Tracked_Alt;
+int Alt_Layer_Value;
+int Positive_RA_Alt_Thresh[4];
+int Up_Separation;
+int Down_Separation;
+int Other_RAC;
+int Other_Capability;
+int Climb_Inhibit;
+void initialize(void)
 {
-  char *result;
   {
-    {
-      result = fgets((char *__restrict ) s, maxsize, (FILE *__restrict ) stdin);
-    }
-    return (bool) (((unsigned long) result) != ((unsigned long) ((char *) 0)));
+    Positive_RA_Alt_Thresh[0] = 400;
+    Positive_RA_Alt_Thresh[1] = 500;
+    Positive_RA_Alt_Thresh[2] = 640;
+    Positive_RA_Alt_Thresh[3] = 740;
+    return;
   }
 }
 
-int addstr(char c, char *outset, int *j, int maxset)
+int ALIM(void)
 {
+  {
+    return Positive_RA_Alt_Thresh[Alt_Layer_Value];
+  }
+}
+
+int Inhibit_Biased_Climb(void)
+{
+  int tmp;
+  {
+    if (Climb_Inhibit)
+    {
+      tmp = Up_Separation + 100;
+    }
+    else
+    {
+      tmp = Up_Separation;
+    }
+
+    return tmp;
+  }
+}
+
+
+
+bool Non_Crossing_Biased_Climb(void)
+{
+  int upward_preferred;
   bool result;
-  {
-    if ((* j) >= maxset)
-    {
- 
-    }
-    else
-    {
-      * (outset + (* j)) = c;
-      (* j)++;
-      result = (bool) 1;
-    }
-
-    return (int) result;
-  }
-}
-
-char esc(char *s, int *i)
-{
-  char result;
-  {
-    if (((int) (* (s + (* i)))) != 64)
-    {
-      result = * (s + (* i));
-    }
-    else
-    {
-      if (((int) (* (s + ((* i) + 1)))) == 0)
-      {
- 
-      }
-      else
-      {
-        (* i)++;
-        if (((int) (* (s + (* i)))) == 110)
-        {
-          result = (char) 10;
-        }
-        else
-        {
-          if (((int) (* (s + (* i)))) == 116)
-          {
-            result = (char) 9;
-          }
-          else
-          {
-            result = * (s + (* i));
-          }
-
-        }
-
-      }
-
-    }
-
-    return result;
-  }
-}
-
-
-
-void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
-{
-  int k;
-  bool junk;
-  char escjunk;
   int tmp;
   int tmp___0;
   int tmp___1;
@@ -140,222 +109,221 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
   int tmp___3;
   int tmp___4;
   int tmp___5;
+  int tmp___6;
   {
     {
-      while (1)
+      tmp = Inhibit_Biased_Climb();
+      upward_preferred = tmp > Down_Separation;
+    }
+    if (upward_preferred)
+    {
       {
-        while_continue:
-        ;
-
-        if (((int) (* (src + (* i)))) != ((int) delim))
-        {
-          if (! (((int) (* (src + (* i)))) != 0))
-          {
- 
-          }
-
-        }
-        else
-        {
-          goto while_break;
-        }
-
-        if (((int) (* (src + ((* i) - 1)))) == 64)
-        {
-          {
-            escjunk = esc(src, i);
-            tmp = addstr(escjunk, dest, j, maxset);
-            junk = (bool) tmp;
-          }
-        }
-        else
-        {
-          if (((int) (* (src + (* i)))) != 45)
-          {
-            {
-              tmp___0 = addstr(* (src + (* i)), dest, j, maxset);
-              junk = (bool) tmp___0;
-            }
-          }
-          else
-          {
-            if ((* j) <= 1)
-            {
-              {
- 
- 
-              }
-            }
-            else
-            {
-              if (((int) (* (src + ((* i) + 1)))) == 0)
-              {
-                {
- 
- 
-                }
-              }
-              else
-              {
-                {
-                  tmp___4 = isalnum((int) (* (src + ((* i) - 1))));
-                  tmp___5 = isalnum((int) (* (src + ((* i) + 1))));
-                }
-                if (tmp___4 & tmp___5)
-                {
-                  if (((int) (* (src + ((* i) - 1)))) <= ((int) (* (src + ((* i) + 1)))))
-                  {
-                    k = ((int) (* (src + ((* i) - 1)))) + 1;
-                    {
-                      while (1)
-                      {
-                        while_continue___0:
-                        ;
-
-                        if (! (k <= ((int) (* (src + ((* i) + 1))))))
-                        {
-                          goto while_break___0;
-                        }
-
-                        {
-                          tmp___2 = addstr((char) k, dest, j, maxset);
-                          junk = (bool) tmp___2;
-                          k++;
-                        }
-                      }
-
-                      while_break___0:
-                      ;
-
-                    }
-                    (* i)++;
-                  }
- 
- 
- 
- 
- 
- 
- 
-
-                }
-                else
-                {
-                  {
-                    tmp___3 = addstr((char) '-', dest, j, maxset);
-                    junk = (bool) tmp___3;
-                  }
-                }
-
-              }
-
-            }
-
-          }
-
-        }
-
-        (* i)++;
+        tmp___0 = Own_Below_Threat();
       }
+      if (tmp___0)
+      {
+        {
+          tmp___1 = Own_Below_Threat();
+        }
+        if (tmp___1)
+        {
+          {
+            tmp___2 = ALIM();
+          }
+          if (Down_Separation >= tmp___2)
+          {
+            tmp___3 = 0;
+          }
+ 
+ 
+ 
+ 
 
-      while_break:
-      ;
+        }
+ 
+ 
+ 
+ 
+
+      }
+ 
+ 
+ 
+ 
+
+      result = tmp___3;
+    }
+    else
+    {
+      {
+        tmp___4 = Own_Above_Threat();
+      }
+      if (tmp___4)
+      {
+        if (Cur_Vertical_Sep >= 300)
+        {
+          {
+            tmp___5 = ALIM();
+          }
+          if (Up_Separation >= tmp___5)
+          {
+            tmp___6 = 1;
+          }
+ 
+ 
+ 
+ 
+
+        }
+ 
+ 
+ 
+ 
+
+      }
+ 
+ 
+ 
+ 
+
 
     }
+
 
   }
 }
 
-bool getccl(char *arg, int *i, char *pat, int *j)
+bool Non_Crossing_Biased_Descend(void)
 {
-  int jstart;
-  bool junk;
+  int upward_preferred;
+  bool result;
   int tmp;
   int tmp___0;
   int tmp___1;
+  int tmp___2;
+  int tmp___3;
+  int tmp___4;
+  int tmp___5;
+  int tmp___6;
   {
-    (* i)++;
-    if (((int) (* (arg + (* i)))) == 94)
+    {
+      tmp = Inhibit_Biased_Climb();
+      upward_preferred = tmp > Down_Separation;
+    }
+    if (upward_preferred)
     {
       {
-        tmp = addstr((char) '!', pat, j, 100);
-        junk = (bool) tmp;
-        (* i)++;
+        tmp___0 = Own_Below_Threat();
       }
+      if (tmp___0)
+      {
+        if (Cur_Vertical_Sep >= 300)
+        {
+          {
+            tmp___1 = ALIM();
+          }
+          if (Down_Separation >= tmp___1)
+          {
+            tmp___2 = 1;
+          }
+ 
+ 
+ 
+ 
+
+        }
+ 
+ 
+ 
+ 
+
+      }
+ 
+ 
+ 
+ 
+
+      result = tmp___2;
     }
     else
     {
       {
-        tmp___0 = addstr((char) '[', pat, j, 100);
-        junk = (bool) tmp___0;
+        tmp___3 = Own_Above_Threat();
       }
+      if (tmp___3)
+      {
+        {
+          tmp___4 = Own_Above_Threat();
+        }
+        if (tmp___4)
+        {
+          {
+            tmp___5 = ALIM();
+          }
+          if (Up_Separation >= tmp___5)
+          {
+            tmp___6 = 1;
+          }
+ 
+ 
+ 
+ 
+
+        }
+ 
+ 
+ 
+ 
+
+      }
+ 
+ 
+ 
+ 
+
+
     }
 
-    {
-      jstart = * j;
-      tmp___1 = addstr((char) 0, pat, j, 100);
-      junk = (bool) tmp___1;
-      dodash((char) ']', arg, i, pat, j, 100);
-      * (pat + jstart) = (char) (((* j) - jstart) - 1);
-    }
-    return (bool) (((int) (* (arg + (* i)))) == 93);
+
   }
 }
 
-void stclose(char *pat, int *j, int lastj)
+bool Own_Below_Threat(void)
 {
-  int jt;
-  int jp;
-  bool junk;
-  int tmp;
   {
-    jp = (* j) - 1;
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        if (! (jp >= lastj))
-        {
-          goto while_break;
-        }
-
-        {
-          jt = jp + 1;
-          tmp = addstr(* (pat + jp), pat, & jt, 100);
-          junk = (bool) tmp;
-          jp--;
-        }
-      }
-
-      while_break:
-      ;
-
-    }
-    (* j)++;
-    * (pat + lastj) = (char) '*';
-    return;
+    return Own_Tracked_Alt < Other_Tracked_Alt;
   }
 }
 
-bool in_set_2(char c)
+bool Own_Above_Threat(void)
 {
-  int tmp;
   {
-    if (((int) c) == 37)
+    return Other_Tracked_Alt < Own_Tracked_Alt;
+  }
+}
+
+int alt_sep_test(void)
+{
+  bool enabled;
+  bool tcas_equipped;
+  bool intent_not_known;
+  bool need_upward_RA;
+  bool need_downward_RA;
+  int alt_sep;
+  int tmp;
+  int tmp___0;
+  bool tmp___1;
+  bool tmp___2;
+  int tmp___3;
+  bool tmp___4;
+  bool tmp___5;
+  int tmp___6;
+  {
+    if (High_Confidence)
     {
- 
-    }
-    else
-    {
-      if (((int) c) == 36)
+      if (Own_Tracked_Alt_Rate <= 600)
       {
- 
-      }
-      else
-      {
-        if (((int) c) == 42)
+        if (Cur_Vertical_Sep > 600)
         {
           tmp = 1;
         }
@@ -365,1020 +333,189 @@ bool in_set_2(char c)
         }
 
       }
+      else
+      {
+        tmp = 0;
+      }
 
-    }
-
-    return (bool) tmp;
-  }
-}
-
-bool in_pat_set(char c)
-{
-  int tmp;
-  {
-    if (((int) c) == 99)
-    {
-      tmp = 1;
     }
     else
     {
-      if (((int) c) == 37)
+      tmp = 0;
+    }
+
+    enabled = tmp;
+    tcas_equipped = Other_Capability == 1;
+    if (Two_of_Three_Reports_Valid)
+    {
+      if (Other_RAC == 0)
       {
-        tmp = 1;
+        tmp___0 = 1;
       }
       else
       {
-        if (((int) c) == 36)
-        {
- 
-        }
-        else
-        {
-          if (((int) c) == 63)
-          {
-            tmp = 1;
-          }
-          else
-          {
-            if (((int) c) == 91)
-            {
-              tmp = 1;
-            }
-            else
-            {
-              if (((int) c) == 33)
-              {
-                tmp = 1;
-              }
-              else
-              {
-                if (((int) c) == 42)
-                {
-                  tmp = 1;
-                }
- 
- 
- 
- 
-
-              }
-
-            }
-
-          }
-
-        }
-
+        tmp___0 = 0;
       }
 
-    }
-
-
-  }
-}
-
-int makepat(char *arg, int start, char delim, char *pat)
-{
-  int result;
-  int i;
-  int j;
-  int lastj;
-  int lj;
-  bool done;
-  bool junk;
-  bool getres;
-  char escjunk;
-  int tmp;
-  int tmp___0;
-  int tmp___1;
-  bool tmp___2;
-  int tmp___3;
-  int tmp___4;
-  int tmp___5;
-  {
-    j = 0;
-    i = start;
-    lastj = 0;
-    done = (bool) 0;
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        if (! done)
-        {
-          if (((int) (* (arg + i))) != ((int) delim))
-          {
-            if (! (((int) (* (arg + i))) != 0))
-            {
- 
-            }
-
-          }
-          else
-          {
-            goto while_break;
-          }
-
-        }
-        else
-        {
-          goto while_break;
-        }
-
-        lj = j;
-        if (((int) (* (arg + i))) == 63)
-        {
-          {
-            tmp = addstr((char) '?', pat, & j, 100);
-            junk = (bool) tmp;
-          }
-        }
-        else
-        {
-          if (((int) (* (arg + i))) == 37)
-          {
-            if (i == start)
-            {
-              {
-                tmp___0 = addstr((char) '%', pat, & j, 100);
-                junk = (bool) tmp___0;
-              }
-            }
- 
- 
- 
- 
-
-          }
-          else
-          {
-            _L___0:
-            if (((int) (* (arg + i))) == 36)
-            {
-              if (((int) (* (arg + (i + 1)))) == ((int) delim))
-              {
-                {
-                  tmp___1 = addstr((char) '$', pat, & j, 100);
-                  junk = (bool) tmp___1;
-                }
-              }
- 
- 
- 
- 
-
-            }
-            else
-            {
-              _L:
-              if (((int) (* (arg + i))) == 91)
-              {
-                {
-                  getres = getccl(arg, & i, pat, & j);
-                  done = (bool) (((int) getres) == 0);
-                }
-              }
-              else
-              {
-                if (((int) (* (arg + i))) == 42)
-                {
-                  if (i > start)
-                  {
-                    {
-                      lj = lastj;
-                      tmp___2 = in_set_2(* (pat + lj));
-                    }
-                    if (tmp___2)
-                    {
-                      done = (bool) 1;
-                    }
-                    else
-                    {
-                      {
-                        stclose(pat, & j, lastj);
-                      }
-                    }
-
-                  }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-                }
-                else
-                {
-                  {
-                    tmp___3 = addstr((char) 'c', pat, & j, 100);
-                    junk = (bool) tmp___3;
-                    escjunk = esc(arg, & i);
-                    tmp___4 = addstr(escjunk, pat, & j, 100);
-                    junk = (bool) tmp___4;
-                  }
-                }
-
-              }
-
-
-            }
-
-
-          }
-
-        }
-
-        lastj = lj;
-        if (! done)
-        {
-          i++;
-        }
-
-      }
-
-      while_break:
-      ;
-
-    }
-    {
-      tmp___5 = addstr((char) '\000', pat, & j, 100);
-      junk = (bool) tmp___5;
-    }
-    if (done)
-    {
-      result = 0;
     }
     else
     {
-      if (((int) (* (arg + i))) != ((int) delim))
-      {
- 
-      }
-
-      {
-
-        {
- 
-        }
-
-        {
-          result = i;
-        }
-
-      }
-
+      tmp___0 = 0;
     }
 
-    return result;
-  }
-}
-
-int getpat(char *arg, char *pat)
-{
-  int makeres;
-  {
+    intent_not_known = tmp___0;
+    alt_sep = 0;
+    if (enabled)
     {
-      makeres = makepat(arg, 0, (char) '\000', pat);
-    }
-    return makeres > 0;
-  }
-}
-
-int makesub(char *arg, int from, character delim, char *sub)
-{
-  int result;
-  int i;
-  int j;
-  bool junk;
-  character escjunk;
-  int tmp;
-  int tmp___0;
-  int tmp___1;
-  {
-    j = 0;
-    i = from;
-    {
-      while (1)
+      if (tcas_equipped)
       {
-        while_continue:
-        ;
-
-        if (((int) (* (arg + i))) != ((int) delim))
+        if (intent_not_known)
         {
-          if (! (((int) (* (arg + i))) != 0))
-          {
  
-          }
-
         }
         else
         {
-          goto while_break;
+          goto _L___1;
         }
 
-        if (((unsigned int) (* (arg + i))) == 38U)
-        {
-          {
-            tmp = addstr((char) (- 1), sub, & j, 100);
-            junk = (bool) tmp;
-          }
-        }
-        else
-        {
-          {
-            escjunk = esc(arg, & i);
-            tmp___0 = addstr(escjunk, sub, & j, 100);
-            junk = (bool) tmp___0;
-          }
-        }
-
-        i++;
-      }
-
-      while_break:
-      ;
-
-    }
-    if (((int) (* (arg + i))) != ((int) delim))
-    {
- 
-    }
-    else
-    {
-      {
-        tmp___1 = addstr((char) '\000', sub, & j, 100);
-        junk = (bool) tmp___1;
-      }
-      if (! junk)
-      {
- 
       }
       else
       {
-        result = i;
-      }
-
-    }
-
-
-  }
-}
-
-bool getsub(char *arg, char *sub)
-{
-  int makeres;
-  {
-    {
-      makeres = makesub(arg, 0, (character) '\000', sub);
-    }
-    return (bool) (makeres > 0);
-  }
-}
-
-
-bool locate(character c, char *pat, int offset)
-{
-  int i;
-  bool flag;
-  {
-    flag = (bool) 0;
-    i = offset + ((int) (* (pat + offset)));
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        if (! (i > offset))
+        _L___1:
+        if (! tcas_equipped)
         {
-          goto while_break;
-        }
-
-        if (((int) c) == ((int) (* (pat + i))))
-        {
-          flag = (bool) 1;
-          i = offset;
-        }
-        else
-        {
-          i--;
-        }
-
-      }
-
-      while_break:
-      ;
-
-    }
-    return flag;
-  }
-}
-
-
-bool omatch(char *lin, int *i, char *pat, int j)
-{
-  char advance;
-  bool result;
-  bool tmp;
-  bool tmp___0;
-  bool tmp___1;
-  {
-    advance = (char) (- 1);
-    if (((int) (* (lin + (* i)))) == 0)
-    {
- 
-    }
-    else
-    {
-      {
-        tmp___1 = in_pat_set(* (pat + j));
-      }
-      if (tmp___1)
-      {
-        {
-          if (((int) (* (pat + j))) == 99)
+          _L___0:
           {
-            goto case_99;
+            tmp___1 = Non_Crossing_Biased_Climb();
           }
 
-          if (((int) (* (pat + j))) == 37)
-          {
-            goto case_37;
-          }
-
-          if (((int) (* (pat + j))) == 63)
-          {
-            goto case_63;
-          }
-
-          if (((int) (* (pat + j))) == 36)
-          {
- 
-          }
-
-          if (((int) (* (pat + j))) == 91)
-          {
-            goto case_91;
-          }
-
-          if (((int) (* (pat + j))) == 33)
-          {
-            goto case_33;
-          }
-
- 
-          case_99:
-          if (((int) (* (lin + (* i)))) == ((int) (* (pat + (j + 1)))))
-          {
-            advance = (char) 1;
-          }
-
-
-          goto switch_break;
-          case_37:
-          if ((* i) == 0)
-          {
-            advance = (char) 0;
-          }
-
-
-          goto switch_break;
-          case_63:
-          if (((int) (* (lin + (* i)))) != 10)
-          {
-            advance = (char) 1;
-          }
-
-
-          goto switch_break;
-          case_36:;
-          if (((int) (* (lin + (* i)))) == 10)
-          {
- 
-          }
-
-
- 
-          case_91:
-          {
-            tmp = locate(* (lin + (* i)), pat, j + 1);
-          }
-
-          if (tmp)
-          {
-            advance = (char) 1;
-          }
-
-          goto switch_break;
-          case_33:
-          if (((int) (* (lin + (* i)))) != 10)
+          if (tmp___1)
           {
             {
-              tmp___0 = locate(* (lin + (* i)), pat, j + 1);
+              tmp___2 = Own_Below_Threat();
             }
-            if (! tmp___0)
+            if (tmp___2)
             {
-              advance = (char) 1;
+ 
             }
-
-          }
-
-
-          goto switch_break;
-          switch_default:;
-          {
- 
-          }
-
-          switch_break:
-          ;
-
-        }
-      }
- 
- 
- 
- 
- 
- 
- 
-
-    }
-
-    if (((int) advance) >= 0)
-    {
-      * i += (int) advance;
-      result = (bool) 1;
-    }
-    else
-    {
-      result = (bool) 0;
-    }
-
-    return result;
-  }
-}
-
-int patsize(char *pat, int n)
-{
-  int size;
-  bool tmp;
-  {
-    {
-      tmp = in_pat_set(* (pat + n));
-    }
-    if (tmp)
-    {
-      {
-        if (((int) (* (pat + n))) == 99)
-        {
-          goto case_99;
-        }
-
-        if (((int) (* (pat + n))) == 63)
-        {
-          goto case_63;
-        }
-
-        if (((int) (* (pat + n))) == 36)
-        {
- 
-        }
-
-        if (((int) (* (pat + n))) == 37)
-        {
-          goto case_63;
-        }
-
-        if (((int) (* (pat + n))) == 33)
-        {
-          goto case_33;
-        }
-
-        if (((int) (* (pat + n))) == 91)
-        {
-          goto case_33;
-        }
-
-        if (((int) (* (pat + n))) == 42)
-        {
-          goto case_42;
-        }
-
- 
-        case_99:
-        size = 2;
-
-        goto switch_break;
-        case_63:
-        case_36:
-        case_37:
-        size = 1;
-
-
-
-        goto switch_break;
-        case_33:
-        case_91:
-        size = ((int) (* (pat + (n + 1)))) + 2;
-
-
-        goto switch_break;
-        case_42:
-        size = 1;
-
-        goto switch_break;
-        switch_default:;
-        {
- 
-        }
-
-        switch_break:
-        ;
-
-      }
-    }
- 
- 
- 
- 
- 
- 
- 
-
-    return size;
-  }
-}
-
-int amatch(char *lin, int offset, char *pat, int j)
-{
-  int i;
-  int k;
-  bool result;
-  bool done;
-  int tmp;
-  int tmp___0;
-  int tmp___1;
-  {
-    done = (bool) 0;
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        if (! done)
-        {
-          if (! (((int) (* (pat + j))) != 0))
-          {
-            goto while_break;
-          }
-
-        }
-        else
-        {
-          goto while_break;
-        }
-
-        if (((int) (* (pat + j))) == 42)
-        {
-          {
-            tmp = patsize(pat, j);
-            j += tmp;
-            i = offset;
-          }
-          {
-            while (1)
+            else
             {
-              while_continue___0:
-              ;
-
-              if (! done)
-              {
-                if (! (((int) (* (lin + i))) != 0))
-                {
- 
-                }
-
-              }
-              else
-              {
-                goto while_break___0;
-              }
-
-              {
-                result = omatch(lin, & i, pat, j);
-              }
-              if (! result)
-              {
-                done = (bool) 1;
-              }
-
+              tmp___3 = 0;
             }
 
-            while_break___0:
-            ;
-
-          }
-          done = (bool) 0;
-          {
-            while (1)
-            {
-              while_continue___1:
-              ;
-
-              if (! done)
-              {
-                if (! (i >= offset))
-                {
-                  goto while_break___1;
-                }
-
-              }
-              else
-              {
-                goto while_break___1;
-              }
-
-              {
-                tmp___0 = patsize(pat, j);
-                k = amatch(lin, i, pat, j + tmp___0);
-              }
-              if (k >= 0)
-              {
-                done = (bool) 1;
-              }
-              else
-              {
-                i--;
-              }
-
-            }
-
-            while_break___1:
-            ;
-
-          }
-          offset = k;
-          done = (bool) 1;
-        }
-        else
-        {
-          {
-            result = omatch(lin, & offset, pat, j);
-          }
-          if (! result)
-          {
-            offset = - 1;
-            done = (bool) 1;
           }
           else
           {
-            {
-              tmp___1 = patsize(pat, j);
-              j += tmp___1;
-            }
+            tmp___3 = 0;
           }
 
-        }
-
-      }
-
-      while_break:
-      ;
-
-    }
-    return offset;
-  }
-}
-
-void putsub(char *lin, int s1, int s2, char *sub)
-{
-  int i;
-  int j;
-  {
-    i = 0;
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        if (! (((int) (* (sub + i))) != 0))
-        {
-          goto while_break;
-        }
-
-        if (((int) (* (sub + i))) == (- 1))
-        {
-          j = s1;
           {
-            while (1)
-            {
-              while_continue___0:
-              ;
-
-              if (! (j < s2))
-              {
-                goto while_break___0;
-              }
-
-              {
-                fputc((int) (* (lin + j)), stdout);
-                j++;
-              }
-            }
-
-            while_break___0:
-            ;
-
+            need_upward_RA = tmp___3;
+            tmp___4 = Non_Crossing_Biased_Descend();
           }
-        }
-        else
-        {
-          {
-            fputc((int) (* (sub + i)), stdout);
-          }
-        }
-
-        i++;
-      }
-
-      while_break:
-      ;
-
-    }
-    return;
-  }
-}
-
-void subline(char *lin, char *pat, char *sub)
-{
-  int i;
-  int lastm;
-  int m;
-  {
-    lastm = - 1;
-    i = 0;
-    {
-      while (1)
-      {
-        while_continue:
-        ;
-
-        if (! (((int) (* (lin + i))) != 0))
-        {
-          goto while_break;
-        }
-
-        {
-          m = amatch(lin, i, pat, 0);
-        }
-        if (m >= 0)
-        {
-          if (lastm != m)
+          if (tmp___4)
           {
             {
-              putsub(lin, i, m, sub);
-              lastm = m;
+              tmp___5 = Own_Above_Threat();
             }
-          }
-
-        }
-
-        if (m == (- 1))
-        {
-          {
-            fputc((int) (* (lin + i)), stdout);
-            i++;
-          }
-        }
-        else
-        {
-          if (m == i)
-          {
+            if (tmp___5)
             {
-              fputc((int) (* (lin + i)), stdout);
-              i++;
+              tmp___6 = 1;
             }
+            else
+            {
+              tmp___6 = 0;
+            }
+
+          }
+ 
+ 
+ 
+ 
+
+          need_downward_RA = tmp___6;
+          if (need_upward_RA)
+          {
+            if (need_downward_RA)
+            {
+ 
+            }
+ 
+ 
+ 
+ 
+
           }
           else
           {
-            i = m;
+            _L:
+            if (need_upward_RA)
+            {
+ 
+            }
+            else
+            {
+              if (need_downward_RA)
+              {
+                alt_sep = 2;
+              }
+              else
+              {
+                alt_sep = 0;
+              }
+
+            }
+
+
           }
 
         }
 
+
       }
 
-      while_break:
-      ;
-
     }
-    return;
+
+
   }
 }
 
-void change(char *pat, char *sub)
-{
-  string line;
-  bool result;
-  {
-    {
-      result = getline_in_replace(line, 100);
-    }
-    {
-      while (1)
-      {
-        while_continue:
-        ;
 
-        if (! result)
-        {
-          goto while_break;
-        }
-
-        {
-          subline(line, pat, sub);
-          result = getline_in_replace(line, 100);
-        }
-      }
-
-      while_break:
-      ;
-
-    }
-    return;
-  }
-}
 
 int main(int argc, char **argv)
 {
-  string pat;
-  string sub;
-  bool result;
   int tmp;
   {
-    if (argc < 2)
+    if (argc < 13)
     {
       {
+ 
+ 
+ 
+ 
  
  
       }
     }
 
     {
-      tmp = getpat(* (argv + 1), pat);
-      result = (bool) tmp;
-    }
-    if (! result)
-    {
-      {
-        fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "change: illegal \"from\" pattern\n");
-        exit(2);
-      }
-    }
+      initialize();
+      Cur_Vertical_Sep = atoi(* (argv + 1));
+      High_Confidence = atoi(* (argv + 2));
+      Two_of_Three_Reports_Valid = atoi(* (argv + 3));
+      Own_Tracked_Alt = atoi(* (argv + 4));
+      Own_Tracked_Alt_Rate = atoi(* (argv + 5));
+      Other_Tracked_Alt = atoi(* (argv + 6));
+      Alt_Layer_Value = atoi(* (argv + 7));
+      Up_Separation = atoi(* (argv + 8));
+      Down_Separation = atoi(* (argv + 9));
+      Other_RAC = atoi(* (argv + 10));
+      Other_Capability = atoi(* (argv + 11));
+      Climb_Inhibit = atoi(* (argv + 12));
 
-    if (argc >= 3)
-    {
-      {
-        result = getsub(* (argv + 2), sub);
-      }
-      if (! result)
-      {
-        {
- 
- 
-        }
-      }
+
 
     }
- 
- 
- 
- 
-
-    {
-      change(pat, sub);
-    }
-
   }
-}
-
-void Caseerror(int n)
-{
- 
- 
- 
- 
- 
- 
 }
 
