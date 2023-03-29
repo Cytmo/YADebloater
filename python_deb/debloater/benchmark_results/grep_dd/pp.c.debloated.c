@@ -6,10 +6,6 @@ enum strtol_error
 typedef enum strtol_error strtol_error;
 struct option
 {
-  const char *name;
-  int has_arg;
-  int *flag;
-  int val;
 };
 typedef long intmax_t;
 typedef long ptrdiff_t;
@@ -25,16 +21,12 @@ typedef struct _IO_FILE FILE;
 typedef void _IO_lock_t;
 struct _IO_marker
 {
+  struct _IO_marker *_next;
+  struct _IO_FILE *_sbuf;
+  int _pos;
 };
 struct _IO_FILE
 {
-  int _flags;
-  char *_IO_read_ptr;
-  char *_IO_read_end;
-  char *_IO_read_base;
-  char *_IO_write_base;
-  char *_IO_write_ptr;
-  char *_IO_write_end;
   void *__pad2;
   void *__pad3;
   void *__pad4;
@@ -78,8 +70,8 @@ typedef long __ssize_t;
 typedef __ssize_t ssize_t;
 enum quoting_style
 {
-  literal_quoting_style = 0,
-  shell_quoting_style = 1
+  clocale_quoting_style = 7,
+  custom_quoting_style = 8
 };
 struct quoting_options;
 struct quoting_options;
@@ -99,7 +91,14 @@ struct slotvec
 };
 struct mbuiter_multi
 {
+  _Bool in_shift;
+  mbstate_t state;
+  _Bool next_done;
+  struct mbchar cur;
 };
+typedef struct mbuiter_multi mbui_iterator_t;
+struct __dirstream;
+struct __dirstream;
 struct __dirstream;
 typedef struct __dirstream DIR;
 typedef unsigned int __mode_t;
@@ -151,9 +150,9 @@ struct hash_entry
 };
 struct hash_table
 {
-  struct hash_entry *bucket;
-  const struct hash_entry *bucket_limit;
-  size_t n_buckets;
+  _Bool (*comparator)(const void *, const void *);
+  void (*data_freer)(void *);
+  struct hash_entry *free_entry_list;
 };
 typedef unsigned long __dev_t;
 typedef unsigned int __uid_t;
@@ -219,17 +218,17 @@ union __anonunion_fts_cycle_19
 };
 struct __anonstruct_FTS_18
 {
+  size_t fts_pathlen;
+  size_t fts_nitems;
+  int (*fts_compar)(const struct _ftsent **, const struct _ftsent **);
+  int fts_options;
+  struct hash_table *fts_leaf_optimization_works_ht;
+  union __anonunion_fts_cycle_19 fts_cycle;
+  I_ring fts_fd_ring;
 };
 typedef struct __anonstruct_FTS_18 FTS;
 struct _ftsent
 {
-  struct _ftsent *fts_cycle;
-  struct _ftsent *fts_parent;
-  struct _ftsent *fts_link;
-  DIR *fts_dirp;
-  long fts_number;
-  void *fts_pointer;
-  nlink_t fts_n_dirs_remaining;
   unsigned short fts_info;
   unsigned short fts_flags;
   unsigned short fts_instr;
@@ -354,13 +353,6 @@ struct real_pcre_jit_stack;
 typedef struct real_pcre_jit_stack pcre_jit_stack;
 struct pcre_extra
 {
-  unsigned long flags;
-  void *study_data;
-  unsigned long match_limit;
-  void *callout_data;
-  const unsigned char *tables;
-  unsigned long match_limit_recursion;
-  unsigned char **mark;
   void *executable_jit;
 };
 typedef struct pcre_extra pcre_extra;
@@ -649,23 +641,20 @@ struct matcher
   size_t (*execute)(const char *, size_t, size_t *, const char *);
 };
 extern const unsigned short **__ctype_b_loc(void);
-extern void __assert_fail(const char *__assertion, const char *__file, unsigned int __line, const char *__function);
-extern int *__errno_location(void);
-extern char *strchr(const char *__s, int __c);
-extern void abort(void);
+strtol_error xstrtoimax(const char *s, char **ptr, int strtol_base, intmax_t *val, const char *valid_suffixes);
 static strtol_error bkm_scale___1(intmax_t *x, int scale_factor)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static strtol_error bkm_scale_by_power___1(intmax_t *x, int base, int power)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 strtol_error xstrtoimax(const char *s, char **ptr, int strtol_base, intmax_t *val, const char *valid_suffixes)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void xalloc_die(void);
@@ -689,7 +678,7 @@ void *xnmalloc(size_t n, size_t s)
 
     if ((((size_t) tmp) / s) < n)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -699,6 +688,8 @@ void *xnmalloc(size_t n, size_t s)
   }
 }
 
+void *xnrealloc(void *p, size_t n, size_t s);
+void *xnrealloc(void *p, size_t n, size_t s);
 void *xnrealloc(void *p, size_t n, size_t s)
 {
   int tmp;
@@ -715,7 +706,7 @@ void *xnrealloc(void *p, size_t n, size_t s)
 
     if ((((size_t) tmp) / s) < n)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -744,7 +735,7 @@ void *x2nrealloc(void *p, size_t *pn, size_t s)
     {
       if ((0xaaaaaaaaaaaaaaaaUL / s) <= n)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       n += (n / 2UL) + 1UL;
@@ -758,14 +749,18 @@ void *x2nrealloc(void *p, size_t *pn, size_t s)
   }
 }
 
+char *xcharalloc(size_t n);
+char *xcharalloc(size_t n);
 char *xcharalloc(size_t n)
 {
-  exit(- 1);
+  exit(-1);
 }
 
-extern void *realloc(void *__ptr, size_t __size);
 extern void free(void *__ptr);
 extern void *memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n);
+extern void *memset(void *__s, int __c, size_t __n);
+extern size_t strlen(const char *__s);
+void *xmalloc(size_t n);
 void *xmalloc(size_t n)
 {
   void *p;
@@ -779,7 +774,7 @@ void *xmalloc(size_t n)
     {
       if (n != 0UL)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -788,6 +783,7 @@ void *xmalloc(size_t n)
   }
 }
 
+void *xrealloc(void *p, size_t n);
 void *xrealloc(void *p, size_t n)
 {
   {
@@ -795,7 +791,7 @@ void *xrealloc(void *p, size_t n)
     {
       if (p)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -807,7 +803,7 @@ void *xrealloc(void *p, size_t n)
     {
       if (n)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -818,9 +814,10 @@ void *xrealloc(void *p, size_t n)
 
 void *x2realloc(void *p, size_t *pn)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void *xzalloc(size_t s);
 void *xzalloc(size_t s)
 {
   void *tmp;
@@ -834,6 +831,7 @@ void *xzalloc(size_t s)
   }
 }
 
+void *xcalloc(size_t n, size_t s);
 void *xcalloc(size_t n, size_t s)
 {
   void *p;
@@ -843,13 +841,14 @@ void *xcalloc(size_t n, size_t s)
     }
     if (! p)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return p;
   }
 }
 
+void *xmemdup(const void *p, size_t s);
 void *xmemdup(const void *p, size_t s)
 {
   void *tmp;
@@ -863,6 +862,7 @@ void *xmemdup(const void *p, size_t s)
   }
 }
 
+char *xstrdup(const char *string);
 char *xstrdup(const char *string)
 {
   size_t tmp;
@@ -876,56 +876,73 @@ char *xstrdup(const char *string)
   }
 }
 
+void xalloc_die(void);
 void xalloc_die(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+extern int strcmp(const char *__s1, const char *__s2);
 extern struct _IO_FILE *stdout;
 extern int fprintf(FILE *__restrict __stream, const char *__restrict __format, ...);
 extern int printf(const char *__restrict __format, ...);
 extern int fputs_unlocked(const char *__restrict __s, FILE *__restrict __stream);
 const char version_etc_copyright[47];
+void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors);
+void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors);
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void mb_copy(mbchar_t *new_mbc, const mbchar_t *old_mbc)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+const unsigned int is_basic_table[8];
 _Bool is_basic(char c)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void mbiter_multi_next(struct mbiter_multi *iter)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 char *trim2(const char *s, int how)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+size_t strnlen1(const char *string, size_t maxlen);
+extern void *memchr(const void *__s, int __c, size_t __n);
+size_t strnlen1(const char *string, size_t maxlen);
 size_t strnlen1(const char *string, size_t maxlen)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+int c_strcasecmp(const char *s1, const char *s2);
+extern int close(int __fd);
+extern int fchdir(int __fd);
+int set_cloexec_flag(int desc, _Bool value);
+int open_safer(const char *file, int flags, ...);
+size_t safe_read(int fd, void *buf, size_t count);
+extern ssize_t read(int __fd, void *__buf, size_t __nbytes);
 size_t safe_read(int fd, void *buf, size_t count)
 {
   ssize_t result;
@@ -951,13 +968,13 @@ size_t safe_read(int fd, void *buf, size_t count)
         {
           if ((* tmp___1) == 4)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
             if ((* tmp___0) == 22)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -977,81 +994,93 @@ size_t safe_read(int fd, void *buf, size_t count)
   }
 }
 
+static struct quoting_options default_quoting_options;
 int set_char_quoting(struct quoting_options *o, char c, int i)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static struct quoting_options quoting_options_from_style(enum quoting_style style)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static const char *gettext_quote(const char *msgid, enum quoting_style s)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t quotearg_buffer_restyled(char *buffer___0, size_t buffersize, const char *arg, size_t argsize, enum quoting_style quoting_style, int flags, const unsigned int *quote_these_too, const char *left_quote, const char *right_quote)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static char slot0[256];
+static unsigned int nslots = 1U;
+static struct slotvec slotvec0 = {sizeof(slot0), slot0};
+static struct slotvec *slotvec = & slotvec0;
 static char *quotearg_n_options(int n, const char *arg, size_t argsize, const struct quoting_options *options)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 char *quotearg_n_style(int n, enum quoting_style s, const char *arg)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 char *quotearg_char_mem(const char *arg, size_t argsize, char ch)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 char *quotearg_char(const char *arg, char ch)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 char *quotearg_colon(const char *arg)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+struct quoting_options quote_quoting_options = {(enum quoting_style) 6, 0, {0U}, (const char *) ((void *) 0), (const char *) ((void *) 0)};
 const char *quote_n_mem(int n, const char *arg, size_t argsize)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 const char *quote_n(int n, const char *arg)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 const char *quote(const char *arg)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+const char *proper_name(const char *name);
+extern int sprintf(char *__restrict __s, const char *__restrict __format, ...);
+char *mbsstr(const char *haystack, const char *needle);
+extern int iswalnum(wint_t __wc);
 void mbuiter_multi_next(struct mbuiter_multi *iter)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool mbsstr_trimmed_wordbounded(const char *string, const char *sub)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 const char *proper_name(const char *name)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+const char *program_name;
+void set_program_name(const char *argv0);
 extern char *program_invocation_name;
 extern char *program_invocation_short_name;
 extern struct _IO_FILE *stderr;
@@ -1068,7 +1097,7 @@ void set_program_name(const char *argv0)
   {
     if (((unsigned long) argv0) == ((unsigned long) ((void *) 0)))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -1088,7 +1117,7 @@ void set_program_name(const char *argv0)
       {
         if (tmp == 0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -1101,6 +1130,13 @@ void set_program_name(const char *argv0)
   }
 }
 
+int fd_safer(int fd);
+extern DIR *fdopendir(int __fd);
+extern int closedir(DIR *__dirp);
+extern int dirfd(DIR *__dirp);
+int dup_safer(int fd);
+int openat_safer(int fd, const char *file, int flags, ...);
+extern int openat(int __fd, const char *__file, int __oflag, ...);
 int openat_safer(int fd, const char *file, int flags, ...)
 {
   mode_t mode___0;
@@ -1111,7 +1147,7 @@ int openat_safer(int fd, const char *file, int flags, ...)
     mode___0 = (mode_t) 0;
     if (flags & 64)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -1122,351 +1158,394 @@ int openat_safer(int fd, const char *file, int flags, ...)
   }
 }
 
+extern int open(const char *__file, int __oflag, ...);
 int open_safer(const char *file, int flags, ...)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void *memchr2(const void *s, int c1_in, int c2_in, size_t n);
+void *memchr2(const void *s, int c1_in, int c2_in, size_t n);
 void *memchr2(const void *s, int c1_in, int c2_in, size_t n)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+extern size_t strnlen(const char *__string, size_t __maxlen);
+size_t mbslen(const char *string);
+void *mmalloca(size_t n);
+void freea(void *p);
 static _Bool knuth_morris_pratt(const unsigned char *haystack, const unsigned char *needle, size_t needle_len, const unsigned char **resultp)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool knuth_morris_pratt_multibyte(const char *haystack, const char *needle, const char **resultp)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+char *mbsstr(const char *haystack, const char *needle);
 char *mbsstr(const char *haystack, const char *needle)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+size_t mbslen(const char *string);
 size_t mbslen(const char *string)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+int mbscasecmp(const char *s1, const char *s2);
+extern int tolower(int __c);
+extern wint_t towlower(wint_t __wc);
+int mbscasecmp(const char *s1, const char *s2);
 int mbscasecmp(const char *s1, const char *s2)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+const unsigned int is_basic_table[8] = {(const unsigned int) 6656, (const unsigned int) 4294967279U, (const unsigned int) 4294967294U, (const unsigned int) 2147483646};
+static void *mmalloca_results[257];
 void *mmalloca(size_t n)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void freea(void *p)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+extern int ungetc(int __c, FILE *__stream);
+extern char *strcpy(char *__restrict __dest, const char *__restrict __src);
+extern char *getenv(const char *__name);
+extern char *nl_langinfo(nl_item __item);
+static const char *volatile charset_aliases;
 static const char *get_charset_aliases(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 const char *locale_charset(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void i_ring_init(I_ring *ir, int default_val);
+int i_ring_push(I_ring *ir, int val);
+int i_ring_pop(I_ring *ir);
+_Bool i_ring_empty(const I_ring *ir);
 void i_ring_init(I_ring *ir, int default_val)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+_Bool i_ring_empty(const I_ring *ir);
 _Bool i_ring_empty(const I_ring *ir)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int i_ring_push(I_ring *ir, int val)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int i_ring_pop(I_ring *ir)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 size_t rotr_sz(size_t x, int n)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static const struct hash_tuning default_tuning = {0.0f, 1.0f, 0.8f, 1.414f, (_Bool) 0};
 static struct hash_entry *safe_hasher(const Hash_table *table, const void *key)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void *hash_lookup(const Hash_table *table, const void *entry)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+size_t hash_string(const char *string, size_t n_buckets);
 size_t hash_string(const char *string, size_t n_buckets)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static _Bool is_prime(size_t candidate);
+static _Bool is_prime(size_t candidate);
 static _Bool is_prime(size_t candidate)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static size_t next_prime(size_t candidate);
+static size_t next_prime(size_t candidate);
 static size_t next_prime(size_t candidate)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t raw_hasher(const void *data, size_t n)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool raw_comparator(const void *a, const void *b)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool check_tuning(Hash_table *table)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t compute_bucket_size(size_t candidate, const Hash_tuning *tuning)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 Hash_table *hash_initialize(size_t candidate, const Hash_tuning *tuning, size_t (*hasher)(const void *, size_t), _Bool (*comparator)(const void *, const void *), void (*data_freer)(void *))
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void hash_free(Hash_table *table)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static struct hash_entry *allocate_entry(Hash_table *table)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void free_entry(Hash_table *table, struct hash_entry *entry)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void *hash_find_entry(Hash_table *table, const void *entry, struct hash_entry **bucket_head, _Bool delete___0)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool transfer_entries(Hash_table *dst, Hash_table *src, _Bool safe)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 _Bool hash_rehash(Hash_table *table, size_t candidate)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int hash_insert_if_absent(Hash_table *table, const void *entry, const void **matched_ent)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void *hash_insert(Hash_table *table, const void *entry)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void *hash_delete(Hash_table *table, const void *entry)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static _Bool fts_palloc(FTS *sp, size_t more);
+static FTSENT *fts_sort(FTS *sp, FTSENT *head, size_t nitems);
+static unsigned short fts_stat(FTS *sp, FTSENT *p, _Bool follow);
+static int fts_safe_changedir(FTS *sp, FTSENT *p, int fd, const char *dir);
+void cycle_check_init(struct cycle_check_state *state);
+_Bool cycle_check(struct cycle_check_state *state, const struct stat *sb);
 static _Bool AD_compare(const void *x, const void *y)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t AD_hash(const void *x, size_t table_size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool setup_dir(FTS *fts)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool enter_dir(FTS *fts, FTSENT *ent)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void leave_dir(FTS *fts, FTSENT *ent)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void free_dir(FTS *sp)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void fd_ring_clear(I_ring *fd_ring)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void fts_set_stat_required(FTSENT *p, _Bool required)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static DIR *opendirat(int fd, const char *dir, int extra_flags, int *pdir_fd)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void cwd_advance_fd(FTS *sp, int fd, _Bool chdir_down_one)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int restore_initial_cwd(FTS *sp)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int diropen(const FTS *sp, const char *dir)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+FTS *fts_open(char *const *argv, int options, int (*compar)(const FTSENT **, const FTSENT **));
 FTS *fts_open(char *const *argv, int options, int (*compar)(const FTSENT **, const FTSENT **))
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void fts_load(FTS *sp, FTSENT *p)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+int fts_close(FTS *sp);
 int fts_close(FTS *sp)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+extern int fstatfs(int __fildes, struct statfs *__buf);
 static _Bool dirent_inode_sort_may_be_useful(int dir_fd)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool leaf_optimization_applies(int dir_fd)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t LCO_hash(const void *x, size_t table_size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool LCO_compare(const void *x, const void *y)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool link_count_optimize_ok(const FTSENT *p)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+FTSENT *fts_read(FTS *sp);
 FTSENT *fts_read(FTS *sp)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+int fts_set(FTS *sp, FTSENT *p, int instr);
 int fts_set(FTS *sp, FTSENT *p, int instr)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int fts_compare_ino(const struct _ftsent **a, const struct _ftsent **b)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void set_stat_type(struct stat *st, unsigned int dtype)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static FTSENT *fts_build(FTS *sp, int type)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static unsigned short fts_stat(FTS *sp, FTSENT *p, _Bool follow)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int fts_compar(const void *a, const void *b)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static FTSENT *fts_sort(FTS *sp, FTSENT *head, size_t nitems)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static FTSENT *fts_alloc(FTS *sp, const char *name, size_t namelen)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void fts_lfree(FTSENT *head)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool fts_palloc(FTS *sp, size_t more)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void fts_padjust(FTS *sp, FTSENT *head)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t fts_maxarglen(char *const *argv)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int fts_safe_changedir(FTS *sp, FTSENT *p, int fd, const char *dir)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+extern void *mempcpy(void *__restrict __dest, const void *__restrict __src, size_t __n);
 int fd_safer(int fd)
 {
   int f;
@@ -1479,7 +1558,7 @@ int fd_safer(int fd)
     {
       if (fd <= 2)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -1488,144 +1567,149 @@ int fd_safer(int fd)
   }
 }
 
+extern int fcntl(int __fd, int __cmd, ...);
+int rpl_fcntl(int fd, int action, ...);
+static int have_dupfd_cloexec = 0;
 int rpl_fcntl(int fd, int action, ...)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 volatile int exit_failure = (volatile int) 1;
 extern struct _IO_FILE *stdin;
-extern FILE *fopen(const char *__restrict __filename, const char *__restrict __modes);
-extern int ferror_unlocked(FILE *__stream);
-extern int regcomp(regex_t *__restrict __preg, const char *__restrict __pattern, int __cflags);
-extern int regexec(const regex_t *__restrict __preg, const char *__restrict __string, size_t __nmatch, regmatch_t *__restrict __pmatch, int __eflags);
-_Bool fnmatch_pattern_has_wildcards(const char *str, int options);
-struct exclude *new_exclude(void);
-void add_exclude(struct exclude *ex, const char *pattern, int options);
-int add_exclude_file(void (*add_func)(struct exclude *, const char *, int), struct exclude *ex, const char *file_name___1, int options, char line_end);
+int add_exclude_fp(void (*add_func)(struct exclude *, const char *, int, void *), struct exclude *ex, FILE *fp, int options, char line_end, void *data);
+_Bool excluded_file_name(const struct exclude *ex, const char *f);
+void exclude_add_pattern_buffer(struct exclude *ex, char *buf);
+_Bool exclude_fnmatch(const char *pattern, const char *f, int options);
+extern int fnmatch(const char *__pattern, const char *__name, int __flags);
 void exclude_add_pattern_buffer(struct exclude *ex, char *buf)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+_Bool fnmatch_pattern_has_wildcards(const char *str, int options);
 _Bool fnmatch_pattern_has_wildcards(const char *str, int options)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void unescape_pattern(char *str)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 struct exclude *new_exclude(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t string_hasher(const void *data, size_t n_buckets)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static size_t string_hasher_ci(const void *data, size_t n_buckets)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool string_compare(const void *data1, const void *data2)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool string_compare_ci(const void *data1, const void *data2)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void string_free(void *data)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void new_exclude_segment(struct exclude *ex, enum exclude_type type, int options)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int fnmatch_no_wildcards(const char *pattern, const char *f, int options)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 _Bool exclude_fnmatch(const char *pattern, const char *f, int options)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 _Bool exclude_patopts(const struct patopts *opts, const char *f)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool file_pattern_matches(const struct exclude_segment *seg, const char *f)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool file_name_matches(const struct exclude_segment *seg, const char *f, char *buffer___0)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 _Bool excluded_file_name(const struct exclude *ex, const char *f)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void add_exclude(struct exclude *ex, const char *pattern, int options)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int add_exclude_fp(void (*add_func)(struct exclude *, const char *, int, void *), struct exclude *ex, FILE *fp, int options, char line_end, void *data)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void call_addfn(struct exclude *ex, const char *pattern, int options, void *data)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int add_exclude_file(void (*add_func)(struct exclude *, const char *, int), struct exclude *ex, const char *file_name___1, int options, char line_end)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int dup_safer(int fd)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool is_zero_or_power_of_two(uintmax_t i)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void cycle_check_init(struct cycle_check_state *state)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 _Bool cycle_check(struct cycle_check_state *state, const struct stat *sb)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+int should_colorize(void);
+void init_colorize(void);
+void print_start_colorize(const char *sgr_start___0, const char *sgr_seq);
+void print_end_colorize(const char *sgr_end___0);
 int should_colorize(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void init_colorize(void)
@@ -1637,14 +1721,17 @@ void init_colorize(void)
 
 void print_start_colorize(const char *sgr_start___0, const char *sgr_seq)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void print_end_colorize(const char *sgr_end___0)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void close_stdout(void);
+extern void _exit(int __status);
+int close_stream(FILE *stream);
 static const char *file_name;
 static _Bool ignore_EPIPE;
 void close_stdout(void)
@@ -1666,7 +1753,7 @@ void close_stdout(void)
     {
       if (ignore_EPIPE)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
@@ -1677,7 +1764,7 @@ void close_stdout(void)
         }
         if (file_name)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -1691,13 +1778,14 @@ void close_stdout(void)
     }
     if (tmp___5 != 0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return;
   }
 }
 
+extern size_t __fpending(FILE *__fp);
 int close_stream(FILE *stream)
 {
   _Bool some_pending;
@@ -1719,7 +1807,7 @@ int close_stream(FILE *stream)
     }
     if (prev_fail)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -1727,7 +1815,7 @@ int close_stream(FILE *stream)
       {
         if (some_pending)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -1738,7 +1826,7 @@ int close_stream(FILE *stream)
 
             if (! fclose_fail)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -1755,7 +1843,7 @@ int close_stream(FILE *stream)
 
 int set_cloexec_flag(int desc, _Bool value)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 extern void *memrchr(const void *__s, int __c, size_t __n);
@@ -1763,17 +1851,20 @@ int c_tolower(int c);
 int c_strcasecmp(const char *s1, const char *s2);
 int c_strcasecmp(const char *s1, const char *s2)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+_Bool c_isspace(int c);
+_Bool c_isspace(int c);
 _Bool c_isspace(int c)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+int c_tolower(int c);
 int c_tolower(int c)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int set_binary_mode(int fd, int mode___0)
@@ -1783,50 +1874,67 @@ int set_binary_mode(int fd, int mode___0)
   }
 }
 
+ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize);
+void (*argmatch_die)(void);
+void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem);
+void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize);
+ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char *const *arglist, const char *vallist, size_t valsize, void (*exit_fn)(void));
+extern int putc_unlocked(int __c, FILE *__stream);
+void usage(int status);
 static void __argmatch_die(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void (*argmatch_die)(void) = & __argmatch_die;
+ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize);
 ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char *const *arglist, const char *vallist, size_t valsize, void (*exit_fn)(void))
 {
-  exit(- 1);
+  exit(-1);
 }
 
+#pragma weak pthread_mutexattr_settype
+#pragma weak pthread_mutexattr_destroy
+#pragma weak pthread_self
+#pragma weak pthread_cancel
 int match_icase;
 int match_words;
 int match_lines;
 unsigned char eolbyte;
-int using_utf8(void);
-void Pcompile(const char *pattern, size_t size);
-size_t Pexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr);
-extern pcre *pcre_compile(const char *, int, const char **, int *, const unsigned char *);
-extern int pcre_exec(const pcre *, const pcre_extra *, const char *, int, int, int, int *, int);
+extern pcre_jit_stack *pcre_jit_stack_alloc(int, int);
+extern void pcre_assign_jit_stack(pcre_extra *, pcre_jit_stack *(*)(void *), void *);
+static pcre *cre;
+static pcre_extra *extra;
+static pcre_jit_stack *jit_stack;
 void Pcompile(const char *pattern, size_t size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 size_t Pexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+void kwsincr(kwset_t kwset___1, const char *text, size_t len);
+void kwsprep(kwset_t kwset___1);
+size_t kwsexec(kwset_t kwset___1, const char *text, size_t size, struct kwsmatch *kwsmatch);
+void kwsinit(kwset_t *kwset___1);
 char *mbtoupper(const char *beg, size_t *n, mb_len_map_t **len_map_p);
 ptrdiff_t mb_goback(const char **mb_start, const char *cur, const char *end);
 wint_t mb_prev_wc(const char *buf, const char *cur, const char *end);
@@ -1835,24 +1943,26 @@ void Fcompile(const char *pattern, size_t size);
 size_t Fexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr);
 static _Bool wordchar(wint_t wc)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static kwset_t kwset;
 void Fcompile(const char *pattern, size_t size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void mb_case_map_apply(const mb_len_map_t *map, size_t *off, size_t *len)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 size_t Fexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+kwset_t kwsalloc(const char *trans___0);
 static unsigned char to_uchar(char ch)
 {
   {
@@ -1860,6 +1970,8 @@ static unsigned char to_uchar(char ch)
   }
 }
 
+extern void _obstack_newchunk(struct obstack *, int);
+extern int _obstack_begin(struct obstack *, int, int, void *(*)(long), void (*)(void *));
 static char tr(const char *trans___0, char c)
 {
   unsigned char tmp;
@@ -1867,7 +1979,7 @@ static char tr(const char *trans___0, char c)
   {
     if (trans___0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -1901,7 +2013,7 @@ kwset_t kwsalloc(const char *trans___0)
     }
     if ((__o->chunk_limit - __o->next_free) < ((long) __len))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     __o->next_free += __len;
@@ -1909,7 +2021,7 @@ kwset_t kwsalloc(const char *trans___0)
     __value = (void *) __o1->object_base;
     if (((unsigned long) __o1->next_free) == ((unsigned long) __value))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if ((sizeof(long)) < (sizeof(void *)))
@@ -1933,7 +2045,7 @@ kwset_t kwsalloc(const char *trans___0)
     __o1->next_free = tmp___0 + (((__o1->next_free - tmp___1) + ((long) __o1->alignment_mask)) & ((long) (~ __o1->alignment_mask)));
     if ((__o1->next_free - ((char *) __o1->chunk)) > (__o1->chunk_limit - ((char *) __o1->chunk)))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     __o1->object_base = __o1->next_free;
@@ -2011,7 +2123,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
         uc = (unsigned char) (* text);
         if (trans___0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -2033,7 +2145,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
             {
               if (! (((int) label___0) != ((int) kwset_link->label)))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -2044,7 +2156,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
             if (((int) label___0) < ((int) kwset_link->label))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -2063,7 +2175,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           __len = (int) (sizeof(* kwset_link));
           if ((__o->chunk_limit - __o->next_free) < ((long) __len))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           __o->next_free += __len;
@@ -2071,7 +2183,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           __value = (void *) __o1->object_base;
           if (((unsigned long) __o1->next_free) == ((unsigned long) __value))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           if ((sizeof(long)) < (sizeof(void *)))
@@ -2095,7 +2207,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           __o1->next_free = tmp___2 + (((__o1->next_free - tmp___3) + ((long) __o1->alignment_mask)) & ((long) (~ __o1->alignment_mask)));
           if ((__o1->next_free - ((char *) __o1->chunk)) > (__o1->chunk_limit - ((char *) __o1->chunk)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           __o1->object_base = __o1->next_free;
@@ -2107,7 +2219,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           __len___0 = (int) (sizeof(* kwset_link->trie));
           if ((__o___0->chunk_limit - __o___0->next_free) < ((long) __len___0))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           __o___0->next_free += __len___0;
@@ -2115,7 +2227,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           __value___0 = (void *) __o1___0->object_base;
           if (((unsigned long) __o1___0->next_free) == ((unsigned long) __value___0))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           if ((sizeof(long)) < (sizeof(void *)))
@@ -2139,7 +2251,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           __o1___0->next_free = tmp___4 + (((__o1___0->next_free - tmp___5) + ((long) __o1___0->alignment_mask)) & ((long) (~ __o1___0->alignment_mask)));
           if ((__o1___0->next_free - ((char *) __o1___0->chunk)) > (__o1___0->chunk_limit - ((char *) __o1___0->chunk)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           __o1___0->object_base = __o1___0->next_free;
@@ -2169,7 +2281,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
               {
                 if (! (! links[depth___0]->balance))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -2180,7 +2292,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
               if (((unsigned int) dirs[depth___0]) == 0U)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -2196,7 +2308,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
           {
             if (((unsigned int) dirs[depth___0]) == 0U)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -2212,12 +2324,12 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
                   if (((int) links[depth___0]->balance) == (- 2))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if (((int) links[depth___0]->balance) == 2)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   case_neg_2:
@@ -2225,12 +2337,12 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
                   if (((unsigned int) dirs[depth___0 + 1]) == 0U)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if (((unsigned int) dirs[depth___0 + 1]) == 1U)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   case_0:
@@ -2243,12 +2355,12 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   r = links[depth___0];
                   if (((int) t->balance) != 1)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if (((int) t->balance) != (- 1))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   switch_default:
@@ -2264,12 +2376,12 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
                   if (((unsigned int) dirs[depth___0 + 1]) == 1U)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if (((unsigned int) dirs[depth___0 + 1]) == 0U)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   case_1___0:
@@ -2282,12 +2394,12 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
                   l = links[depth___0];
                   if (((int) t->balance) != 1)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if (((int) t->balance) != (- 1))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   switch_default___0:
@@ -2308,7 +2420,7 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
                   if (((unsigned int) dirs[depth___0 - 1]) == 0U)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -2489,7 +2601,7 @@ static int hasevery(const struct tree *a, const struct tree *b)
     }
     if (! tmp)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -2497,7 +2609,7 @@ static int hasevery(const struct tree *a, const struct tree *b)
     }
     if (! tmp___0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -2604,7 +2716,7 @@ void kwsprep(kwset_t kwset___1)
     trans___0 = kwset___1->trans;
     if (trans___0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -2725,7 +2837,7 @@ void kwsprep(kwset_t kwset___1)
 
     if (trans___0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -2747,7 +2859,7 @@ void kwsprep(kwset_t kwset___1)
 
           if (! (i < 256))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -2770,7 +2882,7 @@ void kwsprep(kwset_t kwset___1)
       __len = kwset___1->mind;
       if ((__o->chunk_limit - __o->next_free) < ((long) __len))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       __o->next_free += __len;
@@ -2778,7 +2890,7 @@ void kwsprep(kwset_t kwset___1)
       __value = (void *) __o1->object_base;
       if (((unsigned long) __o1->next_free) == ((unsigned long) __value))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       if ((sizeof(long)) < (sizeof(void *)))
@@ -2802,7 +2914,7 @@ void kwsprep(kwset_t kwset___1)
       __o1->next_free = tmp___4 + (((__o1->next_free - tmp___5) + ((long) __o1->alignment_mask)) & ((long) (~ __o1->alignment_mask)));
       if ((__o1->next_free - ((char *) __o1->chunk)) > (__o1->chunk_limit - ((char *) __o1->chunk)))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       __o1->object_base = __o1->next_free;
@@ -2839,7 +2951,7 @@ void kwsprep(kwset_t kwset___1)
         __len___0 = (int) ((sizeof(* kwset___1->shift)) * ((unsigned long) (kwset___1->mind - 1)));
         if ((__o___0->chunk_limit - __o___0->next_free) < ((long) __len___0))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         __o___0->next_free += __len___0;
@@ -2847,7 +2959,7 @@ void kwsprep(kwset_t kwset___1)
         __value___0 = (void *) __o1___0->object_base;
         if (((unsigned long) __o1___0->next_free) == ((unsigned long) __value___0))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((sizeof(long)) < (sizeof(void *)))
@@ -2871,7 +2983,7 @@ void kwsprep(kwset_t kwset___1)
         __o1___0->next_free = tmp___6 + (((__o1___0->next_free - tmp___7) + ((long) __o1___0->alignment_mask)) & ((long) (~ __o1___0->alignment_mask)));
         if ((__o1___0->next_free - ((char *) __o1___0->chunk)) > (__o1___0->chunk_limit - ((char *) __o1___0->chunk)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         __o1___0->object_base = __o1___0->next_free;
@@ -2912,7 +3024,7 @@ void kwsprep(kwset_t kwset___1)
       {
         if (equiv2)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -2938,7 +3050,7 @@ void kwsprep(kwset_t kwset___1)
 
           if (! (i < 256))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -3040,7 +3152,6 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
                   goto while_break___1;
                 }
 
-                i++;
               }
 
               while_break___4:
@@ -3119,7 +3230,7 @@ static const char *memchr_kwset(const char *s, size_t n, kwset_t kwset___1)
 
     if (kwset___1->gc1help < 256)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -3130,14 +3241,14 @@ static const char *memchr_kwset(const char *s, size_t n, kwset_t kwset___1)
 
         if (! (((unsigned long) s) < ((unsigned long) slim)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
         }
         if (((const int) (* (kwset___1->trans + ((int) tmp___1)))) == ((const int) kwset___1->gc1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -3152,7 +3263,7 @@ static const char *memchr_kwset(const char *s, size_t n, kwset_t kwset___1)
     n -= ntrans;
     if (n == 0UL)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
   }
@@ -3191,12 +3302,12 @@ static size_t bmexec_trans(kwset_t kwset___1, const char *text, size_t size)
     trans___0 = kwset___1->trans;
     if (len == 0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (((size_t) len) > size)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (len == 1)
@@ -3283,7 +3394,7 @@ static size_t bmexec_trans(kwset_t kwset___1, const char *text, size_t size)
                 }
                 if (((long) advance_heuristic) <= (tp - tp0))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
                 {
@@ -3358,7 +3469,7 @@ static size_t bmexec_trans(kwset_t kwset___1, const char *text, size_t size)
         }
         if (tmp___13)
         {
-          return (size_t) (tp - text);
+          _Exit(-1);
         }
 
       }
@@ -3382,7 +3493,7 @@ static size_t bmexec(kwset_t kwset___1, const char *text, size_t size)
   {
     if (kwset___1->trans)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -3398,7 +3509,7 @@ static size_t bmexec(kwset_t kwset___1, const char *text, size_t size)
 
 static size_t cwexec(kwset_t kwset___1, const char *text, size_t len, struct kwsmatch *kwsmatch)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 size_t kwsexec(kwset_t kwset___1, const char *text, size_t size, struct kwsmatch *kwsmatch)
@@ -3426,6 +3537,8 @@ size_t kwsexec(kwset_t kwset___1, const char *text, size_t size, struct kwsmatch
   }
 }
 
+extern reg_syntax_t re_set_syntax(reg_syntax_t __syntax);
+extern const char *re_compile_pattern(const char *__pattern, size_t __length, struct re_pattern_buffer *__buffer);
 extern regoff_t re_search(struct re_pattern_buffer *__buffer, const char *__string, __re_idx_t __length, __re_idx_t __start, regoff_t __range, struct re_registers *__regs);
 extern regoff_t re_match(struct re_pattern_buffer *__buffer, const char *__string, __re_idx_t __length, __re_idx_t __start, struct re_registers *__regs);
 struct dfa *dfaalloc(void);
@@ -3435,6 +3548,10 @@ void dfacomp(const char *s, size_t len, struct dfa *d, int searchflag);
 char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t *count, int *backref);
 struct dfa *dfasuperset(const struct dfa *d);
 _Bool dfaisfast(const struct dfa *d);
+void dfawarn(const char *mesg);
+void dfaerror(const char *mesg);
+void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0);
+size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr);
 static _Bool wordchar___0(wint_t wc)
 {
   int tmp;
@@ -3442,7 +3559,7 @@ static _Bool wordchar___0(wint_t wc)
   {
     if (wc == 95U)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -3451,7 +3568,7 @@ static _Bool wordchar___0(wint_t wc)
       }
       if (tmp)
       {
-        tmp___0 = 1;
+        _Exit(-1);
       }
       else
       {
@@ -3474,12 +3591,13 @@ static _Bool begline;
 void dfaerror(const char *mesg);
 void dfaerror(const char *mesg)
 {
-  exit(- 1);
+  exit(-1);
 }
 
+static enum __anonenum_mode_60 mode;
 void dfawarn(const char *mesg)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void kwsmusts(void)
@@ -3595,6 +3713,9 @@ static void kwsmusts(void)
   }
 }
 
+static const char line_beg_no_bk[3] = {(const char) '^', (const char) '(', (const char) '\000'};
+static const char line_end_no_bk[3] = {(const char) ')', (const char) '$', (const char) '\000'};
+static const char word_beg_no_bk[19] = {(const char) '(', (const char) '^', (const char) '|', (const char) '[', (const char) '^', (const char) '[', (const char) ':', (const char) 'a', (const char) 'l', (const char) 'n', (const char) 'u', (const char) 'm', (const char) ':', (const char) ']', (const char) '_', (const char) ']', (const char) ')', (const char) '(', (const char) '\000'};
 static const char word_end_no_bk[19] = {(const char) ')', (const char) '(', (const char) '[', (const char) '^', (const char) '[', (const char) ':', (const char) 'a', (const char) 'l', (const char) 'n', (const char) 'u', (const char) 'm', (const char) ':', (const char) ']', (const char) '_', (const char) ']', (const char) '|', (const char) '$', (const char) ')', (const char) '\000'};
 static const char line_beg_bk[4] = {(const char) '^', (const char) '\\', (const char) '(', (const char) '\000'};
 static const char line_end_bk[4] = {(const char) '\\', (const char) ')', (const char) '$', (const char) '\000'};
@@ -3644,7 +3765,7 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
         }
         if (sep)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -3660,7 +3781,7 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
         }
         if (err)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         pcount++;
@@ -3876,7 +3997,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
               {
                 if (16L > (match - beg))
                 {
-                  tmp___7 = 16L;
+                  _Exit(-1);
                 }
                 else
                 {
@@ -3891,7 +4012,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                 {
                   if (16L > (match - beg))
                   {
-                    tmp___6 = 16L;
+                    _Exit(-1);
                   }
                   else
                   {
@@ -3902,7 +4023,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                   {
                     if (16L > (match - beg))
                     {
-                      tmp___4 = 16L;
+                      _Exit(-1);
                     }
                     else
                     {
@@ -3934,7 +4055,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
               }
               if (tmp___8 == 1UL)
               {
-                exit(- 1);
+                _Exit(-1);
               }
               else
               {
@@ -3950,14 +4071,14 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
               if (((unsigned long) mb_start) < ((unsigned long) beg))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               {
               }
               if (tmp___10 == 0L)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -4003,13 +4124,13 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
               if (((unsigned long) next_beg) == ((unsigned long) ((void *) 0)))
               {
-                exit(- 1);
+                _Exit(-1);
               }
               else
               {
                 if (((unsigned long) next_beg) == ((unsigned long) end))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -4072,7 +4193,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
         if (((long) ((((1 << (((sizeof(regoff_t)) * 8UL) - 2UL)) - 1) * 2) + 1)) < ((end - beg) - 1L))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         best_match = end;
@@ -4096,7 +4217,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
             }
             if (start < (- 1))
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -4106,7 +4227,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                 match = beg + start;
                 if (((unsigned long) match) > ((unsigned long) best_match))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
                 if (start_ptr)
@@ -4141,7 +4262,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                   {
                     if (len == ((size_t) ((end - ptr) - 1L)))
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
 
                   }
@@ -4158,7 +4279,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
                       if (! (((unsigned long) match) <= ((unsigned long) best_match)))
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                       {
@@ -4181,46 +4302,27 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
                       if (len > 0UL)
                       {
-                        {
-                          len--;
-                          (patterns + i)->regexbuf.not_eol = 1U;
-                          shorter_len = re_match(& (patterns + i)->regexbuf, beg, (__re_idx_t) ((match + len) - ptr), (__re_idx_t) (match - beg), & (patterns + i)->regs);
-                        }
-                        if (shorter_len < (- 1))
-                        {
-                          exit(- 1);
-                        }
-
+                        _Exit(-1);
                       }
 
                       if (0 < shorter_len)
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
                       else
                       {
                         if (((unsigned long) match) == ((unsigned long) (end - 1)))
                         {
-                          exit(- 1);
+                          _Exit(-1);
                         }
 
                         {
-                          match++;
-                          (patterns + i)->regexbuf.not_eol = 0U;
-                          start = re_search(& (patterns + i)->regexbuf, beg, (__re_idx_t) ((end - beg) - 1L), (__re_idx_t) (match - beg), (regoff_t) ((end - match) - 1L), & (patterns + i)->regs);
                         }
                         if (start < 0)
                         {
-                          if (start < (- 1))
-                          {
-                            exit(- 1);
-                          }
-
-                          goto while_break___2;
+                          _Exit(-1);
                         }
 
-                        len = (size_t) ((* ((patterns + i)->regs.end + 0)) - start);
-                        match = beg + start;
                       }
 
                     }
@@ -4234,7 +4336,6 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
                 }
 
-                goto __Cont___0;
                 assess_pattern_match:
                 if (! start_ptr)
                 {
@@ -4251,7 +4352,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
                 {
                   if (((unsigned long) match) == ((unsigned long) best_match))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -4305,6 +4406,10 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
   }
 }
 
+void dfafree(struct dfa *d);
+void dfainit(struct dfa *d);
+void dfaparse(const char *s, size_t len, struct dfa *d);
+void dfaanalyze(struct dfa *d, int searchflag);
 void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0);
 extern int isalnum(int);
 extern int isalpha(int);
@@ -4319,13 +4424,7 @@ extern int isupper(int);
 extern int isxdigit(int);
 extern int toupper(int __c);
 extern int isblank(int);
-extern char *strncpy(char *__restrict __dest, const char *__restrict __src, size_t __n);
-extern int strcoll(const char *__s1, const char *__s2);
-extern char *setlocale(int __category, const char *__locale);
-extern int wctob(wint_t __c);
-extern size_t wcrtomb(char *__restrict __s, wchar_t __wc, mbstate_t *__restrict __ps);
-extern int iswalpha(wint_t __wc);
-extern wctype_t wctype(const char *__property);
+extern wint_t towupper(wint_t __wc);
 static unsigned char to_uchar___0(char ch)
 {
   {
@@ -4401,7 +4500,7 @@ static size_t mbs_to_wchar(wint_t *pwc, const char *s, size_t n, struct dfa *d)
     {
       if (0UL < nbytes)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       {
@@ -4608,7 +4707,7 @@ static int char_context(unsigned char c)
 
 static int wchar_context(wint_t wc)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void dfasyntax(reg_syntax_t bits, int fold, unsigned char eol)
@@ -4684,7 +4783,7 @@ static _Bool setbit_wc(wint_t wc, charclass_word *c)
     }
     if (b == (- 1))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -4696,7 +4795,7 @@ static _Bool setbit_wc(wint_t wc, charclass_word *c)
 
 static void setbit_case_fold_c(int b, charclass_word *c)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int utf8 = - 1;
@@ -4731,6 +4830,7 @@ int using_utf8(void)
   }
 }
 
+static _Bool using_simple_locale(void);
 static int unibyte_c = - 1;
 static _Bool using_simple_locale(void)
 {
@@ -4748,7 +4848,7 @@ static _Bool using_simple_locale(void)
     {
       if (unibyte_c < 0)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -4877,7 +4977,7 @@ static const struct dfa_ctype *find_pred(const char *str)
 
         if (! prednames[i].name)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -5088,7 +5188,7 @@ static token parse_bracket_exp(void)
         {
           if (((unsigned long) tmp___1) != ((unsigned long) ((char *) 0)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -5134,7 +5234,7 @@ static token parse_bracket_exp(void)
           {
             if (((unsigned long) tmp___5) != ((unsigned long) ((char *) 0)))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -5198,7 +5298,7 @@ static token parse_bracket_exp(void)
               {
                 if (((unsigned long) tmp___9) != ((unsigned long) ((char *) 0)))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -5247,7 +5347,7 @@ static token parse_bracket_exp(void)
 
             if (c1 == 46)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -5273,7 +5373,7 @@ static token parse_bracket_exp(void)
                         {
                           if (((unsigned long) tmp___13) != ((unsigned long) ((char *) 0)))
                           {
-                            exit(- 1);
+                            _Exit(-1);
                           }
 
                         }
@@ -5320,7 +5420,7 @@ static token parse_bracket_exp(void)
                       _L:
                       if (lexleft == 0UL)
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
 
@@ -5352,7 +5452,7 @@ static token parse_bracket_exp(void)
                     {
                       if (((unsigned long) tmp___18) != ((unsigned long) ((char *) 0)))
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                     }
@@ -5392,13 +5492,13 @@ static token parse_bracket_exp(void)
                   {
                     if (tmp___24 == 0)
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
                     else
                     {
                       if (tmp___25 == 0)
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                     }
@@ -5416,7 +5516,7 @@ static token parse_bracket_exp(void)
                   }
                   if (! pred)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if (dfa___0->multibyte)
@@ -5480,7 +5580,7 @@ static token parse_bracket_exp(void)
                     {
                       if (((unsigned long) tmp___32) != ((unsigned long) ((char *) 0)))
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                     }
@@ -5535,13 +5635,13 @@ static token parse_bracket_exp(void)
 
                 if (! lexleft)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
                 else
                 {
                   if (nbytes___5 == 1UL)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -5571,7 +5671,7 @@ static token parse_bracket_exp(void)
               {
                 if (((unsigned long) tmp___40) != ((unsigned long) ((char *) 0)))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -5619,7 +5719,7 @@ static token parse_bracket_exp(void)
               {
                 if (((unsigned long) tmp___44) != ((unsigned long) ((char *) 0)))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -5657,7 +5757,7 @@ static token parse_bracket_exp(void)
           {
             if (((const int) (* lexptr)) == 46)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -5676,13 +5776,13 @@ static token parse_bracket_exp(void)
 
                     if (! lexleft)
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
                     else
                     {
                       if (nbytes___8 == 1UL)
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                     }
@@ -5711,7 +5811,7 @@ static token parse_bracket_exp(void)
                   }
                   if (case_fold)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
                   else
                   {
@@ -5722,7 +5822,7 @@ static token parse_bracket_exp(void)
                   work_mbc->nranges++;
                   if (case_fold)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
                   else
                   {
@@ -5733,13 +5833,13 @@ static token parse_bracket_exp(void)
                   {
                     if (tmp___55)
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
                     else
                     {
                       if (tmp___56)
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                     }
@@ -5763,7 +5863,7 @@ static token parse_bracket_exp(void)
 
                     if (! (c1 <= c2))
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
 
                     {
@@ -5787,14 +5887,14 @@ static token parse_bracket_exp(void)
 
                       if (! (c1 < 256))
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                       {
                       }
                       if (uc <= uc1)
                       {
-                        exit(- 1);
+                        _Exit(-1);
                       }
 
                     }
@@ -5823,7 +5923,7 @@ static token parse_bracket_exp(void)
                 {
                   if (((unsigned long) tmp___62) != ((unsigned long) ((char *) 0)))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -5864,7 +5964,7 @@ static token parse_bracket_exp(void)
 
         if (c == 58)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -5876,20 +5976,20 @@ static token parse_bracket_exp(void)
         {
           if (case_fold)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
 
         if (wc == 4294967295U)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (case_fold)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -5915,7 +6015,7 @@ static token parse_bracket_exp(void)
               }
               if (! tmp___69)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               i++;
@@ -5950,7 +6050,7 @@ static token parse_bracket_exp(void)
 
     if (colon_warning_state == 7)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (! known_bracket_exp)
@@ -5981,7 +6081,7 @@ static token parse_bracket_exp(void)
 
     if (invert)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -6039,7 +6139,7 @@ static token lex(void)
 
         if (! (i < 2))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -6100,7 +6200,7 @@ static token lex(void)
 
         if (c == 49)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 50)
@@ -6115,7 +6215,7 @@ static token lex(void)
 
         if (c == 52)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 53)
@@ -6125,27 +6225,27 @@ static token lex(void)
 
         if (c == 54)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 55)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 56)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 57)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 96)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 39)
@@ -6155,22 +6255,22 @@ static token lex(void)
 
         if (c == 60)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 62)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 98)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 66)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 63)
@@ -6190,7 +6290,7 @@ static token lex(void)
 
         if (c == 123)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 124)
@@ -6200,7 +6300,7 @@ static token lex(void)
 
         if (c == 10)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 40)
@@ -6230,12 +6330,12 @@ static token lex(void)
 
         if (c == 119)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 87)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (c == 91)
@@ -6247,13 +6347,13 @@ static token lex(void)
         case_92:
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
         if (lexleft == 0UL)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         backslash = (_Bool) 1;
@@ -6261,13 +6361,13 @@ static token lex(void)
         case_94:
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
         if (syntax_bits & (((1UL << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -6287,7 +6387,7 @@ static token lex(void)
             {
               if (lasttok == 269L)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -6299,13 +6399,13 @@ static token lex(void)
         case_36:
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
         if (syntax_bits & (((1UL << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -6320,7 +6420,7 @@ static token lex(void)
             {
               if (lexleft > 0UL)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -6351,26 +6451,26 @@ static token lex(void)
             {
               if (syntax_bits & (((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
               {
-                exit(- 1);
+                _Exit(-1);
               }
               else
               {
                 if (lexleft > 1UL)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
 
               if (tmp___7)
               {
-                exit(- 1);
+                _Exit(-1);
               }
               else
               {
                 if (syntax_bits & (((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -6386,7 +6486,7 @@ static token lex(void)
         {
           if (! (syntax_bits & ((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6398,7 +6498,7 @@ static token lex(void)
 
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_39:
@@ -6406,7 +6506,7 @@ static token lex(void)
         {
           if (! (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6418,7 +6518,7 @@ static token lex(void)
 
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_62:
@@ -6426,7 +6526,7 @@ static token lex(void)
 
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_98:
@@ -6434,7 +6534,7 @@ static token lex(void)
 
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_66:
@@ -6442,26 +6542,26 @@ static token lex(void)
 
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_63:
         if (syntax_bits & ((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
         if (((int) backslash) != ((syntax_bits & (1UL << 1)) != 0UL))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (! (syntax_bits & ((((1UL << 1) << 1) << 1) << 1)))
         {
           if (laststart)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6471,7 +6571,7 @@ static token lex(void)
         case_42:
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
@@ -6479,7 +6579,7 @@ static token lex(void)
         {
           if (laststart)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6489,20 +6589,20 @@ static token lex(void)
         case_43:
         if (syntax_bits & ((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
         if (((int) backslash) != ((syntax_bits & (1UL << 1)) != 0UL))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (! (syntax_bits & ((((1UL << 1) << 1) << 1) << 1)))
         {
           if (laststart)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6514,17 +6614,17 @@ static token lex(void)
 
         if (! (syntax_bits & (((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (((int) backslash) != ((syntax_bits & ((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)) == 0UL))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (! (syntax_bits & ((((1UL << 1) << 1) << 1) << 1)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -6535,18 +6635,18 @@ static token lex(void)
 
             if (((unsigned long) p) != ((unsigned long) lim))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             if (minrep < 0)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
               if (32768 < (((minrep * 10) + ((int) (* p))) - 48))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -6564,13 +6664,13 @@ static token lex(void)
         {
           if (((const int) (* p)) != 44)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
             if (minrep < 0)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             {
@@ -6581,18 +6681,18 @@ static token lex(void)
 
                 if (((unsigned long) p) != ((unsigned long) lim))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
                 if (maxrep < 0)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
                 else
                 {
                   if (32768 < (((maxrep * 10) + ((int) (* p))) - 48))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -6612,7 +6712,7 @@ static token lex(void)
 
         if (! backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -6625,7 +6725,7 @@ static token lex(void)
 
               if (((unsigned long) p) != ((unsigned long) lim))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -6638,7 +6738,7 @@ static token lex(void)
 
             if (syntax_bits & (((((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             {
@@ -6649,19 +6749,19 @@ static token lex(void)
 
         if (32767 < maxrep)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_124:
         if (syntax_bits & ((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
         if (((int) backslash) != ((syntax_bits & (((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)) == 0UL))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         laststart = (_Bool) 1;
@@ -6672,19 +6772,19 @@ static token lex(void)
 
         if (syntax_bits & ((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (backslash)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
             if (! (syntax_bits & (((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -6694,7 +6794,7 @@ static token lex(void)
         case_40:
         if (((int) backslash) != ((syntax_bits & (((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)) == 0UL))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
@@ -6705,7 +6805,7 @@ static token lex(void)
         case_41:
         if (((int) backslash) != ((syntax_bits & (((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1)) == 0UL))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
@@ -6713,7 +6813,7 @@ static token lex(void)
         {
           if (syntax_bits & (((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6740,12 +6840,12 @@ static token lex(void)
         }
         if (! (syntax_bits & ((((((1UL << 1) << 1) << 1) << 1) << 1) << 1)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (syntax_bits & (((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -6759,7 +6859,7 @@ static token lex(void)
         {
           if (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6775,14 +6875,14 @@ static token lex(void)
 
               if (! (c2 < 256))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               {
               }
               if (((const int) (* ((* tmp___13) + c2))) & 8192)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -6796,7 +6896,7 @@ static token lex(void)
 
           if (c == 83)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -6811,7 +6911,7 @@ static token lex(void)
 
             if (c == 115)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             {
@@ -6831,13 +6931,13 @@ static token lex(void)
 
         if (! backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (syntax_bits & (((((((((((((((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1) << 1))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -6852,20 +6952,20 @@ static token lex(void)
 
             if (! (c2 < 256))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             {
             }
             if (((const int) (* ((* tmp___15) + c2))) & 8)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
               if (c2 == 95)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -6881,7 +6981,7 @@ static token lex(void)
 
         if (c == 87)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -6889,7 +6989,7 @@ static token lex(void)
         case_91:
         if (backslash)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
@@ -6909,7 +7009,7 @@ static token lex(void)
 
         if (case_fold)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         switch_break:
@@ -6990,7 +7090,7 @@ static void addtok_mb(token t, int mbprop)
 
     if (t == 256L)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     goto switch_default;
@@ -7023,6 +7123,7 @@ static void addtok_mb(token t, int mbprop)
   }
 }
 
+static void addtok_wc(wint_t wc);
 static void addtok(token t)
 {
   _Bool need_or;
@@ -7053,7 +7154,7 @@ static void addtok(token t)
               }
               if (need_or)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -7069,13 +7170,13 @@ static void addtok(token t)
 
         if (work_mbc->invert)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (work_mbc->nch_classes != 0UL)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -7087,7 +7188,7 @@ static void addtok(token t)
             {
               if (work_mbc->nequivs != 0UL)
               {
-                exit(- 1);
+                _Exit(-1);
               }
               else
               {
@@ -7101,7 +7202,7 @@ static void addtok(token t)
                   }
                   if (need_or)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -7114,7 +7215,7 @@ static void addtok(token t)
                     }
                     if (need_or)
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
 
                   }
@@ -7252,7 +7353,7 @@ static void add_utf8_anychar(void)
 
             if (syntax_bits & (((((((1UL << 1) << 1) << 1) << 1) << 1) << 1) << 1))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -7343,7 +7444,7 @@ static void atom(void)
     {
       if (wctok == 4294967295U)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
@@ -7413,7 +7514,7 @@ static void atom(void)
         {
           if (tok < 256L)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -7428,7 +7529,7 @@ static void atom(void)
 
           if (tok >= 275L)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -7461,13 +7562,13 @@ static void atom(void)
                 {
                   if (tok == 260L)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
                   else
                   {
                     if (tok == 272L)
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
                     else
                     {
@@ -7482,19 +7583,19 @@ static void atom(void)
                       {
                         if (tok == 261L)
                         {
-                          exit(- 1);
+                          _Exit(-1);
                         }
                         else
                         {
                           if (tok == 262L)
                           {
-                            exit(- 1);
+                            _Exit(-1);
                           }
                           else
                           {
                             if (tok == 263L)
                             {
-                              exit(- 1);
+                              _Exit(-1);
                             }
                             else
                             {
@@ -7506,7 +7607,7 @@ static void atom(void)
                                 }
                                 if (tok != 271L)
                                 {
-                                  exit(- 1);
+                                  _Exit(-1);
                                 }
 
                                 {
@@ -7547,12 +7648,12 @@ static void atom(void)
 
 static size_t nsubtoks(size_t tindex)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void copytoks(size_t tindex, size_t ntokens)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void closure(void)
@@ -7592,7 +7693,7 @@ static void closure(void)
         {
           if (minrep)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -7605,12 +7706,12 @@ static void closure(void)
               }
               if (maxrep < 0)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               if (minrep == 0)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               {
@@ -7621,7 +7722,7 @@ static void closure(void)
 
                   if (! (i < minrep))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   {
@@ -7643,7 +7744,7 @@ static void closure(void)
 
                   if (! (i < maxrep))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   {
@@ -7669,7 +7770,7 @@ static void closure(void)
           _L:
           if (tok == 267L)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -7803,7 +7904,7 @@ void dfaparse(const char *s, size_t len, struct dfa *d)
 
     if (! syntax_bits_set)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -7813,7 +7914,7 @@ void dfaparse(const char *s, size_t len, struct dfa *d)
     }
     if (tok != (- 1L))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -7822,7 +7923,7 @@ void dfaparse(const char *s, size_t len, struct dfa *d)
     }
     if (d->nregexps)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     d->nregexps++;
@@ -7962,7 +8063,7 @@ static void merge(const position_set *s1, const position_set *s2, position_set *
     j = (size_t) 0;
     if (m->alloc < ((size_t) (s1->nelem + s2->nelem)))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     m->nelem = (size_t) 0;
@@ -8093,7 +8194,7 @@ static void delete(position p, position_set *s)
 
         if (! (i < s->nelem))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (p.index == (s->elems + i)->index)
@@ -8192,7 +8293,7 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
         {
           if (s->nelem != ((const size_t) (d->states + i)->elems.nelem))
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -8219,13 +8320,13 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
 
             if ((s->elems + j)->constraint != ((d->states + i)->elems.elems + j)->constraint)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
               if ((s->elems + j)->index != ((d->states + i)->elems.elems + j)->index)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -8366,7 +8467,7 @@ static void epsclosure(position_set *s, const struct dfa *d, char *visited)
                   }
                   if (* (visited + old.index))
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   * (visited + old.index) = (char) 1;
@@ -8382,22 +8483,22 @@ static void epsclosure(position_set *s, const struct dfa *d, char *visited)
 
                   if ((* (d->tokens + old.index)) == 260L)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if ((* (d->tokens + old.index)) == 261L)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if ((* (d->tokens + old.index)) == 262L)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   if ((* (d->tokens + old.index)) == 263L)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                   case_258:
@@ -8558,7 +8659,7 @@ static int state_separate_contexts(const position_set *s)
 
         if ((((s->elems + j)->constraint >> 1) & 273U) != ((s->elems + j)->constraint & 273U))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         j++;
@@ -8627,7 +8728,7 @@ void dfaanalyze(struct dfa *d, int searchflag)
 
         if ((* (d->tokens + i)) == 256L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((* (d->tokens + i)) == 265L)
@@ -8847,7 +8948,7 @@ void dfaanalyze(struct dfa *d, int searchflag)
           {
             if ((* (d->tokens + i)) == 272L)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -9023,7 +9124,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
           {
             if ((* (d->tokens + pos.index)) == 273L)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -9034,12 +9135,12 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
                 if ((* (d->tokens + pos.index)) == 273L)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
                 if ((d->states + s)->mbps.nelem == 0UL)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
                 {
@@ -9347,7 +9448,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
       if (separate_contexts & 2)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
@@ -9407,7 +9508,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
           if (! (i < 256UL))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -9490,12 +9591,12 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
               if (! (j < follows.nelem))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               if (! ((* (d->multibyte_prop + (follows.elems + j)->index)) & 1))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -9522,7 +9623,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
           {
             if (! next_isnt_1st_byte)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -9542,7 +9643,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
         if ((separate_contexts & possible_contexts) & 4)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -9551,7 +9652,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
         if ((separate_contexts & possible_contexts) & 2)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -9756,7 +9857,7 @@ static void build_state(state_num s, struct dfa *d)
 
           if (! (i < d->tralloc))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -9860,32 +9961,32 @@ static void build_state_zero(struct dfa *d)
 
 static status_transit_state transit_state_singlebyte(struct dfa *d, state_num s, const unsigned char *p, state_num *next_state)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int match_anychar(struct dfa *d, state_num s, position pos, wint_t wc, size_t mbclen)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int match_mb_charset(struct dfa *d, state_num s, position pos, const char *p, wint_t wc, size_t match_len)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int *check_matching_with_multibyte_ops(struct dfa *d, state_num s, const char *p, wint_t wc, size_t mbclen)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static status_transit_state transit_state_consume_1char(struct dfa *d, state_num s, const unsigned char **pp, wint_t wc, size_t mbclen, int *match_lens)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static state_num transit_state(struct dfa *d, state_num s, const unsigned char **pp, const unsigned char *end)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t *count, int *backref)
@@ -9927,7 +10028,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
     {
       if (! d->mb_match_lens)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -9952,7 +10053,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
               t = * (trans___0 + s);
               if (! (((unsigned long) t) != ((unsigned long) ((void *) 0))))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               if (s == 0L)
@@ -9965,7 +10066,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
 
                     if (! (((unsigned long) mbp) < ((unsigned long) p)))
                     {
-                      exit(- 1);
+                      _Exit(-1);
                     }
 
                     {
@@ -9982,19 +10083,19 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
                 p = mbp;
                 if (((unsigned long) ((char *) p)) > ((unsigned long) end))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
 
               if ((d->states + s)->mbps.nelem == 0UL)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               if ((d->states + s)->has_mbcset)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               {
@@ -10072,7 +10173,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
             s1 = s;
             if (d->multibyte)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -10113,7 +10214,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
         {
           if (allow_nl)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -10140,6 +10241,7 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
   }
 }
 
+struct dfa *dfasuperset(const struct dfa *d);
 struct dfa *dfasuperset(const struct dfa *d)
 {
   {
@@ -10147,6 +10249,7 @@ struct dfa *dfasuperset(const struct dfa *d)
   }
 }
 
+_Bool dfaisfast(const struct dfa *d);
 _Bool dfaisfast(const struct dfa *d)
 {
   {
@@ -10276,7 +10379,7 @@ static void dfaoptimize(struct dfa *d)
     }
     if (! tmp)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     i = (size_t) 0;
@@ -10293,7 +10396,7 @@ static void dfaoptimize(struct dfa *d)
 
         if ((* (d->tokens + i)) == 272L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((* (d->tokens + i)) == 257L)
@@ -10410,7 +10513,7 @@ static void dfassbuild(struct dfa *d)
 
         if ((* (d->tokens + i)) == 272L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((* (d->tokens + i)) == 273L)
@@ -10425,22 +10528,22 @@ static void dfassbuild(struct dfa *d)
 
         if ((* (d->tokens + i)) == 260L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((* (d->tokens + i)) == 261L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((* (d->tokens + i)) == 262L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if ((* (d->tokens + i)) == 263L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         goto switch_default;
@@ -10465,7 +10568,7 @@ static void dfassbuild(struct dfa *d)
         {
           if ((* (d->tokens + (i + 1UL))) == 265L)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -10485,7 +10588,7 @@ static void dfassbuild(struct dfa *d)
 
         if (d->multibyte)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         switch_default:
@@ -10594,7 +10697,7 @@ void dfafree(struct dfa *d)
     }
     if (d->multibyte)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     i = (size_t) 0;
@@ -10632,7 +10735,7 @@ void dfafree(struct dfa *d)
 
           if (! (i < d->tindex))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -10660,7 +10763,7 @@ void dfafree(struct dfa *d)
 
           if (! (i < ((size_t) d->tralloc)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -10703,7 +10806,7 @@ void dfafree(struct dfa *d)
 
     if (d->superset)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return;
@@ -11229,7 +11332,7 @@ static void dfamust(struct dfa *d)
 
         if (! (ri < d->tindex))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         t = * (d->tokens + ri);
@@ -11245,37 +11348,37 @@ static void dfamust(struct dfa *d)
 
         if (t == 270L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 271L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 256L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 260L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 261L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 262L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 263L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 257L)
@@ -11285,7 +11388,7 @@ static void dfamust(struct dfa *d)
 
         if (t == 272L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (t == 273L)
@@ -11325,7 +11428,7 @@ static void dfamust(struct dfa *d)
 
         if (t == 0L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         goto switch_default;
@@ -11412,7 +11515,7 @@ static void dfamust(struct dfa *d)
 
         if (n > rn)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         i = (size_t) 0;
@@ -11476,7 +11579,7 @@ static void dfamust(struct dfa *d)
         case_neg_1:
         if (! (! mp->prev))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
 
@@ -11634,7 +11737,7 @@ static void dfamust(struct dfa *d)
 
               if (! (j___0 < 256))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               {
@@ -11657,7 +11760,7 @@ static void dfamust(struct dfa *d)
 
           if (! (j___0 < 256))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           t = (token) j___0;
@@ -11682,7 +11785,7 @@ static void dfamust(struct dfa *d)
                 {
                   if (! d->multibyte)
                   {
-                    exit(- 1);
+                    _Exit(-1);
                   }
 
                 }
@@ -11713,7 +11816,7 @@ static void dfamust(struct dfa *d)
         {
           if (! d->multibyte)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
@@ -11813,6 +11916,7 @@ struct dfamust *dfamusts(const struct dfa *d)
   }
 }
 
+extern size_t mbrlen(const char *__restrict __s, size_t __n, mbstate_t *__restrict __ps);
 void build_mbclen_cache(void);
 static size_t mbclen_cache[256];
 static char trans[256];
@@ -11833,7 +11937,7 @@ void kwsinit(kwset_t *kwset___1)
 
             if (! (i < 256))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             {
@@ -11861,16 +11965,19 @@ void kwsinit(kwset_t *kwset___1)
 
     if (! (* kwset___1))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return;
   }
 }
 
+static char *out;
+static mb_len_map_t *len_map;
+static size_t outalloc;
 char *mbtoupper(const char *beg, size_t *n, mb_len_map_t **len_map_p)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 void build_mbclen_cache(void)
@@ -11946,14 +12053,14 @@ ptrdiff_t mb_goback(const char **mb_start, const char *cur, const char *end)
         }
         if (mbclen == 0xfffffffffffffffeUL)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (0UL < mbclen)
         {
           if (! (mbclen < 0xfffffffffffffffeUL))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -11986,7 +12093,7 @@ wint_t mb_prev_wc(const char *buf, const char *cur, const char *end)
   {
     if (((unsigned long) cur) == ((unsigned long) buf))
     {
-      return 4294967295U;
+      _Exit(-1);
     }
 
     {
@@ -12026,15 +12133,10 @@ wint_t mb_next_wc(const char *cur, const char *end)
   }
 }
 
+extern __off_t lseek(int __fd, __off_t __offset, int __whence);
 extern int isatty(int __fd);
 extern char *optarg;
 extern int optind;
-extern int getpagesize(void);
-extern int atexit(void (*__func)(void));
-extern void exit(int __status);
-extern int strcasecmp(const char *__s1, const char *__s2);
-extern char *textdomain(const char *__domainname);
-extern char *bindtextdomain(const char *__domainname, const char *__dirname);
 extern int getopt_long(int ___argc, char *const *___argv, const char *__shortopts, const struct option *__longopts, int *__longind);
 static struct stat out_stat;
 static int show_help;
@@ -12052,16 +12154,14 @@ static const char *byte_num_color = "32";
 static const char *sep_color = "36";
 static const char *selected_line_color = "";
 static const char *context_line_color = "";
-static const char *sgr_start = "\033[%sm\033[K";
-static const char *sgr_end = "\033[m\033[K";
 static void pr_sgr_start(const char *s)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void pr_sgr_end(const char *s)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void pr_sgr_start_if(const char *s)
@@ -12069,7 +12169,7 @@ static void pr_sgr_start_if(const char *s)
   {
     if (color_option)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return;
@@ -12081,7 +12181,7 @@ static void pr_sgr_end_if(const char *s)
   {
     if (color_option)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return;
@@ -12090,17 +12190,17 @@ static void pr_sgr_end_if(const char *s)
 
 static void color_cap_mt_fct(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void color_cap_rv_fct(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void color_cap_ne_fct(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static const struct color_cap color_dict[12] = {{"mt", & selected_match_color, & color_cap_mt_fct}, {"ms", & selected_match_color, (void (*)(void)) ((void *) 0)}, {"mc", & context_match_color, (void (*)(void)) ((void *) 0)}, {"fn", & filename_color, (void (*)(void)) ((void *) 0)}, {"ln", & line_num_color, (void (*)(void)) ((void *) 0)}, {"bn", & byte_num_color, (void (*)(void)) ((void *) 0)}, {"se", & sep_color, (void (*)(void)) ((void *) 0)}, {"sl", & selected_line_color, (void (*)(void)) ((void *) 0)}, {"cx", & context_line_color, (void (*)(void)) ((void *) 0)}, {"rv", (const char **) ((void *) 0), & color_cap_rv_fct}, {"ne", (const char **) ((void *) 0), & color_cap_ne_fct}, {(const char *) ((void *) 0), (const char **) ((void *) 0), (void (*)(void)) ((void *) 0)}};
@@ -12113,19 +12213,15 @@ static const char *filename;
 static size_t filename_prefix_len;
 static int errseen;
 static int write_error_seen;
-static const char *const directories_args[4] = {(const char *) "read", (const char *) "recurse", (const char *) "skip", (const char *) ((const char *) ((void *) 0))};
-static const enum directories_type directories_types[3] = {(const enum directories_type) 2, (const enum directories_type) 3, (const enum directories_type) 4};
 static enum directories_type directories = (enum directories_type) 2;
 static int fts_options = 793;
 static enum __anonenum_devices_71 devices = (enum __anonenum_devices_71) 0;
 static int grepfile(int dirdesc, const char *name, int follow, int command_line);
 static int grepdesc(int desc, int command_line);
-static void dos_binary(void);
-static void dos_unix_byte_offsets(void);
 static int undossify_input(char *buf, size_t buflen);
 static int is_device_mode(mode_t m)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int usable_st_size(const struct stat *st)
@@ -12153,7 +12249,7 @@ static void (*compile)(const char *, size_t);
 static size_t (*execute)(const char *, size_t, size_t *, const char *);
 static void suppressible_error(const char *mesg, int errnum)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void clean_up_stdout(void)
@@ -12183,7 +12279,7 @@ static int file_is_binary(const char *buf, size_t bufsize, int fd, const struct 
   {
     if (! eolbyte)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -12191,7 +12287,7 @@ static int file_is_binary(const char *buf, size_t bufsize, int fd, const struct 
     }
     if (tmp___0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -12204,7 +12300,7 @@ static int file_is_binary(const char *buf, size_t bufsize, int fd, const struct 
       {
         if (cur < 0L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -12215,17 +12311,14 @@ static int file_is_binary(const char *buf, size_t bufsize, int fd, const struct 
       }
       if (0L <= hole_start)
       {
-        {
-          tmp___3 = lseek(fd, cur, 0);
-        }
         if (tmp___3 < 0L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (hole_start < ((off_t) st->st_size))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -12238,7 +12331,7 @@ static int file_is_binary(const char *buf, size_t bufsize, int fd, const struct 
 
 static void context_length_arg(const char *str, intmax_t *out___0)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int skipped_file(const char *name, int command_line, int is_dir)
@@ -12253,13 +12346,13 @@ static int skipped_file(const char *name, int command_line, int is_dir)
     {
       if (((unsigned int) directories) == 4U)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
         if (command_line)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -12268,7 +12361,7 @@ static int skipped_file(const char *name, int command_line, int is_dir)
 
           if (excluded_directory_patterns)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -12282,7 +12375,7 @@ static int skipped_file(const char *name, int command_line, int is_dir)
       {
         if (tmp___1)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -12320,13 +12413,13 @@ static int reset(int fd, const struct stat *st)
       }
       if (pagesize == 0UL)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
         if (((2UL * pagesize) + 1UL) <= pagesize)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -12344,7 +12437,7 @@ static int reset(int fd, const struct stat *st)
 
     if ((((size_t) (buffer + 1)) % pagesize) == 0UL)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -12364,7 +12457,7 @@ static int reset(int fd, const struct stat *st)
       {
         if (bufoffset < 0L)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -12400,8 +12493,6 @@ static int fillbuf(size_t save, const struct stat *st)
     }
     else
     {
-      minsize = save + pagesize;
-      newsize = (bufalloc - pagesize) - 1UL;
       {
         while (1)
         {
@@ -12410,18 +12501,18 @@ static int fillbuf(size_t save, const struct stat *st)
 
           if (! (newsize < minsize))
           {
-            goto while_break;
+            _Exit(-1);
           }
 
           if ((newsize * 2UL) < newsize)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
             if ((((newsize * 2UL) + pagesize) + 1UL) < (newsize * 2UL))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -12433,64 +12524,30 @@ static int fillbuf(size_t save, const struct stat *st)
 
       }
       while_break:
-      {
-        tmp = usable_st_size(st);
-      }
+      ;
 
+      {
+      }
       if (tmp)
       {
-        to_be_read = (off_t) (st->st_size - ((const __off_t) bufoffset));
-        maxsize_off = (off_t) (save + ((size_t) to_be_read));
-        if (0L <= to_be_read)
-        {
-          if (to_be_read <= maxsize_off)
-          {
-            if (((size_t) maxsize_off) == ((size_t) maxsize_off))
-            {
-              if (minsize <= ((size_t) maxsize_off))
-              {
-                if (((size_t) maxsize_off) < newsize)
-                {
-                  newsize = (size_t) maxsize_off;
-                }
-
-              }
-
-            }
-
-          }
-
-        }
-
+        _Exit(-1);
       }
 
-      newalloc = (newsize + pagesize) + 1UL;
       if (bufalloc < newalloc)
       {
-        exit(- 1);
-      }
-      else
-      {
-        newbuf = buffer;
+        _Exit(-1);
       }
 
       if ((((size_t) ((newbuf + 1) + save)) % pagesize) == 0UL)
       {
-        exit(- 1);
-      }
-      else
-      {
-        readbuf = ((newbuf + 1) + save) + (pagesize - (((size_t) ((newbuf + 1) + save)) % pagesize));
+        _Exit(-1);
       }
 
       {
-        bufbeg = readbuf - save;
-        memmove((void *) bufbeg, (const void *) (buffer + saved_offset), save);
-        * (bufbeg + (- 1)) = (char) eolbyte;
       }
       if (((unsigned long) newbuf) != ((unsigned long) buffer))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -12502,7 +12559,7 @@ static int fillbuf(size_t save, const struct stat *st)
     }
     if (fillsize < 0L)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -12548,12 +12605,12 @@ static int inp_map_idx = 0;
 static int out_map_idx = 1;
 static void dos_binary(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void dos_unix_byte_offsets(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int undossify_input(char *buf, size_t buflen)
@@ -12711,7 +12768,7 @@ static int undossify_input(char *buf, size_t buflen)
 
 static off_t dossified_pos(off_t byteno)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static uintmax_t add_count(uintmax_t a, uintmax_t b)
@@ -12723,7 +12780,7 @@ static uintmax_t add_count(uintmax_t a, uintmax_t b)
     sum = a + b;
     if (sum < a)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return sum;
@@ -12753,7 +12810,7 @@ static void nlscan(const char *lim)
         }
         if (! beg)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         newlines++;
@@ -12776,7 +12833,7 @@ static void nlscan(const char *lim)
 
 static void print_filename(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void print_sep(char sep)
@@ -12832,7 +12889,7 @@ static void print_offset(uintmax_t pos, int min_width, const char *color)
 
           if (! (min_width >= 0))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -12866,7 +12923,7 @@ static void print_line_head(const char *beg, const char *lim, int sep)
     {
       if (filename_mask)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -12884,7 +12941,7 @@ static void print_line_head(const char *beg, const char *lim, int sep)
 
       if (pending_sep)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       {
@@ -12897,7 +12954,7 @@ static void print_line_head(const char *beg, const char *lim, int sep)
     {
       if (pending_sep)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       {
@@ -12908,7 +12965,7 @@ static void print_line_head(const char *beg, const char *lim, int sep)
     {
       if (align_tabs)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       {
@@ -12952,14 +13009,14 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
         b = beg + match_offset;
         if (((unsigned long) b) == ((unsigned long) lim))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (match_size == 0UL)
         {
           if (! mid)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -12969,7 +13026,7 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
           {
             if (out_invert)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -12984,7 +13041,7 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
           {
             if (mid)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             {
@@ -13023,7 +13080,7 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
     {
       if (mid)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -13034,7 +13091,7 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
 
 static const char *print_line_tail(const char *beg, const char *lim, const char *line_color)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void prline(const char *beg, const char *lim, int sep)
@@ -13059,17 +13116,17 @@ static void prline(const char *beg, const char *lim, int sep)
     {
       if (out_invert)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       if ((sep == 58) ^ tmp___0)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       if (sep == 58)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -13094,7 +13151,7 @@ static void prline(const char *beg, const char *lim, int sep)
       {
         if (* line_color)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -13115,7 +13172,7 @@ static void prline(const char *beg, const char *lim, int sep)
               {
                 if (* match_color)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -13126,7 +13183,7 @@ static void prline(const char *beg, const char *lim, int sep)
             {
               if (* line_color)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -13156,13 +13213,13 @@ static void prline(const char *beg, const char *lim, int sep)
     }
     if (tmp___2)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     lastout = lim;
     if (line_buffered)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return;
@@ -13178,7 +13235,7 @@ static void prpending(const char *lim)
   {
     if (! lastout)
     {
-      lastout = (const char *) bufbeg;
+      _Exit(-1);
     }
 
     {
@@ -13191,7 +13248,7 @@ static void prpending(const char *lim)
         {
           if (! (((unsigned long) lastout) < ((unsigned long) lim)))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -13204,13 +13261,13 @@ static void prpending(const char *lim)
         }
         if (outleft)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if ((tmp___0 == 0xffffffffffffffffUL) == (! out_invert))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -13247,7 +13304,7 @@ static void prtext(const char *beg, const char *lim)
     {
       if (pending > 0L)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -13287,7 +13344,7 @@ static void prtext(const char *beg, const char *lim)
 
                 if (! (((const int) (* (p + (- 1)))) != ((const int) eol)))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -13312,7 +13369,7 @@ static void prtext(const char *beg, const char *lim)
 
       if (0L <= out_before)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
@@ -13323,7 +13380,7 @@ static void prtext(const char *beg, const char *lim)
 
           if (used)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -13367,7 +13424,7 @@ static void prtext(const char *beg, const char *lim)
           {
             if (! (n < outleft))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -13416,7 +13473,7 @@ static void prtext(const char *beg, const char *lim)
     after_last_match = bufoffset - (buflim - ((char *) p));
     if (out_quiet)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -13441,7 +13498,7 @@ static size_t do_execute(const char *buf, size_t size, size_t *match_size, const
   {
     if (((unsigned long) execute) == ((unsigned long) (& Fexecute)))
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -13454,13 +13511,13 @@ static size_t do_execute(const char *buf, size_t size, size_t *match_size, const
         }
         if (tmp___0 == 1UL)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (! match_icase)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -13484,26 +13541,26 @@ static size_t do_execute(const char *buf, size_t size, size_t *match_size, const
 
         if (! (((unsigned long) line_next) < ((unsigned long) (buf + size))))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
         }
         if (((unsigned long) line_end) == ((unsigned long) ((void *) 0)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (start_ptr)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
         }
         if (result != 0xffffffffffffffffUL)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         __Cont:
@@ -13569,7 +13626,7 @@ static intmax_t grepbuf(const char *beg, const char *lim)
         {
           if (((unsigned long) b) == ((unsigned long) lim))
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -13609,7 +13666,7 @@ static intmax_t grepbuf(const char *beg, const char *lim)
             }
             if (! outleft)
             {
-              exit(- 1);
+              _Exit(-1);
             }
             else
             {
@@ -13620,7 +13677,7 @@ static intmax_t grepbuf(const char *beg, const char *lim)
 
                 if (exit_on_match)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -13675,7 +13732,7 @@ static intmax_t grep(int fd, const struct stat *st)
     }
     if (! tmp)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -13692,7 +13749,7 @@ static intmax_t grep(int fd, const struct stat *st)
     }
     if (! tmp___1)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (((unsigned int) binary_files) == 0U)
@@ -13718,7 +13775,7 @@ static intmax_t grep(int fd, const struct stat *st)
         }
         if (tmp___2)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -13734,7 +13791,7 @@ static intmax_t grep(int fd, const struct stat *st)
     {
       if (((unsigned int) binary_files) == 2U)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -13768,7 +13825,7 @@ static intmax_t grep(int fd, const struct stat *st)
         }
         if (((unsigned long) lim) == ((unsigned long) beg))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         beg -= residue;
@@ -13794,7 +13851,7 @@ static intmax_t grep(int fd, const struct stat *st)
           {
             if (! pending)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -13805,7 +13862,7 @@ static intmax_t grep(int fd, const struct stat *st)
             {
               if (done_on_match)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -13827,7 +13884,7 @@ static intmax_t grep(int fd, const struct stat *st)
             {
               if (((unsigned long) beg) > ((unsigned long) bufbeg))
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -13844,7 +13901,7 @@ static intmax_t grep(int fd, const struct stat *st)
 
                 if (! (((int) (* (beg + (- 1)))) != ((int) eol)))
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -13873,7 +13930,7 @@ static intmax_t grep(int fd, const struct stat *st)
         save = (size_t) ((lim + residue) - beg);
         if (out_byte)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (out_line)
@@ -13888,7 +13945,7 @@ static intmax_t grep(int fd, const struct stat *st)
         }
         if (! tmp___6)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -13904,12 +13961,12 @@ static intmax_t grep(int fd, const struct stat *st)
     {
       if (outleft)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       if (pending)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -13922,7 +13979,7 @@ static intmax_t grep(int fd, const struct stat *st)
     {
       if (nlines != 0L)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -13933,7 +13990,7 @@ static intmax_t grep(int fd, const struct stat *st)
 
 static int grepdirent(FTS *fts, FTSENT *ent, int command_line)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int grepfile(int dirdesc, const char *name, int follow, int command_line)
@@ -13959,13 +14016,13 @@ static int grepfile(int dirdesc, const char *name, int follow, int command_line)
     {
       if (follow)
       {
-        exit(- 1);
+        _Exit(-1);
       }
       else
       {
         if ((* tmp___2) != 40)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -14019,7 +14076,7 @@ static int grepdesc(int desc, int command_line)
     }
     if (tmp___0 != 0)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (desc != 0)
@@ -14031,7 +14088,7 @@ static int grepdesc(int desc, int command_line)
         }
         if (tmp___1)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -14046,21 +14103,21 @@ static int grepdesc(int desc, int command_line)
         {
           if (command_line)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
           }
           if (tmp___4 != 0)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
           }
           if (! fts)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
@@ -14073,7 +14130,7 @@ static int grepdesc(int desc, int command_line)
               }
               if (! ent)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
               {
@@ -14091,14 +14148,14 @@ static int grepdesc(int desc, int command_line)
           }
           if (* tmp___7)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
           {
           }
           if (tmp___9 != 0)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -14113,7 +14170,7 @@ static int grepdesc(int desc, int command_line)
       {
         if ((st.st_mode & 61440U) == 16384U)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -14122,7 +14179,7 @@ static int grepdesc(int desc, int command_line)
         _L___0:
         if (((unsigned int) devices) == 2U)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -14137,7 +14194,7 @@ static int grepdesc(int desc, int command_line)
               }
               if (tmp___10)
               {
-                exit(- 1);
+                _Exit(-1);
               }
 
             }
@@ -14165,7 +14222,7 @@ static int grepdesc(int desc, int command_line)
               {
                 if (st.st_dev == out_stat.st_dev)
                 {
-                  exit(- 1);
+                  _Exit(-1);
                 }
 
               }
@@ -14195,7 +14252,7 @@ static int grepdesc(int desc, int command_line)
     }
     if (count < 0L)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {
@@ -14203,7 +14260,7 @@ static int grepdesc(int desc, int command_line)
       {
         if (out_file)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -14213,19 +14270,19 @@ static int grepdesc(int desc, int command_line)
       status = ! count;
       if (list_files == (1 - (2 * status)))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       if (desc == 0)
       {
         if (outleft)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (required_offset != bufoffset)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -14240,7 +14297,7 @@ static int grepdesc(int desc, int command_line)
       }
       if (tmp___18 != 0)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -14265,7 +14322,7 @@ static int grep_command_line_arg(const char *arg)
     {
       if (label)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       {
@@ -14285,7 +14342,7 @@ static int grep_command_line_arg(const char *arg)
 
 void usage(int status)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void Gcompile(const char *pattern, size_t size)
@@ -14310,17 +14367,17 @@ static void Ecompile(const char *pattern, size_t size)
 
 static void Acompile(const char *pattern, size_t size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void GAcompile(const char *pattern, size_t size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void PAcompile(const char *pattern, size_t size)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static const struct matcher matchers[8] = {{{(const char) 'g', (const char) 'r', (const char) 'e', (const char) 'p', (const char) '\000'}, & Gcompile, & EGexecute}, {{(const char) 'e', (const char) 'g', (const char) 'r', (const char) 'e', (const char) 'p', (const char) '\000'}, & Ecompile, & EGexecute}, {{(const char) 'f', (const char) 'g', (const char) 'r', (const char) 'e', (const char) 'p', (const char) '\000'}, & Fcompile, & Fexecute}, {{(const char) 'a', (const char) 'w', (const char) 'k', (const char) '\000'}, & Acompile, & EGexecute}, {{(const char) 'g', (const char) 'a', (const char) 'w', (const char) 'k', (const char) '\000'}, & GAcompile, & EGexecute}, {{(const char) 'p', (const char) 'o', (const char) 's', (const char) 'i', (const char) 'x', (const char) 'a', (const char) 'w', (const char) 'k', (const char) '\000'}, & PAcompile, & EGexecute}, {{(const char) 'p', (const char) 'e', (const char) 'r', (const char) 'l', (const char) '\000'}, & Pcompile, & Pexecute}, {{(const char) '\000'}, (void (*)(const char *, size_t)) ((void *) 0), (size_t (*)(const char *, size_t, size_t *, const char *)) ((void *) 0)}};
@@ -14338,7 +14395,7 @@ static void setmatcher(const char *m)
     {
       if (! (tmp___0 == 0))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -14352,7 +14409,7 @@ static void setmatcher(const char *m)
 
         if (! p->compile)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -14383,7 +14440,7 @@ static void setmatcher(const char *m)
 
 static size_t prepend_args(const char *options, char *buf, char **argv)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static int prepend_default_options(const char *options, int *pargc, char ***pargv)
@@ -14409,7 +14466,7 @@ static int prepend_default_options(const char *options, int *pargc, char ***parg
       {
         if (((size_t) (2147483647 - argc)) < prepended)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -14426,7 +14483,7 @@ static int prepend_default_options(const char *options, int *pargc, char ***parg
             tmp___5 = pp;
             if (! tmp___6)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -14485,20 +14542,20 @@ static int get_nondigit_option(int argc, char *const *argv, intmax_t *default_co
 
         if (prev_digit_optind != this_digit_optind)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (! was_digit)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
 
         if (((unsigned long) p) == ((unsigned long) ((buf + (sizeof(buf))) - 4)))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
       }
@@ -14512,7 +14569,7 @@ static int get_nondigit_option(int argc, char *const *argv, intmax_t *default_co
 
     if (((unsigned long) p) != ((unsigned long) buf))
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     return opt;
@@ -14521,17 +14578,17 @@ static int get_nondigit_option(int argc, char *const *argv, intmax_t *default_co
 
 static void parse_grep_colors(void)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static _Bool contains_encoding_error(const char *pat, size_t patlen)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 static void fgrep_to_grep_pattern(size_t len, const char *keys, size_t *new_len, char **new_keys)
 {
-  exit(- 1);
+  exit(-1);
 }
 
 int main(int argc, char **argv)
@@ -14661,22 +14718,22 @@ int main(int argc, char **argv)
 
         if (opt == 65)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 66)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 67)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 68)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 69)
@@ -14686,87 +14743,87 @@ int main(int argc, char **argv)
 
         if (opt == 70)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 80)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 71)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 88)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 72)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 73)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 84)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 85)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 117)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 86)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 97)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 98)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 99)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 100)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 101)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 102)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 104)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 105)
@@ -14776,22 +14833,22 @@ int main(int argc, char **argv)
 
         if (opt == 121)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 76)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 108)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 109)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 110)
@@ -14806,22 +14863,22 @@ int main(int argc, char **argv)
 
         if (opt == 113)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 82)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 114)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 115)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 118)
@@ -14841,62 +14898,62 @@ int main(int argc, char **argv)
 
         if (opt == 90)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 122)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 128)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 129)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 131)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 130)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 132)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 135)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 136)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 133)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 134)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_65:
@@ -14921,13 +14978,13 @@ int main(int argc, char **argv)
         }
         if (tmp___2 == 0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (tmp___1 == 0)
           {
-            exit(- 1);
+            _Exit(-1);
           }
 
         }
@@ -15003,7 +15060,7 @@ int main(int argc, char **argv)
         }
         if (((unsigned int) directories) == 3U)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_101:
@@ -15018,12 +15075,12 @@ int main(int argc, char **argv)
         }
         if (tmp___7 == 0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (! fp)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -15034,7 +15091,7 @@ int main(int argc, char **argv)
 
             if (! (keyalloc <= (keycc + 1UL)))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -15058,12 +15115,12 @@ int main(int argc, char **argv)
             }
             if (! (cc != 0UL))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
             if (keycc == (keyalloc - 1UL))
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -15079,17 +15136,17 @@ int main(int argc, char **argv)
         }
         if (tmp___10)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (((unsigned long) fp) != ((unsigned long) stdin))
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (oldcc != keycc)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_104:
@@ -15115,12 +15172,12 @@ int main(int argc, char **argv)
         }
         if (((unsigned int) tmp___12) == 0U)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (((unsigned int) tmp___12) == 1U)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_0:
@@ -15186,19 +15243,19 @@ int main(int argc, char **argv)
         }
         if (tmp___17 == 0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
           if (tmp___16 == 0)
           {
-            exit(- 1);
+            _Exit(-1);
           }
           else
           {
             if (tmp___15 == 0)
             {
-              exit(- 1);
+              _Exit(-1);
             }
 
           }
@@ -15210,7 +15267,7 @@ int main(int argc, char **argv)
 
         if (optarg)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_131:
@@ -15218,12 +15275,12 @@ int main(int argc, char **argv)
 
         if (! excluded_patterns)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         if (opt == 130)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -15233,14 +15290,14 @@ int main(int argc, char **argv)
 
         if (! excluded_patterns)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
         }
         if (tmp___29 != 0)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         case_135:
@@ -15248,7 +15305,7 @@ int main(int argc, char **argv)
 
         if (! excluded_directory_patterns)
         {
-          exit(- 1);
+          _Exit(-1);
         }
 
         {
@@ -15290,7 +15347,7 @@ int main(int argc, char **argv)
     {
       if (tmp___30)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -15300,12 +15357,12 @@ int main(int argc, char **argv)
     }
     if (exit_on_match)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (exit_on_match | list_files)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     out_quiet = count_matches | done_on_match;
@@ -15323,7 +15380,7 @@ int main(int argc, char **argv)
     {
       if (((unsigned long) userval) != ((unsigned long) ((void *) 0)))
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
       {
@@ -15339,7 +15396,7 @@ int main(int argc, char **argv)
 
     if (show_help)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     {
@@ -15358,7 +15415,7 @@ int main(int argc, char **argv)
     {
       if (keycc == 0UL)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -15382,7 +15439,7 @@ int main(int argc, char **argv)
       {
         if (match_icase)
         {
-          exit(- 1);
+          _Exit(-1);
         }
         else
         {
@@ -15419,7 +15476,7 @@ int main(int argc, char **argv)
     {
       if (! no_filenames)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -15428,7 +15485,7 @@ int main(int argc, char **argv)
       _L___0:
       if (with_filenames)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
 
@@ -15446,14 +15503,14 @@ int main(int argc, char **argv)
 
     if (max_count == 0L)
     {
-      exit(- 1);
+      _Exit(-1);
     }
 
     if (fts_options & 2)
     {
       if (((unsigned int) devices) == 0U)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
@@ -15491,14 +15548,14 @@ int main(int argc, char **argv)
     {
       if (((unsigned int) directories) == 3U)
       {
-        exit(- 1);
+        _Exit(-1);
       }
 
     }
 
     if (errseen)
     {
-      exit(- 1);
+      _Exit(-1);
     }
     else
     {

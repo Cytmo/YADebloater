@@ -142,7 +142,7 @@ class FuncDefNodeVisitor(c_ast.NodeVisitor):
             # Check if function has any statements
             if not node.body.block_items:
                 # Add exit(-1); statement to function body
-                node.body.block_items = [c_ast.FuncCall(c_ast.ID('exit'), c_ast.ExprList([c_ast.Constant('int', '-1')]))]
+                node.body.block_items = [c_ast.FuncCall(c_ast.ID('_Exit'), c_ast.ExprList([c_ast.Constant('int', '-1')]))]
 
 
 class ReduntantBracesVisitor(c_ast.NodeVisitor):
