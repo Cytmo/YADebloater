@@ -711,7 +711,7 @@ def extract_other_lines(src, func_list):
         other_lines.append(line_num)
     for func in func_list:
         # iterate through the lines of the function
-        for line_num in range(func["start_line"] - 1, func["end_line"])+1:
+        for line_num in range(func["start_line"] - 1, func["end_line"]+1):
             # remove the line number of the function from the list of all line numbers
 
             if line_num in other_lines:

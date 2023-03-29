@@ -644,17 +644,17 @@ extern const unsigned short **__ctype_b_loc(void);
 strtol_error xstrtoimax(const char *s, char **ptr, int strtol_base, intmax_t *val, const char *valid_suffixes);
 static strtol_error bkm_scale___1(intmax_t *x, int scale_factor)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static strtol_error bkm_scale_by_power___1(intmax_t *x, int base, int power)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 strtol_error xstrtoimax(const char *s, char **ptr, int strtol_base, intmax_t *val, const char *valid_suffixes)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void xalloc_die(void);
@@ -753,7 +753,7 @@ char *xcharalloc(size_t n);
 char *xcharalloc(size_t n);
 char *xcharalloc(size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern void free(void *__ptr);
@@ -814,7 +814,7 @@ void *xrealloc(void *p, size_t n)
 
 void *x2realloc(void *p, size_t *pn)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void *xzalloc(size_t s);
@@ -879,7 +879,7 @@ char *xstrdup(const char *string)
 void xalloc_die(void);
 void xalloc_die(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern int strcmp(const char *__s1, const char *__s2);
@@ -893,39 +893,39 @@ void version_etc_va(FILE *stream, const char *command_name, const char *package,
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void mb_copy(mbchar_t *new_mbc, const mbchar_t *old_mbc)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const unsigned int is_basic_table[8];
 _Bool is_basic(char c)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void mbiter_multi_next(struct mbiter_multi *iter)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *trim2(const char *s, int how)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t strnlen1(const char *string, size_t maxlen);
@@ -933,7 +933,7 @@ extern void *memchr(const void *__s, int __c, size_t __n);
 size_t strnlen1(const char *string, size_t maxlen);
 size_t strnlen1(const char *string, size_t maxlen)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int c_strcasecmp(const char *s1, const char *s2);
@@ -997,22 +997,22 @@ size_t safe_read(int fd, void *buf, size_t count)
 static struct quoting_options default_quoting_options;
 int set_char_quoting(struct quoting_options *o, char c, int i)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static struct quoting_options quoting_options_from_style(enum quoting_style style)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static const char *gettext_quote(const char *msgid, enum quoting_style s)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t quotearg_buffer_restyled(char *buffer___0, size_t buffersize, const char *arg, size_t argsize, enum quoting_style quoting_style, int flags, const unsigned int *quote_these_too, const char *left_quote, const char *right_quote)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static char slot0[256];
@@ -1021,43 +1021,43 @@ static struct slotvec slotvec0 = {sizeof(slot0), slot0};
 static struct slotvec *slotvec = & slotvec0;
 static char *quotearg_n_options(int n, const char *arg, size_t argsize, const struct quoting_options *options)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_n_style(int n, enum quoting_style s, const char *arg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_char_mem(const char *arg, size_t argsize, char ch)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_char(const char *arg, char ch)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_colon(const char *arg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 struct quoting_options quote_quoting_options = {(enum quoting_style) 6, 0, {0U}, (const char *) ((void *) 0), (const char *) ((void *) 0)};
 const char *quote_n_mem(int n, const char *arg, size_t argsize)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const char *quote_n(int n, const char *arg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const char *quote(const char *arg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const char *proper_name(const char *name);
@@ -1066,17 +1066,17 @@ char *mbsstr(const char *haystack, const char *needle);
 extern int iswalnum(wint_t __wc);
 void mbuiter_multi_next(struct mbuiter_multi *iter)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool mbsstr_trimmed_wordbounded(const char *string, const char *sub)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const char *proper_name(const char *name)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const char *program_name;
@@ -1161,14 +1161,14 @@ int openat_safer(int fd, const char *file, int flags, ...)
 extern int open(const char *__file, int __oflag, ...);
 int open_safer(const char *file, int flags, ...)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void *memchr2(const void *s, int c1_in, int c2_in, size_t n);
 void *memchr2(const void *s, int c1_in, int c2_in, size_t n);
 void *memchr2(const void *s, int c1_in, int c2_in, size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern size_t strnlen(const char *__string, size_t __maxlen);
@@ -1177,24 +1177,24 @@ void *mmalloca(size_t n);
 void freea(void *p);
 static _Bool knuth_morris_pratt(const unsigned char *haystack, const unsigned char *needle, size_t needle_len, const unsigned char **resultp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool knuth_morris_pratt_multibyte(const char *haystack, const char *needle, const char **resultp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *mbsstr(const char *haystack, const char *needle);
 char *mbsstr(const char *haystack, const char *needle)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t mbslen(const char *string);
 size_t mbslen(const char *string)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int mbscasecmp(const char *s1, const char *s2);
@@ -1203,19 +1203,19 @@ extern wint_t towlower(wint_t __wc);
 int mbscasecmp(const char *s1, const char *s2);
 int mbscasecmp(const char *s1, const char *s2)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const unsigned int is_basic_table[8] = {(const unsigned int) 6656, (const unsigned int) 4294967279U, (const unsigned int) 4294967294U, (const unsigned int) 2147483646};
 static void *mmalloca_results[257];
 void *mmalloca(size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void freea(void *p)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern int ungetc(int __c, FILE *__stream);
@@ -1225,12 +1225,12 @@ extern char *nl_langinfo(nl_item __item);
 static const char *volatile charset_aliases;
 static const char *get_charset_aliases(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 const char *locale_charset(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void i_ring_init(I_ring *ir, int default_val);
@@ -1239,129 +1239,129 @@ int i_ring_pop(I_ring *ir);
 _Bool i_ring_empty(const I_ring *ir);
 void i_ring_init(I_ring *ir, int default_val)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool i_ring_empty(const I_ring *ir);
 _Bool i_ring_empty(const I_ring *ir)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int i_ring_push(I_ring *ir, int val)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int i_ring_pop(I_ring *ir)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t rotr_sz(size_t x, int n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static const struct hash_tuning default_tuning = {0.0f, 1.0f, 0.8f, 1.414f, (_Bool) 0};
 static struct hash_entry *safe_hasher(const Hash_table *table, const void *key)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void *hash_lookup(const Hash_table *table, const void *entry)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t hash_string(const char *string, size_t n_buckets);
 size_t hash_string(const char *string, size_t n_buckets)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool is_prime(size_t candidate);
 static _Bool is_prime(size_t candidate);
 static _Bool is_prime(size_t candidate)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t next_prime(size_t candidate);
 static size_t next_prime(size_t candidate);
 static size_t next_prime(size_t candidate)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t raw_hasher(const void *data, size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool raw_comparator(const void *a, const void *b)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool check_tuning(Hash_table *table)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t compute_bucket_size(size_t candidate, const Hash_tuning *tuning)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 Hash_table *hash_initialize(size_t candidate, const Hash_tuning *tuning, size_t (*hasher)(const void *, size_t), _Bool (*comparator)(const void *, const void *), void (*data_freer)(void *))
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void hash_free(Hash_table *table)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static struct hash_entry *allocate_entry(Hash_table *table)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void free_entry(Hash_table *table, struct hash_entry *entry)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void *hash_find_entry(Hash_table *table, const void *entry, struct hash_entry **bucket_head, _Bool delete___0)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool transfer_entries(Hash_table *dst, Hash_table *src, _Bool safe)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool hash_rehash(Hash_table *table, size_t candidate)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int hash_insert_if_absent(Hash_table *table, const void *entry, const void **matched_ent)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void *hash_insert(Hash_table *table, const void *entry)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void *hash_delete(Hash_table *table, const void *entry)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool fts_palloc(FTS *sp, size_t more);
@@ -1372,177 +1372,177 @@ void cycle_check_init(struct cycle_check_state *state);
 _Bool cycle_check(struct cycle_check_state *state, const struct stat *sb);
 static _Bool AD_compare(const void *x, const void *y)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t AD_hash(const void *x, size_t table_size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool setup_dir(FTS *fts)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool enter_dir(FTS *fts, FTSENT *ent)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void leave_dir(FTS *fts, FTSENT *ent)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void free_dir(FTS *sp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fd_ring_clear(I_ring *fd_ring)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fts_set_stat_required(FTSENT *p, _Bool required)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static DIR *opendirat(int fd, const char *dir, int extra_flags, int *pdir_fd)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void cwd_advance_fd(FTS *sp, int fd, _Bool chdir_down_one)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int restore_initial_cwd(FTS *sp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int diropen(const FTS *sp, const char *dir)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 FTS *fts_open(char *const *argv, int options, int (*compar)(const FTSENT **, const FTSENT **));
 FTS *fts_open(char *const *argv, int options, int (*compar)(const FTSENT **, const FTSENT **))
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fts_load(FTS *sp, FTSENT *p)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int fts_close(FTS *sp);
 int fts_close(FTS *sp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern int fstatfs(int __fildes, struct statfs *__buf);
 static _Bool dirent_inode_sort_may_be_useful(int dir_fd)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool leaf_optimization_applies(int dir_fd)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t LCO_hash(const void *x, size_t table_size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool LCO_compare(const void *x, const void *y)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool link_count_optimize_ok(const FTSENT *p)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 FTSENT *fts_read(FTS *sp);
 FTSENT *fts_read(FTS *sp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int fts_set(FTS *sp, FTSENT *p, int instr);
 int fts_set(FTS *sp, FTSENT *p, int instr)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int fts_compare_ino(const struct _ftsent **a, const struct _ftsent **b)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void set_stat_type(struct stat *st, unsigned int dtype)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static FTSENT *fts_build(FTS *sp, int type)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static unsigned short fts_stat(FTS *sp, FTSENT *p, _Bool follow)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int fts_compar(const void *a, const void *b)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static FTSENT *fts_sort(FTS *sp, FTSENT *head, size_t nitems)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static FTSENT *fts_alloc(FTS *sp, const char *name, size_t namelen)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fts_lfree(FTSENT *head)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool fts_palloc(FTS *sp, size_t more)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fts_padjust(FTS *sp, FTSENT *head)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t fts_maxarglen(char *const *argv)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int fts_safe_changedir(FTS *sp, FTSENT *p, int fd, const char *dir)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern void *mempcpy(void *__restrict __dest, const void *__restrict __src, size_t __n);
@@ -1572,7 +1572,7 @@ int rpl_fcntl(int fd, int action, ...);
 static int have_dupfd_cloexec = 0;
 int rpl_fcntl(int fd, int action, ...)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 volatile int exit_failure = (volatile int) 1;
@@ -1584,123 +1584,123 @@ _Bool exclude_fnmatch(const char *pattern, const char *f, int options);
 extern int fnmatch(const char *__pattern, const char *__name, int __flags);
 void exclude_add_pattern_buffer(struct exclude *ex, char *buf)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool fnmatch_pattern_has_wildcards(const char *str, int options);
 _Bool fnmatch_pattern_has_wildcards(const char *str, int options)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void unescape_pattern(char *str)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 struct exclude *new_exclude(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t string_hasher(const void *data, size_t n_buckets)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static size_t string_hasher_ci(const void *data, size_t n_buckets)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool string_compare(const void *data1, const void *data2)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool string_compare_ci(const void *data1, const void *data2)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void string_free(void *data)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void new_exclude_segment(struct exclude *ex, enum exclude_type type, int options)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int fnmatch_no_wildcards(const char *pattern, const char *f, int options)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool exclude_fnmatch(const char *pattern, const char *f, int options)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool exclude_patopts(const struct patopts *opts, const char *f)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool file_pattern_matches(const struct exclude_segment *seg, const char *f)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool file_name_matches(const struct exclude_segment *seg, const char *f, char *buffer___0)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool excluded_file_name(const struct exclude *ex, const char *f)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void add_exclude(struct exclude *ex, const char *pattern, int options)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int add_exclude_fp(void (*add_func)(struct exclude *, const char *, int, void *), struct exclude *ex, FILE *fp, int options, char line_end, void *data)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void call_addfn(struct exclude *ex, const char *pattern, int options, void *data)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int add_exclude_file(void (*add_func)(struct exclude *, const char *, int), struct exclude *ex, const char *file_name___1, int options, char line_end)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int dup_safer(int fd)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool is_zero_or_power_of_two(uintmax_t i)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void cycle_check_init(struct cycle_check_state *state)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool cycle_check(struct cycle_check_state *state, const struct stat *sb)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int should_colorize(void);
@@ -1709,7 +1709,7 @@ void print_start_colorize(const char *sgr_start___0, const char *sgr_seq);
 void print_end_colorize(const char *sgr_end___0);
 int should_colorize(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void init_colorize(void)
@@ -1721,12 +1721,12 @@ void init_colorize(void)
 
 void print_start_colorize(const char *sgr_start___0, const char *sgr_seq)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void print_end_colorize(const char *sgr_end___0)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void close_stdout(void);
@@ -1843,7 +1843,7 @@ int close_stream(FILE *stream)
 
 int set_cloexec_flag(int desc, _Bool value)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern void *memrchr(const void *__s, int __c, size_t __n);
@@ -1851,20 +1851,20 @@ int c_tolower(int c);
 int c_strcasecmp(const char *s1, const char *s2);
 int c_strcasecmp(const char *s1, const char *s2)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool c_isspace(int c);
 _Bool c_isspace(int c);
 _Bool c_isspace(int c)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int c_tolower(int c);
 int c_tolower(int c)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int set_binary_mode(int fd, int mode___0)
@@ -1883,29 +1883,29 @@ extern int putc_unlocked(int __c, FILE *__stream);
 void usage(int status);
 static void __argmatch_die(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void (*argmatch_die)(void) = & __argmatch_die;
 ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize);
 ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char *const *arglist, const char *vallist, size_t valsize, void (*exit_fn)(void))
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 #pragma weak pthread_mutexattr_settype
@@ -1923,12 +1923,12 @@ static pcre_extra *extra;
 static pcre_jit_stack *jit_stack;
 void Pcompile(const char *pattern, size_t size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t Pexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void kwsincr(kwset_t kwset___1, const char *text, size_t len);
@@ -1943,23 +1943,23 @@ void Fcompile(const char *pattern, size_t size);
 size_t Fexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr);
 static _Bool wordchar(wint_t wc)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static kwset_t kwset;
 void Fcompile(const char *pattern, size_t size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void mb_case_map_apply(const mb_len_map_t *map, size_t *off, size_t *len)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t Fexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 kwset_t kwsalloc(const char *trans___0);
@@ -3509,7 +3509,7 @@ static size_t bmexec(kwset_t kwset___1, const char *text, size_t size)
 
 static size_t cwexec(kwset_t kwset___1, const char *text, size_t len, struct kwsmatch *kwsmatch)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 size_t kwsexec(kwset_t kwset___1, const char *text, size_t size, struct kwsmatch *kwsmatch)
@@ -3591,13 +3591,13 @@ static _Bool begline;
 void dfaerror(const char *mesg);
 void dfaerror(const char *mesg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static enum __anonenum_mode_60 mode;
 void dfawarn(const char *mesg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void kwsmusts(void)
@@ -4707,7 +4707,7 @@ static int char_context(unsigned char c)
 
 static int wchar_context(wint_t wc)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void dfasyntax(reg_syntax_t bits, int fold, unsigned char eol)
@@ -4795,7 +4795,7 @@ static _Bool setbit_wc(wint_t wc, charclass_word *c)
 
 static void setbit_case_fold_c(int b, charclass_word *c)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int utf8 = - 1;
@@ -7648,12 +7648,12 @@ static void atom(void)
 
 static size_t nsubtoks(size_t tindex)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void copytoks(size_t tindex, size_t ntokens)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void closure(void)
@@ -9961,32 +9961,32 @@ static void build_state_zero(struct dfa *d)
 
 static status_transit_state transit_state_singlebyte(struct dfa *d, state_num s, const unsigned char *p, state_num *next_state)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int match_anychar(struct dfa *d, state_num s, position pos, wint_t wc, size_t mbclen)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int match_mb_charset(struct dfa *d, state_num s, position pos, const char *p, wint_t wc, size_t match_len)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int *check_matching_with_multibyte_ops(struct dfa *d, state_num s, const char *p, wint_t wc, size_t mbclen)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static status_transit_state transit_state_consume_1char(struct dfa *d, state_num s, const unsigned char **pp, wint_t wc, size_t mbclen, int *match_lens)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static state_num transit_state(struct dfa *d, state_num s, const unsigned char **pp, const unsigned char *end)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t *count, int *backref)
@@ -11977,7 +11977,7 @@ static mb_len_map_t *len_map;
 static size_t outalloc;
 char *mbtoupper(const char *beg, size_t *n, mb_len_map_t **len_map_p)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void build_mbclen_cache(void)
@@ -12156,12 +12156,12 @@ static const char *selected_line_color = "";
 static const char *context_line_color = "";
 static void pr_sgr_start(const char *s)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void pr_sgr_end(const char *s)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void pr_sgr_start_if(const char *s)
@@ -12190,17 +12190,17 @@ static void pr_sgr_end_if(const char *s)
 
 static void color_cap_mt_fct(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void color_cap_rv_fct(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void color_cap_ne_fct(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static const struct color_cap color_dict[12] = {{"mt", & selected_match_color, & color_cap_mt_fct}, {"ms", & selected_match_color, (void (*)(void)) ((void *) 0)}, {"mc", & context_match_color, (void (*)(void)) ((void *) 0)}, {"fn", & filename_color, (void (*)(void)) ((void *) 0)}, {"ln", & line_num_color, (void (*)(void)) ((void *) 0)}, {"bn", & byte_num_color, (void (*)(void)) ((void *) 0)}, {"se", & sep_color, (void (*)(void)) ((void *) 0)}, {"sl", & selected_line_color, (void (*)(void)) ((void *) 0)}, {"cx", & context_line_color, (void (*)(void)) ((void *) 0)}, {"rv", (const char **) ((void *) 0), & color_cap_rv_fct}, {"ne", (const char **) ((void *) 0), & color_cap_ne_fct}, {(const char *) ((void *) 0), (const char **) ((void *) 0), (void (*)(void)) ((void *) 0)}};
@@ -12221,7 +12221,7 @@ static int grepdesc(int desc, int command_line);
 static int undossify_input(char *buf, size_t buflen);
 static int is_device_mode(mode_t m)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int usable_st_size(const struct stat *st)
@@ -12249,7 +12249,7 @@ static void (*compile)(const char *, size_t);
 static size_t (*execute)(const char *, size_t, size_t *, const char *);
 static void suppressible_error(const char *mesg, int errnum)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void clean_up_stdout(void)
@@ -12331,7 +12331,7 @@ static int file_is_binary(const char *buf, size_t bufsize, int fd, const struct 
 
 static void context_length_arg(const char *str, intmax_t *out___0)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int skipped_file(const char *name, int command_line, int is_dir)
@@ -12605,12 +12605,12 @@ static int inp_map_idx = 0;
 static int out_map_idx = 1;
 static void dos_binary(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void dos_unix_byte_offsets(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int undossify_input(char *buf, size_t buflen)
@@ -12768,7 +12768,7 @@ static int undossify_input(char *buf, size_t buflen)
 
 static off_t dossified_pos(off_t byteno)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static uintmax_t add_count(uintmax_t a, uintmax_t b)
@@ -12833,7 +12833,7 @@ static void nlscan(const char *lim)
 
 static void print_filename(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void print_sep(char sep)
@@ -13091,7 +13091,7 @@ static const char *print_line_middle(const char *beg, const char *lim, const cha
 
 static const char *print_line_tail(const char *beg, const char *lim, const char *line_color)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void prline(const char *beg, const char *lim, int sep)
@@ -13990,7 +13990,7 @@ static intmax_t grep(int fd, const struct stat *st)
 
 static int grepdirent(FTS *fts, FTSENT *ent, int command_line)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int grepfile(int dirdesc, const char *name, int follow, int command_line)
@@ -14342,7 +14342,7 @@ static int grep_command_line_arg(const char *arg)
 
 void usage(int status)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void Gcompile(const char *pattern, size_t size)
@@ -14367,17 +14367,17 @@ static void Ecompile(const char *pattern, size_t size)
 
 static void Acompile(const char *pattern, size_t size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void GAcompile(const char *pattern, size_t size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void PAcompile(const char *pattern, size_t size)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static const struct matcher matchers[8] = {{{(const char) 'g', (const char) 'r', (const char) 'e', (const char) 'p', (const char) '\000'}, & Gcompile, & EGexecute}, {{(const char) 'e', (const char) 'g', (const char) 'r', (const char) 'e', (const char) 'p', (const char) '\000'}, & Ecompile, & EGexecute}, {{(const char) 'f', (const char) 'g', (const char) 'r', (const char) 'e', (const char) 'p', (const char) '\000'}, & Fcompile, & Fexecute}, {{(const char) 'a', (const char) 'w', (const char) 'k', (const char) '\000'}, & Acompile, & EGexecute}, {{(const char) 'g', (const char) 'a', (const char) 'w', (const char) 'k', (const char) '\000'}, & GAcompile, & EGexecute}, {{(const char) 'p', (const char) 'o', (const char) 's', (const char) 'i', (const char) 'x', (const char) 'a', (const char) 'w', (const char) 'k', (const char) '\000'}, & PAcompile, & EGexecute}, {{(const char) 'p', (const char) 'e', (const char) 'r', (const char) 'l', (const char) '\000'}, & Pcompile, & Pexecute}, {{(const char) '\000'}, (void (*)(const char *, size_t)) ((void *) 0), (size_t (*)(const char *, size_t, size_t *, const char *)) ((void *) 0)}};
@@ -14440,7 +14440,7 @@ static void setmatcher(const char *m)
 
 static size_t prepend_args(const char *options, char *buf, char **argv)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int prepend_default_options(const char *options, int *pargc, char ***pargv)
@@ -14578,17 +14578,17 @@ static int get_nondigit_option(int argc, char *const *argv, intmax_t *default_co
 
 static void parse_grep_colors(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool contains_encoding_error(const char *pat, size_t patlen)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fgrep_to_grep_pattern(size_t len, const char *keys, size_t *new_len, char **new_keys)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int main(int argc, char **argv)
