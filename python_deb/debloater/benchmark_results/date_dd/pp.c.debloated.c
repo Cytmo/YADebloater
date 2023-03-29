@@ -202,6 +202,9 @@ enum Time_spec
   TIME_SPEC_HOURS = 3,
   TIME_SPEC_MINUTES = 4
 };
+int c_strcasecmp(const char *s1, const char *s2);
+int c_tolower(int c);
+int c_strcasecmp(const char *s1, const char *s2);
 int c_strcasecmp(const char *s1, const char *s2)
 {
   register const unsigned char *p1;
@@ -241,6 +244,10 @@ int c_strcasecmp(const char *s1, const char *s2)
   }
 }
 
+_Bool c_isalpha(int c);
+_Bool c_isspace(int c);
+int c_toupper(int c);
+_Bool c_isalpha(int c);
 _Bool c_isalpha(int c)
 {
   int tmp;
@@ -262,6 +269,7 @@ _Bool c_isalpha(int c)
   }
 }
 
+_Bool c_isspace(int c);
 _Bool c_isspace(int c)
 {
   int tmp;
@@ -319,6 +327,7 @@ _Bool c_isspace(int c)
   }
 }
 
+int c_tolower(int c);
 int c_tolower(int c)
 {
   int tmp;
@@ -336,9 +345,11 @@ int c_tolower(int c)
       tmp = c;
     }
 
+    return tmp;
   }
 }
 
+int c_toupper(int c);
 int c_toupper(int c)
 {
   int tmp;
@@ -356,17 +367,19 @@ int c_toupper(int c)
       tmp = c;
     }
 
+    return tmp;
   }
 }
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
 char *last_component(const char *name);
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 void xalloc_die(void);
 void *xmalloc(size_t n);
+void *xrealloc(void *p, size_t n);
+__inline void *xnmalloc(size_t n, size_t s);
+__inline void *xnmalloc(size_t n, size_t s);
 __inline void *xnmalloc(size_t n, size_t s)
 {
   int tmp;
@@ -393,12 +406,14 @@ __inline void *xnmalloc(size_t n, size_t s)
 
 char *xcharalloc(size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+extern size_t strlen(const char *__s);
+char *last_component(const char *name);
 char *last_component(const char *name)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 extern void *malloc(size_t __size);
@@ -415,11 +430,15 @@ ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vall
 void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem);
 void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize);
 extern struct _IO_FILE *stderr;
+const char *quote(const char *arg);
+void usage(int status);
 static void __argmatch_die(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+void (*argmatch_die)(void) = & __argmatch_die;
+ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize);
 ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize)
 {
   size_t i;
@@ -492,12 +511,12 @@ ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vall
 
 void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char *const *arglist, const char *vallist, size_t valsize, void (*exit_fn)(void))
@@ -515,56 +534,64 @@ ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char 
   }
 }
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 extern struct _IO_FILE *stdout;
+extern void *memset(void *__s, int __c, size_t __n);
+void *xmalloc(size_t n);
 void *xmalloc(size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+void *xrealloc(void *p, size_t n);
 void *xrealloc(void *p, size_t n)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+void *xmemdup(const void *p, size_t s);
 void *xmemdup(const void *p, size_t s)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void xalloc_die(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors);
+void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors);
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+const char version_etc_copyright[47] = {(const char) 'C', (const char) 'o', (const char) 'p', (const char) 'y', (const char) 'r', (const char) 'i', (const char) 'g', (const char) 'h', (const char) 't', (const char) ' ', (const char) '%', (const char) 's', (const char) ' ', (const char) '%', (const char) 'd', (const char) ' ', (const char) 'F', (const char) 'r', (const char) 'e', (const char) 'e', (const char) ' ', (const char) 'S', (const char) 'o', (const char) 'f', (const char) 't', (const char) 'w', (const char) 'a', (const char) 'r', (const char) 'e', (const char) ' ', (const char) 'F', (const char) 'o', (const char) 'u', (const char) 'n', (const char) 'd', (const char) 'a', (const char) 't', (const char) 'i', (const char) 'o', (const char) 'n', (const char) ',', (const char) ' ', (const char) 'I', (const char) 'n', (const char) 'c', (const char) '.', (const char) '\000'};
 extern char *nl_langinfo(nl_item __item);
-struct timespec get_stat_mtime(const struct stat *st)
-{
-  exit(-1);
-}
-
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+struct timespec get_stat_mtime(const struct stat *st)
+{
+  _Exit(-1);
+}
+
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 const char *locale_charset(void);
@@ -577,19 +604,32 @@ __inline static int iso_week_days(int yday, int wday)
   }
 }
 
+#pragma GCC diagnostic pop
+extern int settimeofday(const struct timeval *__tv, const struct timezone *__tz);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 int settime(const struct timespec *ts)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+const char *const quoting_style_args[9] = {"literal", "shell", "shell-always", "c", "c-maybe", "escape", "locale", "clocale", (const char *) 0};
+const enum quoting_style quoting_style_vals[8] = {(const enum quoting_style) 0, (const enum quoting_style) 1, (const enum quoting_style) 2, (const enum quoting_style) 3, (const enum quoting_style) 4, (const enum quoting_style) 5, (const enum quoting_style) 6, (const enum quoting_style) 7};
+static struct quoting_options default_quoting_options;
 int set_char_quoting(struct quoting_options *o, char c, int i)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static struct quoting_options quoting_options_from_style(enum quoting_style style)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static const char *gettext_quote(const char *msgid, enum quoting_style s)
@@ -631,8 +671,11 @@ static const char *gettext_quote(const char *msgid, enum quoting_style s)
       _Exit(-1);
     }
 
+    if (((unsigned int) s) == 7U)
     {
+      _Exit(-1);
     }
+
   }
 }
 
@@ -1862,27 +1905,100 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
             {
               if (backslash_escapes)
               {
+                if (! printable)
                 {
+                  if (elide_outer_quotes)
                   {
+                    _Exit(-1);
                   }
+
+                  while (1)
+                  {
+                    if (len < buffersize)
+                    {
+                      _Exit(-1);
+                    }
+
+                  }
+
+                  while_break___18:
                   ;
+
+                  while (1)
                   {
+                    if (len < buffersize)
+                    {
+                      _Exit(-1);
+                    }
+
                   }
+
+                  while_break___19:
                   ;
+
+                  while (1)
                   {
+                    if (len < buffersize)
+                    {
+                      _Exit(-1);
+                    }
+
                   }
+
+                  while_break___20:
+                  ;
+
+                  c = (unsigned char) (48 + (((int) c) & 7));
                 }
+
+              }
+              else
+              {
+                _L:
+                ;
+
+                if (is_right_quote)
+                {
+                  while (1)
+                  {
+                    if (len < buffersize)
+                    {
+                      _Exit(-1);
+                    }
+
+                  }
+
+                  while_break___21:
+                  ;
+
+                  is_right_quote = (_Bool) 0;
+                }
+
               }
 
+              if (ilim <= (i + 1UL))
               {
+                _Exit(-1);
               }
+
+              while (1)
               {
+                if (len < buffersize)
+                {
+                  _Exit(-1);
+                }
+
               }
-              {
-              }
+
+              while_break___22:
+              ;
+
+              i++;
             }
 
+            while_break___17:
             ;
+
           }
 
         }
@@ -1892,30 +2008,77 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
       switch_break___0:
       ;
 
+      if (backslash_escapes)
       {
+        goto _L___3;
       }
+      else
       {
         if (elide_outer_quotes)
+        {
+          _L___3:
+          ;
+
+          if (quote_these_too)
+          {
+            if (! ((* (quote_these_too + (((unsigned long) c) / ((sizeof(int)) * 8UL)))) & ((const unsigned int) (1 << (((unsigned long) c) % ((sizeof(int)) * 8UL))))))
+            {
+              goto _L___2;
+            }
+
+          }
+
+        }
+        else
+        {
+          _L___2:
+          ;
+
+          if (! is_right_quote)
+          {
+            goto store_c;
+          }
+
+        }
+
+      }
+
+      store_escape:
+      ;
+
+      if (elide_outer_quotes)
+      {
+        _Exit(-1);
+      }
+
+      while (1)
+      {
+        if (len < buffersize)
         {
           _Exit(-1);
         }
 
-        {
-          {
-            goto store_c;
-          }
-        }
-      }
-      {
-      }
-      {
-      }
-      ;
-      store_c:
-      {
       }
 
+      while_break___23:
       ;
+
+      store_c:
+      while (1)
+      {
+        if (len < buffersize)
+        {
+          * (buffer + len) = (char) c;
+        }
+
+        len++;
+        goto while_break___24;
+      }
+
+
+      while_break___24:
+      ;
+
       __Cont:
       i++;
 
@@ -1924,19 +2087,54 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
     while_break___3:
     ;
 
+    if (len == 0UL)
     {
-    }
-    {
+      if (((unsigned int) quoting_style) == 2U)
       {
-        {
-          {
-          }
-        }
-        ;
+        _Exit(-1);
       }
+
     }
+
+    if (quote_string)
     {
+      if (! elide_outer_quotes)
+      {
+        while (1)
+        {
+          if (! (* quote_string))
+          {
+            goto while_break___25;
+          }
+
+          while (1)
+          {
+            if (len < buffersize)
+            {
+              * (buffer + len) = (char) (* quote_string);
+            }
+
+            len++;
+            goto while_break___26;
+          }
+
+          while_break___26:
+          quote_string++;
+
+        }
+
+        while_break___25:
+        ;
+
+      }
+
     }
+
+    if (len < buffersize)
+    {
+      * (buffer + len) = (char) '\000';
+    }
+
     return len;
     force_outer_quoting_style:
     ;
@@ -2006,30 +2204,41 @@ static char *quotearg_n_options(int n, const char *arg, size_t argsize, const st
     size = (sv + n)->size;
     val = (sv + n)->val;
     flags = (int) (options->flags | 1);
+    tmp___2 = quotearg_buffer_restyled(val, size, arg, argsize, (enum quoting_style) options->style, flags, (const unsigned int *) options->quote_these_too, (const char *) options->left_quote, (const char *) options->right_quote);
+    qsize = tmp___2;
+    if (size <= qsize)
     {
+      if (((unsigned long) val) != ((unsigned long) slot0))
+      {
+        _Exit(-1);
+      }
+
     }
+
     tmp___3 = __errno_location();
+    * tmp___3 = e;
+    return val;
   }
 }
 
 char *quotearg_n_style(int n, enum quoting_style s, const char *arg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_char_mem(const char *arg, size_t argsize, char ch)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_char(const char *arg, char ch)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 char *quotearg_colon(const char *arg)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 struct quoting_options quote_quoting_options = {(enum quoting_style) 6, 0, {0U}, (const char *) ((void *) 0), (const char *) ((void *) 0)};
@@ -2063,6 +2272,10 @@ const char *quote(const char *arg)
 const char *program_name;
 void set_program_name(const char *argv0);
 extern char *program_invocation_name;
+extern char *program_invocation_short_name;
+extern int fputs(const char *__restrict __s, FILE *__restrict __stream);
+extern char *strrchr(const char *__s, int __c);
+const char *program_name = (const char *) ((void *) 0);
 void set_program_name(const char *argv0)
 {
   const char *slash;
@@ -2095,32 +2308,41 @@ void set_program_name(const char *argv0)
 
     }
 
+    program_name = argv0;
+    program_invocation_name = (char *) argv0;
+    return;
   }
 }
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 extern time_t time(time_t *__timer);
 extern struct tm *localtime(const time_t *__timer);
+_Bool posixtime(time_t *p, const char *s, unsigned int syntax_bits);
+extern char *stpcpy(char *__restrict __dest, const char *__restrict __src);
 static int year(struct tm *tm, const int *digit_pair, size_t n, unsigned int syntax_bits)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static int posix_time_parse(struct tm *tm, const char *s, unsigned int syntax_bits)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 _Bool posixtime(time_t *p, const char *s, unsigned int syntax_bits)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+#pragma GCC diagnostic pop
+extern int setenv(const char *__name, const char *__value, int __replace);
+extern int unsetenv(const char *__name);
+extern int abs(int __x);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 static unsigned char to_uchar___0(char ch)
 {
@@ -2145,14 +2367,25 @@ static void digits_to_date_time(parser_control *pc, textint text_int)
     _L___1:
     if (4UL < text_int.digits)
     {
-      _Exit(-1);
+      pc->dates_seen++;
+      pc->day = text_int.value % 100L;
+      pc->month = (text_int.value / 100L) % 100L;
+      pc->year.value = text_int.value / 10000L;
+      pc->year.digits = text_int.digits - 4UL;
     }
-
-
+    else
     {
+      if (text_int.digits <= 2UL)
+      {
+        _Exit(-1);
+      }
+
     }
+
+
   }
 
+  return;
 }
 
 static void apply_relative_time(parser_control *pc, relative_time rel, int factor)
@@ -2204,6 +2437,7 @@ static void yydestruct(const char *yymsg, int yytype, YYSTYPE *yyvaluep, parser_
   return;
 }
 
+int yyparse(parser_control *pc);
 int yyparse(parser_control *pc)
 {
   int yychar;
@@ -3045,15 +3279,74 @@ int yyparse(parser_control *pc)
     case_71:
     __constr_expr_30.year = 0L;
 
+    __constr_expr_30.month = 0L;
+    __constr_expr_30.day = 0L;
+    __constr_expr_30.hour = 0L;
+    __constr_expr_30.minutes = 0L;
+    __constr_expr_30.seconds = (long_time_t) 0;
+    __constr_expr_30.ns = 0L;
+    yyval.rel = __constr_expr_30;
+    yyval.rel.seconds = (yyvsp + (- 1))->timespec.tv_sec;
+    yyval.rel.ns = (yyvsp + (- 1))->timespec.tv_nsec;
+    goto switch_break;
+    case_72:
+    ;
+
+    __constr_expr_31.year = 0L;
+    case_73:
+    ;
+
+    __constr_expr_32.year = 0L;
+    case_75:
+    ;
+
+    __constr_expr_33.year = 0L;
+    case_76:
+    ;
+
+    __constr_expr_34.year = 0L;
     case_77:
+    __constr_expr_35.year = 0L;
+
+    __constr_expr_35.month = 0L;
+    __constr_expr_35.day = 0L;
+    __constr_expr_35.hour = 0L;
+    __constr_expr_35.minutes = 0L;
+    __constr_expr_35.seconds = (long_time_t) 0;
+    __constr_expr_35.ns = 0L;
+    yyval.rel = __constr_expr_35;
+    yyval.rel.day = (yyvsp + (- 1))->textintval.value * (yyvsp + 0)->intval;
+    goto switch_break;
+    case_78:
+    ;
+
+    __constr_expr_36.year = 0L;
+    case_79:
+    ;
+
+    __constr_expr_37.year = 0L;
     case_80:
     __constr_expr_38.year = 0L;
 
-
     __constr_expr_38.month = 0L;
+    __constr_expr_38.day = 0L;
+    __constr_expr_38.hour = 0L;
+    __constr_expr_38.minutes = 0L;
+    __constr_expr_38.seconds = (long_time_t) 0;
+    __constr_expr_38.ns = 0L;
+    yyval.rel = __constr_expr_38;
+    yyval.rel.seconds = (yyvsp + (- 1))->textintval.value;
+    goto switch_break;
     case_81:
-    yyval.rel = __constr_expr_39;
+    __constr_expr_39.year = 0L;
 
+    __constr_expr_39.month = 0L;
+    __constr_expr_39.day = 0L;
+    __constr_expr_39.hour = 0L;
+    __constr_expr_39.minutes = 0L;
+    __constr_expr_39.seconds = (long_time_t) 0;
+    __constr_expr_39.ns = 0L;
+    yyval.rel = __constr_expr_39;
     yyval.rel.day = (yyvsp + 0)->intval;
     goto switch_break;
     case_85:
@@ -3067,9 +3360,15 @@ int yyparse(parser_control *pc)
     yyval.timespec.tv_nsec = (__syscall_slong_t) 0;
     goto switch_break;
     case_88:
+    digits_to_date_time(pc, (yyvsp + 0)->textintval);
+
+    goto switch_break;
+    case_89:
+    ;
+
+    digits_to_date_time(pc, (yyvsp + (- 1))->textintval);
     case_90:
     yyval.intval = - 1L;
-
 
     goto switch_break;
     case_91:
@@ -3096,36 +3395,106 @@ int yyparse(parser_control *pc)
         {
           yystate = (int) yytable[yystate];
         }
-
+        else
         {
+          yystate = (int) yydefgoto[yyn - 28];
         }
-      }
 
+      }
+      else
       {
+        yystate = (int) yydefgoto[yyn - 28];
       }
-    }
 
+    }
+    else
     {
       yystate = (int) yydefgoto[yyn - 28];
     }
+
     goto yynewstate;
+    yyerrlab:
+    ;
+
+    if (! yyerrstatus)
     {
-    }
-    {
-    }
-    {
-      {
-      }
-    }
-    yyacceptlab:
-    {
+      _Exit(-1);
     }
 
+    if (yyerrstatus == 3)
     {
+      _Exit(-1);
     }
+
+    yyvsp -= yylen;
+    yyssp -= yylen;
+    yylen = 0;
+    yystate = (int) (* yyssp);
+    goto yyerrlab1;
+    yyerrlab1:
     ;
+
+    yyerrstatus = 3;
+    while (1)
     {
+      if (yyn != (- 93))
+      {
+        _Exit(-1);
+      }
+
+      if (((unsigned long) yyssp) == ((unsigned long) yyss))
+      {
+        _Exit(-1);
+      }
+
     }
+
+    while_break___1:
+    ;
+
+    yyvsp++;
+    yyacceptlab:
+    yyresult = 0;
+
+    goto yyreturn;
+    yyabortlab:
+    ;
+
+    yyresult = 1;
+    yyexhaustedlab:
+    ;
+
+    yyerror((const parser_control *) pc, "memory exhausted");
+    yyreturn:
+    if (yychar != (- 2))
+    {
+      _Exit(-1);
+    }
+
+
+    yyvsp -= yylen;
+    yyssp -= yylen;
+    while (1)
+    {
+      if (! (((unsigned long) yyssp) != ((unsigned long) yyss)))
+      {
+        goto while_break___2;
+      }
+
+      yydestruct("Cleanup: popping", (int) yystos[* yyssp], yyvsp, pc);
+      yyvsp--;
+      yyssp--;
+    }
+
+    while_break___2:
+    ;
+
+    if (((unsigned long) yyss) != ((unsigned long) yyssa))
+    {
+      _Exit(-1);
+    }
+
+    return yyresult;
   }
 }
 
@@ -3136,6 +3505,7 @@ static const table time_units_table[11] = {{"YEAR", 260, 1}, {"MONTH", 261, 1}, 
 static const table relative_time_table[21] = {{"TOMORROW", 266, 1}, {"YESTERDAY", 266, - 1}, {"TODAY", 266, 0}, {"NOW", 266, 0}, {"LAST", 272, - 1}, {"THIS", 272, 0}, {"NEXT", 272, 1}, {"FIRST", 272, 1}, {"THIRD", 272, 3}, {"FOURTH", 272, 4}, {"FIFTH", 272, 5}, {"SIXTH", 272, 6}, {"SEVENTH", 272, 7}, {"EIGHTH", 272, 8}, {"NINTH", 272, 9}, {"TENTH", 272, 10}, {"ELEVENTH", 272, 11}, {"TWELFTH", 272, 12}, {"AGO", 258, - 1}, {"HENCE", 258, 1}, {(const char *) ((void *) 0), 0, 0}};
 static const table universal_time_zone_table[4] = {{"GMT", 273, 0}, {"UT", 273, 0}, {"UTC", 273, 0}, {(const char *) ((void *) 0), 0, 0}};
 static const table time_zone_table[48] = {{"WET", 273, 0}, {"WEST", 268, 0}, {"BST", 268, 0}, {"ART", 273, - 180}, {"BRT", 273, - 180}, {"BRST", 268, - 180}, {"NST", 273, - 210}, {"NDT", 268, - 210}, {"AST", 273, - 240}, {"ADT", 268, - 240}, {"CLT", 273, - 240}, {"CLST", 268, - 240}, {"EST", 273, - 300}, {"EDT", 268, - 300}, {"CST", 273, - 360}, {"CDT", 268, - 360}, {"MST", 273, - 420}, {"MDT", 268, - 420}, {"PST", 273, - 480}, {"PDT", 268, - 480}, {"AKST", 273, - 540}, {"AKDT", 268, - 540}, {"HST", 273, - 600}, {"HAST", 273, - 600}, {"HADT", 268, - 600}, {"SST", 273, - 720}, {"WAT", 273, 60}, {"CET", 273, 60}, {"CEST", 268, 60}, {"MET", 273, 60}, {"MEZ", 273, 60}, {"MEST", 268, 60}, {"MESZ", 268, 60}, {"EET", 273, 120}, {"EEST", 268, 120}, {"CAT", 273, 120}, {"SAST", 273, 120}, {"EAT", 273, 180}, {"MSK", 273, 180}, {"MSD", 268, 180}, {"IST", 273, 330}, {"SGT", 273, 480}, {"KST", 273, 540}, {"JST", 273, 540}, {"GST", 273, 600}, {"NZST", 273, 720}, {"NZDT", 268, 720}, {(const char *) ((void *) 0), 0, 0}};
+static const table military_table[26] = {{"A", 273, - 60}, {"B", 273, - 120}, {"C", 273, - 180}, {"D", 273, - 240}, {"E", 273, - 300}, {"F", 273, - 360}, {"G", 273, - 420}, {"H", 273, - 480}, {"I", 273, - 540}, {"K", 273, - 600}, {"L", 273, - 660}, {"M", 273, - 720}, {"N", 273, 60}, {"O", 273, 120}, {"P", 273, 180}, {"Q", 273, 240}, {"R", 273, 300}, {"S", 273, 360}, {"T", 'T', 0}, {"U", 273, 480}, {"V", 273, 540}, {"W", 273, 600}, {"X", 273, 660}, {"Y", 273, 720}, {"Z", 273, 0}, {(const char *) ((void *) 0), 0, 0}};
 static long time_zone_hhmm(parser_control *pc, textint s, long mm)
 {
   long n_minutes;
@@ -3170,6 +3540,7 @@ static long time_zone_hhmm(parser_control *pc, textint s, long mm)
       _Exit(-1);
     }
 
+    return n_minutes;
   }
 }
 
@@ -3230,9 +3601,19 @@ static int to_hour(long hours, int meridian)
     {
       _Exit(-1);
     }
-
+    else
     {
+      _L___0:
+      ;
+
+      if (hours == 12L)
+      {
+        _Exit(-1);
+      }
+
     }
+
+    return 0;
   }
 }
 
@@ -3260,6 +3641,7 @@ static long to_year(textint textyear)
 
     }
 
+    return year___1;
   }
 }
 
@@ -3555,9 +3937,14 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
 
     }
 
+    while_break___6:
     ;
+
+    if (period_found)
     {
+      _Exit(-1);
     }
+
   }
 }
 
@@ -3921,23 +4308,40 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
           _Exit(-1);
         }
 
+        if (((int) c) == 40)
         {
+          _Exit(-1);
         }
+        else
         {
+          if (((int) c) == 41)
+          {
+            _Exit(-1);
+          }
+
         }
+
+        if (! (count != 0UL))
         {
+          _Exit(-1);
         }
+
       }
 
+      while_break___7:
       ;
+
+      __Cont:
       ;
+
     }
+    return 0;
   }
 }
 
 static int yyerror(const parser_control *pc, const char *s)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool mktime_ok(const struct tm *tm0, const struct tm *tm1, time_t t)
@@ -3951,6 +4355,7 @@ static _Bool mktime_ok(const struct tm *tm0, const struct tm *tm1, time_t t)
 
   }
 
+  return (_Bool) (! ((((((tm0->tm_sec ^ tm1->tm_sec) | (tm0->tm_min ^ tm1->tm_min)) | (tm0->tm_hour ^ tm1->tm_hour)) | (tm0->tm_mday ^ tm1->tm_mday)) | (tm0->tm_mon ^ tm1->tm_mon)) | (tm0->tm_year ^ tm1->tm_year)));
 }
 
 static char *get_tz(char *tzbuf)
@@ -3973,6 +4378,7 @@ static char *get_tz(char *tzbuf)
 
     }
 
+    return tz;
   }
 }
 
@@ -4411,10 +4817,28 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
           _Exit(-1);
         }
 
+        Start = t1;
       }
 
+      sum_ns = pc.seconds.tv_nsec + pc.rel.ns;
+      normalized_ns = ((sum_ns % 1000000000L) + 1000000000L) % 1000000000L;
+      t0 = Start;
+      d1 = 3600L * pc.rel.hour;
+      t1___0 = t0 + d1;
+      d2 = 60L * pc.rel.minutes;
+      t2 = t1___0 + d2;
+      d3 = pc.rel.seconds;
+      t3 = t2 + d3;
+      d4 = (sum_ns - normalized_ns) / 1000000000L;
+      t4 = t3 + d4;
+      t5 = t4;
+      if ((((((((d1 / 3600L) ^ pc.rel.hour) | ((d2 / 60L) ^ pc.rel.minutes)) | ((long) ((t1___0 < t0) ^ (d1 < 0L)))) | ((long) ((t2 < t1___0) ^ (d2 < 0L)))) | ((long) ((t3 < t2) ^ (d3 < 0L)))) | ((long) ((t4 < t3) ^ (d4 < 0L)))) | ((long) (t5 != t4)))
       {
+        _Exit(-1);
       }
+
+      result->tv_sec = t5;
+      result->tv_nsec = normalized_ns;
     }
 
     goto done;
@@ -4422,18 +4846,31 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
     ok = (_Bool) 0;
 
     done:
+    if (tz_was_altered)
     {
+      if (tz0)
       {
+        _Exit(-1);
       }
+      else
+      {
+        tmp___15 = unsetenv("TZ");
+        tmp___16 = tmp___15;
+      }
+
+      ok = (_Bool) (((int) ok) & (tmp___16 == 0));
     }
 
+
+    if (((unsigned long) tz0) != ((unsigned long) tz0buf))
     {
+      free((void *) tz0);
     }
+
+    return ok;
   }
 }
 
-#pragma GCC diagnostic pop
-const unsigned int is_basic_table[8] = {(const unsigned int) 6656, (const unsigned int) 4294967279U, (const unsigned int) 4294967294U, (const unsigned int) 2147483646};
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
@@ -4599,21 +5036,36 @@ static const char *get_charset_aliases(void)
                 _Exit(-1);
               }
 
+              if (((unsigned long) res_ptr) == ((unsigned long) ((void *) 0)))
               {
+                _Exit(-1);
               }
+
+              __Cont:
               ;
+
             }
 
+            while_break:
+            ;
+
+            rpl_fclose(fp);
+            if (res_size == 0UL)
             {
+              _Exit(-1);
             }
+
           }
 
         }
 
+        free((void *) file_name___3);
       }
 
+      charset_aliases = cp;
     }
 
+    return cp;
   }
 }
 
@@ -4658,16 +5110,30 @@ const char *locale_charset(void)
     while_break:
     ;
 
+    if (((const int) (* (codeset + 0))) == 0)
     {
+      _Exit(-1);
     }
+
+    return codeset;
   }
 }
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#pragma GCC diagnostic ignored "-Wtype-limits"
+char *imaxtostr(intmax_t i, char *buf___1);
 char *imaxtostr(intmax_t i, char *buf___1)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 void gettime(struct timespec *ts)
 {
   int tmp;
@@ -4682,14 +5148,22 @@ void gettime(struct timespec *ts)
   }
 }
 
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 int rpl_fseeko(FILE *fp, off_t offset, int whence)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+extern int fputc(int __c, FILE *__stream);
+size_t fprintftime(FILE *s, const char *format, const struct tm *tp, int ut, int ns);
 static void fwrite_lowcase(FILE *fp, const char *src, size_t len)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static void fwrite_uppcase(FILE *fp, const char *src, size_t len)
@@ -6861,21 +7335,46 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       ;
 
       yy = (int) (((tp->tm_year % 100) + ((const int) year_adjust)) % 100);
+      if (0 <= yy)
       {
+        _Exit(-1);
       }
+      else
       {
+        if (tp->tm_year < ((const int) ((- 1900) - year_adjust)))
+        {
+          _Exit(-1);
+        }
+
       }
+
+      case_71___0:
+      ;
+
+      digits = 4;
       switch_default___1:
       digits = 2;
 
       number_value = (days / 7) + 1;
       goto do_number;
       case_87:
+      if (modifier == 69)
       {
+        _Exit(-1);
       }
 
+
+      digits = 2;
+      number_value = (int) (((tp->tm_yday - (((tp->tm_wday - 1) + 7) % 7)) + 7) / 7);
+      goto do_number;
+      case_119:
+      ;
+
+      if (modifier == 69)
       {
+        _Exit(-1);
       }
+
       case_89:
       if (modifier == 69)
       {
@@ -6883,127 +7382,376 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       }
 
 
+      if (modifier == 79)
       {
+        _Exit(-1);
       }
+      else
       {
-      }
-      {
-      }
-      {
-      }
-      case_90:
-      {
+        digits = 4;
       }
 
+      negative_number = (_Bool) (tp->tm_year < (- 1900));
+      u_number_value = ((unsigned int) tp->tm_year) + 1900U;
+      goto do_signed_number;
+      case_121:
+      ;
+
+      if (modifier == 69)
       {
+        _Exit(-1);
       }
+
+      if (yy___0 < 0)
       {
+        _Exit(-1);
+      }
+
+      case_90:
+      if (change_case)
+      {
+        _Exit(-1);
+      }
+
+
+      if (! zone)
+      {
+        _Exit(-1);
+      }
+
+      while (1)
+      {
+        tmp___36 = strlen(zone);
+        _n___10 = tmp___36;
+        if (width < 0)
         {
+          tmp___37 = 0;
         }
+
+        _w___10 = (size_t) tmp___37;
+        if (_n___10 < _w___10)
         {
+          _Exit(-1);
         }
+        else
+        {
+          tmp___38 = _n___10;
+        }
+
         _incr___10 = tmp___38;
+        if (_incr___10 >= (maxsize - i))
         {
+          _Exit(-1);
         }
+
+        if (p)
         {
+          if (digits == 0)
           {
             if (_n___10 < _w___10)
             {
               if (pad == 48)
               {
+                while (1)
                 {
+                  while (1)
+                  {
+                    if (! (_i___23 < _delta___10))
+                    {
+                      _Exit(-1);
+                    }
+
+                  }
+
+                  while_break___68:
                   ;
+
                 }
+
+                while_break___67:
                 ;
+
+              }
+              else
+              {
+                while (1)
+                {
+                  while (1)
+                  {
+                    if (! (_i___24 < _delta___10))
+                    {
+                      _Exit(-1);
+                    }
+
+                  }
+
+                  while_break___70:
+                  ;
+
+                }
+
+                while_break___69:
+                ;
+
               }
 
-              {
-                {
-                  ;
-                }
-                ;
-              }
             }
 
           }
+
+          while (1)
           {
             if (to_lowcase)
             {
               _Exit(-1);
             }
-
+            else
             {
+              if (to_uppcase)
               {
+                _Exit(-1);
               }
+              else
+              {
+                fwrite((const void *) zone, _n___10, (size_t) 1, p);
+              }
+
             }
+
+            goto while_break___71;
           }
+
+          while_break___71:
           ;
+
         }
+
+        i += _incr___10;
+        goto while_break___66;
       }
+
+      while_break___66:
       ;
+
       goto switch_break___1;
       case_58:
+      colons = (size_t) 1;
+
+      while (1)
       {
+        if (! (((const int) (* (f + colons))) == 58))
+        {
+          goto while_break___72;
+        }
+
+        __Cont___0:
+        ;
+
+        colons++;
       }
 
+      while_break___72:
       ;
+
+      if (((const int) (* (f + colons))) != 122)
       {
+        _Exit(-1);
       }
+
+      f += colons;
       goto do_z_conversion;
       case_122:
       colons = (size_t) 0;
 
       do_z_conversion:
+      if (tp->tm_isdst < 0)
       {
+        _Exit(-1);
       }
 
+
+      diff = (int) tp->tm_gmtoff;
+      hour_diff = (diff / 60) / 60;
+      min_diff = (diff / 60) % 60;
+      sec_diff = diff % 60;
+      if (colons == 0UL)
       {
+        goto case_0;
       }
+
+      if (colons == 1UL)
       {
+        goto tz_hh_mm;
       }
+
+      if (colons == 2UL)
       {
+        _Exit(-1);
       }
+
+      if (colons == 3UL)
       {
+        _Exit(-1);
       }
-      {
-      }
-      {
-      }
-      {
-      }
+
+      case_0:
+      digits = 5;
+
+      negative_number = (_Bool) (diff < 0);
+      tz_colon_mask = 0;
+      u_number_value = (unsigned int) ((hour_diff * 100) + min_diff);
+      goto do_tz_offset;
+      tz_hh_mm:
+      digits = 6;
+
+      negative_number = (_Bool) (diff < 0);
+      tz_colon_mask = 4;
+      u_number_value = (unsigned int) ((hour_diff * 100) + min_diff);
+      goto do_tz_offset;
+      tz_hh_mm_ss:
       ;
+
+      digits = 9;
+      case_3:
+      ;
+
+      if (sec_diff != 0)
       {
+        _Exit(-1);
+      }
+
+      if (min_diff != 0)
+      {
+        _Exit(-1);
+      }
+
+      switch_default___2:
+      ;
+
+      goto bad_format;
+      case_0___0:
+      ;
+
+      f--;
+      bad_format:
+      ;
+
+      flen = 1;
+      while (1)
+      {
+        if (! (((const int) (* (f + (1 - flen)))) != 37))
         {
+          _Exit(-1);
         }
+
+        __Cont___1:
+        ;
+
+        flen++;
+      }
+
+      while_break___73:
+      ;
+
+      while (1)
+      {
+        if (width < 0)
         {
+          _Exit(-1);
         }
+
+        if (_n___11 < _w___11)
         {
+          _Exit(-1);
+        }
+
+        if (_incr___11 >= (maxsize - i))
+        {
+          _Exit(-1);
+        }
+
+        if (p)
+        {
+          if (digits == 0)
           {
+            if (_n___11 < _w___11)
             {
               if (pad == 48)
               {
+                while (1)
                 {
+                  while (1)
+                  {
+                    if (! (_i___25 < _delta___11))
+                    {
+                      _Exit(-1);
+                    }
+
+                  }
+
+                  while_break___76:
                   ;
+
                 }
+
+                while_break___75:
                 ;
+
+              }
+              else
+              {
+                while (1)
+                {
+                  while (1)
+                  {
+                    if (! (_i___26 < _delta___11))
+                    {
+                      _Exit(-1);
+                    }
+
+                  }
+
+                  while_break___78:
+                  ;
+
+                }
+
+                while_break___77:
+                ;
+
               }
 
-              {
-                {
-                  ;
-                }
-                ;
-              }
             }
+
           }
+
+          while (1)
           {
+            if (to_lowcase)
             {
+              _Exit(-1);
             }
+            else
+            {
+              if (to_uppcase)
+              {
+                _Exit(-1);
+              }
+
+            }
+
           }
+
+          while_break___79:
           ;
+
         }
+
       }
+
+      while_break___74:
       ;
+
       switch_break___1:
       ;
 
@@ -7015,6 +7763,7 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
     while_break:
     ;
 
+    return i;
   }
 }
 
@@ -7027,9 +7776,15 @@ size_t fprintftime(FILE *s, const char *format, const struct tm *tp, int ut, int
   }
 }
 
+int rpl_fflush(FILE *stream);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+extern int __freading(FILE *__fp);
 static void clear_ungetc_buffer_preserving_position(FILE *fp)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 int rpl_fflush(FILE *stream)
@@ -7056,6 +7811,7 @@ int rpl_fflush(FILE *stream)
   }
 }
 
+#pragma GCC diagnostic pop
 int rpl_fclose(FILE *fp)
 {
   int saved_errno;
@@ -7105,11 +7861,10 @@ int rpl_fclose(FILE *fp)
       _Exit(-1);
     }
 
+    return result;
   }
 }
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
 int close_stream(FILE *stream);
 static const char *file_name;
 static _Bool ignore_EPIPE;
@@ -7146,11 +7901,21 @@ void close_stdout(void)
 
     }
 
+    tmp___5 = close_stream(stderr);
+    if (tmp___5 != 0)
     {
+      _Exit(-1);
     }
+
+    return;
   }
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+extern size_t __fpending(FILE *__fp);
 int close_stream(FILE *stream)
 {
   _Bool some_pending;
@@ -7200,34 +7965,35 @@ int close_stream(FILE *stream)
 
     }
 
+    return 0;
   }
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 const char *Version = "8.21";
 extern int fputc_unlocked(int __c, FILE *__stream);
 extern char *optarg;
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 __inline static void emit_mandatory_arg_note(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 __inline static void emit_ancillary_info(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 __inline static void emit_try_help(void)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 __inline static char *timetostr(time_t t, char *buf___1)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 __inline static char *bad_cast(const char *s)
@@ -7235,9 +8001,6 @@ __inline static char *bad_cast(const char *s)
   return (char *) s;
 }
 
-#pragma GCC diagnostic ignored "-Wmissing-prototypes"
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
 static _Bool show_date(const char *format, struct timespec when);
 static const char *const time_spec_string[6] = {"hours", "minutes", "date", "seconds", "ns", (const char *) ((void *) 0)};
 static const enum Time_spec time_spec[5] = {(const enum Time_spec) 3, (const enum Time_spec) 4, (const enum Time_spec) 0, (const enum Time_spec) 1, (const enum Time_spec) 2};
@@ -7246,12 +8009,12 @@ static const char short_options[14] = {(const char) 'd', (const char) ':', (cons
 static const struct option long_options___1[14] = {{"date", 1, (int *) ((void *) 0), 'd'}, {"file", 1, (int *) ((void *) 0), 'f'}, {"iso-8601", 2, (int *) ((void *) 0), 'I'}, {"reference", 1, (int *) ((void *) 0), 'r'}, {"rfc-822", 0, (int *) ((void *) 0), 'R'}, {"rfc-2822", 0, (int *) ((void *) 0), 'R'}, {"rfc-3339", 1, (int *) ((void *) 0), 128}, {"set", 1, (int *) ((void *) 0), 's'}, {"uct", 0, (int *) ((void *) 0), 'u'}, {"utc", 0, (int *) ((void *) 0), 'u'}, {"universal", 0, (int *) ((void *) 0), 'u'}, {"help", 0, (int *) ((void *) 0), - 130}, {"version", 0, (int *) ((void *) 0), - 131}, {(const char *) ((void *) 0), 0, (int *) ((void *) 0), 0}};
 void usage(int status)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static _Bool batch_convert(const char *input_filename, const char *format)
 {
-  exit(-1);
+  _Exit(-1);
 }
 
 static const char rfc_3339_format[3][32] = {{(const char) '%', (const char) 'Y', (const char) '-', (const char) '%', (const char) 'm', (const char) '-', (const char) '%', (const char) 'd', (const char) '\000'}, {(const char) '%', (const char) 'Y', (const char) '-', (const char) '%', (const char) 'm', (const char) '-', (const char) '%', (const char) 'd', (const char) ' ', (const char) '%', (const char) 'H', (const char) ':', (const char) '%', (const char) 'M', (const char) ':', (const char) '%', (const char) 'S', (const char) '%', (const char) ':', (const char) 'z', (const char) '\000'}, {(const char) '%', (const char) 'Y', (const char) '-', (const char) '%', (const char) 'm', (const char) '-', (const char) '%', (const char) 'd', (const char) ' ', (const char) '%', (const char) 'H', (const char) ':', (const char) '%', (const char) 'M', (const char) ':', (const char) '%', (const char) 'S', (const char) '.', (const char) '%', (const char) 'N', (const char) '%', (const char) ':', (const char) 'z', (const char) '\000'}};
@@ -7562,22 +8325,51 @@ int main(int argc, char **argv)
         _L:
         if (((unsigned long) reference) != ((unsigned long) ((void *) 0)))
         {
+          if (tmp___17 != 0)
+          {
+            _Exit(-1);
+          }
+
+        }
+        else
+        {
+          if (set_datestr)
+          {
+            _Exit(-1);
+          }
+
+          valid_date = parse_datetime(& when, datestr, (const struct timespec *) ((void *) 0));
+        }
+
+
+      }
+
+      if (! valid_date)
+      {
+        tmp___18 = quote(datestr);
+        tmp___19 = gettext("invalid date %s");
+        error(1, 0, (const char *) tmp___19, tmp___18);
+      }
+
+      if (set_date)
+      {
+        if (tmp___22 != 0)
+        {
           _Exit(-1);
         }
 
-
-        {
-        }
       }
 
-      {
-      }
-      {
-      }
+      tmp___23 = show_date(format, when);
+      ok = (_Bool) (((int) ok) & ((int) tmp___23));
     }
 
+    if (ok)
     {
+      tmp___24 = 0;
     }
+
+    exit(tmp___24);
   }
 }
 
@@ -7606,6 +8398,7 @@ static _Bool show_date(const char *format, struct timespec when)
       setlocale(2, "");
     }
 
+    return (_Bool) 1;
   }
 }
 

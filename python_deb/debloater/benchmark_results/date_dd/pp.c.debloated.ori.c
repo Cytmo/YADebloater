@@ -253,9 +253,9 @@ enum Time_spec
   TIME_SPEC_HOURS = 3,
   TIME_SPEC_MINUTES = 4
 };
-
-
-
+int c_strcasecmp(const char *s1, const char *s2);
+int c_tolower(int c);
+int c_strcasecmp(const char *s1, const char *s2);
 int c_strcasecmp(const char *s1, const char *s2)
 {
   register const unsigned char *p1;
@@ -267,7 +267,6 @@ int c_strcasecmp(const char *s1, const char *s2)
     p2 = (const unsigned char *) s2;
     if (((unsigned long) p1) == ((unsigned long) p2))
     {
- 
     }
 
     while (1)
@@ -283,7 +282,6 @@ int c_strcasecmp(const char *s1, const char *s2)
       p2++;
       if (! (((int) c1) == ((int) c2)))
       {
- 
       }
 
     }
@@ -295,10 +293,10 @@ int c_strcasecmp(const char *s1, const char *s2)
   }
 }
 
-
-
-
-
+_Bool c_isalpha(int c);
+_Bool c_isspace(int c);
+int c_toupper(int c);
+_Bool c_isalpha(int c);
 _Bool c_isalpha(int c)
 {
   int tmp;
@@ -309,10 +307,6 @@ _Bool c_isalpha(int c)
       {
         tmp = 1;
       }
- 
- 
- 
- 
 
     }
     else
@@ -324,7 +318,7 @@ _Bool c_isalpha(int c)
   }
 }
 
-
+_Bool c_isspace(int c);
 _Bool c_isspace(int c)
 {
   int tmp;
@@ -337,31 +331,26 @@ _Bool c_isspace(int c)
     {
       if (c == 9)
       {
- 
       }
       else
       {
         if (c == 10)
         {
- 
         }
         else
         {
           if (c == 11)
           {
- 
           }
           else
           {
             if (c == 12)
             {
- 
             }
             else
             {
               if (c == 13)
               {
- 
               }
               else
               {
@@ -382,7 +371,7 @@ _Bool c_isspace(int c)
   }
 }
 
-
+int c_tolower(int c);
 int c_tolower(int c)
 {
   int tmp;
@@ -393,10 +382,6 @@ int c_tolower(int c)
       {
         tmp = (c - 65) + 97;
       }
- 
- 
- 
- 
 
     }
     else
@@ -404,11 +389,11 @@ int c_tolower(int c)
       tmp = c;
     }
 
-
+    return tmp;
   }
 }
 
-
+int c_toupper(int c);
 int c_toupper(int c)
 {
   int tmp;
@@ -419,10 +404,6 @@ int c_toupper(int c)
       {
         tmp = (c - 97) + 65;
       }
- 
- 
- 
- 
 
     }
     else
@@ -430,7 +411,7 @@ int c_toupper(int c)
       tmp = c;
     }
 
-
+    return tmp;
   }
 }
 
@@ -440,17 +421,17 @@ int c_toupper(int c)
 
 
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
+
+
 char *last_component(const char *name);
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 void xalloc_die(void);
 void *xmalloc(size_t n);
-
-
-
+void *xrealloc(void *p, size_t n);
+__inline void *xnmalloc(size_t n, size_t s);
+__inline void *xnmalloc(size_t n, size_t s);
 __inline void *xnmalloc(size_t n, size_t s)
 {
   int tmp;
@@ -477,77 +458,12 @@ __inline void *xnmalloc(size_t n, size_t s)
 
 char *xcharalloc(size_t n)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
-
-
+extern size_t strlen(const char *__s);
+char *last_component(const char *name);
 char *last_component(const char *name)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 extern void *malloc(size_t __size);
@@ -580,16 +496,14 @@ extern struct _IO_FILE *stderr;
 
 
 
-
-
+const char *quote(const char *arg);
+void usage(int status);
 static void __argmatch_die(void)
 {
- 
- 
 }
 
-
-
+void (*argmatch_die)(void) = & __argmatch_die;
+ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize);
 ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize)
 {
   size_t i;
@@ -608,7 +522,6 @@ ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vall
     {
       if (! (* (arglist + i)))
       {
- 
       }
 
       tmp___1 = strncmp((const char *) (* (arglist + i)), arg, arglen);
@@ -623,20 +536,16 @@ ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vall
         {
           if (matchind == (- 1L))
           {
- 
           }
           else
           {
             if (((unsigned long) vallist) == ((unsigned long) ((void *) 0)))
             {
- 
             }
             else
             {
- 
               if (tmp)
               {
- 
               }
 
             }
@@ -655,95 +564,17 @@ ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vall
 
     if (ambiguous)
     {
- 
     }
- 
- 
- 
- 
 
   }
 }
 
 void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char *const *arglist, const char *vallist, size_t valsize, void (*exit_fn)(void))
@@ -758,10 +589,6 @@ ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char 
       return res;
     }
 
- 
- 
- 
- 
   }
 }
 
@@ -771,7 +598,6 @@ ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char 
 
 
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
 
 
 
@@ -804,7 +630,8 @@ ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char 
 
 
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
+
+
 #pragma GCC diagnostic pop
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
@@ -818,64 +645,20 @@ extern struct _IO_FILE *stdout;
 
 
 
-
-
+extern void *memset(void *__s, int __c, size_t __n);
+void *xmalloc(size_t n);
 void *xmalloc(size_t n)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
-
+void *xrealloc(void *p, size_t n);
 void *xrealloc(void *p, size_t n)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
-
+void *xmemdup(const void *p, size_t s);
 void *xmemdup(const void *p, size_t s)
 {
- 
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -904,12 +687,6 @@ void *xmemdup(const void *p, size_t s)
 
 void xalloc_die(void)
 {
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -936,251 +713,24 @@ void xalloc_die(void)
 
 
 
-
-
-
+void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors);
+void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors);
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
-
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...)
 {
- 
- 
- 
- 
- 
- 
- 
 }
 
-
+const char version_etc_copyright[47] = {(const char) 'C', (const char) 'o', (const char) 'p', (const char) 'y', (const char) 'r', (const char) 'i', (const char) 'g', (const char) 'h', (const char) 't', (const char) ' ', (const char) '%', (const char) 's', (const char) ' ', (const char) '%', (const char) 'd', (const char) ' ', (const char) 'F', (const char) 'r', (const char) 'e', (const char) 'e', (const char) ' ', (const char) 'S', (const char) 'o', (const char) 'f', (const char) 't', (const char) 'w', (const char) 'a', (const char) 'r', (const char) 'e', (const char) ' ', (const char) 'F', (const char) 'o', (const char) 'u', (const char) 'n', (const char) 'd', (const char) 'a', (const char) 't', (const char) 'i', (const char) 'o', (const char) 'n', (const char) ',', (const char) ' ', (const char) 'I', (const char) 'n', (const char) 'c', (const char) '.', (const char) '\000'};
 extern char *nl_langinfo(nl_item __item);
-
-
-
-
-
-
-
-
-
-
-
-struct timespec get_stat_mtime(const struct stat *st)
-{
- 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1191,6 +741,67 @@ struct timespec get_stat_mtime(const struct stat *st)
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+struct timespec get_stat_mtime(const struct stat *st)
+{
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 const char *locale_charset(void);
@@ -1283,41 +894,14 @@ __inline static int iso_week_days(int yday, int wday)
 
 
 
-
-
-
-
-
-
+#pragma GCC diagnostic pop
+extern int settimeofday(const struct timeval *__tv, const struct timezone *__tz);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 int settime(const struct timespec *ts)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -1424,71 +1008,19 @@ int settime(const struct timespec *ts)
 
 
 
-
-
-
-
-
-
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+const char *const quoting_style_args[9] = {"literal", "shell", "shell-always", "c", "c-maybe", "escape", "locale", "clocale", (const char *) 0};
+const enum quoting_style quoting_style_vals[8] = {(const enum quoting_style) 0, (const enum quoting_style) 1, (const enum quoting_style) 2, (const enum quoting_style) 3, (const enum quoting_style) 4, (const enum quoting_style) 5, (const enum quoting_style) 6, (const enum quoting_style) 7};
+static struct quoting_options default_quoting_options;
 int set_char_quoting(struct quoting_options *o, char c, int i)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 static struct quoting_options quoting_options_from_style(enum quoting_style style)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 static const char *gettext_quote(const char *msgid, enum quoting_style s)
@@ -1506,7 +1038,6 @@ static const char *gettext_quote(const char *msgid, enum quoting_style s)
     translation = tmp;
     if (((unsigned long) translation) != ((unsigned long) msgid))
     {
- 
     }
 
     locale_code = locale_charset();
@@ -1525,31 +1056,14 @@ static const char *gettext_quote(const char *msgid, enum quoting_style s)
       return tmp___0;
     }
 
- 
     if (tmp___3 == 0)
     {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
     }
 
-
+    if (((unsigned int) s) == 7U)
     {
- 
     }
- 
- 
- 
- 
 
- 
   }
 }
 
@@ -1591,17 +1105,14 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
     elide_outer_quotes = (_Bool) ((flags & 2) != 0);
     if (((unsigned int) quoting_style) == 4U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 3U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 5U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 6U)
@@ -1611,46 +1122,39 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
     if (((unsigned int) quoting_style) == 7U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 8U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 1U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 2U)
     {
- 
     }
 
     if (((unsigned int) quoting_style) == 0U)
     {
- 
     }
 
- 
-    case_4:;
-    quoting_style = (enum quoting_style) 3;
+    case_4:
+    ;
 
- 
-    case_3:;
+    quoting_style = (enum quoting_style) 3;
+    case_3:
+    ;
+
     if (! elide_outer_quotes)
     {
       while (1)
       {
         if (len < buffersize)
         {
- 
         }
 
- 
- 
       }
 
       while_break:
@@ -1658,16 +1162,10 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
     }
 
+    case_5:
+    ;
 
- 
- 
- 
- 
-    case_5:;
     backslash_escapes = (_Bool) 1;
-
- 
- 
     case_6:
     if (((unsigned int) quoting_style) != 8U)
     {
@@ -1711,22 +1209,21 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
     quote_string = right_quote;
     quote_string_len = strlen(quote_string);
     goto switch_break;
-    case_1:;
-    quoting_style = (enum quoting_style) 2;
+    case_1:
+    ;
 
- 
-    case_2:;
+    quoting_style = (enum quoting_style) 2;
+    case_2:
+    ;
+
     if (! elide_outer_quotes)
     {
       while (1)
       {
         if (len < buffersize)
         {
- 
         }
 
- 
- 
       }
 
       while_break___2:
@@ -1734,17 +1231,14 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
     }
 
+    case_0:
+    ;
 
- 
- 
- 
-    case_0:;
     elide_outer_quotes = (_Bool) 0;
+    switch_default:
+    ;
 
- 
-    switch_default:;
     abort();
-
     switch_break:
     i = (size_t) 0;
 
@@ -1754,10 +1248,6 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
       {
         tmp___6 = ((const int) (* (arg + i))) == 0;
       }
- 
- 
- 
- 
 
       if (tmp___6)
       {
@@ -1776,10 +1266,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
             {
               if (elide_outer_quotes)
               {
- 
               }
 
- 
             }
 
           }
@@ -1791,187 +1279,150 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
       c = (unsigned char) (* (arg + i));
       if (((int) c) == 0)
       {
- 
       }
 
       if (((int) c) == 63)
       {
- 
       }
 
       if (((int) c) == 7)
       {
- 
       }
 
       if (((int) c) == 8)
       {
- 
       }
 
       if (((int) c) == 12)
       {
- 
       }
 
       if (((int) c) == 10)
       {
- 
       }
 
       if (((int) c) == 13)
       {
- 
       }
 
       if (((int) c) == 9)
       {
- 
       }
 
       if (((int) c) == 11)
       {
- 
       }
 
       if (((int) c) == 92)
       {
- 
       }
 
       if (((int) c) == 123)
       {
- 
       }
 
       if (((int) c) == 125)
       {
- 
       }
 
       if (((int) c) == 35)
       {
- 
       }
 
       if (((int) c) == 126)
       {
- 
       }
 
       if (((int) c) == 32)
       {
- 
       }
 
       if (((int) c) == 33)
       {
- 
       }
 
       if (((int) c) == 34)
       {
- 
       }
 
       if (((int) c) == 36)
       {
- 
       }
 
       if (((int) c) == 38)
       {
- 
       }
 
       if (((int) c) == 40)
       {
- 
       }
 
       if (((int) c) == 41)
       {
- 
       }
 
       if (((int) c) == 42)
       {
- 
       }
 
       if (((int) c) == 59)
       {
- 
       }
 
       if (((int) c) == 60)
       {
- 
       }
 
       if (((int) c) == 61)
       {
- 
       }
 
       if (((int) c) == 62)
       {
- 
       }
 
       if (((int) c) == 91)
       {
- 
       }
 
       if (((int) c) == 94)
       {
- 
       }
 
       if (((int) c) == 96)
       {
- 
       }
 
       if (((int) c) == 124)
       {
- 
       }
 
       if (((int) c) == 39)
       {
- 
       }
 
       if (((int) c) == 37)
       {
- 
       }
 
       if (((int) c) == 43)
       {
- 
       }
 
       if (((int) c) == 44)
       {
- 
       }
 
       if (((int) c) == 45)
       {
- 
       }
 
       if (((int) c) == 46)
       {
- 
       }
 
       if (((int) c) == 47)
       {
- 
       }
 
       if (((int) c) == 48)
@@ -1981,7 +1432,6 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       if (((int) c) == 49)
       {
- 
       }
 
       if (((int) c) == 50)
@@ -2006,7 +1456,6 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       if (((int) c) == 54)
       {
- 
       }
 
       if (((int) c) == 55)
@@ -2016,7 +1465,6 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       if (((int) c) == 56)
       {
- 
       }
 
       if (((int) c) == 57)
@@ -2026,297 +1474,239 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       if (((int) c) == 58)
       {
- 
       }
 
       if (((int) c) == 65)
       {
- 
       }
 
       if (((int) c) == 66)
       {
- 
       }
 
       if (((int) c) == 67)
       {
- 
       }
 
       if (((int) c) == 68)
       {
- 
       }
 
       if (((int) c) == 69)
       {
- 
       }
 
       if (((int) c) == 70)
       {
- 
       }
 
       if (((int) c) == 71)
       {
- 
       }
 
       if (((int) c) == 72)
       {
- 
       }
 
       if (((int) c) == 73)
       {
- 
       }
 
       if (((int) c) == 74)
       {
- 
       }
 
       if (((int) c) == 75)
       {
- 
       }
 
       if (((int) c) == 76)
       {
- 
       }
 
       if (((int) c) == 77)
       {
- 
       }
 
       if (((int) c) == 78)
       {
- 
       }
 
       if (((int) c) == 79)
       {
- 
       }
 
       if (((int) c) == 80)
       {
- 
       }
 
       if (((int) c) == 81)
       {
- 
       }
 
       if (((int) c) == 82)
       {
- 
       }
 
       if (((int) c) == 83)
       {
- 
       }
 
       if (((int) c) == 84)
       {
- 
       }
 
       if (((int) c) == 85)
       {
- 
       }
 
       if (((int) c) == 86)
       {
- 
       }
 
       if (((int) c) == 87)
       {
- 
       }
 
       if (((int) c) == 88)
       {
- 
       }
 
       if (((int) c) == 89)
       {
- 
       }
 
       if (((int) c) == 90)
       {
- 
       }
 
       if (((int) c) == 93)
       {
- 
       }
 
       if (((int) c) == 95)
       {
- 
       }
 
       if (((int) c) == 97)
       {
- 
       }
 
       if (((int) c) == 98)
       {
- 
       }
 
       if (((int) c) == 99)
       {
- 
       }
 
       if (((int) c) == 100)
       {
- 
       }
 
       if (((int) c) == 101)
       {
- 
       }
 
       if (((int) c) == 102)
       {
- 
       }
 
       if (((int) c) == 103)
       {
- 
       }
 
       if (((int) c) == 104)
       {
- 
       }
 
       if (((int) c) == 105)
       {
- 
       }
 
       if (((int) c) == 106)
       {
- 
       }
 
       if (((int) c) == 107)
       {
- 
       }
 
       if (((int) c) == 108)
       {
- 
       }
 
       if (((int) c) == 109)
       {
- 
       }
 
       if (((int) c) == 110)
       {
- 
       }
 
       if (((int) c) == 111)
       {
- 
       }
 
       if (((int) c) == 112)
       {
- 
       }
 
       if (((int) c) == 113)
       {
- 
       }
 
       if (((int) c) == 114)
       {
- 
       }
 
       if (((int) c) == 115)
       {
- 
       }
 
       if (((int) c) == 116)
       {
- 
       }
 
       if (((int) c) == 117)
       {
- 
       }
 
       if (((int) c) == 118)
       {
- 
       }
 
       if (((int) c) == 119)
       {
- 
       }
 
       if (((int) c) == 120)
       {
- 
       }
 
       if (((int) c) == 121)
       {
- 
       }
 
       if (((int) c) == 122)
       {
- 
       }
 
- 
-      case_0___0:;
+      case_0___0:
+      ;
+
       if (backslash_escapes)
       {
         if (elide_outer_quotes)
         {
- 
         }
 
         while (1)
         {
           if (len < buffersize)
           {
- 
           }
 
- 
- 
         }
 
         while_break___4:
@@ -2332,11 +1722,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
               {
                 if (len < buffersize)
                 {
- 
                 }
 
- 
- 
               }
 
               while_break___5:
@@ -2346,11 +1733,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
               {
                 if (len < buffersize)
                 {
- 
                 }
 
- 
- 
               }
 
               while_break___6:
@@ -2362,41 +1746,36 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
         }
 
- 
       }
       else
       {
         if (flags & 1)
         {
- 
         }
 
       }
 
+      case_63:
+      ;
 
- 
-      case_63:;
       if (((unsigned int) quoting_style) == 2U)
       {
- 
       }
-
 
       if (((unsigned int) quoting_style) == 3U)
       {
- 
       }
 
- 
-      case_2___0:;
+      case_2___0:
+      ;
+
       if (elide_outer_quotes)
       {
- 
       }
 
+      case_3___0:
+      ;
 
- 
-      case_3___0:;
       if (flags & 4)
       {
         if ((i + 2UL) < argsize)
@@ -2405,68 +1784,53 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
           {
             if (((const int) (* (arg + (i + 2UL)))) == 33)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 39)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 40)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 41)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 45)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 47)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 60)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 61)
             {
- 
             }
 
             if (((const int) (* (arg + (i + 2UL)))) == 62)
             {
- 
             }
 
- 
-            case_33:;
+            case_33:
+            ;
+
             if (elide_outer_quotes)
             {
- 
             }
 
-
- 
- 
             while (1)
             {
               if (len < buffersize)
               {
- 
               }
 
- 
- 
             }
 
             while_break___7:
@@ -2476,11 +1840,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
             {
               if (len < buffersize)
               {
- 
               }
 
- 
- 
             }
 
             while_break___8:
@@ -2490,11 +1851,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
             {
               if (len < buffersize)
               {
- 
               }
 
- 
- 
             }
 
             while_break___9:
@@ -2504,20 +1862,17 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
             {
               if (len < buffersize)
               {
- 
               }
 
- 
- 
             }
 
             while_break___10:
             ;
 
- 
-            switch_default___0:;
-            goto switch_break___2;
+            switch_default___0:
+            ;
 
+            goto switch_break___2;
             switch_break___2:
             ;
 
@@ -2527,131 +1882,103 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       }
 
+      switch_default___1:
+      ;
 
- 
-      switch_default___1:;
       goto switch_break___1;
-
       switch_break___1:
       ;
 
- 
-      case_7___0:;
+      case_7___0:
+      ;
+
       esc = (unsigned char) 'a';
+      case_8___0:
+      ;
 
- 
-      case_8___0:;
       esc = (unsigned char) 'b';
+      case_12:
+      ;
 
- 
-      case_12:;
       esc = (unsigned char) 'f';
+      case_10:
+      ;
 
- 
-      case_10:;
       esc = (unsigned char) 'n';
+      case_13:
+      ;
 
- 
-      case_13:;
       esc = (unsigned char) 'r';
+      case_9:
+      ;
 
- 
-      case_9:;
       esc = (unsigned char) 't';
+      case_11:
+      ;
 
- 
-      case_11:;
       esc = (unsigned char) 'v';
+      case_92:
+      ;
 
- 
-      case_92:;
       esc = c;
-
       if (backslash_escapes)
       {
- 
- 
- 
- 
- 
- 
- 
- 
- 
       }
 
-      c_and_shell_escape:;
+      c_and_shell_escape:
+      ;
+
       if (((unsigned int) quoting_style) == 2U)
       {
- 
- 
- 
- 
- 
       }
 
+      c_escape:
+      ;
 
-      c_escape:;
       if (backslash_escapes)
       {
- 
- 
       }
 
+      case_123:
+      ;
 
- 
-      case_123:;
       if (argsize == 0xffffffffffffffffUL)
       {
- 
       }
- 
- 
- 
- 
-
 
       if (! tmp___1)
       {
- 
       }
 
-      case_35:;
+      case_35:
+      ;
+
       if (i != 0UL)
       {
- 
       }
 
+      case_32:
+      ;
 
-      case_32:;
       if (((unsigned int) quoting_style) == 2U)
       {
- 
- 
- 
- 
- 
       }
 
+      case_39___0:
+      ;
 
- 
-      case_39___0:;
       if (((unsigned int) quoting_style) == 2U)
       {
         if (elide_outer_quotes)
         {
- 
         }
 
         while (1)
         {
           if (len < buffersize)
           {
- 
           }
 
- 
- 
         }
 
         while_break___11:
@@ -2661,11 +1988,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
         {
           if (len < buffersize)
           {
- 
           }
 
- 
- 
         }
 
         while_break___12:
@@ -2675,11 +1999,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
         {
           if (len < buffersize)
           {
- 
           }
 
- 
- 
         }
 
         while_break___13:
@@ -2687,70 +2008,46 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       }
 
-
- 
       case_37:
       goto switch_break___0;
 
-      switch_default___2:;
+      switch_default___2:
+      ;
+
       if (unibyte_locale)
       {
- 
- 
- 
       }
       else
       {
- 
- 
- 
         if (argsize == 0xffffffffffffffffUL)
         {
- 
         }
 
         while (1)
         {
- 
- 
           if (bytes == 0UL)
           {
- 
           }
           else
           {
             if (bytes == 0xffffffffffffffffUL)
             {
- 
- 
             }
             else
             {
               if (bytes == 0xfffffffffffffffeUL)
               {
- 
                 while (1)
                 {
                   if ((i + m) < argsize)
                   {
- 
- 
- 
- 
- 
                   }
- 
- 
- 
- 
 
- 
                 }
 
                 while_break___15:
                 ;
 
- 
               }
               else
               {
@@ -2758,49 +2055,44 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
                 {
                   if (((unsigned int) quoting_style) == 2U)
                   {
- 
                     while (1)
                     {
                       if (! (j < bytes))
                       {
- 
                       }
 
                       if (((const int) (* (arg + ((i + m) + j)))) == 91)
                       {
- 
                       }
 
                       if (((const int) (* (arg + ((i + m) + j)))) == 92)
                       {
- 
                       }
 
                       if (((const int) (* (arg + ((i + m) + j)))) == 94)
                       {
- 
                       }
 
                       if (((const int) (* (arg + ((i + m) + j)))) == 96)
                       {
- 
                       }
 
                       if (((const int) (* (arg + ((i + m) + j)))) == 124)
                       {
- 
                       }
 
- 
-                      case_91___0:;
+                      case_91___0:
+                      ;
+
                       goto force_outer_quoting_style;
+                      switch_default___3:
+                      ;
 
-                      switch_default___3:;
                       goto switch_break___3;
+                      switch_break___3:
+                      ;
 
-                      switch_break___3:;
                       j++;
-
                     }
 
                     while_break___16:
@@ -2810,23 +2102,18 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
                 }
 
- 
                 if (! tmp___4)
                 {
- 
                 }
 
- 
               }
 
             }
 
           }
 
- 
           if (tmp___5)
           {
- 
           }
 
         }
@@ -2836,10 +2123,8 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
 
       }
 
-
       if (1UL < m)
       {
- 
       }
       else
       {
@@ -2847,119 +2132,101 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
         {
           if (! printable)
           {
-            _L___0:;
-            ilim = i + m;
+            _L___0:
+            ;
 
+            ilim = i + m;
             while (1)
             {
               if (backslash_escapes)
               {
-
+                if (! printable)
                 {
-
+                  if (elide_outer_quotes)
                   {
- 
                   }
 
-
+                  while (1)
                   {
-
+                    if (len < buffersize)
                     {
- 
                     }
 
- 
- 
                   }
 
-
+                  while_break___18:
                   ;
 
-
+                  while (1)
                   {
-
+                    if (len < buffersize)
                     {
- 
                     }
 
- 
- 
                   }
 
-
+                  while_break___19:
                   ;
 
-
+                  while (1)
                   {
-
+                    if (len < buffersize)
                     {
- 
                     }
 
- 
- 
                   }
 
+                  while_break___20:
+                  ;
 
-
-
+                  c = (unsigned char) (48 + (((int) c) & 7));
                 }
- 
- 
- 
- 
 
               }
-
+              else
               {
+                _L:
+                ;
 
-
+                if (is_right_quote)
                 {
-
+                  while (1)
                   {
-
+                    if (len < buffersize)
                     {
- 
                     }
 
- 
- 
                   }
 
+                  while_break___21:
+                  ;
 
-
-
+                  is_right_quote = (_Bool) 0;
                 }
 
-
               }
 
-
+              if (ilim <= (i + 1UL))
               {
- 
               }
 
-
+              while (1)
               {
-
+                if (len < buffersize)
                 {
- 
                 }
 
- 
- 
               }
 
+              while_break___22:
+              ;
 
-
-
- 
+              i++;
             }
 
-
+            while_break___17:
             ;
 
- 
           }
 
         }
@@ -2969,78 +2236,73 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
       switch_break___0:
       ;
 
-
+      if (backslash_escapes)
       {
-
+        goto _L___3;
       }
-
+      else
       {
         if (elide_outer_quotes)
         {
+          _L___3:
+          ;
 
-
+          if (quote_these_too)
           {
-
+            if (! ((* (quote_these_too + (((unsigned long) c) / ((sizeof(int)) * 8UL)))) & ((const unsigned int) (1 << (((unsigned long) c) % ((sizeof(int)) * 8UL))))))
             {
-
+              goto _L___2;
             }
 
           }
- 
- 
- 
- 
-
 
         }
-
+        else
         {
+          _L___2:
+          ;
 
-
+          if (! is_right_quote)
           {
             goto store_c;
           }
 
-
         }
 
       }
 
+      store_escape:
+      ;
 
-
+      if (elide_outer_quotes)
       {
- 
       }
 
-
-
+      while (1)
       {
-
+        if (len < buffersize)
         {
- 
         }
 
- 
- 
       }
 
-
+      while_break___23:
       ;
 
       store_c:
-
+      while (1)
       {
-
+        if (len < buffersize)
         {
-
+          * (buffer + len) = (char) c;
         }
 
-
-
+        len++;
+        goto while_break___24;
       }
 
 
-
+      while_break___24:
       ;
 
       __Cont:
@@ -3051,63 +2313,58 @@ static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const ch
     while_break___3:
     ;
 
-
+    if (len == 0UL)
     {
-
+      if (((unsigned int) quoting_style) == 2U)
       {
- 
- 
- 
- 
- 
       }
 
     }
 
-
+    if (quote_string)
     {
-
+      if (! elide_outer_quotes)
       {
-
+        while (1)
         {
-
+          if (! (* quote_string))
           {
-
+            goto while_break___25;
           }
 
-
+          while (1)
           {
-
+            if (len < buffersize)
             {
-
+              * (buffer + len) = (char) (* quote_string);
             }
 
-
-
+            len++;
+            goto while_break___26;
           }
 
-
-
+          while_break___26:
+          quote_string++;
 
         }
 
-
+        while_break___25:
         ;
 
       }
 
     }
 
-
+    if (len < buffersize)
     {
-
+      * (buffer + len) = (char) '\000';
     }
 
     return len;
-    force_outer_quoting_style:;
-    tmp___7 = quotearg_buffer_restyled(buffer, buffersize, arg, argsize, quoting_style, flags & (- 3), (const unsigned int *) ((void *) 0), left_quote, right_quote);
+    force_outer_quoting_style:
+    ;
 
- 
+    tmp___7 = quotearg_buffer_restyled(buffer, buffersize, arg, argsize, quoting_style, flags & (- 3), (const unsigned int *) ((void *) 0), left_quote, right_quote);
   }
 }
 
@@ -3138,16 +2395,12 @@ static char *quotearg_n_options(int n, const char *arg, size_t argsize, const st
     sv = slotvec;
     if (n < 0)
     {
- 
     }
 
     if (nslots <= n0)
     {
- 
- 
       if ((sizeof(ptrdiff_t)) <= (sizeof(size_t)))
       {
- 
       }
       else
       {
@@ -3156,95 +2409,51 @@ static char *quotearg_n_options(int n, const char *arg, size_t argsize, const st
 
       if ((((size_t) tmp___0) / (sizeof(* sv))) < n1)
       {
- 
       }
 
       if (preallocated)
       {
- 
       }
- 
- 
- 
- 
 
- 
- 
       if (preallocated)
       {
- 
       }
 
- 
- 
     }
 
     size = (sv + n)->size;
     val = (sv + n)->val;
     flags = (int) (options->flags | 1);
-
-
-
+    tmp___2 = quotearg_buffer_restyled(val, size, arg, argsize, (enum quoting_style) options->style, flags, (const unsigned int *) options->quote_these_too, (const char *) options->left_quote, (const char *) options->right_quote);
+    qsize = tmp___2;
+    if (size <= qsize)
     {
- 
- 
-
+      if (((unsigned long) val) != ((unsigned long) slot0))
       {
- 
       }
 
- 
- 
- 
     }
 
     tmp___3 = __errno_location();
-
-
+    * tmp___3 = e;
+    return val;
   }
 }
 
 char *quotearg_n_style(int n, enum quoting_style s, const char *arg)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 char *quotearg_char_mem(const char *arg, size_t argsize, char ch)
 {
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 char *quotearg_char(const char *arg, char ch)
 {
- 
- 
- 
- 
- 
 }
 
 char *quotearg_colon(const char *arg)
 {
- 
- 
- 
- 
- 
 }
 
 struct quoting_options quote_quoting_options = {(enum quoting_style) 6, 0, {0U}, (const char *) ((void *) 0), (const char *) ((void *) 0)};
@@ -3294,10 +2503,10 @@ const char *quote(const char *arg)
 const char *program_name;
 void set_program_name(const char *argv0);
 extern char *program_invocation_name;
-
-
-
-
+extern char *program_invocation_short_name;
+extern int fputs(const char *__restrict __s, FILE *__restrict __stream);
+extern char *strrchr(const char *__s, int __c);
+const char *program_name = (const char *) ((void *) 0);
 void set_program_name(const char *argv0)
 {
   const char *slash;
@@ -3307,8 +2516,6 @@ void set_program_name(const char *argv0)
   {
     if (((unsigned long) argv0) == ((unsigned long) ((void *) 0)))
     {
- 
- 
     }
 
     slash = (const char *) strrchr(argv0, '/');
@@ -3316,31 +2523,23 @@ void set_program_name(const char *argv0)
     {
       base = slash + 1;
     }
- 
- 
- 
- 
 
     if ((base - argv0) >= 7L)
     {
       tmp___0 = strncmp(base - 7, "/.libs/", (size_t) 7);
       if (tmp___0 == 0)
       {
- 
- 
         if (tmp == 0)
         {
- 
- 
         }
 
       }
 
     }
 
-
-
-
+    program_name = argv0;
+    program_invocation_name = (char *) argv0;
+    return;
   }
 }
 
@@ -3358,302 +2557,26 @@ void set_program_name(const char *argv0)
 
 
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
+
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 extern time_t time(time_t *__timer);
 extern struct tm *localtime(const time_t *__timer);
-
-
+_Bool posixtime(time_t *p, const char *s, unsigned int syntax_bits);
+extern char *stpcpy(char *__restrict __dest, const char *__restrict __src);
 static int year(struct tm *tm, const int *digit_pair, size_t n, unsigned int syntax_bits)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 static int posix_time_parse(struct tm *tm, const char *s, unsigned int syntax_bits)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 _Bool posixtime(time_t *p, const char *s, unsigned int syntax_bits)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -3680,12 +2603,12 @@ _Bool posixtime(time_t *p, const char *s, unsigned int syntax_bits)
 
 
 
-
-
-
-
-
-
+#pragma GCC diagnostic pop
+extern int setenv(const char *__name, const char *__value, int __replace);
+extern int unsetenv(const char *__name);
+extern int abs(int __x);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 static unsigned char to_uchar___0(char ch)
 {
@@ -3701,36 +2624,7 @@ static void digits_to_date_time(parser_control *pc, textint text_int)
   {
     if (! pc->year.digits)
     {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
     }
- 
- 
- 
- 
 
   }
   else
@@ -3738,35 +2632,24 @@ static void digits_to_date_time(parser_control *pc, textint text_int)
     _L___1:
     if (4UL < text_int.digits)
     {
-
-
-
-
-
+      pc->dates_seen++;
+      pc->day = text_int.value % 100L;
+      pc->month = (text_int.value / 100L) % 100L;
+      pc->year.value = text_int.value / 10000L;
+      pc->year.digits = text_int.digits - 4UL;
     }
-
+    else
     {
- 
-
+      if (text_int.digits <= 2UL)
       {
- 
- 
       }
- 
- 
- 
- 
- 
 
- 
- 
- 
     }
 
 
   }
 
-
+  return;
 }
 
 static void apply_relative_time(parser_control *pc, relative_time rel, int factor)
@@ -3805,7 +2688,6 @@ static void yydestruct(const char *yymsg, int yytype, YYSTYPE *yyvaluep, parser_
 {
   if (! yymsg)
   {
- 
   }
 
   goto switch_default;
@@ -3818,7 +2700,7 @@ static void yydestruct(const char *yymsg, int yytype, YYSTYPE *yyvaluep, parser_
   return;
 }
 
-
+int yyparse(parser_control *pc);
 int yyparse(parser_control *pc)
 {
   int yychar;
@@ -3893,33 +2775,20 @@ int yyparse(parser_control *pc)
 
     if (((unsigned long) ((yyss + yystacksize) - 1)) <= ((unsigned long) yyssp))
     {
- 
       if (20UL <= yystacksize)
       {
- 
       }
 
- 
       if (20UL < yystacksize)
       {
- 
       }
 
- 
- 
- 
       if (! yyptr)
       {
- 
       }
 
       while (1)
       {
- 
- 
- 
- 
- 
       }
 
       while_break:
@@ -3927,11 +2796,6 @@ int yyparse(parser_control *pc)
 
       while (1)
       {
- 
- 
- 
- 
- 
       }
 
       while_break___0:
@@ -3939,14 +2803,10 @@ int yyparse(parser_control *pc)
 
       if (((unsigned long) yyss1) != ((unsigned long) yyssa))
       {
- 
       }
 
- 
- 
       if (((unsigned long) ((yyss + yystacksize) - 1)) <= ((unsigned long) yyssp))
       {
- 
       }
 
     }
@@ -3981,10 +2841,6 @@ int yyparse(parser_control *pc)
       {
         yytoken = (int) yytranslate[yychar];
       }
- 
- 
- 
- 
 
     }
 
@@ -3997,7 +2853,6 @@ int yyparse(parser_control *pc)
     {
       if (112 < yyn)
       {
- 
       }
       else
       {
@@ -4015,24 +2870,19 @@ int yyparse(parser_control *pc)
     {
       if (yyn == 0)
       {
- 
       }
       else
       {
         if (yyn == (- 1))
         {
- 
         }
 
       }
 
- 
- 
     }
 
     if (yyerrstatus)
     {
- 
     }
 
     yychar = - 2;
@@ -4045,7 +2895,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 0)
     {
- 
     }
 
     goto yyreduce;
@@ -4060,7 +2909,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 7)
     {
- 
     }
 
     if (yyn == 8)
@@ -4070,7 +2918,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 9)
     {
- 
     }
 
     if (yyn == 10)
@@ -4090,22 +2937,18 @@ int yyparse(parser_control *pc)
 
     if (yyn == 18)
     {
- 
     }
 
     if (yyn == 19)
     {
- 
     }
 
     if (yyn == 20)
     {
- 
     }
 
     if (yyn == 22)
     {
- 
     }
 
     if (yyn == 23)
@@ -4125,12 +2968,10 @@ int yyparse(parser_control *pc)
 
     if (yyn == 28)
     {
- 
     }
 
     if (yyn == 29)
     {
- 
     }
 
     if (yyn == 30)
@@ -4140,7 +2981,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 31)
     {
- 
     }
 
     if (yyn == 32)
@@ -4150,32 +2990,26 @@ int yyparse(parser_control *pc)
 
     if (yyn == 33)
     {
- 
     }
 
     if (yyn == 34)
     {
- 
     }
 
     if (yyn == 35)
     {
- 
     }
 
     if (yyn == 36)
     {
- 
     }
 
     if (yyn == 37)
     {
- 
     }
 
     if (yyn == 38)
     {
- 
     }
 
     if (yyn == 39)
@@ -4185,12 +3019,10 @@ int yyparse(parser_control *pc)
 
     if (yyn == 40)
     {
- 
     }
 
     if (yyn == 41)
     {
- 
     }
 
     if (yyn == 42)
@@ -4200,32 +3032,26 @@ int yyparse(parser_control *pc)
 
     if (yyn == 43)
     {
- 
     }
 
     if (yyn == 44)
     {
- 
     }
 
     if (yyn == 45)
     {
- 
     }
 
     if (yyn == 46)
     {
- 
     }
 
     if (yyn == 47)
     {
- 
     }
 
     if (yyn == 48)
     {
- 
     }
 
     if (yyn == 50)
@@ -4250,7 +3076,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 54)
     {
- 
     }
 
     if (yyn == 55)
@@ -4260,12 +3085,10 @@ int yyparse(parser_control *pc)
 
     if (yyn == 56)
     {
- 
     }
 
     if (yyn == 57)
     {
- 
     }
 
     if (yyn == 58)
@@ -4275,57 +3098,46 @@ int yyparse(parser_control *pc)
 
     if (yyn == 59)
     {
- 
     }
 
     if (yyn == 60)
     {
- 
     }
 
     if (yyn == 61)
     {
- 
     }
 
     if (yyn == 62)
     {
- 
     }
 
     if (yyn == 63)
     {
- 
     }
 
     if (yyn == 64)
     {
- 
     }
 
     if (yyn == 65)
     {
- 
     }
 
     if (yyn == 66)
     {
- 
     }
 
     if (yyn == 67)
     {
- 
     }
 
     if (yyn == 68)
     {
- 
     }
 
     if (yyn == 69)
     {
- 
     }
 
     if (yyn == 70)
@@ -4340,22 +3152,18 @@ int yyparse(parser_control *pc)
 
     if (yyn == 72)
     {
- 
     }
 
     if (yyn == 73)
     {
- 
     }
 
     if (yyn == 75)
     {
- 
     }
 
     if (yyn == 76)
     {
- 
     }
 
     if (yyn == 77)
@@ -4365,12 +3173,10 @@ int yyparse(parser_control *pc)
 
     if (yyn == 78)
     {
- 
     }
 
     if (yyn == 79)
     {
- 
     }
 
     if (yyn == 80)
@@ -4400,7 +3206,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 89)
     {
- 
     }
 
     if (yyn == 90)
@@ -4410,7 +3215,6 @@ int yyparse(parser_control *pc)
 
     if (yyn == 91)
     {
- 
     }
 
     goto switch_default;
@@ -4419,19 +3223,18 @@ int yyparse(parser_control *pc)
 
     pc->timespec_seen = (_Bool) 1;
     goto switch_break;
-    case_7:;
-    pc->times_seen++;
+    case_7:
+    ;
 
- 
- 
+    pc->times_seen++;
     case_8:
     pc->times_seen++;
 
     goto switch_break;
-    case_9:;
-    pc->local_zones_seen++;
+    case_9:
+    ;
 
- 
+    pc->local_zones_seen++;
     case_10:
     pc->zones_seen++;
 
@@ -4444,26 +3247,22 @@ int yyparse(parser_control *pc)
     pc->days_seen++;
 
     goto switch_break;
-    case_18:;
-    set_hhmmss(pc, (yyvsp + (- 1))->textintval.value, 0L, (time_t) 0, 0L);
+    case_18:
+    ;
 
- 
- 
-    case_19:;
+    set_hhmmss(pc, (yyvsp + (- 1))->textintval.value, 0L, (time_t) 0, 0L);
+    case_19:
+    ;
+
     set_hhmmss(pc, (yyvsp + (- 3))->textintval.value, (yyvsp + (- 1))->textintval.value, (time_t) 0, 0L);
+    case_20:
+    ;
 
- 
- 
-    case_20:;
     set_hhmmss(pc, (yyvsp + (- 5))->textintval.value, (yyvsp + (- 3))->textintval.value, (yyvsp + (- 1))->timespec.tv_sec, (yyvsp + (- 1))->timespec.tv_nsec);
+    case_22:
+    ;
 
- 
- 
-    case_22:;
     set_hhmmss(pc, (yyvsp + (- 1))->textintval.value, 0L, (time_t) 0, 0L);
-
- 
- 
     case_23:
     set_hhmmss(pc, (yyvsp + (- 3))->textintval.value, (yyvsp + (- 1))->textintval.value, (time_t) 0, 0L);
 
@@ -4479,78 +3278,67 @@ int yyparse(parser_control *pc)
 
     pc->time_zone = time_zone_hhmm(pc, (yyvsp + (- 1))->textintval, (yyvsp + 0)->intval);
     goto switch_break;
-    case_28:;
+    case_28:
+    ;
+
     pc->local_isdst = (int) (yyvsp + 0)->intval;
+    case_29:
+    ;
 
- 
- 
-    case_29:;
     pc->local_isdst = 1;
-
- 
- 
     case_30:
     pc->time_zone = (yyvsp + 0)->intval;
 
     goto switch_break;
-    case_31:;
-    pc->time_zone = 420L;
+    case_31:
+    ;
 
- 
+    pc->time_zone = 420L;
     case_32:
     pc->time_zone = (yyvsp + (- 1))->intval;
 
     apply_relative_time(pc, (yyvsp + 0)->rel, 1);
     goto switch_break;
-    case_33:;
+    case_33:
+    ;
+
     pc->time_zone = 420L;
+    case_34:
+    ;
 
- 
- 
-    case_34:;
     tmp___0 = time_zone_hhmm(pc, (yyvsp + (- 1))->textintval, (yyvsp + 0)->intval);
+    case_35:
+    ;
 
- 
- 
-    case_35:;
     pc->time_zone = (yyvsp + 0)->intval + 60L;
+    case_36:
+    ;
 
- 
-    case_36:;
     pc->time_zone = (yyvsp + (- 1))->intval + 60L;
+    case_37:
+    ;
 
- 
-    case_37:;
     pc->day_ordinal = 0L;
+    case_38:
+    ;
 
- 
- 
-    case_38:;
     pc->day_ordinal = 0L;
-
- 
- 
     case_39:
     pc->day_ordinal = (yyvsp + (- 1))->intval;
 
     pc->day_number = (int) (yyvsp + 0)->intval;
     goto switch_break;
-    case_40:;
+    case_40:
+    ;
+
     pc->day_ordinal = (yyvsp + (- 1))->textintval.value;
+    case_41:
+    ;
 
- 
- 
-    case_41:;
     pc->month = (yyvsp + (- 2))->textintval.value;
-
- 
- 
     case_42:
     if (4UL <= (yyvsp + (- 4))->textintval.digits)
     {
- 
- 
- 
     }
     else
     {
@@ -4561,42 +3349,30 @@ int yyparse(parser_control *pc)
 
 
     goto switch_break;
-    case_43:;
-    pc->day = (yyvsp + (- 2))->textintval.value;
+    case_43:
+    ;
 
- 
- 
- 
- 
-    case_44:;
+    pc->day = (yyvsp + (- 2))->textintval.value;
+    case_44:
+    ;
+
     pc->month = (yyvsp + (- 2))->intval;
+    case_45:
+    ;
 
- 
- 
- 
- 
-    case_45:;
     pc->month = (yyvsp + (- 1))->intval;
+    case_46:
+    ;
 
- 
- 
-    case_46:;
     pc->month = (yyvsp + (- 3))->intval;
+    case_47:
+    ;
 
- 
- 
- 
-    case_47:;
     pc->day = (yyvsp + (- 1))->textintval.value;
+    case_48:
+    ;
 
- 
- 
-    case_48:;
     pc->day = (yyvsp + (- 2))->textintval.value;
-
- 
- 
- 
     case_50:
     pc->year = (yyvsp + (- 2))->textintval;
 
@@ -4615,18 +3391,10 @@ int yyparse(parser_control *pc)
     apply_relative_time(pc, (yyvsp + 0)->rel, 1);
 
     goto switch_break;
-    case_54:;
-    __constr_expr_13.year = 0L;
+    case_54:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+    __constr_expr_13.year = 0L;
     case_55:
     __constr_expr_14.year = 0L;
 
@@ -4639,30 +3407,14 @@ int yyparse(parser_control *pc)
     yyval.rel = __constr_expr_14;
     yyval.rel.year = (yyvsp + (- 1))->textintval.value;
     goto switch_break;
-    case_56:;
+    case_56:
+    ;
+
     __constr_expr_15.year = 0L;
+    case_57:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_57:;
     __constr_expr_16.year = 0L;
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
     case_58:
     __constr_expr_17.year = 0L;
 
@@ -4675,138 +3427,50 @@ int yyparse(parser_control *pc)
     yyval.rel = __constr_expr_17;
     yyval.rel.month = (yyvsp + (- 1))->textintval.value;
     goto switch_break;
-    case_59:;
+    case_59:
+    ;
+
     __constr_expr_18.year = 0L;
+    case_60:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_60:;
     __constr_expr_19.year = 0L;
+    case_61:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_61:;
     __constr_expr_20.year = 0L;
+    case_62:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_62:;
     __constr_expr_21.year = 0L;
+    case_63:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_63:;
     __constr_expr_22.year = 0L;
+    case_64:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_64:;
     __constr_expr_23.year = 0L;
+    case_65:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_65:;
     __constr_expr_24.year = 0L;
+    case_66:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_66:;
     __constr_expr_25.year = 0L;
+    case_67:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_67:;
     __constr_expr_26.year = 0L;
+    case_68:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_68:;
     __constr_expr_27.year = 0L;
+    case_69:
+    ;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    case_69:;
     __constr_expr_28.year = 0L;
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
     case_70:
     __constr_expr_29.year = 0L;
 
@@ -4822,122 +3486,73 @@ int yyparse(parser_control *pc)
     case_71:
     __constr_expr_30.year = 0L;
 
+    __constr_expr_30.month = 0L;
+    __constr_expr_30.day = 0L;
+    __constr_expr_30.hour = 0L;
+    __constr_expr_30.minutes = 0L;
+    __constr_expr_30.seconds = (long_time_t) 0;
+    __constr_expr_30.ns = 0L;
+    yyval.rel = __constr_expr_30;
+    yyval.rel.seconds = (yyvsp + (- 1))->timespec.tv_sec;
+    yyval.rel.ns = (yyvsp + (- 1))->timespec.tv_nsec;
+    goto switch_break;
+    case_72:
+    ;
 
+    __constr_expr_31.year = 0L;
+    case_73:
+    ;
 
+    __constr_expr_32.year = 0L;
+    case_75:
+    ;
 
+    __constr_expr_33.year = 0L;
+    case_76:
+    ;
 
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
+    __constr_expr_34.year = 0L;
     case_77:
+    __constr_expr_35.year = 0L;
 
+    __constr_expr_35.month = 0L;
+    __constr_expr_35.day = 0L;
+    __constr_expr_35.hour = 0L;
+    __constr_expr_35.minutes = 0L;
+    __constr_expr_35.seconds = (long_time_t) 0;
+    __constr_expr_35.ns = 0L;
+    yyval.rel = __constr_expr_35;
+    yyval.rel.day = (yyvsp + (- 1))->textintval.value * (yyvsp + 0)->intval;
+    goto switch_break;
+    case_78:
+    ;
 
+    __constr_expr_36.year = 0L;
+    case_79:
+    ;
 
-
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
+    __constr_expr_37.year = 0L;
     case_80:
     __constr_expr_38.year = 0L;
 
     __constr_expr_38.month = 0L;
-
-
-
-
-
-
-
-
+    __constr_expr_38.day = 0L;
+    __constr_expr_38.hour = 0L;
+    __constr_expr_38.minutes = 0L;
+    __constr_expr_38.seconds = (long_time_t) 0;
+    __constr_expr_38.ns = 0L;
+    yyval.rel = __constr_expr_38;
+    yyval.rel.seconds = (yyvsp + (- 1))->textintval.value;
+    goto switch_break;
     case_81:
+    __constr_expr_39.year = 0L;
 
-
-
-
-
-
-
-
+    __constr_expr_39.month = 0L;
+    __constr_expr_39.day = 0L;
+    __constr_expr_39.hour = 0L;
+    __constr_expr_39.minutes = 0L;
+    __constr_expr_39.seconds = (long_time_t) 0;
+    __constr_expr_39.ns = 0L;
     yyval.rel = __constr_expr_39;
     yyval.rel.day = (yyvsp + 0)->intval;
     goto switch_break;
@@ -4952,22 +3567,21 @@ int yyparse(parser_control *pc)
     yyval.timespec.tv_nsec = (__syscall_slong_t) 0;
     goto switch_break;
     case_88:
+    digits_to_date_time(pc, (yyvsp + 0)->textintval);
 
+    goto switch_break;
+    case_89:
+    ;
 
-
-
-
-
- 
- 
+    digits_to_date_time(pc, (yyvsp + (- 1))->textintval);
     case_90:
     yyval.intval = - 1L;
 
     goto switch_break;
-    case_91:;
-    yyval.intval = (yyvsp + 0)->textintval.value;
+    case_91:
+    ;
 
- 
+    yyval.intval = (yyvsp + 0)->textintval.value;
     switch_default:
     goto switch_break;
 
@@ -4988,144 +3602,100 @@ int yyparse(parser_control *pc)
         {
           yystate = (int) yytable[yystate];
         }
-
+        else
         {
-
+          yystate = (int) yydefgoto[yyn - 28];
         }
 
       }
-
+      else
       {
-
+        yystate = (int) yydefgoto[yyn - 28];
       }
 
     }
-
+    else
     {
       yystate = (int) yydefgoto[yyn - 28];
     }
 
     goto yynewstate;
-
-
-    {
- 
- 
-    }
-
-
-
-    {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    }
-
- 
-
-
-
-
-
-
-
-
-
-    {
- 
-
-      {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-      }
-
-
-      {
- 
-      }
-
- 
- 
- 
- 
-    }
-
-
-
-
- 
- 
- 
-    yyacceptlab:
-
-
-
-
-
-
- 
-
-
-
- 
-
-
-    {
- 
-    }
-
-
-
-
-
-    {
-
-      {
-
-      }
-
-
-
-
-    }
-
-
+    yyerrlab:
     ;
 
-
+    if (! yyerrstatus)
     {
- 
+    }
+
+    if (yyerrstatus == 3)
+    {
+    }
+
+    yyvsp -= yylen;
+    yyssp -= yylen;
+    yylen = 0;
+    yystate = (int) (* yyssp);
+    goto yyerrlab1;
+    yyerrlab1:
+    ;
+
+    yyerrstatus = 3;
+    while (1)
+    {
+      if (yyn != (- 93))
+      {
+      }
+
+      if (((unsigned long) yyssp) == ((unsigned long) yyss))
+      {
+      }
+
+    }
+
+    while_break___1:
+    ;
+
+    yyvsp++;
+    yyacceptlab:
+    yyresult = 0;
+
+    goto yyreturn;
+    yyabortlab:
+    ;
+
+    yyresult = 1;
+    yyexhaustedlab:
+    ;
+
+    yyerror((const parser_control *) pc, "memory exhausted");
+    yyreturn:
+    if (yychar != (- 2))
+    {
     }
 
 
+    yyvsp -= yylen;
+    yyssp -= yylen;
+    while (1)
+    {
+      if (! (((unsigned long) yyssp) != ((unsigned long) yyss)))
+      {
+        goto while_break___2;
+      }
+
+      yydestruct("Cleanup: popping", (int) yystos[* yyssp], yyvsp, pc);
+      yyvsp--;
+      yyssp--;
+    }
+
+    while_break___2:
+    ;
+
+    if (((unsigned long) yyss) != ((unsigned long) yyssa))
+    {
+    }
+
+    return yyresult;
   }
 }
 
@@ -5136,7 +3706,7 @@ static const table time_units_table[11] = {{"YEAR", 260, 1}, {"MONTH", 261, 1}, 
 static const table relative_time_table[21] = {{"TOMORROW", 266, 1}, {"YESTERDAY", 266, - 1}, {"TODAY", 266, 0}, {"NOW", 266, 0}, {"LAST", 272, - 1}, {"THIS", 272, 0}, {"NEXT", 272, 1}, {"FIRST", 272, 1}, {"THIRD", 272, 3}, {"FOURTH", 272, 4}, {"FIFTH", 272, 5}, {"SIXTH", 272, 6}, {"SEVENTH", 272, 7}, {"EIGHTH", 272, 8}, {"NINTH", 272, 9}, {"TENTH", 272, 10}, {"ELEVENTH", 272, 11}, {"TWELFTH", 272, 12}, {"AGO", 258, - 1}, {"HENCE", 258, 1}, {(const char *) ((void *) 0), 0, 0}};
 static const table universal_time_zone_table[4] = {{"GMT", 273, 0}, {"UT", 273, 0}, {"UTC", 273, 0}, {(const char *) ((void *) 0), 0, 0}};
 static const table time_zone_table[48] = {{"WET", 273, 0}, {"WEST", 268, 0}, {"BST", 268, 0}, {"ART", 273, - 180}, {"BRT", 273, - 180}, {"BRST", 268, - 180}, {"NST", 273, - 210}, {"NDT", 268, - 210}, {"AST", 273, - 240}, {"ADT", 268, - 240}, {"CLT", 273, - 240}, {"CLST", 268, - 240}, {"EST", 273, - 300}, {"EDT", 268, - 300}, {"CST", 273, - 360}, {"CDT", 268, - 360}, {"MST", 273, - 420}, {"MDT", 268, - 420}, {"PST", 273, - 480}, {"PDT", 268, - 480}, {"AKST", 273, - 540}, {"AKDT", 268, - 540}, {"HST", 273, - 600}, {"HAST", 273, - 600}, {"HADT", 268, - 600}, {"SST", 273, - 720}, {"WAT", 273, 60}, {"CET", 273, 60}, {"CEST", 268, 60}, {"MET", 273, 60}, {"MEZ", 273, 60}, {"MEST", 268, 60}, {"MESZ", 268, 60}, {"EET", 273, 120}, {"EEST", 268, 120}, {"CAT", 273, 120}, {"SAST", 273, 120}, {"EAT", 273, 180}, {"MSK", 273, 180}, {"MSD", 268, 180}, {"IST", 273, 330}, {"SGT", 273, 480}, {"KST", 273, 540}, {"JST", 273, 540}, {"GST", 273, 600}, {"NZST", 273, 720}, {"NZDT", 268, 720}, {(const char *) ((void *) 0), 0, 0}};
-
+static const table military_table[26] = {{"A", 273, - 60}, {"B", 273, - 120}, {"C", 273, - 180}, {"D", 273, - 240}, {"E", 273, - 300}, {"F", 273, - 360}, {"G", 273, - 420}, {"H", 273, - 480}, {"I", 273, - 540}, {"K", 273, - 600}, {"L", 273, - 660}, {"M", 273, - 720}, {"N", 273, 60}, {"O", 273, 120}, {"P", 273, 180}, {"Q", 273, 240}, {"R", 273, 300}, {"S", 273, 360}, {"T", 'T', 0}, {"U", 273, 480}, {"V", 273, 540}, {"W", 273, 600}, {"X", 273, 660}, {"Y", 273, 720}, {"Z", 273, 0}, {(const char *) ((void *) 0), 0, 0}};
 static long time_zone_hhmm(parser_control *pc, textint s, long mm)
 {
   long n_minutes;
@@ -5160,23 +3730,16 @@ static long time_zone_hhmm(parser_control *pc, textint s, long mm)
     {
       if (s.negative)
       {
- 
       }
- 
- 
- 
- 
 
- 
     }
 
     tmp___0 = abs((int) n_minutes);
     if (1440 < tmp___0)
     {
- 
     }
 
-
+    return n_minutes;
   }
 }
 
@@ -5190,12 +3753,10 @@ static int to_hour(long hours, int meridian)
   {
     if (meridian == 0)
     {
- 
     }
 
     if (meridian == 1)
     {
- 
     }
 
     goto switch_default;
@@ -5206,82 +3767,46 @@ static int to_hour(long hours, int meridian)
       {
         tmp = hours;
       }
- 
- 
- 
- 
 
     }
- 
- 
- 
- 
 
 
     return (int) tmp;
-    case_0:;
+    case_0:
+    ;
+
     if (0L < hours)
     {
- 
- 
- 
- 
- 
- 
- 
- 
- 
     }
     else
     {
-      _L:;
+      _L:
+      ;
+
       if (hours == 12L)
       {
- 
       }
- 
- 
- 
- 
 
-
- 
     }
 
+    case_1:
+    ;
 
- 
-    case_1:;
     if (0L < hours)
     {
- 
- 
- 
- 
- 
- 
- 
- 
- 
     }
-
+    else
     {
+      _L___0:
+      ;
 
-
+      if (hours == 12L)
       {
- 
       }
- 
- 
- 
- 
 
-
- 
     }
 
-
- 
-
+    return 0;
   }
 }
 
@@ -5293,7 +3818,6 @@ static long to_year(textint textyear)
     year___1 = textyear.value;
     if (year___1 < 0L)
     {
- 
     }
     else
     {
@@ -5303,17 +3827,13 @@ static long to_year(textint textyear)
         {
           tmp = 2000;
         }
- 
- 
- 
- 
 
         year___1 += (long) tmp;
       }
 
     }
 
-
+    return year___1;
   }
 }
 
@@ -5354,7 +3874,6 @@ static const table *lookup_zone(const parser_control *pc, const char *name)
       tmp___0 = strcmp(name, (const char *) tp->name);
       if (tmp___0 == 0)
       {
- 
       }
 
       tp++;
@@ -5373,7 +3892,6 @@ static const table *lookup_zone(const parser_control *pc, const char *name)
       tmp___1 = strcmp(name, (const char *) tp->name);
       if (tmp___1 == 0)
       {
- 
       }
 
       tp++;
@@ -5432,7 +3950,6 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
       tmp = strcmp((const char *) word___0, (const char *) tp->name);
       if (tmp == 0)
       {
- 
       }
 
       tp++;
@@ -5451,7 +3968,6 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
       {
         if (((int) (* (word___0 + 3))) == 46)
         {
- 
         }
         else
         {
@@ -5505,7 +4021,6 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
     tmp___4 = strcmp((const char *) word___0, (const char *) dst_table[0].name);
     if (tmp___4 == 0)
     {
- 
     }
 
     tp = time_units_table;
@@ -5536,7 +4051,6 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
       {
         if (! tp->name)
         {
- 
         }
 
         tmp___6 = strcmp((const char *) word___0, (const char *) tp->name);
@@ -5548,9 +4062,10 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
         tp++;
       }
 
-      while_break___3:;
-      * (word___0 + (wordlen - 1UL)) = (char) 'S';
+      while_break___3:
+      ;
 
+      * (word___0 + (wordlen - 1UL)) = (char) 'S';
     }
 
     tp = relative_time_table;
@@ -5558,7 +4073,6 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
     {
       if (! tp->name)
       {
- 
       }
 
       tmp___7 = strcmp((const char *) word___0, (const char *) tp->name);
@@ -5575,20 +4089,16 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
 
     if (wordlen == 1UL)
     {
- 
       while (1)
       {
         if (! tp->name)
         {
- 
         }
 
         if (((int) (* (word___0 + 0))) == ((int) (* (tp->name + 0))))
         {
- 
         }
 
- 
       }
 
       while_break___5:
@@ -5596,44 +4106,25 @@ static const table *lookup_word(const parser_control *pc, char *word___0)
 
     }
 
- 
- 
- 
     while (1)
     {
- 
- 
       if (! tmp___8)
       {
- 
       }
 
       if (((int) (* q)) == 46)
       {
- 
       }
- 
- 
- 
- 
 
- 
     }
 
-
+    while_break___6:
     ;
 
-
+    if (period_found)
     {
- 
- 
- 
- 
- 
- 
     }
 
- 
   }
 }
 
@@ -5665,7 +4156,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
   int tmp___9;
   const char *tmp___10;
   {
- 
     {
       while (1)
       {
@@ -5728,7 +4218,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
                     goto while_break___1;
                   }
 
- 
                 }
 
                 while_break___1:
@@ -5736,7 +4225,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
 
                 if (! ((((unsigned int) c) - 48U) <= 9U))
                 {
- 
                 }
 
               }
@@ -5755,7 +4243,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
               value1 = value + ((unsigned long) (((int) c) - 48));
               if (value1 < value)
               {
- 
               }
 
               value = value1;
@@ -5768,7 +4255,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
 
               if (1844674407370955161UL < value)
               {
- 
               }
 
               value *= 10UL;
@@ -5785,25 +4271,23 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
             {
               if (((int) c) == 44)
               {
-                _L___1:;
+                _L___1:
+                ;
+
                 if ((((unsigned int) (* (p + 1))) - 48U) <= 9U)
                 {
                   if (sign < 0)
                   {
- 
                     if (0L < s)
                     {
- 
                     }
 
- 
                   }
                   else
                   {
                     s = (time_t) value;
                     if (s < 0L)
                     {
- 
                     }
 
                     value1___0 = (unsigned long) s;
@@ -5811,7 +4295,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
 
                   if (value != value1___0)
                   {
- 
                   }
 
                   p++;
@@ -5846,16 +4329,12 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
                     {
                       if (! ((((unsigned int) (* p)) - 48U) <= 9U))
                       {
- 
                       }
 
                       if (((const int) (* p)) != 48)
                       {
- 
- 
                       }
 
- 
                     }
 
                     while_break___4:
@@ -5870,7 +4349,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
                       goto while_break___5;
                     }
 
- 
                   }
 
                   while_break___5:
@@ -5880,13 +4358,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
                   {
                     if (ns)
                     {
- 
- 
- 
- 
- 
- 
- 
                     }
 
                   }
@@ -5905,11 +4376,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
 
                   return tmp___3;
                 }
- 
- 
- 
- 
-
 
               }
               else
@@ -5922,7 +4388,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
                   lvalp->textintval.value = (long) (- value);
                   if (0L < lvalp->textintval.value)
                   {
- 
                   }
 
                 }
@@ -5931,7 +4396,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
                   lvalp->textintval.value = (long) value;
                   if (lvalp->textintval.value < 0L)
                   {
- 
                   }
 
                 }
@@ -5991,7 +4455,6 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
         tp = lookup_word((const parser_control *) pc, buff);
         if (! tp)
         {
- 
         }
 
         lvalp->intval = (long) tp->value;
@@ -6006,67 +4469,55 @@ static int yylex(union YYSTYPE *lvalp, parser_control *pc)
         return tmp___9;
       }
 
- 
       while (1)
       {
- 
- 
- 
         if (((int) c) == 0)
         {
- 
         }
 
-
+        if (((int) c) == 40)
         {
- 
         }
-
+        else
         {
-
+          if (((int) c) == 41)
           {
- 
           }
 
         }
 
-
+        if (! (count != 0UL))
         {
- 
         }
 
       }
 
-
+      while_break___7:
       ;
 
-
+      __Cont:
       ;
 
     }
-
-
+    return 0;
   }
 }
 
 static int yyerror(const parser_control *pc, const char *s)
 {
- 
 }
 
 static _Bool mktime_ok(const struct tm *tm0, const struct tm *tm1, time_t t)
 {
   if (t == (- 1L))
   {
- 
     if (! tm1)
     {
- 
     }
 
   }
 
-
+  return (_Bool) (! ((((((tm0->tm_sec ^ tm1->tm_sec) | (tm0->tm_min ^ tm1->tm_min)) | (tm0->tm_hour ^ tm1->tm_hour)) | (tm0->tm_mday ^ tm1->tm_mday)) | (tm0->tm_mon ^ tm1->tm_mon)) | (tm0->tm_year ^ tm1->tm_year)));
 }
 
 static char *get_tz(char *tzbuf)
@@ -6082,22 +4533,13 @@ static char *get_tz(char *tzbuf)
     tz = tmp;
     if (tz)
     {
- 
- 
       if (tzsize <= 100UL)
       {
- 
- 
       }
- 
- 
- 
- 
- 
 
     }
 
-
+    return tz;
   }
 }
 
@@ -6181,7 +4623,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
     tmp = (const struct tm *) localtime(& now->tv_sec);
     if (! tmp)
     {
- 
     }
 
     while (1)
@@ -6193,7 +4634,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
         goto while_break;
       }
 
- 
     }
 
     while_break:
@@ -6213,14 +4653,8 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
 
         if (((const int) (* s)) == 92)
         {
- 
           if (! (((const int) (* s)) == 92))
           {
- 
- 
- 
- 
- 
           }
 
         }
@@ -6233,8 +4667,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
             tz0 = get_tz(tz0buf);
             if (large_tz)
             {
- 
- 
             }
             else
             {
@@ -6264,12 +4696,10 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
             setenv_ok = (_Bool) (tmp___3 == 0);
             if (large_tz)
             {
- 
             }
 
             if (! setenv_ok)
             {
- 
             }
 
             tz_was_altered = (_Bool) 1;
@@ -6289,7 +4719,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
 
     if (((const int) (* p)) == 0)
     {
- 
     }
 
     pc.input = p;
@@ -6365,8 +4794,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
         tmp___6 = strcmp(pc.local_time_zone_table[0].name, pc.local_time_zone_table[1].name);
         if (! tmp___6)
         {
- 
- 
         }
 
       }
@@ -6376,7 +4803,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
     tmp___7 = yyparse(& pc);
     if (tmp___7 != 0)
     {
- 
     }
 
     if (pc.timespec_seen)
@@ -6387,7 +4813,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
     {
       if (1UL < ((((pc.times_seen | pc.dates_seen) | pc.days_seen) | pc.dsts_seen) | (pc.local_zones_seen + pc.zones_seen)))
       {
- 
       }
 
       tmp___8 = to_year(pc.year);
@@ -6406,24 +4831,17 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
           {
             if (! pc.days_seen)
             {
-              _L:;
-              tm.tm_hour = to_hour(pc.hour, pc.meridian);
+              _L:
+              ;
 
+              tm.tm_hour = to_hour(pc.hour, pc.meridian);
               if (tm.tm_hour < 0)
               {
- 
               }
 
               tm.tm_min = (int) pc.minutes;
               tm.tm_sec = (int) pc.seconds.tv_sec;
             }
- 
- 
- 
- 
- 
- 
- 
 
           }
           else
@@ -6452,7 +4870,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
 
       if (pc.local_zones_seen)
       {
- 
       }
 
       tm0 = tm;
@@ -6466,38 +4883,20 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
         }
         else
         {
- 
           if (time_zone < 0L)
           {
- 
           }
- 
- 
- 
- 
 
- 
- 
- 
           if (! tz_was_altered)
           {
- 
           }
 
- 
- 
           if (tmp___10 != 0)
           {
- 
           }
 
- 
- 
- 
- 
           if (! tmp___11)
           {
- 
           }
 
         }
@@ -6514,23 +4913,14 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
             {
               tmp___13 = 1;
             }
- 
- 
- 
- 
 
           }
- 
- 
- 
- 
 
           tm.tm_mday = (int) (((long) tm.tm_mday) + (((long) (((pc.day_number - tm.tm_wday) + 7) % 7)) + (7L * (pc.day_ordinal - ((long) tmp___13)))));
           tm.tm_isdst = - 1;
           Start = mktime(& tm);
           if (Start == (- 1L))
           {
- 
           }
 
         }
@@ -6544,7 +4934,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
         day = (int) (((long) tm.tm_mday) + pc.rel.day);
         if ((((year___1 < tm.tm_year) ^ (pc.rel.year < 0L)) | ((month < tm.tm_mon) ^ (pc.rel.month < 0L))) | ((day < tm.tm_mday) ^ (pc.rel.day < 0L)))
         {
- 
         }
 
         tm.tm_year = year___1;
@@ -6557,7 +4946,6 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
         Start = mktime(& tm);
         if (Start == (- 1L))
         {
- 
         }
 
       }
@@ -6569,31 +4957,29 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
         t1 = Start - delta;
         if ((Start < t1) != (delta < 0L))
         {
- 
         }
 
-
+        Start = t1;
       }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+      sum_ns = pc.seconds.tv_nsec + pc.rel.ns;
+      normalized_ns = ((sum_ns % 1000000000L) + 1000000000L) % 1000000000L;
+      t0 = Start;
+      d1 = 3600L * pc.rel.hour;
+      t1___0 = t0 + d1;
+      d2 = 60L * pc.rel.minutes;
+      t2 = t1___0 + d2;
+      d3 = pc.rel.seconds;
+      t3 = t2 + d3;
+      d4 = (sum_ns - normalized_ns) / 1000000000L;
+      t4 = t3 + d4;
+      t5 = t4;
+      if ((((((((d1 / 3600L) ^ pc.rel.hour) | ((d2 / 60L) ^ pc.rel.minutes)) | ((long) ((t1___0 < t0) ^ (d1 < 0L)))) | ((long) ((t2 < t1___0) ^ (d2 < 0L)))) | ((long) ((t3 < t2) ^ (d3 < 0L)))) | ((long) ((t4 < t3) ^ (d4 < 0L)))) | ((long) (t5 != t4)))
       {
- 
       }
 
-
-
+      result->tv_sec = t5;
+      result->tv_nsec = normalized_ns;
     }
 
     goto done;
@@ -6601,29 +4987,27 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
     ok = (_Bool) 0;
 
     done:
-
+    if (tz_was_altered)
     {
-
+      if (tz0)
       {
- 
- 
+      }
+      else
+      {
+        tmp___15 = unsetenv("TZ");
+        tmp___16 = tmp___15;
       }
 
-      {
-
-
-      }
-
-
+      ok = (_Bool) (((int) ok) & (tmp___16 == 0));
     }
 
 
-
+    if (((unsigned long) tz0) != ((unsigned long) tz0buf))
     {
-
+      free((void *) tz0);
     }
 
-
+    return ok;
   }
 }
 
@@ -6761,8 +5145,8 @@ _Bool parse_datetime(struct timespec *result, const char *p, const struct timesp
 
 
 
-#pragma GCC diagnostic pop
-const unsigned int is_basic_table[8] = {(const unsigned int) 6656, (const unsigned int) 4294967279U, (const unsigned int) 4294967294U, (const unsigned int) 2147483646};
+
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
@@ -6835,7 +5219,6 @@ static const char *get_charset_aliases(void)
       {
         if (((const int) (* (dir + 0))) == 0)
         {
- 
         }
 
       }
@@ -6850,16 +5233,8 @@ static const char *get_charset_aliases(void)
         {
           tmp___1 = 1;
         }
- 
- 
- 
- 
 
       }
- 
- 
- 
- 
 
       add_slash = tmp___1;
       file_name___3 = (char *) malloc(((dir_len___0 + ((size_t) add_slash)) + base_len___0) + 1UL);
@@ -6876,7 +5251,6 @@ static const char *get_charset_aliases(void)
 
       if (((unsigned long) file_name___3) == ((unsigned long) ((void *) 0)))
       {
- 
       }
       else
       {
@@ -6887,39 +5261,29 @@ static const char *get_charset_aliases(void)
         }
         else
         {
- 
           if (((unsigned long) fp) == ((unsigned long) ((void *) 0)))
           {
- 
- 
           }
           else
           {
- 
- 
             while (1)
             {
- 
               if (c == (- 1))
               {
- 
               }
 
               if (c == 10)
               {
- 
               }
               else
               {
                 if (c == 32)
                 {
- 
                 }
                 else
                 {
                   if (c == 9)
                   {
- 
                   }
 
                 }
@@ -6930,16 +5294,13 @@ static const char *get_charset_aliases(void)
               {
                 while (1)
                 {
- 
                   if (c == (- 1))
                   {
- 
                   }
                   else
                   {
                     if (c == 10)
                     {
- 
                     }
 
                   }
@@ -6951,71 +5312,46 @@ static const char *get_charset_aliases(void)
 
                 if (c == (- 1))
                 {
- 
                 }
 
- 
               }
 
- 
- 
               if (tmp___3 < 2)
               {
- 
               }
 
- 
- 
- 
               if (res_size == 0UL)
               {
- 
- 
               }
- 
- 
- 
- 
- 
 
-
+              if (((unsigned long) res_ptr) == ((unsigned long) ((void *) 0)))
               {
- 
- 
- 
               }
 
- 
- 
-
+              __Cont:
               ;
 
             }
 
+            while_break:
+            ;
 
-
-
-
+            rpl_fclose(fp);
+            if (res_size == 0UL)
             {
- 
             }
- 
- 
- 
- 
- 
 
           }
 
         }
 
-
+        free((void *) file_name___3);
       }
 
-
+      charset_aliases = cp;
     }
 
-
+    return cp;
   }
 }
 
@@ -7031,7 +5367,6 @@ const char *locale_charset(void)
     codeset = (const char *) nl_langinfo(14);
     if (((unsigned long) codeset) == ((unsigned long) ((void *) 0)))
     {
- 
     }
 
     aliases = get_charset_aliases();
@@ -7042,43 +5377,27 @@ const char *locale_charset(void)
         goto while_break;
       }
 
- 
       if (tmp___2 == 0)
       {
- 
- 
- 
       }
       else
       {
         if (((const int) (* (aliases + 0))) == 42)
         {
- 
- 
- 
- 
- 
- 
- 
         }
 
       }
 
- 
- 
- 
- 
     }
 
     while_break:
     ;
 
-
+    if (((const int) (* (codeset + 0))) == 0)
     {
- 
     }
 
-
+    return codeset;
   }
 }
 
@@ -7090,58 +5409,14 @@ const char *locale_charset(void)
 
 
 
-
-
-
-
-
-
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#pragma GCC diagnostic ignored "-Wtype-limits"
+char *imaxtostr(intmax_t i, char *buf___1);
 char *imaxtostr(intmax_t i, char *buf___1)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -7168,10 +5443,10 @@ char *imaxtostr(intmax_t i, char *buf___1)
 
 
 
-
-
-
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 void gettime(struct timespec *ts)
 {
   int tmp;
@@ -7183,10 +5458,6 @@ void gettime(struct timespec *ts)
       return;
     }
 
- 
- 
- 
- 
   }
 }
 
@@ -7222,41 +5493,10 @@ void gettime(struct timespec *ts)
 
 
 
-
-
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 int rpl_fseeko(FILE *fp, off_t offset, int whence)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -7267,36 +5507,14 @@ int rpl_fseeko(FILE *fp, off_t offset, int whence)
 
 
 
-
-
-
-
-
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+extern int fputc(int __c, FILE *__stream);
+size_t fprintftime(FILE *s, const char *format, const struct tm *tp, int ut, int ns);
 static void fwrite_lowcase(FILE *fp, const char *src, size_t len)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 static void fwrite_uppcase(FILE *fp, const char *src, size_t len)
@@ -7538,15 +5756,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             tmp = 0;
           }
- 
- 
- 
- 
 
           _w = (size_t) tmp;
           if (_n < _w)
           {
- 
           }
           else
           {
@@ -7556,7 +5769,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           _incr = tmp___0;
           if (_incr >= (maxsize - i))
           {
- 
           }
 
           if (p)
@@ -7565,27 +5777,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
             {
               if (_n < _w)
               {
- 
                 if (pad == 48)
                 {
                   while (1)
                   {
- 
                     while (1)
                     {
                       if (! (_i < _delta))
                       {
- 
                       }
 
- 
- 
                     }
 
                     while_break___2:
                     ;
 
- 
                   }
 
                   while_break___1:
@@ -7596,22 +5802,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                 {
                   while (1)
                   {
- 
                     while (1)
                     {
                       if (! (_i___0 < _delta))
                       {
- 
                       }
 
- 
- 
                     }
 
                     while_break___4:
                     ;
 
- 
                   }
 
                   while_break___3:
@@ -7643,12 +5844,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
         if (((const int) (* f)) == 95)
         {
- 
         }
 
         if (((const int) (* f)) == 45)
         {
- 
         }
 
         if (((const int) (* f)) == 48)
@@ -7663,7 +5862,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
         if (((const int) (* f)) == 35)
         {
- 
         }
 
         goto switch_default;
@@ -7675,10 +5873,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         to_uppcase = (_Bool) 1;
 
         goto while_continue___5;
-        case_35:;
-        change_case = (_Bool) 1;
+        case_35:
+        ;
 
- 
+        change_case = (_Bool) 1;
         switch_default:
         goto switch_break;
 
@@ -7698,7 +5896,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         {
           if (width > 214748364)
           {
- 
           }
           else
           {
@@ -7706,13 +5903,7 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
             {
               if ((((const int) (* f)) - 48) > 7)
               {
- 
               }
- 
- 
- 
- 
- 
 
             }
             else
@@ -7738,21 +5929,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (((const int) (* f)) == 69)
       {
- 
       }
 
       if (((const int) (* f)) == 79)
       {
- 
       }
 
       goto switch_default___0;
-      case_69:;
-      tmp___1 = f;
+      case_69:
+      ;
 
- 
- 
- 
+      tmp___1 = f;
       switch_default___0:
       modifier = 0;
 
@@ -7762,7 +5949,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 37)
       {
- 
       }
 
       if (format_char == 97)
@@ -7772,7 +5958,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 65)
       {
- 
       }
 
       if (format_char == 98)
@@ -7782,12 +5967,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 104)
       {
- 
       }
 
       if (format_char == 66)
       {
- 
       }
 
       if (format_char == 99)
@@ -7797,17 +5980,14 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 67)
       {
- 
       }
 
       if (format_char == 120)
       {
- 
       }
 
       if (format_char == 68)
       {
- 
       }
 
       if (format_char == 100)
@@ -7822,7 +6002,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 70)
       {
- 
       }
 
       if (format_char == 72)
@@ -7832,22 +6011,18 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 73)
       {
- 
       }
 
       if (format_char == 107)
       {
- 
       }
 
       if (format_char == 108)
       {
- 
       }
 
       if (format_char == 106)
       {
- 
       }
 
       if (format_char == 77)
@@ -7867,27 +6042,22 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 110)
       {
- 
       }
 
       if (format_char == 80)
       {
- 
       }
 
       if (format_char == 112)
       {
- 
       }
 
       if (format_char == 82)
       {
- 
       }
 
       if (format_char == 114)
       {
- 
       }
 
       if (format_char == 83)
@@ -7902,7 +6072,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 88)
       {
- 
       }
 
       if (format_char == 84)
@@ -7912,12 +6081,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 116)
       {
- 
       }
 
       if (format_char == 117)
       {
- 
       }
 
       if (format_char == 85)
@@ -7932,12 +6099,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 103)
       {
- 
       }
 
       if (format_char == 71)
       {
- 
       }
 
       if (format_char == 87)
@@ -7947,7 +6112,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 119)
       {
- 
       }
 
       if (format_char == 89)
@@ -7957,7 +6121,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 121)
       {
- 
       }
 
       if (format_char == 90)
@@ -7977,43 +6140,27 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       if (format_char == 0)
       {
- 
       }
 
- 
-      case_37:;
+      case_37:
+      ;
+
       if (modifier != 0)
       {
- 
       }
-
 
       while (1)
       {
- 
         if (width < 0)
         {
- 
         }
- 
- 
- 
- 
 
- 
         if (_n___0 < _w___0)
         {
- 
         }
- 
- 
- 
- 
 
- 
         if (_incr___0 >= (maxsize - i))
         {
- 
         }
 
         if (p)
@@ -8022,27 +6169,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (_n___0 < _w___0)
             {
- 
               if (pad == 48)
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___1 < _delta___0))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___9:
                   ;
 
- 
                 }
 
                 while_break___8:
@@ -8053,22 +6194,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___2 < _delta___0))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___11:
                   ;
 
- 
                 }
 
                 while_break___10:
@@ -8080,77 +6216,60 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
           }
 
- 
         }
 
- 
- 
       }
 
       while_break___7:
       ;
 
- 
       case_97:
       if (modifier != 0)
       {
- 
       }
 
 
       if (change_case)
       {
- 
- 
       }
 
       goto underlying_strftime;
-      case_65:;
+      case_65:
+      ;
+
       if (modifier != 0)
       {
- 
       }
-
 
       if (change_case)
       {
- 
- 
       }
 
- 
       case_98:
       if (change_case)
       {
- 
- 
       }
 
 
       if (modifier != 0)
       {
- 
       }
 
       goto underlying_strftime;
-      case_66:;
+      case_66:
+      ;
+
       if (modifier != 0)
       {
- 
       }
-
 
       if (change_case)
       {
- 
- 
       }
 
- 
       case_99:
       if (modifier == 79)
       {
- 
       }
 
 
@@ -8166,15 +6285,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         {
           tmp___5 = 0;
         }
- 
- 
- 
- 
 
         _w___1 = (size_t) tmp___5;
         if (_n___1 < _w___1)
         {
- 
         }
         else
         {
@@ -8184,7 +6298,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         _incr___1 = tmp___6;
         if (_incr___1 >= (maxsize - i))
         {
- 
         }
 
         if (p)
@@ -8193,27 +6306,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (_n___1 < _w___1)
             {
- 
               if (pad == 48)
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___3 < _delta___1))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___14:
                   ;
 
- 
                 }
 
                 while_break___13:
@@ -8224,22 +6331,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___4 < _delta___1))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___16:
                   ;
 
- 
                 }
 
                 while_break___15:
@@ -8273,9 +6375,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       * tmp___8 = (char) '%';
       if (modifier != 0)
       {
- 
- 
- 
       }
 
       tmp___10 = u;
@@ -8292,15 +6391,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             tmp___11 = 0;
           }
- 
- 
- 
- 
 
           _w___2 = (size_t) tmp___11;
           if (_n___2 < _w___2)
           {
- 
           }
           else
           {
@@ -8310,7 +6404,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           _incr___2 = tmp___12;
           if (_incr___2 >= (maxsize - i))
           {
- 
           }
 
           if (p)
@@ -8319,27 +6412,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
             {
               if (_n___2 < _w___2)
               {
- 
                 if (pad == 48)
                 {
                   while (1)
                   {
- 
                     while (1)
                     {
                       if (! (_i___5 < _delta___2))
                       {
- 
                       }
 
- 
- 
                     }
 
                     while_break___19:
                     ;
 
- 
                   }
 
                   while_break___18:
@@ -8350,22 +6437,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                 {
                   while (1)
                   {
- 
                     while (1)
                     {
                       if (! (_i___6 < _delta___2))
                       {
- 
                       }
 
- 
- 
                     }
 
                     while_break___21:
                     ;
 
- 
                   }
 
                   while_break___20:
@@ -8381,7 +6463,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
             {
               if (to_lowcase)
               {
- 
               }
               else
               {
@@ -8414,62 +6495,38 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       }
 
       goto switch_break___1;
-      case_67:;
+      case_67:
+      ;
+
       if (modifier == 79)
       {
- 
       }
-
 
       if (modifier == 69)
       {
- 
       }
 
- 
       if ((tp->tm_year % 100) < 0)
       {
- 
- 
- 
- 
- 
- 
- 
- 
- 
       }
- 
- 
- 
- 
 
- 
- 
- 
- 
- 
-      case_120:;
+      case_120:
+      ;
+
       if (modifier == 79)
       {
- 
       }
 
+      case_68:
+      ;
 
- 
-      case_68:;
       if (modifier != 0)
       {
- 
       }
 
-
- 
- 
       case_100:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -8479,7 +6536,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       case_101:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -8501,9 +6557,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       }
 
 
-      do_number:;
-      negative_number = (_Bool) (number_value < 0);
+      do_number:
+      ;
 
+      negative_number = (_Bool) (number_value < 0);
       u_number_value = (unsigned int) number_value;
       do_signed_number:
       always_output_a_sign = (_Bool) 0;
@@ -8514,7 +6571,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       {
         if (! negative_number)
         {
- 
         }
 
       }
@@ -8523,7 +6579,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       bufp = buf___1 + ((sizeof(buf___1)) / (sizeof(buf___1[0])));
       if (negative_number)
       {
- 
       }
 
       while (1)
@@ -8583,30 +6638,16 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         {
           while (1)
           {
- 
             if (width < 0)
             {
- 
             }
- 
- 
- 
- 
 
- 
             if (_n___3 < _w___3)
             {
- 
             }
- 
- 
- 
- 
 
- 
             if (_incr___3 >= (maxsize - i))
             {
- 
             }
 
             if (p)
@@ -8615,27 +6656,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
               {
                 if (_n___3 < _w___3)
                 {
- 
                   if (pad == 48)
                   {
                     while (1)
                     {
- 
                       while (1)
                       {
                         if (! (_i___7 < _delta___3))
                         {
- 
                         }
 
- 
- 
                       }
 
                       while_break___26:
                       ;
 
- 
                     }
 
                     while_break___25:
@@ -8646,22 +6681,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                   {
                     while (1)
                     {
- 
                       while (1)
                       {
                         if (! (_i___8 < _delta___3))
                         {
- 
                         }
 
- 
- 
                       }
 
                       while_break___28:
                       ;
 
- 
                     }
 
                     while_break___27:
@@ -8673,11 +6703,8 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
               }
 
- 
             }
 
- 
- 
           }
 
           while_break___24:
@@ -8695,7 +6722,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (((size_t) padding) >= (maxsize - i))
             {
- 
             }
 
             if (p)
@@ -8728,7 +6754,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
             i += (size_t) padding;
             if (width > padding)
             {
- 
             }
             else
             {
@@ -8739,30 +6764,16 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
             {
               while (1)
               {
- 
                 if (width < 0)
                 {
- 
                 }
- 
- 
- 
- 
 
- 
                 if (_n___4 < _w___4)
                 {
- 
                 }
- 
- 
- 
- 
 
- 
                 if (_incr___4 >= (maxsize - i))
                 {
- 
                 }
 
                 if (p)
@@ -8771,27 +6782,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                   {
                     if (_n___4 < _w___4)
                     {
- 
                       if (pad == 48)
                       {
                         while (1)
                         {
- 
                           while (1)
                           {
                             if (! (_i___10 < _delta___4))
                             {
- 
                             }
 
- 
- 
                           }
 
                           while_break___33:
                           ;
 
- 
                         }
 
                         while_break___32:
@@ -8802,22 +6807,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                       {
                         while (1)
                         {
- 
                           while (1)
                           {
                             if (! (_i___11 < _delta___4))
                             {
- 
                             }
 
- 
- 
                           }
 
                           while_break___35:
                           ;
 
- 
                         }
 
                         while_break___34:
@@ -8829,11 +6829,8 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
                   }
 
- 
                 }
 
- 
- 
               }
 
               while_break___31:
@@ -8846,7 +6843,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (((size_t) digits) >= (maxsize - i))
             {
- 
             }
 
             if (sign_char)
@@ -8876,7 +6872,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                 _incr___5 = tmp___20;
                 if (_incr___5 >= (maxsize - i))
                 {
- 
                 }
 
                 if (p)
@@ -8885,27 +6880,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                   {
                     if (_n___5 < _w___5)
                     {
- 
                       if (pad == 48)
                       {
                         while (1)
                         {
- 
                           while (1)
                           {
                             if (! (_i___12 < _delta___5))
                             {
- 
                             }
 
- 
- 
                           }
 
                           while_break___38:
                           ;
 
- 
                         }
 
                         while_break___37:
@@ -8916,22 +6905,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                       {
                         while (1)
                         {
- 
                           while (1)
                           {
                             if (! (_i___13 < _delta___5))
                             {
- 
                             }
 
- 
- 
                           }
 
                           while_break___40:
                           ;
 
- 
                         }
 
                         while_break___39:
@@ -8993,30 +6977,16 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             while (1)
             {
- 
               if (width < 0)
               {
- 
               }
- 
- 
- 
- 
 
- 
               if (_n___6 < _w___6)
               {
- 
               }
- 
- 
- 
- 
 
- 
               if (_incr___6 >= (maxsize - i))
               {
- 
               }
 
               if (p)
@@ -9025,27 +6995,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                 {
                   if (_n___6 < _w___6)
                   {
- 
                     if (pad == 48)
                     {
                       while (1)
                       {
- 
                         while (1)
                         {
                           if (! (_i___15 < _delta___6))
                           {
- 
                           }
 
- 
- 
                         }
 
                         while_break___45:
                         ;
 
- 
                       }
 
                       while_break___44:
@@ -9056,22 +7020,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
                     {
                       while (1)
                       {
- 
                         while (1)
                         {
                           if (! (_i___16 < _delta___6))
                           {
- 
                           }
 
- 
- 
                         }
 
                         while_break___47:
                         ;
 
- 
                       }
 
                       while_break___46:
@@ -9083,11 +7042,8 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
                 }
 
- 
               }
 
- 
- 
             }
 
             while_break___43:
@@ -9114,7 +7070,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         _w___7 = (size_t) tmp___23;
         if (_n___7 < _w___7)
         {
- 
         }
         else
         {
@@ -9124,7 +7079,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         _incr___7 = tmp___24;
         if (_incr___7 >= (maxsize - i))
         {
- 
         }
 
         if (p)
@@ -9133,27 +7087,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (_n___7 < _w___7)
             {
- 
               if (pad == 48)
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___17 < _delta___7))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___50:
                   ;
 
- 
                 }
 
                 while_break___49:
@@ -9164,22 +7112,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___18 < _delta___7))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___52:
                   ;
 
- 
                 }
 
                 while_break___51:
@@ -9195,13 +7138,11 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (to_lowcase)
             {
- 
             }
             else
             {
               if (to_uppcase)
               {
- 
               }
               else
               {
@@ -9226,70 +7167,53 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       ;
 
       goto switch_break___1;
-      case_70:;
+      case_70:
+      ;
+
       if (modifier != 0)
       {
- 
       }
 
-
- 
- 
       case_72:
       if (modifier == 69)
       {
- 
       }
 
 
       digits = 2;
       number_value = (int) tp->tm_hour;
       goto do_number;
-      case_73:;
+      case_73:
+      ;
+
       if (modifier == 69)
       {
- 
       }
 
+      case_107:
+      ;
 
- 
- 
- 
-      case_107:;
       if (modifier == 69)
       {
- 
       }
 
+      case_108:
+      ;
 
- 
- 
- 
-      case_108:;
       if (modifier == 69)
       {
- 
       }
 
+      case_106:
+      ;
 
- 
- 
- 
-      case_106:;
       if (modifier == 69)
       {
- 
       }
 
-
- 
- 
- 
- 
       case_77:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -9299,7 +7223,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       case_109:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -9310,7 +7233,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       case_78:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -9321,16 +7243,12 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       }
       else
       {
- 
         while (1)
         {
           if (! (j < 9))
           {
- 
           }
 
- 
- 
         }
 
         while_break___54:
@@ -9341,33 +7259,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       digits = width;
       number_value = number_value;
       goto do_number;
-      case_110:;
+      case_110:
+      ;
+
       while (1)
       {
- 
         if (width < 0)
         {
- 
         }
- 
- 
- 
- 
 
- 
         if (_n___8 < _w___8)
         {
- 
         }
- 
- 
- 
- 
 
- 
         if (_incr___8 >= (maxsize - i))
         {
- 
         }
 
         if (p)
@@ -9376,27 +7282,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (_n___8 < _w___8)
             {
- 
               if (pad == 48)
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___19 < _delta___8))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___57:
                   ;
 
- 
                 }
 
                 while_break___56:
@@ -9407,22 +7307,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___20 < _delta___8))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___59:
                   ;
 
- 
                 }
 
                 while_break___58:
@@ -9434,42 +7329,35 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
           }
 
- 
         }
 
- 
- 
       }
-
 
       while_break___55:
       ;
 
- 
-      case_80:;
-      to_lowcase = (_Bool) 1;
+      case_80:
+      ;
 
- 
-      case_112:;
+      to_lowcase = (_Bool) 1;
+      case_112:
+      ;
+
       if (change_case)
       {
- 
- 
       }
 
+      case_82:
+      ;
 
- 
-      case_82:;
       subfmt = "%H:%M";
+      case_114:
+      ;
 
- 
-      case_114:;
       goto underlying_strftime;
-
       case_83:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -9491,10 +7379,6 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
         {
           tmp___27 = - d;
         }
- 
- 
- 
- 
 
         * bufp = (char) (tmp___27 + 48);
         if (! (t != 0L))
@@ -9509,45 +7393,32 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
       always_output_a_sign = (_Bool) 0;
       goto do_number_sign_and_padding;
-      case_88:;
+      case_88:
+      ;
+
       if (modifier == 79)
       {
- 
       }
 
-
- 
       case_84:
       subfmt = "%H:%M:%S";
 
       goto subformat;
-      case_116:;
+      case_116:
+      ;
+
       while (1)
       {
- 
         if (width < 0)
         {
- 
         }
- 
- 
- 
- 
 
- 
         if (_n___9 < _w___9)
         {
- 
         }
- 
- 
- 
- 
 
- 
         if (_incr___9 >= (maxsize - i))
         {
- 
         }
 
         if (p)
@@ -9556,27 +7427,21 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if (_n___9 < _w___9)
             {
- 
               if (pad == 48)
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___21 < _delta___9))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___63:
                   ;
 
- 
                 }
 
                 while_break___62:
@@ -9587,22 +7452,17 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
               {
                 while (1)
                 {
- 
                   while (1)
                   {
                     if (! (_i___22 < _delta___9))
                     {
- 
                     }
 
- 
- 
                   }
 
                   while_break___65:
                   ;
 
- 
                 }
 
                 while_break___64:
@@ -9614,27 +7474,20 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
           }
 
- 
         }
 
- 
- 
       }
-
 
       while_break___61:
       ;
 
- 
-      case_117:;
-      digits = 1;
+      case_117:
+      ;
 
- 
- 
+      digits = 1;
       case_85:
       if (modifier == 69)
       {
- 
       }
 
 
@@ -9644,13 +7497,11 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       case_86:
       if (modifier == 69)
       {
- 
       }
 
 
       if (tp->tm_year < 0)
       {
- 
       }
       else
       {
@@ -9663,33 +7514,10 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
       days = tmp___31;
       if (days < 0)
       {
- 
         if (((year___1 - 1) % 4) == 0)
         {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
         }
- 
- 
- 
- 
 
- 
       }
       else
       {
@@ -9703,237 +7531,175 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
           {
             if ((year___1 % 400) == 0)
             {
- 
             }
- 
- 
- 
- 
 
           }
 
         }
- 
- 
- 
- 
 
         tmp___34 = iso_week_days((int) (tp->tm_yday - ((const int) (365 + tmp___33))), (int) tp->tm_wday);
         d___0 = tmp___34;
         if (0 <= d___0)
         {
- 
- 
         }
 
       }
 
       if (((const int) (* f)) == 103)
       {
- 
       }
 
       if (((const int) (* f)) == 71)
       {
- 
       }
 
       goto switch_default___1;
-      case_103___0:;
+      case_103___0:
+      ;
+
       yy = (int) (((tp->tm_year % 100) + ((const int) year_adjust)) % 100);
-
- 
-
+      if (0 <= yy)
       {
- 
       }
-
+      else
       {
-
+        if (tp->tm_year < ((const int) ((- 1900) - year_adjust)))
         {
- 
         }
- 
- 
- 
- 
 
- 
       }
 
- 
+      case_71___0:
+      ;
 
-
-
- 
- 
- 
+      digits = 4;
       switch_default___1:
       digits = 2;
 
       number_value = (days / 7) + 1;
       goto do_number;
       case_87:
-
+      if (modifier == 69)
       {
- 
       }
 
 
+      digits = 2;
+      number_value = (int) (((tp->tm_yday - (((tp->tm_wday - 1) + 7) % 7)) + 7) / 7);
+      goto do_number;
+      case_119:
+      ;
 
-
-
-
-
+      if (modifier == 69)
       {
- 
       }
 
-
- 
- 
- 
       case_89:
       if (modifier == 69)
       {
- 
       }
 
 
-
+      if (modifier == 79)
       {
- 
       }
-
+      else
       {
-
+        digits = 4;
       }
 
+      negative_number = (_Bool) (tp->tm_year < (- 1900));
+      u_number_value = ((unsigned int) tp->tm_year) + 1900U;
+      goto do_signed_number;
+      case_121:
+      ;
 
-
-
-
-
+      if (modifier == 69)
       {
- 
       }
 
-
- 
-
+      if (yy___0 < 0)
       {
- 
- 
- 
- 
- 
- 
- 
- 
- 
       }
 
- 
- 
- 
       case_90:
-
+      if (change_case)
       {
- 
- 
       }
 
 
-
+      if (! zone)
       {
- 
       }
 
-
+      while (1)
       {
-
-
-
+        tmp___36 = strlen(zone);
+        _n___10 = tmp___36;
+        if (width < 0)
         {
-
-        }
- 
- 
- 
- 
-
-
-
-        {
- 
+          tmp___37 = 0;
         }
 
+        _w___10 = (size_t) tmp___37;
+        if (_n___10 < _w___10)
         {
-
+        }
+        else
+        {
+          tmp___38 = _n___10;
         }
 
         _incr___10 = tmp___38;
-
+        if (_incr___10 >= (maxsize - i))
         {
- 
         }
 
-
+        if (p)
         {
-
+          if (digits == 0)
           {
             if (_n___10 < _w___10)
             {
- 
               if (pad == 48)
               {
-
+                while (1)
                 {
- 
-
+                  while (1)
                   {
-
+                    if (! (_i___23 < _delta___10))
                     {
- 
                     }
 
- 
- 
                   }
 
-
+                  while_break___68:
                   ;
 
- 
                 }
 
-
+                while_break___67:
                 ;
 
               }
-
+              else
               {
-
+                while (1)
                 {
- 
-
+                  while (1)
                   {
-
+                    if (! (_i___24 < _delta___10))
                     {
- 
                     }
 
- 
- 
                   }
 
-
+                  while_break___70:
                   ;
 
- 
                 }
 
-
+                while_break___69:
                 ;
 
               }
@@ -9942,249 +7708,210 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
           }
 
-
+          while (1)
           {
             if (to_lowcase)
             {
- 
             }
-
+            else
             {
-
+              if (to_uppcase)
               {
- 
               }
-
+              else
               {
-
+                fwrite((const void *) zone, _n___10, (size_t) 1, p);
               }
 
             }
 
-
+            goto while_break___71;
           }
 
-
+          while_break___71:
           ;
 
         }
 
-
-
+        i += _incr___10;
+        goto while_break___66;
       }
 
-
+      while_break___66:
       ;
 
       goto switch_break___1;
       case_58:
+      colons = (size_t) 1;
 
-
-
+      while (1)
       {
-
+        if (! (((const int) (* (f + colons))) == 58))
         {
-
+          goto while_break___72;
         }
 
- 
+        __Cont___0:
+        ;
 
-
-
+        colons++;
       }
 
-
+      while_break___72:
       ;
 
-
+      if (((const int) (* (f + colons))) != 122)
       {
- 
       }
 
-
+      f += colons;
       goto do_z_conversion;
       case_122:
       colons = (size_t) 0;
 
       do_z_conversion:
-
+      if (tp->tm_isdst < 0)
       {
- 
       }
 
 
-
-
-
-
-
+      diff = (int) tp->tm_gmtoff;
+      hour_diff = (diff / 60) / 60;
+      min_diff = (diff / 60) % 60;
+      sec_diff = diff % 60;
+      if (colons == 0UL)
       {
-
+        goto case_0;
       }
 
-
+      if (colons == 1UL)
       {
-
+        goto tz_hh_mm;
       }
 
-
+      if (colons == 2UL)
       {
- 
       }
 
-
+      if (colons == 3UL)
       {
- 
       }
 
- 
+      case_0:
+      digits = 5;
 
+      negative_number = (_Bool) (diff < 0);
+      tz_colon_mask = 0;
+      u_number_value = (unsigned int) ((hour_diff * 100) + min_diff);
+      goto do_tz_offset;
+      tz_hh_mm:
+      digits = 6;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
-
-
-      {
- 
-      }
-
-
-
-      {
- 
-      }
-
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-      {
-
-        {
- 
-        }
-
- 
-
-
-
-      }
-
-
+      negative_number = (_Bool) (diff < 0);
+      tz_colon_mask = 4;
+      u_number_value = (unsigned int) ((hour_diff * 100) + min_diff);
+      goto do_tz_offset;
+      tz_hh_mm_ss:
       ;
 
+      digits = 9;
+      case_3:
+      ;
 
+      if (sec_diff != 0)
       {
- 
+      }
 
+      if (min_diff != 0)
+      {
+      }
+
+      switch_default___2:
+      ;
+
+      goto bad_format;
+      case_0___0:
+      ;
+
+      f--;
+      bad_format:
+      ;
+
+      flen = 1;
+      while (1)
+      {
+        if (! (((const int) (* (f + (1 - flen)))) != 37))
         {
- 
-        }
- 
- 
- 
- 
-
- 
-
-        {
- 
-        }
- 
- 
- 
- 
-
- 
-
-        {
- 
         }
 
+        __Cont___1:
+        ;
 
+        flen++;
+      }
+
+      while_break___73:
+      ;
+
+      while (1)
+      {
+        if (width < 0)
         {
+        }
 
+        if (_n___11 < _w___11)
+        {
+        }
+
+        if (_incr___11 >= (maxsize - i))
+        {
+        }
+
+        if (p)
+        {
+          if (digits == 0)
           {
-
+            if (_n___11 < _w___11)
             {
- 
               if (pad == 48)
               {
-
+                while (1)
                 {
- 
-
+                  while (1)
                   {
-
+                    if (! (_i___25 < _delta___11))
                     {
- 
                     }
 
- 
- 
                   }
 
-
+                  while_break___76:
                   ;
 
- 
                 }
 
-
+                while_break___75:
                 ;
 
               }
-
+              else
               {
-
+                while (1)
                 {
- 
-
+                  while (1)
                   {
-
+                    if (! (_i___26 < _delta___11))
                     {
- 
                     }
 
- 
- 
                   }
 
-
+                  while_break___78:
                   ;
 
- 
                 }
 
-
+                while_break___77:
                 ;
 
               }
@@ -10193,41 +7920,31 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
 
           }
 
-
+          while (1)
           {
-
+            if (to_lowcase)
             {
- 
             }
-
+            else
             {
-
+              if (to_uppcase)
               {
- 
               }
- 
- 
- 
- 
 
             }
 
- 
           }
 
-
+          while_break___79:
           ;
 
         }
 
- 
- 
       }
 
-
+      while_break___74:
       ;
 
- 
       switch_break___1:
       ;
 
@@ -10239,7 +7956,7 @@ static size_t strftime_case____0(_Bool upcase, FILE *s, const char *format, cons
     while_break:
     ;
 
-
+    return i;
   }
 }
 
@@ -10268,20 +7985,14 @@ size_t fprintftime(FILE *s, const char *format, const struct tm *tp, int ut, int
 
 
 
-
-
-
-
-
-
+int rpl_fflush(FILE *stream);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+extern int __freading(FILE *__fp);
 static void clear_ungetc_buffer_preserving_position(FILE *fp)
 {
- 
- 
- 
- 
- 
- 
 }
 
 int rpl_fflush(FILE *stream)
@@ -10292,8 +8003,6 @@ int rpl_fflush(FILE *stream)
   {
     if (((unsigned long) stream) == ((unsigned long) ((void *) 0)))
     {
- 
- 
     }
     else
     {
@@ -10306,9 +8015,6 @@ int rpl_fflush(FILE *stream)
 
     }
 
- 
- 
- 
   }
 }
 
@@ -10336,7 +8042,7 @@ int rpl_fflush(FILE *stream)
 
 
 
-
+#pragma GCC diagnostic pop
 int rpl_fclose(FILE *fp)
 {
   int saved_errno;
@@ -10355,24 +8061,19 @@ int rpl_fclose(FILE *fp)
     fd = fileno(fp);
     if (fd < 0)
     {
- 
- 
     }
 
     tmp___1 = __freading(fp);
     if (tmp___1 != 0)
     {
- 
- 
       if (tmp___3 != (- 1L))
       {
-        _L:;
-        tmp___4 = rpl_fflush(fp);
+        _L:
+        ;
 
+        tmp___4 = rpl_fflush(fp);
         if (tmp___4)
         {
- 
- 
         }
 
       }
@@ -10386,12 +8087,9 @@ int rpl_fclose(FILE *fp)
     result = fclose(fp);
     if (saved_errno != 0)
     {
- 
- 
- 
     }
 
-
+    return result;
   }
 }
 
@@ -10449,8 +8147,8 @@ int rpl_fclose(FILE *fp)
 
 
 
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
+
+
 int close_stream(FILE *stream);
 static const char *file_name;
 static _Bool ignore_EPIPE;
@@ -10470,51 +8168,35 @@ void close_stdout(void)
     {
       if (ignore_EPIPE)
       {
- 
- 
- 
- 
- 
- 
       }
       else
       {
-        _L:;
-        tmp = (const char *) gettext("write error");
+        _L:
+        ;
 
- 
+        tmp = (const char *) gettext("write error");
         if (file_name)
         {
- 
- 
- 
         }
- 
- 
- 
- 
- 
 
- 
       }
 
     }
 
-
-
+    tmp___5 = close_stream(stderr);
+    if (tmp___5 != 0)
     {
- 
     }
 
-
+    return;
   }
 }
 
-
-
-
-
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
+extern size_t __fpending(FILE *__fp);
 int close_stream(FILE *stream)
 {
   _Bool some_pending;
@@ -10534,7 +8216,6 @@ int close_stream(FILE *stream)
     fclose_fail = (_Bool) (tmp___1 != 0);
     if (prev_fail)
     {
- 
     }
     else
     {
@@ -10542,22 +8223,18 @@ int close_stream(FILE *stream)
       {
         if (some_pending)
         {
- 
         }
         else
         {
- 
           if ((* tmp___3) != 9)
           {
-            _L___0:;
+            _L___0:
+            ;
+
             if (! fclose_fail)
             {
- 
- 
             }
 
-
- 
           }
 
         }
@@ -10566,7 +8243,7 @@ int close_stream(FILE *stream)
 
     }
 
-
+    return 0;
   }
 }
 
@@ -11384,8 +9061,8 @@ int close_stream(FILE *stream)
 
 
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
+
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic pop
 const char *Version = "8.21";
@@ -11407,77 +9084,22 @@ extern char *optarg;
 
 
 
-
-
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic pop
 __inline static void emit_mandatory_arg_note(void)
 {
- 
- 
- 
- 
- 
- 
 }
 
 __inline static void emit_ancillary_info(void)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 __inline static void emit_try_help(void)
 {
- 
- 
- 
- 
- 
- 
 }
 
 __inline static char *timetostr(time_t t, char *buf___1)
 {
- 
- 
- 
- 
- 
 }
 
 __inline static char *bad_cast(const char *s)
@@ -11486,9 +9108,9 @@ __inline static char *bad_cast(const char *s)
 }
 
 
-#pragma GCC diagnostic ignored "-Wmissing-prototypes"
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic pop
+
+
+
 static _Bool show_date(const char *format, struct timespec when);
 static const char *const time_spec_string[6] = {"hours", "minutes", "date", "seconds", "ns", (const char *) ((void *) 0)};
 static const enum Time_spec time_spec[5] = {(const enum Time_spec) 3, (const enum Time_spec) 4, (const enum Time_spec) 0, (const enum Time_spec) 1, (const enum Time_spec) 2};
@@ -11498,168 +9120,10 @@ static const struct option long_options___1[14] = {{"date", 1, (int *) ((void *)
 
 void usage(int status)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 static _Bool batch_convert(const char *input_filename, const char *format)
 {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 }
 
 
@@ -11736,7 +9200,6 @@ int main(int argc, char **argv)
 
       if (optc == 102)
       {
- 
       }
 
       if (optc == 128)
@@ -11746,12 +9209,10 @@ int main(int argc, char **argv)
 
       if (optc == 73)
       {
- 
       }
 
       if (optc == 114)
       {
- 
       }
 
       if (optc == 82)
@@ -11761,7 +9222,6 @@ int main(int argc, char **argv)
 
       if (optc == 115)
       {
- 
       }
 
       if (optc == 117)
@@ -11771,79 +9231,67 @@ int main(int argc, char **argv)
 
       if (optc == (- 130))
       {
- 
       }
 
       if (optc == (- 131))
       {
- 
       }
 
- 
       case_100:
       datestr = (const char *) optarg;
 
       goto switch_break;
-      case_102:;
-      batch_file = optarg;
+      case_102:
+      ;
 
- 
+      batch_file = optarg;
       case_128:
       tmp = __xargmatch_internal("--rfc-3339", (const char *) optarg, time_spec_string + 2, (const char *) (time_spec + 2), sizeof(* (time_spec + 2)), argmatch_die);
 
       i = (enum Time_spec) (* ((time_spec + 2) + tmp));
       new_format = rfc_3339_format[i];
       goto switch_break;
-      case_73:;
+      case_73:
+      ;
+
       if (optarg)
       {
- 
- 
       }
- 
- 
- 
- 
 
+      case_114:
+      ;
 
- 
- 
- 
-      case_114:;
       reference = optarg;
-
- 
       case_82:
       new_format = rfc_2822_format;
 
       goto switch_break;
-      case_115:;
-      set_datestr = (const char *) optarg;
+      case_115:
+      ;
 
- 
- 
+      set_datestr = (const char *) optarg;
       case_117:
       tmp___2 = bad_cast("TZ=UTC0");
 
       tmp___3 = putenv(tmp___2);
       if (tmp___3 != 0)
       {
- 
       }
 
       goto switch_break;
-      case_neg_130:;
+      case_neg_130:
+      ;
+
       usage(0);
+      case_neg_131:
+      ;
 
- 
-      case_neg_131:;
       version_etc(stdout, "date", "GNU coreutils", Version, "David MacKenzie", (char *) ((void *) 0));
-
- 
       goto switch_break;
-      switch_default:;
-      usage(1);
+      switch_default:
+      ;
 
+      usage(1);
       switch_break:
       ;
 
@@ -11851,8 +9299,6 @@ int main(int argc, char **argv)
       {
         if (format)
         {
- 
- 
         }
 
         format = new_format;
@@ -11874,7 +9320,6 @@ int main(int argc, char **argv)
 
     if (batch_file)
     {
- 
     }
     else
     {
@@ -11883,7 +9328,6 @@ int main(int argc, char **argv)
 
     if (reference)
     {
- 
     }
     else
     {
@@ -11893,18 +9337,12 @@ int main(int argc, char **argv)
     option_specified_date = (tmp___5 + tmp___6) + tmp___7;
     if (option_specified_date > 1)
     {
- 
- 
- 
     }
 
     if (set_date)
     {
       if (option_specified_date)
       {
- 
- 
- 
       }
 
     }
@@ -11913,18 +9351,12 @@ int main(int argc, char **argv)
     {
       if ((optind + 1) < argc)
       {
- 
- 
- 
- 
       }
 
       if (((int) (* ((* (argv + optind)) + 0))) == 43)
       {
         if (format)
         {
- 
- 
         }
 
         tmp___13 = optind;
@@ -11935,19 +9367,11 @@ int main(int argc, char **argv)
       {
         if (set_date)
         {
- 
- 
- 
- 
         }
         else
         {
           if (option_specified_date)
           {
- 
- 
- 
- 
           }
 
         }
@@ -11961,14 +9385,12 @@ int main(int argc, char **argv)
       format = (const char *) nl_langinfo(131180);
       if (! (* format))
       {
- 
       }
 
     }
 
     if (((unsigned long) batch_file) != ((unsigned long) ((void *) 0)))
     {
- 
     }
     else
     {
@@ -11980,10 +9402,6 @@ int main(int argc, char **argv)
         {
           if (optind < argc)
           {
- 
- 
- 
- 
           }
           else
           {
@@ -11991,10 +9409,6 @@ int main(int argc, char **argv)
           }
 
         }
- 
- 
- 
- 
 
       }
       else
@@ -12002,62 +9416,48 @@ int main(int argc, char **argv)
         _L:
         if (((unsigned long) reference) != ((unsigned long) ((void *) 0)))
         {
- 
-
+          if (tmp___17 != 0)
           {
- 
- 
           }
 
- 
         }
-
+        else
         {
-
+          if (set_datestr)
           {
- 
           }
 
-
+          valid_date = parse_datetime(& when, datestr, (const struct timespec *) ((void *) 0));
         }
 
 
       }
 
-
+      if (! valid_date)
       {
-
-
-
+        tmp___18 = quote(datestr);
+        tmp___19 = gettext("invalid date %s");
+        error(1, 0, (const char *) tmp___19, tmp___18);
       }
 
-
+      if (set_date)
       {
- 
-
+        if (tmp___22 != 0)
         {
- 
- 
- 
- 
         }
 
       }
 
-
-
+      tmp___23 = show_date(format, when);
+      ok = (_Bool) (((int) ok) & ((int) tmp___23));
     }
 
-
+    if (ok)
     {
-
+      tmp___24 = 0;
     }
- 
- 
- 
- 
 
-
+    exit(tmp___24);
   }
 }
 
@@ -12071,10 +9471,6 @@ static _Bool show_date(const char *format, struct timespec when)
     tm = localtime((const time_t *) (& when.tv_sec));
     if (! tm)
     {
- 
- 
- 
- 
     }
 
     if (((unsigned long) format) == ((unsigned long) rfc_2822_format))
@@ -12089,7 +9485,7 @@ static _Bool show_date(const char *format, struct timespec when)
       setlocale(2, "");
     }
 
-
+    return (_Bool) 1;
   }
 }
 

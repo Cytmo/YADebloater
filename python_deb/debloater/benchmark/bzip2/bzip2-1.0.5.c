@@ -9402,7 +9402,6 @@ static void addFlagsFromEnvVar(Cell **argList , Char *varName )
 }
 IntNative main(IntNative argc , Char **argv ) 
 { 
-  _Exit(0);
   Int32 i ;
   Int32 j ;
   Char *tmp ;

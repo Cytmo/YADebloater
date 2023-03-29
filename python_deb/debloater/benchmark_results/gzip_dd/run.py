@@ -6,6 +6,34 @@ BIN = ''
 source_path=''
 logger=utils.GetLog().get_log()
 
+
+    
+def run_tests(output_file="standard_output"):
+    # if output_file == "standard_output":
+    #     for fname in os.listdir('temp/train'):
+    #         for i in range(0,10):
+    #             fpath = os.path.join('temp/train', fname)
+    #             cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+    #             logger.info('Generating fuzzed testfiles, cmd is {}'.format(cmd))
+    #             execute(cmd)
+    current_work_dir = os.path.dirname(__file__)
+    output_file = current_work_dir + os.sep + output_file
+
+    # if output_file already exists, remove it
+    os.system('rm {} > /dev/null 2>&1'.format(output_file))
+    
+    for fname in os.listdir('temp/train'):
+        fpath = os.path.join('temp/train', fname)
+        # -c
+        cmd = BIN + ' -c < ' + fpath + ' >> '+output_file
+        ret = execute(cmd)
+        if ret != 0 and ret != 256 and ret != 512:
+            logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+            return False
+    return True
+    
+
+
 def compile_with_cov(source,dest=""):
     logger.info('Compiling to '+source+"_origin")
 
@@ -60,42 +88,26 @@ def verify(dd=False,num=-1):
     if not dd:
         run_tests("tmp.log2")
         cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
-        ret = execute(cmd)    
+        ret = execute(cmd)   
+        os.system('rm temp/tmp.log2')  
+        if(ret==0):
+            logger.info("Verify successed!")
+            return True
+        else:
+            logger.info("Verify failed!")
+            return False    
     else:
         assert num!=-1
         cmd2 = 'diff temp/standard_output temp/output_{} > /dev/null 2>&1'.format(num)
         ret = execute(cmd2)
-    if(ret==0):
-        logger.debug("Verify successed!")
-        return True
-    else:
-        logger.debug("Verify failed!")
-        return False    
-    
-def run_tests(output_file="standard_output"):
-    # if output_file == "standard_output":
-    #     for fname in os.listdir('temp/train'):
-    #         for i in range(0,10):
-    #             fpath = os.path.join('temp/train', fname)
-    #             cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
-    #             logger.info('Generating fuzzed testfiles, cmd is {}'.format(cmd))
-    #             execute(cmd)
-    current_work_dir = os.path.dirname(__file__)
-    output_file = current_work_dir + os.sep + output_file
+        os.system('rm temp/output_{}'.format(num))
+        if(ret==0):
+            logger.debug("Verify successed!")
+            return True
+        else:
+            logger.debug("Verify failed!")
+            return False    
 
-    # if output_file already exists, remove it
-    os.system('rm {}'.format(output_file))
-    
-    for fname in os.listdir('temp/train'):
-        fpath = os.path.join('temp/train', fname)
-        # -c
-        cmd = BIN + ' -c < ' + fpath + ' >> '+output_file
-        ret = execute(cmd)
-        if ret != 0 and ret != 256 and ret != 512:
-            logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
-            return False
-    return True
-    
 
 
 
