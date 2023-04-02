@@ -6,6 +6,7 @@
 # 1 "temp/bzip2-1.0.5.c"
 
 
+
 typedef int Int32;
 typedef unsigned char Bool;
 typedef unsigned char UChar;

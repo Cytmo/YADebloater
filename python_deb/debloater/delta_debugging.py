@@ -1,3 +1,4 @@
+from functools import lru_cache
 import hashlib
 from pycparser import c_parser, c_ast
 from pycparserext.ext_c_parser import GnuCParser
@@ -26,98 +27,6 @@ def profile(func, *args, **kwargs):
     return result
 # init logger
 logger = utils.GetLog().get_log()
-
-
-
-# import numpy as np
-# import copy
-# from tqdm import tqdm
-# import logging
-
-# logger = logging.getLogger(__name__)
-
-
-# def reward_function(candidate, code, action, test_cache, test_func, num):
-#     if action == -1:
-#         return 0
-
-#     i = action
-#     skip_indicator = candidate[i]
-#     candidate[i] = "\n"
-    
-#     candidate_code = "".join(candidate)
-#     cache_key = candidate_code
-    
-#     if cache_key in test_cache:
-#         result = test_cache[cache_key]
-#     else:
-#         result = test_func(candidate, num)
-#         test_cache[cache_key] = result
-
-#     if result:
-#         reward = 1
-#     else:
-#         reward = -1
-#         candidate[i] = skip_indicator
-
-#     return reward
-
-
-
-# def Q_learning(code, test_func, num):
-#     # Q-learning setup
-#     code_lines = len(code)
-#     actions = list(range(code_lines)) + [-1]
-#     q_table = np.zeros((code_lines + 1, len(actions)))
-#     alpha = 0.1
-#     gamma = 0.99
-#     epsilon = 0.1
-#     episodes = 1000
-
-#     # Q-learning algorithm
-#     for episode in range(episodes):
-#         state = 0
-#         done = False
-
-#         while not done:
-#             if np.random.uniform(0, 1) < epsilon:
-#                 action = np.random.choice(actions)
-#             else:
-#                 action = np.argmax(q_table[state])
-
-#             candidate = copy.deepcopy(code)
-#             test_cache = {}
-
-#             reward = reward_function(candidate, code, action, test_cache, test_func, num)
-#             next_state = state + 1 if state < code_lines - 1 else 0
-
-#             q_table[state, action] += alpha * (reward + gamma * np.max(q_table[next_state]) - q_table[state, action])
-
-#             state = next_state
-#             done = state == 0
-
-#     policy = np.argmax(q_table, axis=1)
-
-# # Modify the ddmin_function_level to use the learned policy
-# def ddmin_function_level(code, test_func, function_list, num):
-#     # ...
-#     # Replace the loop that decides which line to remove with the following:
-#     for i in range(func["start_line"] + 1, func["end_line"]):
-#         action = policy[state]
-#         reward = reward_function(candidate, code, action, test_cache, test_func, num)
-        
-#         if reward > 0:
-#             code = copy.deepcopy(candidate)
-#             total_removed += 1
-#             reduced = True
-#         else:
-#             candidate = copy.deepcopy(code)
-
-#         state = next_state
-#         done = state == 0
-#     # ...
-
-
 
 
 
@@ -226,8 +135,7 @@ def execute(cmd):
     #     return 1
     return p
 
-
-def verifier(src, num=0):
+def verifier(src, num=0, run_tests=False):
     file_temp = "temp/temp_{}.c".format(num)
     with open(file_temp, "w") as f:
         f.writelines(src)
@@ -235,64 +143,20 @@ def verifier(src, num=0):
         logger.debug("Compile Failed")
         return False
         # os.system('rm {}'.format(file_temp))
-    dir_name = "temp"
-    cmd = "python3 %s/run.py dd_verify %d" % (dir_name, num)
-    ret = os.system("{}".format(cmd))
-
-    """Put ur test code here"""
-
-    # output_file = 'output_{}'.format(num)
-
-    # cmds = []
-    # current_work_dir = 'temp'
-    # BIN = 'temp/deb_{}.out'.format(num)
-    # # $BIN '[d]*' '&@t& lkj[0-9]&' < $INDIR/moni/rr19.t &>> $OUTDIR/o0
-    # cmd0 = "{} '[d]*' '&@t& lkj[0-9]&' < {}/train/moni/rr19.t >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '@h' 'w0Yj|`l`AYgv{M<#KAouk' < $INDIR/input/ruin.1035 &>> $OUTDIR/o1
-    # cmd1 = "{} '@h' 'w0Yj|`l`AYgv{{M<#KAouk' < {}/train/input/ruin.1035 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '@**?' 'b@t' < $INDIR/temp-test/2179.inp.922.1 &>> $OUTDIR/o2
-    # cmd2 = "{} '@**?' 'b@t' < {}/train/temp-test/2179.inp.922.1 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '?[^9-B]' 'a@n' < $INDIR/temp-test/282.inp.126.2 &>> $OUTDIR/o3
-    # cmd3 = "{} '?[^9-B]' 'a@n' < {}/train/temp-test/282.inp.126.2 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '-[^-z]' '&a@%' < $INDIR/temp-test/768.inp.329.1 &>> $OUTDIR/o4
-    # cmd4 = "{} '-[^-z]' '&a@%' < {}/train/temp-test/768.inp.329.1 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN 'x' 'vif#21aJuxd&,I1PPnf{b,On|j&db8)b<`\|' < $INDIR/input/ruin.334 &>> $OUTDIR/o5
-    # cmd5 = "{} 'x' 'vif#21aJuxd&,I1PPnf{{b,On|j&db8)b<`\|' < {}/train/input/ruin.334 >> {}".format(BIN, current_work_dir, output_file)
-    # #  $BIN '%yw,0+8@n' 'a&`' < $INDIR/input/ruin.1158 &>> $OUTDIR/o6
-    # cmd6 = "{} '%yw,0+8@n' 'a&`' < {}/train/input/ruin.1158 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '%?[@@][^0-9][a-c]?-[^0-9]- [^9-B]$' 'NEW' < $INDIR/temp-test/1129.inp.485.10 &>> $OUTDIR/o7
-    # cmd7 = "{} '%?[@@][^0-9][a-c]?-[^0-9]- [^9-B]$' 'NEW' < {}/train/temp-test/1129.inp.485.10 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '-?@@*[_-z][^0-9]' '&' < $INDIR/temp-test/821.inp.354.1 &>> $OUTDIR/o8
-    # cmd8 = "{} '-?@@*[_-z][^0-9]' '&' < {}/train/temp-test/821.inp.354.1 >> {}".format(BIN, current_work_dir, output_file)
-    # # $BIN '[^9-B][^]@[**' 'a' < $INDIR/moni/f7.inp &>> $OUTDIR/o9
-    # cmd9 = "{} '[^9-B][^]@[**' 'a' < {}/train/moni/f7.inp >> {}".format(BIN, current_work_dir, output_file)
-
-    # cmds.append(cmd0)
-    # cmds.append(cmd1)
-    # cmds.append(cmd2)
-    # cmds.append(cmd3)
-    # cmds.append(cmd4)
-    # cmds.append(cmd5)
-    # cmds.append(cmd6)
-    # cmds.append(cmd7)
-    # cmds.append(cmd8)
-    # cmds.append(cmd9)
-
-    # for cmd in cmds:
-    #     execute(cmd)
-
-    # cmd1 = 'temp/deb_{}.out -c < temp/train/aaa.txt > output_{}'.format(num,num)
-    # ret = execute(cmd1)
-    # cmd2 = 'diff temp/standard_output output_{} > /dev/null 2>&1'.format(num)
-    # ret = execute(cmd2)
-    # os.system('rm output_{}'.format(num))
-    # os.system('rm temp/deb_{}.out'.format(num))
-    if ret == 0:
-        logger.debug("Test Passed")
-        return True
+    if run_tests:
+        dir_name = "temp"
+        cmd = "python3 %s/run.py dd_verify %d" % (dir_name, num)
+        ret = os.system("{}".format(cmd))
+        if ret == 0:
+            logger.debug("Test Passed")
+            return True
+        else:
+            logger.debug("Test Failed")
+            return False
     else:
-        logger.debug("Test Failed")
-        return False
+        return True
+
+
 
 
 def ddmin_execute(code, test_func, line_list):
@@ -304,7 +168,7 @@ def ddmin_execute(code, test_func, line_list):
     original_length = len(line_list)
     granularity = 1
     last_reduced_line = 0
-    with tqdm(total=max_length,desc='gran {}'.format(granularity) ) as pbar:  # initialize tqdm progress bar
+    with tqdm(total=max_length,desc='Reducing...' ) as pbar:  # initialize tqdm progress bar
         while len(code) > 0 and granularity >= 1:
             # Initialize the candidate to the original code
             candidate = copy.deepcopy(code)
@@ -312,7 +176,7 @@ def ddmin_execute(code, test_func, line_list):
             # Flag to indicate if the code was reduced in the current iteration
             reduced = False
 
-            if last_reduced_line != 0:
+            if last_reduced_line > 0:
                 i = last_reduced_line
                 pbar.update(last_reduced_line - pbar.n)
             else:
@@ -341,17 +205,16 @@ def ddmin_execute(code, test_func, line_list):
 
                 line_list_str = ''.join(str(line_list_reduced))
                 cache_key = hashlib.md5(line_list_str.encode('utf-8')).hexdigest()
-
                 if cache_key in cache:
                     test_result = cache[cache_key]
                     logger.debug('Already have result in cache, skip the test')
                 else:
-                    test_result = test_func(candidate)
+                    test_result = test_func(candidate,run_tests=True)
                     cache[cache_key] = test_result
 
                 # line_list = [x - (max_length - i) if x >= max_length else x for x in line_list]
                 # Call the test function with the reduced code
-                if removed_code and test_func(candidate):                    # write_to_file(removed_code,True)
+                if removed_code and test_result:                    # write_to_file(removed_code,True)
                     # If the test passes, update the original code and reduce granularity
                     code = copy.deepcopy(candidate)
                     reduced = True
@@ -453,6 +316,7 @@ def write_to_file(removed_code, result, file_path="dataset.txt"):
 
 
 def ddmin_function_level(code, test_func, function_list, num):
+    # Sort functions by their complexity (number of lines)
     total_removed = 0
     # Initialize the starting granularity to 1 (line by line)
     # Initialize the candidate to the original code
@@ -543,7 +407,7 @@ def ddmin_function_level(code, test_func, function_list, num):
                         # logger.debug(candidate_func_code)
                         if True:
                             # logger.debug('Syntax correct, run the test')
-                            result = test_func(candidate, num)
+                            result = test_func(candidate, num,run_tests=True)
                         else:
                             logger.debug('Syntax error, skip the test')
 
@@ -726,7 +590,18 @@ def extract_other_lines(src, func_list):
     return other_lines
 
 
-def run_dd(deleted_functions=[]):
+def reorder_function_list(function_list, function_execute_count):
+    # Sort the function list by execution count
+    function_list = sorted(function_list, key=lambda func: function_execute_count.get(func["name"], 0), reverse=True)
+
+    # Sort functions with the same execution count by code length
+    function_list = sorted(function_list, key=lambda func: func["end_line"] - func["start_line"])
+
+    return function_list
+
+
+
+def run_dd(deleted_functions=[],function_execution_count={}):
 
 
     # Rewrite the code to get correct line numbers
@@ -768,12 +643,14 @@ def run_dd(deleted_functions=[]):
     logger.info("Reducing functions...")
     function_list = begin_to_get_functions()
     # remove deleted functions from function list
-    logger.info("Running delta debugging to remove deleted functions from function list...")
+    logger.info("Running delta debugging to reduce functions...")
     for func in deleted_functions:
         for f in function_list:
             if f["name"] == func:
                 function_list.remove(f)
                 logger.debug("Removed function " + func)
+    # Reorder the function list by the execution count and length
+    function_list = reorder_function_list(function_list, function_execution_count)
     # reduced_code = profile( ddmin_function_level,reduced_code, verifier, function_list,1)
     reduced_code = ddmin_function_level(reduced_code, verifier, function_list, 1)
 

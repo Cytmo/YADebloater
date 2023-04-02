@@ -1,5 +1,6 @@
 #define __attribute__(x)
 #define __extension__
+
 typedef int Int32;
 typedef unsigned char Bool;
 typedef unsigned char UChar;

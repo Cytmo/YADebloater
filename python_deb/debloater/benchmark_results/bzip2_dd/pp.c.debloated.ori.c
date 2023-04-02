@@ -240,12 +240,12 @@ struct zzzz
   struct zzzz *link;
 };
 typedef struct zzzz Cell;
-
-
-
-
-
-
+Int32 BZ2_rNums[512];
+Int32 BZ2_rNums[512] = {619, 720, 127, 481, 931, 816, 813, 233, 566, 247, 985, 724, 205, 454, 863, 491, 741, 242, 949, 214, 733, 859, 335, 708, 621, 574, 73, 654, 730, 472, 419, 436, 278, 496, 867, 210, 399, 680, 480, 51, 878, 465, 811, 169, 869, 675, 611, 697, 867, 561, 862, 687, 507, 283, 482, 129, 807, 591, 733, 623, 150, 238, 59, 379, 684, 877, 625, 169, 643, 105, 170, 607, 520, 932, 727, 476, 693, 425, 174, 647, 73, 122, 335, 530, 442, 853, 695, 249, 445, 515, 909, 545, 703, 919, 874, 474, 882, 500, 594, 612, 641, 801, 220, 162, 819, 984, 589, 513, 495, 799, 161, 604, 958, 533, 221, 400, 386, 867, 600, 782, 382, 596, 414, 171, 516, 375, 682, 485, 911, 276, 98, 553, 163, 354, 666, 933, 424, 341, 533, 870, 227, 730, 475, 186, 263, 647, 537, 686, 600, 224, 469, 68, 770, 919, 190, 373, 294, 822, 808, 206, 184, 943, 795, 384, 383, 461, 404, 758, 839, 887, 715, 67, 618, 276, 204, 918, 873, 777, 604, 560, 951, 160, 578, 722, 79, 804, 96, 409, 713, 940, 652, 934, 970, 447, 318, 353, 859, 672, 112, 785, 645, 863, 803, 350, 139, 93, 354, 99, 820, 908, 609, 772, 154, 274, 580, 184, 79, 626, 630, 742, 653, 282, 762, 623, 680, 81, 927, 626, 789, 125, 411, 521, 938, 300, 821, 78, 343, 175, 128, 250, 170, 774, 972, 275, 999, 639, 495, 78, 352, 126, 857, 956, 358, 619, 580, 124, 737, 594, 701, 612, 669, 112, 134, 694, 363, 992, 809, 743, 168, 974, 944, 375, 748, 52, 600, 747, 642, 182, 862, 81, 344, 805, 988, 739, 511, 655, 814, 334, 249, 515, 897, 955, 664, 981, 649, 113, 974, 459, 893, 228, 433, 837, 553, 268, 926, 240, 102, 654, 459, 51, 686, 754, 806, 760, 493, 403, 415, 394, 687, 700, 946, 670, 656, 610, 738, 392, 760, 799, 887, 653, 978, 321, 576, 617, 626, 502, 894, 679, 243, 440, 680, 879, 194, 572, 640, 724, 926, 56, 204, 700, 707, 151, 457, 449, 797, 195, 791, 558, 945, 679, 297, 59, 87, 824, 713, 663, 412, 693, 342, 606, 134, 108, 571, 364, 631, 212, 174, 643, 304, 329, 343, 97, 430, 751, 497, 314, 983, 374, 822, 928, 140, 206, 73, 263, 980, 736, 876, 478, 430, 305, 170, 514, 364, 692, 829, 82, 855, 953, 676, 246, 369, 970, 294, 750, 807, 827, 150, 790, 288, 923, 804, 378, 215, 828, 592, 281, 565, 555, 710, 82, 896, 831, 547, 261, 524, 462, 293, 465, 502, 56, 661, 821, 976, 991, 658, 869, 905, 758, 745, 193, 768, 550, 608, 933, 378, 286, 215, 979, 792, 961, 61, 688, 793, 644, 986, 403, 106, 366, 905, 644, 372, 567, 466, 434, 645, 210, 389, 550, 919, 135, 780, 773, 635, 389, 707, 100, 626, 958, 165, 504, 920, 176, 193, 713, 857, 265, 203, 50, 668, 108, 645, 990, 626, 197, 510, 357, 358, 850, 858, 364, 936, 638};
+void BZ2_bz__AssertH__fail(int errcode);
+void BZ2_hbAssignCodes(Int32 *code, UChar *length, Int32 minLen, Int32 maxLen, Int32 alphaSize);
+void BZ2_hbMakeCodeLengths(UChar *len, Int32 *freq, Int32 alphaSize, Int32 maxLen);
+void BZ2_hbCreateDecodeTables(Int32 *limit, Int32 *base, Int32 *perm, UChar *length, Int32 minLen, Int32 maxLen, Int32 alphaSize);
 void BZ2_hbMakeCodeLengths(UChar *len, Int32 *freq, Int32 alphaSize, Int32 maxLen)
 {
   Int32 nNodes;
@@ -362,7 +362,8 @@ void BZ2_hbMakeCodeLengths(UChar *len, Int32 *freq, Int32 alphaSize, Int32 maxLe
         }
         if (! (nHeap < 260))
         {
-          exit(-1);
+          {
+          }
         }
 
         {
@@ -503,7 +504,8 @@ void BZ2_hbMakeCodeLengths(UChar *len, Int32 *freq, Int32 alphaSize, Int32 maxLe
         }
         if (! (nNodes < 516))
         {
-          exit(-1);
+          {
+          }
         }
 
         tooLong = (Bool) 0;
@@ -543,7 +545,6 @@ void BZ2_hbMakeCodeLengths(UChar *len, Int32 *freq, Int32 alphaSize, Int32 maxLe
             * (len + (i - 1)) = (UChar) j;
             if (j > maxLen)
             {
-              exit(-1);
             }
 
             i++;
@@ -566,7 +567,6 @@ void BZ2_hbMakeCodeLengths(UChar *len, Int32 *freq, Int32 alphaSize, Int32 maxLe
 
             if (! (i <= alphaSize))
             {
-              exit(-1);
             }
 
           }
@@ -643,28 +643,25 @@ void BZ2_hbAssignCodes(Int32 *code, UChar *length, Int32 minLen, Int32 maxLen, I
 
 void BZ2_hbCreateDecodeTables(Int32 *limit, Int32 *base, Int32 *perm, UChar *length, Int32 minLen, Int32 maxLen, Int32 alphaSize)
 {
-  exit(-1);
 }
 
-
-
-
-
+extern struct _IO_FILE *stderr;
+extern int fprintf(FILE *__restrict __stream, const char *__restrict __format, ...);
+Int32 BZ2_indexIntoF(Int32 indx, Int32 *cftab);
+Int32 BZ2_decompress(DState *s);
 static void makeMaps_d(DState *s)
 {
-  exit(-1);
 }
 
 Int32 BZ2_decompress(DState *s)
 {
-  exit(-1);
 }
 
 UInt32 BZ2_crc32Table[256];
-
-
-
-
+UInt32 BZ2_crc32Table[256] = {(UInt32) 0L, (UInt32) 79764919L, (UInt32) 159529838L, (UInt32) 222504665L, (UInt32) 319059676L, (UInt32) 398814059L, (UInt32) 445009330L, (UInt32) 507990021L, (UInt32) 638119352L, (UInt32) 583659535L, (UInt32) 797628118L, (UInt32) 726387553L, (UInt32) 890018660L, (UInt32) 835552979L, (UInt32) 1015980042L, (UInt32) 944750013L, (UInt32) 1276238704L, (UInt32) 1221641927L, (UInt32) 1167319070L, (UInt32) 1095957929L, (UInt32) 1595256236L, (UInt32) 1540665371L, (UInt32) 1452775106L, (UInt32) 1381403509L, (UInt32) 1780037320L, (UInt32) 1859660671L, (UInt32) 1671105958L, (UInt32) 1733955601L, (UInt32) 2031960084L, (UInt32) 2111593891L, (UInt32) 1889500026L, (UInt32) 1952343757L, (UInt32) 2552477408L, (UInt32) 2632100695L, (UInt32) 2443283854L, (UInt32) 2506133561L, (UInt32) 2334638140L, (UInt32) 2414271883L, (UInt32) 2191915858L, (UInt32) 2254759653L, (UInt32) 3190512472L, (UInt32) 3135915759L, (UInt32) 3081330742L, (UInt32) 3009969537L, (UInt32) 2905550212L, (UInt32) 2850959411L, (UInt32) 2762807018L, (UInt32) 2691435357L, (UInt32) 3560074640L, (UInt32) 3505614887L, (UInt32) 3719321342L, (UInt32) 3648080713L, (UInt32) 3342211916L, (UInt32) 3287746299L, (UInt32) 3467911202L, (UInt32) 3396681109L, (UInt32) 4063920168L, (UInt32) 4143685023L, (UInt32) 4223187782L, (UInt32) 4286162673L, (UInt32) 3779000052L, (UInt32) 3858754371L, (UInt32) 3904687514L, (UInt32) 3967668269L, (UInt32) 881225847L, (UInt32) 809987520L, (UInt32) 1023691545L, (UInt32) 969234094L, (UInt32) 662832811L, (UInt32) 591600412L, (UInt32) 771767749L, (UInt32) 717299826L, (UInt32) 311336399L, (UInt32) 374308984L, (UInt32) 453813921L, (UInt32) 533576470L, (UInt32) 25881363L, (UInt32) 88864420L, (UInt32) 134795389L, (UInt32) 214552010L, (UInt32) 2023205639L, (UInt32) 2086057648L, (UInt32) 1897238633L, (UInt32) 1976864222L, (UInt32) 1804852699L, (UInt32) 1867694188L, (UInt32) 1645340341L, (UInt32) 1724971778L, (UInt32) 1587496639L, (UInt32) 1516133128L, (UInt32) 1461550545L, (UInt32) 1406951526L, (UInt32) 1302016099L, (UInt32) 1230646740L, (UInt32) 1142491917L, (UInt32) 1087903418L, (UInt32) 2896545431L, (UInt32) 2825181984L, (UInt32) 2770861561L, (UInt32) 2716262478L, (UInt32) 3215044683L, (UInt32) 3143675388L, (UInt32) 3055782693L, (UInt32) 3001194130L, (UInt32) 2326604591L, (UInt32) 2389456536L, (UInt32) 2200899649L, (UInt32) 2280525302L, (UInt32) 2578013683L, (UInt32) 2640855108L, (UInt32) 2418763421L, (UInt32) 2498394922L, (UInt32) 3769900519L, (UInt32) 3832873040L, (UInt32) 3912640137L, (UInt32) 3992402750L, (UInt32) 4088425275L, (UInt32) 4151408268L, (UInt32) 4197601365L, (UInt32) 4277358050L, (UInt32) 3334271071L, (UInt32) 3263032808L, (UInt32) 3476998961L, (UInt32) 3422541446L, (UInt32) 3585640067L, (UInt32) 3514407732L, (UInt32) 3694837229L, (UInt32) 3640369242L, (UInt32) 1762451694L, (UInt32) 1842216281L, (UInt32) 1619975040L, (UInt32) 1682949687L, (UInt32) 2047383090L, (UInt32) 2127137669L, (UInt32) 1938468188L, (UInt32) 2001449195L, (UInt32) 1325665622L, (UInt32) 1271206113L, (UInt32) 1183200824L, (UInt32) 1111960463L, (UInt32) 1543535498L, (UInt32) 1489069629L, (UInt32) 1434599652L, (UInt32) 1363369299L, (UInt32) 622672798L, (UInt32) 568075817L, (UInt32) 748617968L, (UInt32) 677256519L, (UInt32) 907627842L, (UInt32) 853037301L, (UInt32) 1067152940L, (UInt32) 995781531L, (UInt32) 51762726L, (UInt32) 131386257L, (UInt32) 177728840L, (UInt32) 240578815L, (UInt32) 269590778L, (UInt32) 349224269L, (UInt32) 429104020L, (UInt32) 491947555L, (UInt32) 4046411278L, (UInt32) 4126034873L, (UInt32) 4172115296L, (UInt32) 4234965207L, (UInt32) 3794477266L, (UInt32) 3874110821L, (UInt32) 3953728444L, (UInt32) 4016571915L, (UInt32) 3609705398L, (UInt32) 3555108353L, (UInt32) 3735388376L, (UInt32) 3664026991L, (UInt32) 3290680682L, (UInt32) 3236090077L, (UInt32) 3449943556L, (UInt32) 3378572211L, (UInt32) 3174993278L, (UInt32) 3120533705L, (UInt32) 3032266256L, (UInt32) 2961025959L, (UInt32) 2923101090L, (UInt32) 2868635157L, (UInt32) 2813903052L, (UInt32) 2742672763L, (UInt32) 2604032198L, (UInt32) 2683796849L, (UInt32) 2461293480L, (UInt32) 2524268063L, (UInt32) 2284983834L, (UInt32) 2364738477L, (UInt32) 2175806836L, (UInt32) 2238787779L, (UInt32) 1569362073L, (UInt32) 1498123566L, (UInt32) 1409854455L, (UInt32) 1355396672L, (UInt32) 1317987909L, (UInt32) 1246755826L, (UInt32) 1192025387L, (UInt32) 1137557660L, (UInt32) 2072149281L, (UInt32) 2135122070L, (UInt32) 1912620623L, (UInt32) 1992383480L, (UInt32) 1753615357L, (UInt32) 1816598090L, (UInt32) 1627664531L, (UInt32) 1707420964L, (UInt32) 295390185L, (UInt32) 358241886L, (UInt32) 404320391L, (UInt32) 483945776L, (UInt32) 43990325L, (UInt32) 106832002L, (UInt32) 186451547L, (UInt32) 266083308L, (UInt32) 932423249L, (UInt32) 861060070L, (UInt32) 1041341759L, (UInt32) 986742920L, (UInt32) 613929101L, (UInt32) 542559546L, (UInt32) 756411363L, (UInt32) 701822548L, (UInt32) 3316196985L, (UInt32) 3244833742L, (UInt32) 3425377559L, (UInt32) 3370778784L, (UInt32) 3601682597L, (UInt32) 3530312978L, (UInt32) 3744426955L, (UInt32) 3689838204L, (UInt32) 3819031489L, (UInt32) 3881883254L, (UInt32) 3928223919L, (UInt32) 4007849240L, (UInt32) 4037393693L, (UInt32) 4100235434L, (UInt32) 4180117107L, (UInt32) 4259748804L, (UInt32) 2310601993L, (UInt32) 2373574846L, (UInt32) 2151335527L, (UInt32) 2231098320L, (UInt32) 2596047829L, (UInt32) 2659030626L, (UInt32) 2470359227L, (UInt32) 2550115596L, (UInt32) 2947551409L, (UInt32) 2876312838L, (UInt32) 2788305887L, (UInt32) 2733848168L, (UInt32) 3165939309L, (UInt32) 3094707162L, (UInt32) 3040238851L, (UInt32) 2985771188L};
+void BZ2_blockSort(EState *s);
+void BZ2_compressBlock(EState *s, Bool is_last_block);
+void BZ2_bsInitWrite(EState *s);
 void BZ2_bsInitWrite(EState *s)
 {
   {
@@ -1050,7 +1047,8 @@ static void sendMTFValues(EState *s)
     mtfv = s->mtfv;
     if (s->verbosity >= 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     alphaSize = s->nInUse + 2;
@@ -1095,7 +1093,8 @@ static void sendMTFValues(EState *s)
     }
     if (! (s->nMTF > 0))
     {
-      exit(-1);
+      {
+      }
     }
 
     if (s->nMTF < 200)
@@ -1105,17 +1104,14 @@ static void sendMTFValues(EState *s)
     else
       if (s->nMTF < 600)
     {
-      exit(-1);
     }
     else
       if (s->nMTF < 1200)
     {
-      exit(-1);
     }
     else
       if (s->nMTF < 2400)
     {
-      exit(-1);
     }
     else
     {
@@ -1152,7 +1148,6 @@ static void sendMTFValues(EState *s)
             {
               if (! (ge < (alphaSize - 1)))
               {
-                exit(-1);
               }
 
             }
@@ -1189,7 +1184,8 @@ static void sendMTFValues(EState *s)
 
         if (s->verbosity >= 3)
         {
-          exit(-1);
+          {
+          }
         }
 
         v = 0;
@@ -1768,6 +1764,8 @@ static void sendMTFValues(EState *s)
         if (s->verbosity >= 3)
         {
           {
+          }
+          {
             while (1)
             {
               while_continue___15:
@@ -1775,7 +1773,6 @@ static void sendMTFValues(EState *s)
 
               if (! (t < nGroups))
               {
-                exit(-1);
               }
 
               {
@@ -1821,14 +1818,16 @@ static void sendMTFValues(EState *s)
     }
     if (! (nGroups < 8))
     {
-      exit(-1);
+      {
+      }
     }
 
     if (nSelectors < 32768)
     {
       if (! (nSelectors <= 18002))
       {
-        exit(-1);
+        {
+        }
       }
 
     }
@@ -1943,12 +1942,14 @@ static void sendMTFValues(EState *s)
         }
         if (! (! (maxLen > 17)))
         {
-          exit(-1);
+          {
+          }
         }
 
         if (! (! (minLen < 1)))
         {
-          exit(-1);
+          {
+          }
         }
 
         {
@@ -2095,7 +2096,8 @@ static void sendMTFValues(EState *s)
     }
     if (s->verbosity >= 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -2149,7 +2151,8 @@ static void sendMTFValues(EState *s)
     }
     if (s->verbosity >= 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     nBytes = s->numZ;
@@ -2242,7 +2245,8 @@ static void sendMTFValues(EState *s)
     }
     if (s->verbosity >= 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     nBytes = s->numZ;
@@ -2267,7 +2271,8 @@ static void sendMTFValues(EState *s)
 
         if (! (((int) s->selector[selCtr]) < nGroups))
         {
-          exit(-1);
+          {
+          }
         }
 
         if (nGroups == 6)
@@ -2423,12 +2428,14 @@ static void sendMTFValues(EState *s)
     }
     if (! (selCtr == nSelectors))
     {
-      exit(-1);
+      {
+      }
     }
 
     if (s->verbosity >= 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     return;
@@ -2445,12 +2452,12 @@ void BZ2_compressBlock(EState *s, Bool is_last_block)
       s->combinedCRC ^= s->blockCRC;
       if (s->blockNo > 1)
       {
-        exit(-1);
       }
 
       if (s->verbosity >= 2)
       {
-        exit(-1);
+        {
+        }
       }
 
       {
@@ -2500,7 +2507,8 @@ void BZ2_compressBlock(EState *s, Bool is_last_block)
       }
       if (s->verbosity >= 2)
       {
-        exit(-1);
+        {
+        }
       }
 
       {
@@ -2541,11 +2549,10 @@ extern struct _IO_FILE *stdout;
 
 
 
-
-
+void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbytes_in_lo32, unsigned int *nbytes_in_hi32, unsigned int *nbytes_out_lo32, unsigned int *nbytes_out_hi32);
+const char *BZ2_bzlibVersion(void);
 void BZ2_bz__AssertH__fail(int errcode)
 {
-  exit(-1);
 }
 
 static int bz_config_ok(void)
@@ -2646,7 +2653,6 @@ static Bool isempty_RL(EState *s)
     {
       if (s->state_in_len > 0)
       {
-        exit(-1);
       }
 
     }
@@ -2669,32 +2675,26 @@ int BZ2_bzCompressInit(bz_stream *strm, int blockSize100k___0, int verbosity___0
     }
     if (! tmp)
     {
-      exit(-1);
     }
 
     if (((unsigned long) strm) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
     else
       if (blockSize100k___0 < 1)
     {
-      exit(-1);
     }
     else
       if (blockSize100k___0 > 9)
     {
-      exit(-1);
     }
     else
       if (workFactor___0 < 0)
     {
-      exit(-1);
     }
     else
       if (workFactor___0 > 250)
     {
-      exit(-1);
     }
 
 
@@ -2703,7 +2703,6 @@ int BZ2_bzCompressInit(bz_stream *strm, int blockSize100k___0, int verbosity___0
 
     if (workFactor___0 == 0)
     {
-      exit(-1);
     }
 
     if (((unsigned long) strm->bzalloc) == ((unsigned long) ((void *) 0)))
@@ -2721,7 +2720,6 @@ int BZ2_bzCompressInit(bz_stream *strm, int blockSize100k___0, int verbosity___0
     }
     if (((unsigned long) s) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
 
     {
@@ -2736,12 +2734,10 @@ int BZ2_bzCompressInit(bz_stream *strm, int blockSize100k___0, int verbosity___0
     }
     if (((unsigned long) s->arr1) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
     else
       if (((unsigned long) s->arr2) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
     else
       if (((unsigned long) s->ftab) == ((unsigned long) ((void *) 0)))
@@ -2751,22 +2747,18 @@ int BZ2_bzCompressInit(bz_stream *strm, int blockSize100k___0, int verbosity___0
 
       if (((unsigned long) s->arr1) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) s->arr2) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) s->ftab) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) s) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -2921,7 +2913,6 @@ static Bool copy_input_until_stop(EState *s)
 
           if (! (! (s->nblock >= s->nblockMAX)))
           {
-            exit(-1);
           }
 
           if (s->strm->avail_in == 0U)
@@ -2982,7 +2973,6 @@ static Bool copy_input_until_stop(EState *s)
           s->strm->total_in_lo32++;
           if (s->strm->total_in_lo32 == 0U)
           {
-            exit(-1);
           }
 
         }
@@ -3002,7 +2992,6 @@ static Bool copy_input_until_stop(EState *s)
 
           if (! (! (s->nblock >= s->nblockMAX)))
           {
-            exit(-1);
           }
 
           if (s->strm->avail_in == 0U)
@@ -3012,12 +3001,10 @@ static Bool copy_input_until_stop(EState *s)
 
           if (s->avail_in_expect == 0U)
           {
-            exit(-1);
           }
 
           if (zchh___0 != s->state_in_ch)
           {
-            exit(-1);
           }
 
           _L___2:
@@ -3025,7 +3012,6 @@ static Bool copy_input_until_stop(EState *s)
 
           if (zchh___0 != s->state_in_ch)
           {
-            exit(-1);
           }
           else
             if (s->state_in_len == 255)
@@ -3035,7 +3021,6 @@ static Bool copy_input_until_stop(EState *s)
 
             if (s->state_in_ch < 256U)
             {
-              exit(-1);
             }
 
           }
@@ -3043,7 +3028,6 @@ static Bool copy_input_until_stop(EState *s)
 
           if (s->strm->total_in_lo32 == 0U)
           {
-            exit(-1);
           }
 
         }
@@ -3087,7 +3071,6 @@ static Bool copy_output_until_stop(EState *s)
         s->strm->total_out_lo32++;
         if (s->strm->total_out_lo32 == 0U)
         {
-          exit(-1);
         }
 
       }
@@ -3151,7 +3134,6 @@ static Bool handle_compress(bz_stream *strm)
           }
           if (s->mode == 3)
           {
-            exit(-1);
           }
 
         }
@@ -3180,7 +3162,8 @@ static Bool handle_compress(bz_stream *strm)
 
           if (s->nblock >= s->nblockMAX)
           {
-            exit(-1);
+            {
+            }
           }
           else
             if (s->strm->avail_in == 0U)
@@ -3222,25 +3205,21 @@ int BZ2_bzCompress(bz_stream *strm, int action)
   {
     if (((unsigned long) strm) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
 
     s = (EState *) strm->state;
     if (((unsigned long) s) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
 
     if (((unsigned long) s->strm) != ((unsigned long) strm))
     {
-      exit(-1);
     }
 
     preswitch:
     {
       if (s->mode == 1)
       {
-        exit(-1);
       }
 
       if (s->mode == 2)
@@ -3250,7 +3229,6 @@ int BZ2_bzCompress(bz_stream *strm, int action)
 
       if (s->mode == 3)
       {
-        exit(-1);
       }
 
       if (s->mode == 4)
@@ -3278,7 +3256,6 @@ int BZ2_bzCompress(bz_stream *strm, int action)
       else
         if (action == 1)
       {
-        exit(-1);
       }
       else
         if (action == 2)
@@ -3296,25 +3273,23 @@ int BZ2_bzCompress(bz_stream *strm, int action)
 
       if (action != 1)
       {
-        exit(-1);
       }
 
       if (s->avail_in_expect != s->strm->avail_in)
       {
-        exit(-1);
       }
 
       {
       }
       if (s->avail_in_expect > 0U)
       {
-        exit(-1);
       }
       else
       {
+        {
+        }
         if (tmp___0)
         {
-          exit(-1);
         }
 
       }
@@ -3322,13 +3297,11 @@ int BZ2_bzCompress(bz_stream *strm, int action)
       case_4:
       if (action != 2)
       {
-        exit(-1);
       }
 
 
       if (s->avail_in_expect != s->strm->avail_in)
       {
-        exit(-1);
       }
 
       {
@@ -3336,12 +3309,10 @@ int BZ2_bzCompress(bz_stream *strm, int action)
       }
       if (! progress)
       {
-        exit(-1);
       }
 
       if (s->avail_in_expect > 0U)
       {
-        exit(-1);
       }
       else
       {
@@ -3375,18 +3346,15 @@ int BZ2_bzCompressEnd(bz_stream *strm)
   {
     if (((unsigned long) strm) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
 
     s = (EState *) strm->state;
     if (((unsigned long) s) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
 
     if (((unsigned long) s->strm) != ((unsigned long) strm))
     {
-      exit(-1);
     }
 
     if (((unsigned long) s->arr1) != ((unsigned long) ((void *) 0)))
@@ -3420,37 +3388,30 @@ int BZ2_bzCompressEnd(bz_stream *strm)
 
 int BZ2_bzDecompressInit(bz_stream *strm, int verbosity___0, int small)
 {
-  exit(-1);
 }
 
 static Bool unRLE_obuf_to_output_FAST(DState *s)
 {
-  exit(-1);
 }
 
 Int32 BZ2_indexIntoF(Int32 indx, Int32 *cftab)
 {
-  exit(-1);
 }
 
 static Bool unRLE_obuf_to_output_SMALL(DState *s)
 {
-  exit(-1);
 }
 
 int BZ2_bzDecompress(bz_stream *strm)
 {
-  exit(-1);
 }
 
 int BZ2_bzDecompressEnd(bz_stream *strm)
 {
-  exit(-1);
 }
 
 static Bool myfeof(FILE *f)
 {
-  exit(-1);
 }
 
 BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbosity___0, int workFactor___0)
@@ -3468,37 +3429,30 @@ BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbos
 
     if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
 
     if (((unsigned long) f) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
     else
       if (blockSize100k___0 < 1)
     {
-      exit(-1);
     }
     else
       if (blockSize100k___0 > 9)
     {
-      exit(-1);
     }
     else
       if (workFactor___0 < 0)
     {
-      exit(-1);
     }
     else
       if (workFactor___0 > 250)
     {
-      exit(-1);
     }
     else
       if (verbosity___0 < 0)
     {
-      exit(-1);
     }
     else
       if (verbosity___0 > 4)
@@ -3508,12 +3462,10 @@ BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbos
 
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3531,12 +3483,10 @@ BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbos
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3548,12 +3498,10 @@ BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbos
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3577,7 +3525,6 @@ BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbos
     bzf->strm.opaque = (void *) 0;
     if (workFactor___0 == 0)
     {
-      exit(-1);
     }
 
     {
@@ -3587,12 +3534,10 @@ BZFILE *BZ2_bzWriteOpen(int *bzerror, FILE *f, int blockSize100k___0, int verbos
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       {
@@ -3627,12 +3572,10 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
 
     if (((unsigned long) bzf) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
     else
       if (((unsigned long) buf) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
     }
     else
       if (len < 0)
@@ -3642,12 +3585,10 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
 
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3658,12 +3599,10 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3675,12 +3614,10 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3689,12 +3626,10 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3716,24 +3651,25 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
         {
           if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
           {
-            exit(-1);
           }
 
           if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
           {
-            exit(-1);
           }
 
         }
 
         if (bzf->strm.avail_out < 5000U)
         {
+          {
+          }
           if (n != n2)
           {
-            exit(-1);
           }
           else
           {
+            {
+            }
             if (tmp___0)
             {
               _L___0:
@@ -3741,12 +3677,10 @@ void BZ2_bzWrite(int *bzerror, BZFILE *b, void *buf, int len)
 
               if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
               {
-                exit(-1);
               }
 
               if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
               {
-                exit(-1);
               }
 
             }
@@ -3795,12 +3729,10 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3809,12 +3741,10 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3826,12 +3756,10 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
     {
       if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -3877,12 +3805,10 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
               {
                 if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
                 {
-                  exit(-1);
                 }
 
                 if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
                 {
-                  exit(-1);
                 }
 
               }
@@ -3897,7 +3823,6 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
               }
               if (n != n2)
               {
-                exit(-1);
               }
               else
               {
@@ -3911,12 +3836,10 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
 
                   if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
                   {
-                    exit(-1);
                   }
 
                   if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
                   {
-                    exit(-1);
                   }
 
                 }
@@ -3955,12 +3878,10 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
         {
           if (((unsigned long) bzerror) != ((unsigned long) ((void *) 0)))
           {
-            exit(-1);
           }
 
           if (((unsigned long) bzf) != ((unsigned long) ((void *) 0)))
           {
-            exit(-1);
           }
 
         }
@@ -4009,27 +3930,22 @@ void BZ2_bzWriteClose64(int *bzerror, BZFILE *b, int abandon, unsigned int *nbyt
 
 BZFILE *BZ2_bzReadOpen(int *bzerror, FILE *f, int verbosity___0, int small, void *unused, int nUnused)
 {
-  exit(-1);
 }
 
 void BZ2_bzReadClose(int *bzerror, BZFILE *b)
 {
-  exit(-1);
 }
 
 int BZ2_bzRead(int *bzerror, BZFILE *b, void *buf, int len)
 {
-  exit(-1);
 }
 
 void BZ2_bzReadGetUnused(int *bzerror, BZFILE *b, void **unused, int *nUnused)
 {
-  exit(-1);
 }
 
 const char *BZ2_bzlibVersion(void)
 {
-  exit(-1);
 }
 
 
@@ -4047,7 +3963,7 @@ const char *BZ2_bzlibVersion(void)
 
 
 
-extern int utime(const char *__file, const struct utimbuf *__file_times);
+
 extern int close(int __fd);
 extern int fchown(int __fd, __uid_t __owner, __gid_t __group);
 extern int isatty(int __fd);
@@ -4088,27 +4004,22 @@ Int32 workFactor;
 
 static void uInt64_from_UInt32s(UInt64 *n, UInt32 lo32, UInt32 hi32)
 {
-  exit(-1);
 }
 
 static double uInt64_to_double(UInt64 *n)
 {
-  exit(-1);
 }
 
 static Bool uInt64_isZero(UInt64 *n)
 {
-  exit(-1);
 }
 
 static Int32 uInt64_qrm10(UInt64 *n)
 {
-  exit(-1);
 }
 
 static void uInt64_toAscii(char *outbuf, UInt64 *n)
 {
-  exit(-1);
 }
 
 static Bool myfeof___0(FILE *f)
@@ -4172,7 +4083,6 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (tmp)
     {
-      exit(-1);
     }
 
     {
@@ -4180,7 +4090,6 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (tmp___0)
     {
-      exit(-1);
     }
 
     {
@@ -4188,12 +4097,12 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (bzerr != 0)
     {
-      exit(-1);
     }
 
     if (verbosity >= 2)
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -4216,7 +4125,6 @@ static void compressStream(FILE *stream, FILE *zStream)
         }
         if (tmp___2)
         {
-          exit(-1);
         }
 
         if (nIbuf > 0)
@@ -4228,7 +4136,6 @@ static void compressStream(FILE *stream, FILE *zStream)
 
         if (bzerr != 0)
         {
-          exit(-1);
         }
 
       }
@@ -4242,7 +4149,6 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (bzerr != 0)
     {
-      exit(-1);
     }
 
     {
@@ -4250,7 +4156,6 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (tmp___3)
     {
-      exit(-1);
     }
 
     {
@@ -4258,21 +4163,20 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (ret == (- 1))
     {
-      exit(-1);
     }
 
     if (((unsigned long) zStream) != ((unsigned long) stdout))
     {
+      {
+      }
       if (fd < 0)
       {
-        exit(-1);
       }
 
       {
       }
       if (ret == (- 1))
       {
-        exit(-1);
       }
 
     }
@@ -4283,7 +4187,6 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (tmp___5)
     {
-      exit(-1);
     }
 
     {
@@ -4291,14 +4194,12 @@ static void compressStream(FILE *stream, FILE *zStream)
     }
     if (ret == (- 1))
     {
-      exit(-1);
     }
 
     if (verbosity >= 1)
     {
       if (nbytes_in_lo32 == 0U)
       {
-        exit(-1);
       }
 
       _L:
@@ -4315,17 +4216,14 @@ static void compressStream(FILE *stream, FILE *zStream)
     {
       if (bzerr == (- 9))
       {
-        exit(-1);
       }
 
       if (bzerr == (- 3))
       {
-        exit(-1);
       }
 
       if (bzerr == (- 6))
       {
-        exit(-1);
       }
 
       case_neg_9:
@@ -4362,84 +4260,69 @@ static void compressStream(FILE *stream, FILE *zStream)
 
 static Bool uncompressStream(FILE *zStream, FILE *stream)
 {
-  exit(-1);
 }
 
 static Bool testStream(FILE *zStream)
 {
-  exit(-1);
 }
 
 static void setExit(Int32 v)
 {
-  exit(-1);
 }
 
 static void cadvise(void)
 {
-  exit(-1);
 }
 
 static void showFileNames(void)
 {
-  exit(-1);
 }
 
 
 static void cleanUpAndFail(Int32 ec)
 {
-  exit(-1);
 }
 
 
 static void panic(const Char *s)
 {
-  exit(-1);
 }
 
 
 static void crcError(void)
 {
-  exit(-1);
 }
 
 
 static void compressedStreamEOF(void)
 {
-  exit(-1);
 }
 
 
 static void ioError(void)
 {
-  exit(-1);
 }
 
 static void mySignalCatcher(IntNative n)
 {
-  exit(-1);
 }
 
 static void mySIGSEGVorSIGBUScatcher(IntNative n)
 {
-  exit(-1);
 }
 
 
 static void outOfMemory(void)
 {
-  exit(-1);
 }
 
 
 static void configError(void)
 {
-  exit(-1);
 }
 
 static void pad(Char *s)
 {
-  exit(-1);
 }
 
 static void copyFileName(Char *to, Char *from)
@@ -4451,7 +4334,8 @@ static void copyFileName(Char *to, Char *from)
     }
     if (tmp > 1024UL)
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -4464,43 +4348,35 @@ static void copyFileName(Char *to, Char *from)
 
 static Bool fileExists(Char *name)
 {
-  exit(-1);
 }
 
 static FILE *fopen_output_safely(Char *name, const char *mode)
 {
-  exit(-1);
 }
 
 static Bool notAStandardFile(Char *name)
 {
-  exit(-1);
 }
 
 static Int32 countHardLinks(Char *name)
 {
-  exit(-1);
 }
 
 
 static void saveInputFileMetaInfo(Char *srcName)
 {
-  exit(-1);
 }
 
 static void applySavedTimeInfoToOutputFile(Char *dstName)
 {
-  exit(-1);
 }
 
 static void applySavedFileAttrToOutputFile(IntNative fd)
 {
-  exit(-1);
 }
 
 static Bool containsDubiousChars(Char *name)
 {
-  exit(-1);
 }
 
 const Char *zSuffix[4] = {".bz2", ".bz", ".tbz2", ".tbz"};
@@ -4521,7 +4397,6 @@ static Bool hasSuffix(Char *s, const Char *suffix)
     }
     if (ns < nx)
     {
-      exit(-1);
     }
 
     {
@@ -4529,7 +4404,6 @@ static Bool hasSuffix(Char *s, const Char *suffix)
     }
     if (tmp___1 == 0)
     {
-      exit(-1);
     }
 
     return (Bool) 0;
@@ -4538,7 +4412,6 @@ static Bool hasSuffix(Char *s, const Char *suffix)
 
 static Bool mapSuffix(Char *name, const Char *oldSuffix, const Char *newSuffix)
 {
-  exit(-1);
 }
 
 static void compress(Char *name)
@@ -4584,7 +4457,8 @@ static void compress(Char *name)
     {
       if (srcMode != 1)
       {
-        exit(-1);
+        {
+        }
       }
 
     }
@@ -4597,12 +4471,10 @@ static void compress(Char *name)
 
       if (srcMode == 3)
       {
-        exit(-1);
       }
 
       if (srcMode == 2)
       {
-        exit(-1);
       }
 
       case_1:
@@ -4628,18 +4500,20 @@ static void compress(Char *name)
     }
     if (srcMode != 1)
     {
+      {
+      }
       if (tmp)
       {
-        exit(-1);
       }
 
     }
 
     if (srcMode != 1)
     {
+      {
+      }
       if (! tmp___2)
       {
-        exit(-1);
       }
 
     }
@@ -4663,7 +4537,6 @@ static void compress(Char *name)
         {
           if (noisy)
           {
-            exit(-1);
           }
 
           {
@@ -4679,7 +4552,6 @@ static void compress(Char *name)
     }
     if (srcMode == 3)
     {
-      exit(-1);
     }
     else
       if (srcMode == 2)
@@ -4691,7 +4563,6 @@ static void compress(Char *name)
       }
       if ((statBuf.st_mode & 61440U) == 16384U)
       {
-        exit(-1);
       }
 
     }
@@ -4701,16 +4572,16 @@ static void compress(Char *name)
     {
       if (! forceOverwrite)
       {
-        exit(-1);
       }
 
     }
 
     if (srcMode == 3)
     {
+      {
+      }
       if (tmp___5)
       {
-        exit(-1);
       }
 
     }
@@ -4719,14 +4590,14 @@ static void compress(Char *name)
     {
       if (! forceOverwrite)
       {
-        exit(-1);
       }
 
     }
 
     if (srcMode == 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -4737,12 +4608,10 @@ static void compress(Char *name)
 
       if (srcMode == 2)
       {
-        exit(-1);
       }
 
       if (srcMode == 3)
       {
-        exit(-1);
       }
 
       case_1___0:
@@ -4755,7 +4624,8 @@ static void compress(Char *name)
 
       if (tmp___8)
       {
-        exit(-1);
+        {
+        }
       }
 
       goto switch_break___0;
@@ -4766,12 +4636,10 @@ static void compress(Char *name)
       }
       if (tmp___10)
       {
-        exit(-1);
       }
 
       if (((unsigned long) inStr) == ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       case_3___0:
@@ -4781,12 +4649,10 @@ static void compress(Char *name)
       }
       if (((unsigned long) outStr) == ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       if (((unsigned long) inStr) == ((unsigned long) ((void *) 0)))
       {
-        exit(-1);
       }
 
       switch_default:
@@ -4800,7 +4666,8 @@ static void compress(Char *name)
     }
     if (verbosity >= 1)
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -4811,9 +4678,10 @@ static void compress(Char *name)
     }
     if (srcMode == 3)
     {
+      {
+      }
       if (! keepInputFiles)
       {
-        exit(-1);
       }
 
     }
@@ -4825,27 +4693,22 @@ static void compress(Char *name)
 
 static void uncompress(Char *name)
 {
-  exit(-1);
 }
 
 static void testf(Char *name)
 {
-  exit(-1);
 }
 
 static void license(void)
 {
-  exit(-1);
 }
 
 static void usage(Char *fullProgName)
 {
-  exit(-1);
 }
 
 static void redundant(Char *flag)
 {
-  exit(-1);
 }
 
 static void *myMalloc(Int32 n)
@@ -4857,7 +4720,8 @@ static void *myMalloc(Int32 n)
     }
     if (((unsigned long) p) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
+      {
+      }
     }
 
     return p;
@@ -4905,7 +4769,6 @@ static Cell *snocString(Cell *root, Char *name)
 
           if (! (((unsigned long) tmp___3->link) != ((unsigned long) ((void *) 0))))
           {
-            exit(-1);
           }
 
         }
@@ -4944,7 +4807,6 @@ static void addFlagsFromEnvVar(Cell **argList, Char *varName)
 
           if (! (! (((int) (* (p + i))) == 0)))
           {
-            exit(-1);
           }
 
           {
@@ -4957,7 +4819,6 @@ static void addFlagsFromEnvVar(Cell **argList, Char *varName)
               }
               if (! (((const int) (* ((* tmp) + ((Int32) (* (p + 0)))))) & 8192))
               {
-                exit(-1);
               }
 
             }
@@ -4974,7 +4835,6 @@ static void addFlagsFromEnvVar(Cell **argList, Char *varName)
 
               if (((int) (* (p + i))) != 0)
               {
-                exit(-1);
               }
 
             }
@@ -4987,7 +4847,6 @@ static void addFlagsFromEnvVar(Cell **argList, Char *varName)
           {
             if (k > 1024)
             {
-              exit(-1);
             }
 
             {
@@ -4998,7 +4857,6 @@ static void addFlagsFromEnvVar(Cell **argList, Char *varName)
 
                 if (! (j < k))
                 {
-                  exit(-1);
                 }
 
               }
@@ -5210,7 +5068,6 @@ IntNative main(IntNative argc, Char **argv)
         }
         if (tmp___0 == 0)
         {
-          exit(-1);
         }
 
         if (((int) (* (aa->name + 0))) == 45)
@@ -5226,7 +5083,6 @@ IntNative main(IntNative argc, Char **argv)
         }
         if (longestFileName < ((Int32) tmp___2))
         {
-          exit(-1);
         }
 
         __Cont:
@@ -5250,7 +5106,6 @@ IntNative main(IntNative argc, Char **argv)
     }
     if (((unsigned long) tmp___3) != ((unsigned long) ((char *) 0)))
     {
-      exit(-1);
     }
     else
     {
@@ -5259,7 +5114,6 @@ IntNative main(IntNative argc, Char **argv)
       }
       if (((unsigned long) tmp___4) != ((unsigned long) ((char *) 0)))
       {
-        exit(-1);
       }
 
     }
@@ -5269,7 +5123,6 @@ IntNative main(IntNative argc, Char **argv)
     }
     if (((unsigned long) tmp___5) != ((unsigned long) ((char *) 0)))
     {
-      exit(-1);
     }
     else
     {
@@ -5278,7 +5131,6 @@ IntNative main(IntNative argc, Char **argv)
       }
       if (((unsigned long) tmp___6) != ((unsigned long) ((char *) 0)))
       {
-        exit(-1);
       }
       else
       {
@@ -5287,7 +5139,6 @@ IntNative main(IntNative argc, Char **argv)
         }
         if (((unsigned long) tmp___7) != ((unsigned long) ((char *) 0)))
         {
-          exit(-1);
         }
         else
         {
@@ -5302,7 +5153,6 @@ IntNative main(IntNative argc, Char **argv)
             opMode = 2;
             if (numFileNames == 0)
             {
-              exit(-1);
             }
 
           }
@@ -5330,7 +5180,6 @@ IntNative main(IntNative argc, Char **argv)
         }
         if (tmp___9 == 0)
         {
-          exit(-1);
         }
 
         if (((int) (* (aa->name + 0))) == 45)
@@ -5357,102 +5206,82 @@ IntNative main(IntNative argc, Char **argv)
 
                   if (((int) (* (aa->name + j))) == 100)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 122)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 102)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 116)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 107)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 115)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 113)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 49)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 50)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 51)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 52)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 53)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 54)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 55)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 56)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 57)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 86)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 76)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 118)
                   {
-                    exit(-1);
                   }
 
                   if (((int) (* (aa->name + j))) == 104)
                   {
-                    exit(-1);
                   }
 
                   case_99:
@@ -5586,7 +5415,6 @@ IntNative main(IntNative argc, Char **argv)
         }
         if (tmp___10 == 0)
         {
-          exit(-1);
         }
 
         {
@@ -5594,7 +5422,6 @@ IntNative main(IntNative argc, Char **argv)
         }
         if (tmp___28 == 0)
         {
-          exit(-1);
         }
         else
         {
@@ -5603,7 +5430,6 @@ IntNative main(IntNative argc, Char **argv)
           }
           if (tmp___27 == 0)
           {
-            exit(-1);
           }
           else
           {
@@ -5612,7 +5438,6 @@ IntNative main(IntNative argc, Char **argv)
             }
             if (tmp___26 == 0)
             {
-              exit(-1);
             }
             else
             {
@@ -5621,7 +5446,6 @@ IntNative main(IntNative argc, Char **argv)
               }
               if (tmp___25 == 0)
               {
-                exit(-1);
               }
               else
               {
@@ -5630,7 +5454,6 @@ IntNative main(IntNative argc, Char **argv)
                 }
                 if (tmp___24 == 0)
                 {
-                  exit(-1);
                 }
                 else
                 {
@@ -5639,7 +5462,6 @@ IntNative main(IntNative argc, Char **argv)
                   }
                   if (tmp___23 == 0)
                   {
-                    exit(-1);
                   }
                   else
                   {
@@ -5648,7 +5470,6 @@ IntNative main(IntNative argc, Char **argv)
                     }
                     if (tmp___22 == 0)
                     {
-                      exit(-1);
                     }
                     else
                     {
@@ -5657,7 +5478,6 @@ IntNative main(IntNative argc, Char **argv)
                       }
                       if (tmp___21 == 0)
                       {
-                        exit(-1);
                       }
                       else
                       {
@@ -5666,7 +5486,8 @@ IntNative main(IntNative argc, Char **argv)
                         }
                         if (tmp___20 == 0)
                         {
-                          exit(-1);
+                          {
+                          }
                         }
                         else
                         {
@@ -5675,7 +5496,8 @@ IntNative main(IntNative argc, Char **argv)
                           }
                           if (tmp___19 == 0)
                           {
-                            exit(-1);
+                            {
+                            }
                           }
                           else
                           {
@@ -5684,7 +5506,6 @@ IntNative main(IntNative argc, Char **argv)
                             }
                             if (tmp___18 == 0)
                             {
-                              exit(-1);
                             }
                             else
                             {
@@ -5693,7 +5514,8 @@ IntNative main(IntNative argc, Char **argv)
                               }
                               if (tmp___17 == 0)
                               {
-                                exit(-1);
+                                {
+                                }
                               }
                               else
                               {
@@ -5702,7 +5524,8 @@ IntNative main(IntNative argc, Char **argv)
                                 }
                                 if (tmp___16 == 0)
                                 {
-                                  exit(-1);
+                                  {
+                                  }
                                 }
                                 else
                                 {
@@ -5711,7 +5534,6 @@ IntNative main(IntNative argc, Char **argv)
                                   }
                                   if (tmp___15 == 0)
                                   {
-                                    exit(-1);
                                   }
                                   else
                                   {
@@ -5720,7 +5542,6 @@ IntNative main(IntNative argc, Char **argv)
                                     }
                                     if (tmp___14 == 0)
                                     {
-                                      exit(-1);
                                     }
                                     else
                                     {
@@ -5729,7 +5550,6 @@ IntNative main(IntNative argc, Char **argv)
                                       }
                                       if (tmp___13 == 0)
                                       {
-                                        exit(-1);
                                       }
                                       else
                                       {
@@ -5738,7 +5558,8 @@ IntNative main(IntNative argc, Char **argv)
                                         }
                                         if (tmp___12 == 0)
                                         {
-                                          exit(-1);
+                                          {
+                                          }
                                         }
                                         else
                                         {
@@ -5747,7 +5568,8 @@ IntNative main(IntNative argc, Char **argv)
                                           }
                                           if (tmp___11 == 0)
                                           {
-                                            exit(-1);
+                                            {
+                                            }
                                           }
 
                                         }
@@ -5793,7 +5615,6 @@ IntNative main(IntNative argc, Char **argv)
     }
     if (verbosity > 4)
     {
-      exit(-1);
     }
 
     if (opMode == 1)
@@ -5802,7 +5623,6 @@ IntNative main(IntNative argc, Char **argv)
       {
         if (blockSize100k > 2)
         {
-          exit(-1);
         }
 
       }
@@ -5813,7 +5633,6 @@ IntNative main(IntNative argc, Char **argv)
     {
       if (srcMode == 2)
       {
-        exit(-1);
       }
 
     }
@@ -5829,12 +5648,12 @@ IntNative main(IntNative argc, Char **argv)
 
     if (opMode != 1)
     {
-      exit(-1);
     }
 
     if (srcMode == 3)
     {
-      exit(-1);
+      {
+      }
     }
 
     if (opMode == 1)
@@ -5855,19 +5674,16 @@ IntNative main(IntNative argc, Char **argv)
 
             if (! (((unsigned long) aa) != ((unsigned long) ((void *) 0))))
             {
-              exit(-1);
             }
 
             {
             }
             if (tmp___29 == 0)
             {
-              exit(-1);
             }
 
             if (((int) (* (aa->name + 0))) == 45)
             {
-              exit(-1);
             }
 
             {
@@ -5890,7 +5706,6 @@ IntNative main(IntNative argc, Char **argv)
     {
       if (srcMode == 1)
       {
-        exit(-1);
       }
       else
       {
@@ -5902,19 +5717,16 @@ IntNative main(IntNative argc, Char **argv)
 
             if (! (((unsigned long) aa) != ((unsigned long) ((void *) 0))))
             {
-              exit(-1);
             }
 
             {
             }
             if (tmp___30 == 0)
             {
-              exit(-1);
             }
 
             if (((int) (* (aa->name + 0))) == 45)
             {
-              exit(-1);
             }
 
             {
@@ -5933,7 +5745,6 @@ IntNative main(IntNative argc, Char **argv)
 
       if (unzFailsExist)
       {
-        exit(-1);
       }
 
     }
@@ -5941,7 +5752,6 @@ IntNative main(IntNative argc, Char **argv)
     {
       if (srcMode == 1)
       {
-        exit(-1);
       }
       else
       {
@@ -5953,19 +5763,16 @@ IntNative main(IntNative argc, Char **argv)
 
             if (! (((unsigned long) aa) != ((unsigned long) ((void *) 0))))
             {
-              exit(-1);
             }
 
             {
             }
             if (tmp___31 == 0)
             {
-              exit(-1);
             }
 
             if (((int) (* (aa->name + 0))) == 45)
             {
-              exit(-1);
             }
 
             {
@@ -5984,7 +5791,6 @@ IntNative main(IntNative argc, Char **argv)
 
       if (testFailsExist)
       {
-        exit(-1);
       }
 
     }
@@ -6192,7 +5998,8 @@ static void fallbackQSort3(UInt32 *fmap, UInt32 *eclass, Int32 loSt, Int32 hiSt)
 
         if (! (sp < 99))
         {
-          exit(-1);
+          {
+          }
         }
 
         sp--;
@@ -6444,7 +6251,8 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
     eclass8 = (UChar *) eclass;
     if (verb >= 4)
     {
-      exit(-1);
+      {
+      }
     }
 
     i = 0;
@@ -6621,7 +6429,8 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
 
         if (verb >= 4)
         {
-          exit(-1);
+          {
+          }
         }
 
         j = 0;
@@ -6802,7 +6611,6 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
             r = k - 1;
             if (r >= nblock)
             {
-              exit(-1);
             }
 
             if (r > l)
@@ -6848,7 +6656,8 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
         }
         if (verb >= 4)
         {
-          exit(-1);
+          {
+          }
         }
 
         H *= 2;
@@ -6859,7 +6668,6 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
         else
           if (nNotDone == 0)
         {
-          exit(-1);
         }
 
 
@@ -6871,7 +6679,8 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
     }
     if (verb >= 4)
     {
-      exit(-1);
+      {
+      }
     }
 
     j = 0;
@@ -6916,7 +6725,8 @@ static void fallbackSort(UInt32 *fmap, UInt32 *eclass, UInt32 *bhtab, Int32 nblo
     }
     if (! (j < 256))
     {
-      exit(-1);
+      {
+      }
     }
 
     return;
@@ -7176,19 +6986,16 @@ __inline static Bool mainGtU(UInt32 i1, UInt32 i2, UChar *block, UInt16 *quadran
         i2++;
         if (i1 >= nblock)
         {
-          exit(-1);
         }
 
         if (i2 >= nblock)
         {
-          exit(-1);
         }
 
         k -= 8;
         (* budget)--;
         if (! (k >= 0))
         {
-          exit(-1);
         }
 
       }
@@ -7368,7 +7175,6 @@ static void mainSimpleSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, Int32 nb
             i++;
             if ((* budget) < 0)
             {
-              exit(-1);
             }
 
           }
@@ -7471,7 +7277,8 @@ static void mainQSort3(UInt32 *ptr, UChar *block, UInt16 *quadrant, Int32 nblock
 
         if (! (sp < 98))
         {
-          exit(-1);
+          {
+          }
         }
 
         sp--;
@@ -7492,7 +7299,6 @@ static void mainQSort3(UInt32 *ptr, UChar *block, UInt16 *quadrant, Int32 nblock
 
           if ((* budget) < 0)
           {
-            exit(-1);
           }
 
           goto while_continue;
@@ -7779,7 +7585,8 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
   {
     if (verb >= 4)
     {
-      exit(-1);
+      {
+      }
     }
 
     i = 65536;
@@ -7878,7 +7685,8 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
     }
     if (verb >= 4)
     {
-      exit(-1);
+      {
+      }
     }
 
     i = 1;
@@ -8102,7 +7910,8 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
                 {
                   if (verb >= 4)
                   {
-                    exit(-1);
+                    {
+                    }
                   }
 
                   {
@@ -8111,7 +7920,6 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
                   }
                   if ((* budget) < 0)
                   {
-                    exit(-1);
                   }
 
                 }
@@ -8130,7 +7938,8 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
         }
         if (! (! bigDone[ss]))
         {
-          exit(-1);
+          {
+          }
         }
 
         j = 0;
@@ -8224,7 +8033,6 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
         {
           if (copyStart[ss] == 0)
           {
-            exit(-1);
           }
 
         }
@@ -8301,7 +8109,8 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
           }
           if (! (((bbSize - 1) >> shifts) <= 65535))
           {
-            exit(-1);
+            {
+            }
           }
 
         }
@@ -8315,7 +8124,8 @@ static void mainSort(UInt32 *ptr, UChar *block, UInt16 *quadrant, UInt32 *ftab, 
     }
     if (verb >= 4)
     {
-      exit(-1);
+      {
+      }
     }
 
     return;
@@ -8359,12 +8169,10 @@ void BZ2_blockSort(EState *s)
       quadrant = (UInt16 *) (block + i);
       if (wfact < 1)
       {
-        exit(-1);
       }
 
       if (wfact > 100)
       {
-        exit(-1);
       }
 
       {
@@ -8376,7 +8184,6 @@ void BZ2_blockSort(EState *s)
       {
         if (nblock == 0)
         {
-          exit(-1);
         }
 
         {
@@ -8387,7 +8194,6 @@ void BZ2_blockSort(EState *s)
       {
         if (verb >= 2)
         {
-          exit(-1);
         }
 
         {
@@ -8406,7 +8212,6 @@ void BZ2_blockSort(EState *s)
 
         if (! (i < s->nblock))
         {
-          exit(-1);
         }
 
         if ((* (ptr + i)) == 0U)
@@ -8424,7 +8229,8 @@ void BZ2_blockSort(EState *s)
     }
     if (! (s->origPtr != (- 1)))
     {
-      exit(-1);
+      {
+      }
     }
 
     return;

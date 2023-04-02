@@ -146,9 +146,9 @@ if __name__ == '__main__':
     # run_inputs("file_input")
     cmd = "python3 %s/run.py debloat %s" %(dir_name,source_path)
     utils.exec_cmd(cmd)
-    file_name,deleted_functions = json_code_remover.code_remove(source_path+".gcov.json",source_path)
+    file_name,deleted_functions,function_execution_count = json_code_remover.code_remove(source_path+".gcov.json",source_path)
     security_ops.begin_ops(only_remove_comments=True)
-    delta_debugging.run_dd(deleted_functions) 
+    delta_debugging.run_dd(deleted_functions,function_execution_count) 
     if robust_mode:
         security_ops.begin_ops(only_remove_comments=False)
     else:

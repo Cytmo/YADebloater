@@ -89,7 +89,11 @@ def code_remove(cov_merged_path,source_file):
     # function level remove, but keep declaration
     function_declaration_lines = []
     deleted_functions = {}
-    
+    function_execution_count = {}
+
+
+
+
     for i in range(len(f1['files'][0]['functions'])):
         # logger.info(f1['files'][0]['functions'][i])
         if f1['files'][0]['functions'][i]['execution_count'] == 0 :
@@ -126,7 +130,10 @@ def code_remove(cov_merged_path,source_file):
             
             
     logger.debug("Function def line:{}".format(function_declaration_lines))        
-            
+    # get function execution count
+    for i in range(len(f1['files'][0]['functions'])):    
+        if not f1['files'][0]['functions'][i]['name'] in deleted_functions: 
+            function_execution_count.update({f1['files'][0]['functions'][i]['name']:f1['files'][0]['functions'][i]['execution_count']})   
        
     # line level remove
     logger.info('Line level remove...')
@@ -277,7 +284,7 @@ def code_remove(cov_merged_path,source_file):
     # logger.info('Reserved line count is '+str(line_reserved))
     # logger.info('Removed line count is '+str(line_removed))
     
-    return dest_file_name,deleted_functions
+    return dest_file_name,deleted_functions,function_execution_count
 
 
 
