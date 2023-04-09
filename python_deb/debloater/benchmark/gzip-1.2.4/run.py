@@ -9,6 +9,12 @@ logger=utils.GetLog().get_log()
 
     
 def run_tests(output_file="standard_output"):
+    if output_file == "standard_output":
+        if os.path.isfile("temp/deb.out"):
+            os.system("rm temp/deb.out")
+        os.system("cp temp/pp.c_origin temp/deb.out")
+        global BIN
+        BIN = "temp/deb.out"
     # if output_file == "standard_output":
     #     for fname in os.listdir('temp/train'):
     #         for i in range(0,10):
@@ -20,19 +26,61 @@ def run_tests(output_file="standard_output"):
     output_file = current_work_dir + os.sep + output_file
 
     # if output_file already exists, remove it
-    os.system('rm {} > /dev/null 2>&1'.format(output_file))
+    # os.system('rm {} > /dev/null 2>&1'.format(output_file))
     
-    for fname in os.listdir('temp/train'):
-        fpath = os.path.join('temp/train', fname)
+
+    trainc = 'temp/train_input/trainc'
+    for fname in os.listdir(trainc):
+        fpath = os.path.join(trainc, fname)
         # -c
         cmd = BIN + ' -c < ' + fpath + ' >> '+output_file
         ret = execute(cmd)
         if ret != 0 and ret != 256 and ret != 512:
             logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
             return False
-    return True
     
+    
+    traind = 'temp/train_input/traind'
+    for fname in os.listdir(traind):
+        fpath = os.path.join(traind, fname)
+        # -d
+        cmd = BIN + ' -d < ' + fpath + ' >> '+output_file
+        ret = execute(cmd)
+        if ret != 0 and ret != 256 and ret != 512:
+            logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+            return False
 
+    
+    trainf = 'temp/train_input/trainf'
+    for fname in os.listdir(trainf):
+        fpath = os.path.join(trainf, fname)
+        # -f
+        cmd = BIN + ' -f ' + fpath + ' >> '+output_file
+        ret = execute(cmd)
+        if ret != 0 and ret != 256 and ret != 512:
+            logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+            return False
+
+    # traink = 'temp/train_input/traink'
+    # for fname in os.listdir(traink):
+    #     fpath = os.path.join(traink, fname)
+    #     # -k
+    #     cmd = BIN + ' -k ' + fpath + ' >> '+output_file
+    #     ret = execute(cmd)
+    #     if ret != 0 and ret != 256 and ret != 512:
+    #         logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+    #         return False
+        
+    traint = 'temp/train_input/traint'
+    for fname in os.listdir(traint):
+        fpath = os.path.join(traint, fname)
+        # -t
+        cmd = BIN + ' -t ' + fpath + ' >> '+output_file
+        ret = execute(cmd)
+        if ret != 0 and ret != 256 and ret != 512:
+            logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+            return False
+    return True
 
 def compile_with_cov(source,dest=""):
     logger.info('Compiling to '+source+"_origin")
@@ -75,7 +123,7 @@ def debloat():
 
 def verifier(num):
     global BIN
-    BIN = 'temp/deb_{}.out'.format(num)
+    BIN = 'temp/deb.out'
     if not run_tests("output_{}".format(num)):
         sys.exit(1)
     if verify(dd=True,num=num):
@@ -87,6 +135,7 @@ def verifier(num):
 def verify(dd=False,num=-1):
     if not dd:
         run_tests("tmp.log2")
+
         cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
         ret = execute(cmd)   
         os.system('rm temp/tmp.log2')  

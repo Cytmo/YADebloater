@@ -153,65 +153,65 @@ static unsigned int subbitbuf;
 static int bitcount;
 static void fillbuf(int n)
 {
-  _Exit(-1);
+ 
 }
 
 static unsigned int getbits(int n)
 {
-  _Exit(-1);
+ 
 }
 
 static void init_getbits(void)
 {
-  _Exit(-1);
+ 
 }
 
 static void make_table(int nchar, uch *bitlen, int tablebits, ush *table)
 {
-  _Exit(-1);
+ 
 }
 
 static void read_pt_len(int nn, int nbit, int i_special)
 {
-  _Exit(-1);
+ 
 }
 
 static void read_c_len(void)
 {
-  _Exit(-1);
+ 
 }
 
 static unsigned int decode_c(void)
 {
-  _Exit(-1);
+ 
 }
 
 static unsigned int decode_p(void)
 {
-  _Exit(-1);
+ 
 }
 
 static void huf_decode_start(void)
 {
-  _Exit(-1);
+ 
 }
 
 static int j;
 static int done;
 static void decode_start(void)
 {
-  _Exit(-1);
+ 
 }
 
 static unsigned int i;
 static unsigned int decode(unsigned int count, uch *buffer)
 {
-  _Exit(-1);
+ 
 }
 
 int unlzh(int in, int out)
 {
-  _Exit(-1);
+ 
 }
 
 unsigned int outcnt;
@@ -223,17 +223,17 @@ static void read_tree(void);
 static void build_tree(void);
 static void read_tree(void)
 {
-  _Exit(-1);
+ 
 }
 
 static void build_tree(void)
 {
-  _Exit(-1);
+ 
 }
 
 int unpack(int in, int out)
 {
-  _Exit(-1);
+ 
 }
 
 extern ssize_t read(int __fd, void *__buf, size_t __nbytes);
@@ -246,14 +246,14 @@ char ifname[1024];
 char *progname;
 int unlzw(int in, int out)
 {
-  _Exit(-1);
+ 
 }
 
 int lzw(int in, int out);
 static int msg_done = 0;
 int lzw(int in, int out)
 {
-  _Exit(-1);
+ 
 }
 
 extern void perror(const char *__s);
@@ -269,7 +269,7 @@ voidp xmalloc(unsigned int size);
 ulg crc_32_tab[256];
 int copy(int in, int out)
 {
-  _Exit(-1);
+ 
 }
 
 static ulg crc = (ulg) 4294967295L;
@@ -331,7 +331,7 @@ void clear_bufs(void)
 
 int fill_inbuf(int eof_ok)
 {
-  _Exit(-1);
+ 
 }
 
 void flush_outbuf(void)
@@ -339,7 +339,7 @@ void flush_outbuf(void)
   {
     if (outcnt == 0U)
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -353,7 +353,7 @@ void flush_outbuf(void)
 
 void flush_window(void)
 {
-  _Exit(-1);
+ 
 }
 
 void write_buf(int fd, voidp buf, unsigned int cnt)
@@ -376,7 +376,7 @@ void write_buf(int fd, voidp buf, unsigned int cnt)
 
         if (n == 4294967295U)
         {
-          _Exit(-1);
+         
         }
 
       }
@@ -391,7 +391,7 @@ void write_buf(int fd, voidp buf, unsigned int cnt)
 
 char *strlwr(char *s)
 {
-  _Exit(-1);
+ 
 }
 
 char *basename(char *fname)
@@ -455,21 +455,21 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
 
         if (! (* p))
         {
-          _Exit(-1);
+         
         }
 
         {
         }
         if (((int) (* p)) == 0)
         {
-          _Exit(-1);
+         
         }
 
         {
         }
         if (* p)
         {
-          _Exit(-1);
+         
         }
 
       }
@@ -480,19 +480,19 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
     }
     if (nargc == 0)
     {
-      _Exit(-1);
+     
     }
 
     {
     }
     if (((unsigned long) nargv) == ((unsigned long) ((void *) 0)))
     {
-      _Exit(-1);
+     
     }
 
     if (tmp___6 < 0)
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -503,7 +503,7 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
 
         if (! (nargc > 0))
         {
-          _Exit(-1);
+         
         }
 
         {
@@ -516,7 +516,7 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
 
             if (! (* tmp___11))
             {
-              _Exit(-1);
+             
             }
 
           }
@@ -539,7 +539,7 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
 
         if (! tmp___14)
         {
-          _Exit(-1);
+         
         }
 
       }
@@ -553,27 +553,27 @@ char *add_envopt(int *argcp, char ***argvp, char *env___0)
 
 void error(char *m)
 {
-  _Exit(-1);
+ 
 }
 
 void read_error(void)
 {
-  _Exit(-1);
+ 
 }
 
 void write_error(void)
 {
-  _Exit(-1);
+ 
 }
 
 void display_ratio(long num, long den, FILE *file)
 {
-  _Exit(-1);
+ 
 }
 
 voidp xmalloc(unsigned int size)
 {
-  _Exit(-1);
+ 
 }
 
 ulg crc_32_tab[256] = {(ulg) 0L, (ulg) 1996959894L, (ulg) 3993919788L, (ulg) 2567524794L, (ulg) 124634137L, (ulg) 1886057615L, (ulg) 3915621685L, (ulg) 2657392035L, (ulg) 249268274L, (ulg) 2044508324L, (ulg) 3772115230L, (ulg) 2547177864L, (ulg) 162941995L, (ulg) 2125561021L, (ulg) 3887607047L, (ulg) 2428444049L, (ulg) 498536548L, (ulg) 1789927666L, (ulg) 4089016648L, (ulg) 2227061214L, (ulg) 450548861L, (ulg) 1843258603L, (ulg) 4107580753L, (ulg) 2211677639L, (ulg) 325883990L, (ulg) 1684777152L, (ulg) 4251122042L, (ulg) 2321926636L, (ulg) 335633487L, (ulg) 1661365465L, (ulg) 4195302755L, (ulg) 2366115317L, (ulg) 997073096L, (ulg) 1281953886L, (ulg) 3579855332L, (ulg) 2724688242L, (ulg) 1006888145L, (ulg) 1258607687L, (ulg) 3524101629L, (ulg) 2768942443L, (ulg) 901097722L, (ulg) 1119000684L, (ulg) 3686517206L, (ulg) 2898065728L, (ulg) 853044451L, (ulg) 1172266101L, (ulg) 3705015759L, (ulg) 2882616665L, (ulg) 651767980L, (ulg) 1373503546L, (ulg) 3369554304L, (ulg) 3218104598L, (ulg) 565507253L, (ulg) 1454621731L, (ulg) 3485111705L, (ulg) 3099436303L, (ulg) 671266974L, (ulg) 1594198024L, (ulg) 3322730930L, (ulg) 2970347812L, (ulg) 795835527L, (ulg) 1483230225L, (ulg) 3244367275L, (ulg) 3060149565L, (ulg) 1994146192L, (ulg) 31158534L, (ulg) 2563907772L, (ulg) 4023717930L, (ulg) 1907459465L, (ulg) 112637215L, (ulg) 2680153253L, (ulg) 3904427059L, (ulg) 2013776290L, (ulg) 251722036L, (ulg) 2517215374L, (ulg) 3775830040L, (ulg) 2137656763L, (ulg) 141376813L, (ulg) 2439277719L, (ulg) 3865271297L, (ulg) 1802195444L, (ulg) 476864866L, (ulg) 2238001368L, (ulg) 4066508878L, (ulg) 1812370925L, (ulg) 453092731L, (ulg) 2181625025L, (ulg) 4111451223L, (ulg) 1706088902L, (ulg) 314042704L, (ulg) 2344532202L, (ulg) 4240017532L, (ulg) 1658658271L, (ulg) 366619977L, (ulg) 2362670323L, (ulg) 4224994405L, (ulg) 1303535960L, (ulg) 984961486L, (ulg) 2747007092L, (ulg) 3569037538L, (ulg) 1256170817L, (ulg) 1037604311L, (ulg) 2765210733L, (ulg) 3554079995L, (ulg) 1131014506L, (ulg) 879679996L, (ulg) 2909243462L, (ulg) 3663771856L, (ulg) 1141124467L, (ulg) 855842277L, (ulg) 2852801631L, (ulg) 3708648649L, (ulg) 1342533948L, (ulg) 654459306L, (ulg) 3188396048L, (ulg) 3373015174L, (ulg) 1466479909L, (ulg) 544179635L, (ulg) 3110523913L, (ulg) 3462522015L, (ulg) 1591671054L, (ulg) 702138776L, (ulg) 2966460450L, (ulg) 3352799412L, (ulg) 1504918807L, (ulg) 783551873L, (ulg) 3082640443L, (ulg) 3233442989L, (ulg) 3988292384L, (ulg) 2596254646L, (ulg) 62317068L, (ulg) 1957810842L, (ulg) 3939845945L, (ulg) 2647816111L, (ulg) 81470997L, (ulg) 1943803523L, (ulg) 3814918930L, (ulg) 2489596804L, (ulg) 225274430L, (ulg) 2053790376L, (ulg) 3826175755L, (ulg) 2466906013L, (ulg) 167816743L, (ulg) 2097651377L, (ulg) 4027552580L, (ulg) 2265490386L, (ulg) 503444072L, (ulg) 1762050814L, (ulg) 4150417245L, (ulg) 2154129355L, (ulg) 426522225L, (ulg) 1852507879L, (ulg) 4275313526L, (ulg) 2312317920L, (ulg) 282753626L, (ulg) 1742555852L, (ulg) 4189708143L, (ulg) 2394877945L, (ulg) 397917763L, (ulg) 1622183637L, (ulg) 3604390888L, (ulg) 2714866558L, (ulg) 953729732L, (ulg) 1340076626L, (ulg) 3518719985L, (ulg) 2797360999L, (ulg) 1068828381L, (ulg) 1219638859L, (ulg) 3624741850L, (ulg) 2936675148L, (ulg) 906185462L, (ulg) 1090812512L, (ulg) 3747672003L, (ulg) 2825379669L, (ulg) 829329135L, (ulg) 1181335161L, (ulg) 3412177804L, (ulg) 3160834842L, (ulg) 628085408L, (ulg) 1382605366L, (ulg) 3423369109L, (ulg) 3138078467L, (ulg) 570562233L, (ulg) 1426400815L, (ulg) 3317316542L, (ulg) 2998733608L, (ulg) 733239954L, (ulg) 1555261956L, (ulg) 3268935591L, (ulg) 3050360625L, (ulg) 752459403L, (ulg) 1541320221L, (ulg) 2607071920L, (ulg) 3965973030L, (ulg) 1969922972L, (ulg) 40735498L, (ulg) 2617837225L, (ulg) 3943577151L, (ulg) 1913087877L, (ulg) 83908371L, (ulg) 2512341634L, (ulg) 3803740692L, (ulg) 2075208622L, (ulg) 213261112L, (ulg) 2463272603L, (ulg) 3855990285L, (ulg) 2094854071L, (ulg) 198958881L, (ulg) 2262029012L, (ulg) 4057260610L, (ulg) 1759359992L, (ulg) 534414190L, (ulg) 2176718541L, (ulg) 4139329115L, (ulg) 1873836001L, (ulg) 414664567L, (ulg) 2282248934L, (ulg) 4279200368L, (ulg) 1711684554L, (ulg) 285281116L, (ulg) 2405801727L, (ulg) 4167216745L, (ulg) 1634467795L, (ulg) 376229701L, (ulg) 2685067896L, (ulg) 3608007406L, (ulg) 1308918612L, (ulg) 956543938L, (ulg) 2808555105L, (ulg) 3495958263L, (ulg) 1231636301L, (ulg) 1047427035L, (ulg) 2932959818L, (ulg) 3654703836L, (ulg) 1088359270L, (ulg) 936918000L, (ulg) 2847714899L, (ulg) 3736837829L, (ulg) 1202900863L, (ulg) 817233897L, (ulg) 3183342108L, (ulg) 3401237130L, (ulg) 1404277552L, (ulg) 615818150L, (ulg) 3134207493L, (ulg) 3453421203L, (ulg) 1423857449L, (ulg) 601450431L, (ulg) 3009837614L, (ulg) 3294710456L, (ulg) 1567103746L, (ulg) 711928724L, (ulg) 3020668471L, (ulg) 3272380065L, (ulg) 1510334235L, (ulg) 755167117L};
@@ -582,42 +582,42 @@ int dbits = 6;
 unsigned int hufts;
 int huft_build(unsigned int *b, unsigned int n, unsigned int s, ush *d, ush *e, struct huft **t, int *m)
 {
-  _Exit(-1);
+ 
 }
 
 int huft_free(struct huft *t)
 {
-  _Exit(-1);
+ 
 }
 
 int inflate_codes(struct huft *tl, struct huft *td, int bl, int bd)
 {
-  _Exit(-1);
+ 
 }
 
 int inflate_stored(void)
 {
-  _Exit(-1);
+ 
 }
 
 int inflate_fixed(void)
 {
-  _Exit(-1);
+ 
 }
 
 int inflate_dynamic(void)
 {
-  _Exit(-1);
+ 
 }
 
 int inflate_block(int *e)
 {
-  _Exit(-1);
+ 
 }
 
 int inflate(void)
 {
-  _Exit(-1);
+ 
 }
 
 int method;
@@ -629,12 +629,12 @@ int pkzip = 0;
 int ext_header = 0;
 int check_zipfile(int in)
 {
-  _Exit(-1);
+ 
 }
 
 int unzip(int in, int out)
 {
-  _Exit(-1);
+ 
 }
 
 int file_read(char *buf, unsigned int size);
@@ -688,7 +688,7 @@ void send_bits(int value, int length)
         outbuf[tmp___1] = (uch) (((int) bi_buf) & 255);
         if (outcnt == 16384U)
         {
-          _Exit(-1);
+         
         }
 
         tmp___2 = outcnt;
@@ -769,12 +769,12 @@ void bi_windup(void)
       {
         if (outcnt == 16384U)
         {
-          _Exit(-1);
+         
         }
 
         if (outcnt == 16384U)
         {
-          _Exit(-1);
+         
         }
 
       }
@@ -788,7 +788,7 @@ void bi_windup(void)
       outbuf[tmp___3] = (uch) bi_buf;
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -802,7 +802,7 @@ void bi_windup(void)
 
 void copy_block(char *buf, unsigned int len, int header)
 {
-  _Exit(-1);
+ 
 }
 
 int level;
@@ -876,7 +876,7 @@ void ct_init(ush *attr, int *methodp)
     compressed_len = input_len;
     if (((int) static_dtree[0].dl.len) != 0)
     {
-      _Exit(-1);
+     
     }
 
     length = 0;
@@ -1991,7 +1991,7 @@ static int build_bl_tree(void)
 
         if (! (max_blindex >= 3))
         {
-          _Exit(-1);
+         
         }
 
         if (((int) bl_tree[bl_order[max_blindex]].dl.len) != 0)
@@ -2059,7 +2059,7 @@ ulg flush_block(char *buf, ulg stored_len, int eof)
     flag_buf[last_flags] = flags;
     if (((int) (* file_type)) == 65535)
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -2072,14 +2072,14 @@ ulg flush_block(char *buf, ulg stored_len, int eof)
     }
     if (static_lenb <= opt_lenb)
     {
-      _Exit(-1);
+     
     }
 
     if (stored_len <= opt_lenb)
     {
       if (eof)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -2091,7 +2091,7 @@ ulg flush_block(char *buf, ulg stored_len, int eof)
     {
       if (((unsigned long) buf) != ((unsigned long) ((char *) 0)))
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -2101,7 +2101,7 @@ ulg flush_block(char *buf, ulg stored_len, int eof)
 
     if (static_lenb == opt_lenb)
     {
-      _Exit(-1);
+     
     }
     else
     {
@@ -2223,7 +2223,7 @@ int ct_tally(int dist, int lc)
     else
       if (last_dist == 32768U)
     {
-      _Exit(-1);
+     
     }
     else
     {
@@ -2341,7 +2341,7 @@ static void compress_block(ct_data *ltree, ct_data *dtree)
 
 static void set_file_type(void)
 {
-  _Exit(-1);
+ 
 }
 
 void lm_init(int pack_level, ush *flags___0);
@@ -2370,12 +2370,12 @@ void lm_init(int pack_level, ush *flags___0)
   {
     if (pack_level < 1)
     {
-      _Exit(-1);
+     
     }
     else
       if (pack_level > 9)
     {
-      _Exit(-1);
+     
     }
 
 
@@ -2389,12 +2389,12 @@ void lm_init(int pack_level, ush *flags___0)
     }
     if (pack_level == 1)
     {
-      _Exit(-1);
+     
     }
     else
       if (pack_level == 9)
     {
-      _Exit(-1);
+     
     }
 
 
@@ -2414,12 +2414,12 @@ void lm_init(int pack_level, ush *flags___0)
     }
     if (lookahead == 0U)
     {
-      _Exit(-1);
+     
     }
     else
       if (lookahead == 4294967295U)
     {
-      _Exit(-1);
+     
     }
 
 
@@ -2434,7 +2434,7 @@ void lm_init(int pack_level, ush *flags___0)
         {
           if (! (! eofile))
           {
-            _Exit(-1);
+           
           }
 
         }
@@ -2695,7 +2695,7 @@ static void fill_window(void)
     more = (unsigned int) ((window_size - ((ulg) lookahead)) - ((ulg) strstart));
     if (more == 4294967295U)
     {
-      _Exit(-1);
+     
     }
     else
       if (strstart >= 65274U)
@@ -2782,7 +2782,7 @@ static void fill_window(void)
       else
         if (n == 4294967295U)
       {
-        _Exit(-1);
+       
       }
       else
       {
@@ -2798,7 +2798,7 @@ static void fill_window(void)
 
 static ulg deflate_fast(void)
 {
-  _Exit(-1);
+ 
 }
 
 ulg deflate(void)
@@ -2819,7 +2819,7 @@ ulg deflate(void)
     match_length = 2U;
     if (compr_level <= 3)
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -3082,7 +3082,7 @@ int zip(int in, int out)
     outbuf[tmp] = (uch) (* ("\037\213" + 0));
     if (outcnt == 16384U)
     {
-      _Exit(-1);
+     
     }
 
     tmp___0 = outcnt;
@@ -3090,7 +3090,7 @@ int zip(int in, int out)
     outbuf[tmp___0] = (uch) (* ("\037\213" + 1));
     if (outcnt == 16384U)
     {
-      _Exit(-1);
+     
     }
 
     tmp___1 = outcnt;
@@ -3098,12 +3098,12 @@ int zip(int in, int out)
     outbuf[tmp___1] = (uch) 8;
     if (outcnt == 16384U)
     {
-      _Exit(-1);
+     
     }
 
     if (save_orig_name)
     {
-      _Exit(-1);
+     
     }
 
     tmp___2 = outcnt;
@@ -3111,7 +3111,7 @@ int zip(int in, int out)
     outbuf[tmp___2] = flags___0;
     if (outcnt == 16384U)
     {
-      _Exit(-1);
+     
     }
 
     if (outcnt < 16382U)
@@ -3127,12 +3127,12 @@ int zip(int in, int out)
     {
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3150,12 +3150,12 @@ int zip(int in, int out)
     {
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3171,7 +3171,7 @@ int zip(int in, int out)
     }
     if (outcnt == 16384U)
     {
-      _Exit(-1);
+     
     }
 
     tmp___12 = outcnt;
@@ -3179,7 +3179,7 @@ int zip(int in, int out)
     outbuf[tmp___12] = (uch) 3;
     if (outcnt == 16384U)
     {
-      _Exit(-1);
+     
     }
 
     if (save_orig_name)
@@ -3192,12 +3192,12 @@ int zip(int in, int out)
 
           if (outcnt == 16384U)
           {
-            _Exit(-1);
+           
           }
 
           if (! (* tmp___15))
           {
-            _Exit(-1);
+           
           }
 
         }
@@ -3225,12 +3225,12 @@ int zip(int in, int out)
     {
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3248,12 +3248,12 @@ int zip(int in, int out)
     {
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3271,12 +3271,12 @@ int zip(int in, int out)
     {
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3294,12 +3294,12 @@ int zip(int in, int out)
     {
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
       if (outcnt == 16384U)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3321,7 +3321,7 @@ int file_read(char *buf, unsigned int size)
     }
     if (len == 4294967295U)
     {
-      _Exit(-1);
+     
     }
     else
       if (len == 0U)
@@ -3396,23 +3396,23 @@ int main(int argc, char **argv);
 int (*work)(int infile, int outfile) = & zip;
 static void usage(void)
 {
-  _Exit(-1);
+ 
 }
 
 static char *help_msg[18] = {(char *) " -c --stdout      write on standard output, keep original files unchanged", (char *) " -d --decompress  decompress", (char *) " -f --force       force overwrite of output file and compress links", (char *) " -h --help        give this help", (char *) " -l --list        list compressed file contents", (char *) " -L --license     display software license", (char *) " -n --no-name     do not save or restore the original name and time stamp", (char *) " -N --name        save or restore the original name and time stamp", (char *) " -q --quiet       suppress all warnings", (char *) " -r --recursive   operate recursively on directories", (char *) " -S .suf  --suffix .suf     use suffix .suf on compressed files", (char *) " -t --test        test compressed file integrity", (char *) " -v --verbose     verbose mode", (char *) " -V --version     display version number", (char *) " -1 --fast        compress faster", (char *) " -9 --best        compress better", (char *) " file...          files to (de)compress. If none given, use standard input.", (char *) 0};
 static void help(void)
 {
-  _Exit(-1);
+ 
 }
 
 static void license(void)
 {
-  _Exit(-1);
+ 
 }
 
 static void version(void)
 {
-  _Exit(-1);
+ 
 }
 
 int main(int argc, char **argv)
@@ -3444,7 +3444,7 @@ int main(int argc, char **argv)
       }
       if (tmp == 0)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3454,7 +3454,7 @@ int main(int argc, char **argv)
     }
     if (((unsigned long) env) != ((unsigned long) ((void *) 0)))
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -3493,7 +3493,7 @@ int main(int argc, char **argv)
     }
     if (tmp___5 == 0)
     {
-      _Exit(-1);
+     
     }
     else
     {
@@ -3502,7 +3502,7 @@ int main(int argc, char **argv)
       }
       if (tmp___6 == 0)
       {
-        _Exit(-1);
+       
       }
       else
       {
@@ -3511,7 +3511,7 @@ int main(int argc, char **argv)
         }
         if (tmp___3 == 0)
         {
-          _Exit(-1);
+         
         }
         else
         {
@@ -3520,7 +3520,7 @@ int main(int argc, char **argv)
           }
           if (tmp___4 == 0)
           {
-            _Exit(-1);
+           
           }
 
         }
@@ -3550,12 +3550,12 @@ int main(int argc, char **argv)
         {
           if (optc == 97)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 98)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 99)
@@ -3565,137 +3565,137 @@ int main(int argc, char **argv)
 
           if (optc == 100)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 102)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 104)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 72)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 63)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 108)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 76)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 109)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 77)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 110)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 78)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 113)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 114)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 83)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 116)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 118)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 86)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 90)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 49)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 50)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 51)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 52)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 53)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 54)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 55)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 56)
           {
-            _Exit(-1);
+           
           }
 
           if (optc == 57)
           {
-            _Exit(-1);
+           
           }
 
           case_97:
@@ -3844,7 +3844,7 @@ int main(int argc, char **argv)
     {
       if (! quiet)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3853,7 +3853,7 @@ int main(int argc, char **argv)
     {
       if (! decompress)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3863,14 +3863,14 @@ int main(int argc, char **argv)
 
     if (z_len > 30)
     {
-      _Exit(-1);
+     
     }
 
     if (do_lzw)
     {
       if (! decompress)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3879,7 +3879,7 @@ int main(int argc, char **argv)
     {
       if (to_stdout)
       {
-        _Exit(-1);
+       
       }
 
       {
@@ -3890,7 +3890,7 @@ int main(int argc, char **argv)
 
           if (! (optind < argc))
           {
-            _Exit(-1);
+           
           }
 
           {
@@ -3913,7 +3913,7 @@ int main(int argc, char **argv)
     {
       if (! quiet)
       {
-        _Exit(-1);
+       
       }
 
     }
@@ -3952,7 +3952,7 @@ static void treat_stdin(void)
       {
         if (decompress)
         {
-          _Exit(-1);
+         
         }
         else
         {
@@ -3967,12 +3967,12 @@ static void treat_stdin(void)
         {
           if (decompress)
           {
-            _Exit(-1);
+           
           }
 
           if (decompress)
           {
-            _Exit(-1);
+           
           }
 
           {
@@ -3985,7 +3985,7 @@ static void treat_stdin(void)
 
     if (decompress)
     {
-      _Exit(-1);
+     
     }
     else
       if (! ascii)
@@ -4005,7 +4005,7 @@ static void treat_stdin(void)
         else
           if (! ascii)
         {
-          _Exit(-1);
+         
         }
 
 
@@ -4020,7 +4020,7 @@ static void treat_stdin(void)
     }
     if (list)
     {
-      _Exit(-1);
+     
     }
     else
       if (! no_time)
@@ -4033,7 +4033,7 @@ static void treat_stdin(void)
 
       if (tmp___7 != 0)
       {
-        _Exit(-1);
+       
       }
 
       time_stamp = istat.st_mtim.tv_sec;
@@ -4050,14 +4050,14 @@ static void treat_stdin(void)
     {
       if (method < 0)
       {
-        _Exit(-1);
+       
       }
 
     }
 
     if (list)
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -4073,7 +4073,7 @@ static void treat_stdin(void)
         }
         if (tmp___10 != 0)
         {
-          _Exit(-1);
+         
         }
 
         if (! decompress)
@@ -4083,12 +4083,12 @@ static void treat_stdin(void)
         else
           if (last_member)
         {
-          _Exit(-1);
+         
         }
         else
           if (inptr == insize)
         {
-          _Exit(-1);
+         
         }
 
 
@@ -4097,7 +4097,7 @@ static void treat_stdin(void)
         }
         if (method < 0)
         {
-          _Exit(-1);
+         
         }
 
       }
@@ -4110,12 +4110,12 @@ static void treat_stdin(void)
     {
       if (test)
       {
-        _Exit(-1);
+       
       }
       else
         if (! decompress)
       {
-        _Exit(-1);
+       
       }
 
 
@@ -4127,79 +4127,79 @@ static void treat_stdin(void)
 
 static void treat_file(char *iname)
 {
-  _Exit(-1);
+ 
 }
 
 static int create_outfile(void)
 {
-  _Exit(-1);
+ 
 }
 
 static int do_stat(char *name, struct stat *sbuf)
 {
-  _Exit(-1);
+ 
 }
 
 static char *known_suffixes[9] = {z_suffix, (char *) ".gz", (char *) ".z", (char *) ".taz", (char *) ".tgz", (char *) "-gz", (char *) "-z", (char *) "_z", (char *) ((void *) 0)};
 static char *get_suffix(char *name)
 {
-  _Exit(-1);
+ 
 }
 
 static char *suffixes[6] = {z_suffix, (char *) ".gz", (char *) ".z", (char *) "-z", (char *) ".Z", (char *) ((void *) 0)};
 static int get_istat(char *iname, struct stat *sbuf)
 {
-  _Exit(-1);
+ 
 }
 
 static int make_ofname(void)
 {
-  _Exit(-1);
+ 
 }
 
 static int get_method(int in)
 {
-  _Exit(-1);
+ 
 }
 
 static void do_list(int ifd___0, int method___0)
 {
-  _Exit(-1);
+ 
 }
 
 static int same_file(struct stat *stat1, struct stat *stat2)
 {
-  _Exit(-1);
+ 
 }
 
 static int name_too_long(char *name, struct stat *statb)
 {
-  _Exit(-1);
+ 
 }
 
 static void shorten_name(char *name)
 {
-  _Exit(-1);
+ 
 }
 
 static int check_ofname(void)
 {
-  _Exit(-1);
+ 
 }
 
 static void reset_times(char *name, struct stat *statb)
 {
-  _Exit(-1);
+ 
 }
 
 static void copy_stat(struct stat *ifstat)
 {
-  _Exit(-1);
+ 
 }
 
 static void treat_dir(char *dir)
 {
-  _Exit(-1);
+ 
 }
 
 static int in_exit = 0;
@@ -4208,18 +4208,18 @@ static void do_exit(int exitcode)
   {
     if (in_exit)
     {
-      _Exit(-1);
+     
     }
 
     in_exit = 1;
     if (((unsigned long) env) != ((unsigned long) ((void *) 0)))
     {
-      _Exit(-1);
+     
     }
 
     if (((unsigned long) args) != ((unsigned long) ((void *) 0)))
     {
-      _Exit(-1);
+     
     }
 
     {
@@ -4230,6 +4230,6 @@ static void do_exit(int exitcode)
 
 void abort_gzip(void)
 {
-  _Exit(-1);
+ 
 }
 

@@ -1322,7 +1322,6 @@ void close_stdout(void)
     {
       if (ignore_EPIPE)
       {
-        exit(-1);
       }
       else
       {
@@ -1333,7 +1332,6 @@ void close_stdout(void)
         }
         if (file_name)
         {
-          exit(-1);
         }
 
         {
@@ -1347,7 +1345,8 @@ void close_stdout(void)
     }
     if (tmp___5 != 0)
     {
-      exit(-1);
+      {
+      }
     }
 
     return;
@@ -1355,12 +1354,12 @@ void close_stdout(void)
 }
 
 extern struct _IO_FILE *stdin;
-
-
-
-
-
-
+int rpl_fflush(FILE *stream);
+int rpl_fseeko(FILE *fp, off_t offset, int whence);
+static const char *file_name___0;
+extern int ferror_unlocked(FILE *__stream);
+int rpl_fclose(FILE *fp);
+extern size_t __fpending(FILE *__fp);
 int close_stream(FILE *stream)
 {
   _Bool some_pending;
@@ -1382,7 +1381,6 @@ int close_stream(FILE *stream)
     }
     if (prev_fail)
     {
-      exit(-1);
     }
     else
     {
@@ -1390,10 +1388,11 @@ int close_stream(FILE *stream)
       {
         if (some_pending)
         {
-          exit(-1);
         }
         else
         {
+          {
+          }
           if ((* tmp___3) != 9)
           {
             _L___0:
@@ -1401,7 +1400,6 @@ int close_stream(FILE *stream)
 
             if (! fclose_fail)
             {
-              exit(-1);
             }
 
           }
@@ -1439,27 +1437,24 @@ void *xrealloc(void *p, size_t n);
 
 
 
-
-
-
-
-
-
+static volatile locale_t c_locale_cache;
+extern double strtod_l(const char *__restrict __nptr, char **__restrict __endptr, __locale_t __loc);
+static volatile locale_t c_locale_cache___0;
+int c_tolower(int c);
+int c_strcasecmp(const char *s1, const char *s2);
+int c_strcasecmp(const char *s1, const char *s2);
 int c_strcasecmp(const char *s1, const char *s2)
 {
-  exit(-1);
 }
 
-
+int c_tolower(int c);
 int c_tolower(int c)
 {
-  exit(-1);
 }
 
-
+char *last_component(const char *name);
 char *last_component(const char *name)
 {
-  exit(-1);
 }
 
 __inline static unsigned char to_uchar(char ch)
@@ -1493,42 +1488,37 @@ __inline static unsigned char to_uchar(char ch)
 
 
 
-
-
+const char *quote_n(int n, const char *name);
+void usage(int status);
 static void __argmatch_die(void)
 {
-  exit(-1);
 }
 
-
-
+void (*argmatch_die)(void) = & __argmatch_die;
+ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize);
 ptrdiff_t argmatch(const char *arg, const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(-1);
 }
 
 void argmatch_invalid(const char *context, const char *value, ptrdiff_t problem)
 {
-  exit(-1);
 }
 
 void argmatch_valid(const char *const *arglist, const char *vallist, size_t valsize)
 {
-  exit(-1);
 }
 
 ptrdiff_t __xargmatch_internal(const char *context, const char *arg, const char *const *arglist, const char *vallist, size_t valsize, void (*exit_fn)(void))
 {
-  exit(-1);
 }
 
-
-
-
-
-
-
-
+extern ssize_t readlinkat(int __fd, const char *__restrict __path, char *__restrict __buf, size_t __len);
+extern void *realloc(void *__ptr, size_t __size);
+const struct allocator stdlib_allocator = {(void *(*)(size_t)) (& malloc), (void *(*)(void *, size_t)) (& realloc), (void (*)(void *)) (& free), (void (*)(size_t)) ((void *) 0)};
+extern int rpmatch(const char *__response);
+extern __ssize_t getline(char **__restrict __lineptr, size_t *__restrict __n, FILE *__restrict __stream);
+__inline static void *xnmalloc(size_t n, size_t s);
+__inline static void *xnmalloc(size_t n, size_t s);
 __inline static void *xnmalloc(size_t n, size_t s)
 {
   int tmp;
@@ -1558,17 +1548,15 @@ __inline static void *xnmalloc(size_t n, size_t s)
 }
 
 extern const unsigned short **__ctype_b_loc(void);
-
-
-
+extern uintmax_t strtoumax(const char *__restrict __nptr, char **__restrict __endptr, int __base);
+strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long *val, const char *valid_suffixes);
+extern unsigned long strtoul(const char *__restrict __nptr, char **__restrict __endptr, int __base);
 static strtol_error bkm_scale___0(unsigned long *x, int scale_factor)
 {
-  exit(-1);
 }
 
 static strtol_error bkm_scale_by_power___0(unsigned long *x, int base, int power)
 {
-  exit(-1);
 }
 
 strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long *val, const char *valid_suffixes)
@@ -1595,14 +1583,14 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
     {
       if (! (strtol_base <= 36))
       {
-        exit(-1);
+        {
+        }
       }
 
     }
 
     if (ptr)
     {
-      exit(-1);
     }
     else
     {
@@ -1633,7 +1621,6 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
     }
     if (((int) ch) == 45)
     {
-      exit(-1);
     }
 
     {
@@ -1645,7 +1632,6 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
     {
       if (valid_suffixes)
       {
-        exit(-1);
       }
 
     }
@@ -1656,9 +1642,10 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
       }
       if ((* tmp___4) != 0)
       {
+        {
+        }
         if ((* tmp___3) != 34)
         {
-          exit(-1);
         }
 
       }
@@ -1667,14 +1654,14 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
 
     if (! valid_suffixes)
     {
-      exit(-1);
     }
 
     if (((int) (* (* p))) != 0)
     {
+      {
+      }
       if (! tmp___5)
       {
-        exit(-1);
       }
 
       {
@@ -1684,17 +1671,14 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
         {
           if (((int) (* ((* (p + 0)) + 1))) == 105)
           {
-            exit(-1);
           }
 
           if (((int) (* ((* (p + 0)) + 1))) == 66)
           {
-            exit(-1);
           }
 
           if (((int) (* ((* (p + 0)) + 1))) == 68)
           {
-            exit(-1);
           }
 
           case_105:
@@ -1702,7 +1686,6 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
 
           if (((int) (* ((* (p + 0)) + 2))) == 66)
           {
-            exit(-1);
           }
 
           case_66:
@@ -1721,82 +1704,66 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
       {
         if (((int) (* (* p))) == 98)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 66)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 99)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 69)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 71)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 103)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 107)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 75)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 77)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 109)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 80)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 84)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 116)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 119)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 89)
         {
-          exit(-1);
         }
 
         if (((int) (* (* p))) == 90)
         {
-          exit(-1);
         }
 
         case_98:
@@ -1880,7 +1847,6 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
       }
       if (* (* p))
       {
-        exit(-1);
       }
 
     }
@@ -1890,16 +1856,15 @@ strtol_error xstrtoul(const char *s, char **ptr, int strtol_base, unsigned long 
   }
 }
 
-
-
-
-
-
-
-
+extern long strtol(const char *__restrict __nptr, char **__restrict __endptr, int __base);
+extern intmax_t strtoimax(const char *__restrict __nptr, char **__restrict __endptr, int __base);
+extern char *strndup(const char *__string, size_t __n);
+extern int ferror(FILE *__stream);
+int memcoll(char *s1, size_t s1len, char *s2, size_t s2len);
+char *quotearg_n_style_mem(int n, enum quoting_style s, const char *arg, size_t argsize);
+int xmemcoll(char *s1, size_t s1len, char *s2, size_t s2len);
 static void collate_error(int collation_errno, const char *s1, size_t s1len, const char *s2, size_t s2len)
 {
-  exit(-1);
 }
 
 int xmemcoll(char *s1, size_t s1len, char *s2, size_t s2len)
@@ -1917,14 +1882,15 @@ int xmemcoll(char *s1, size_t s1len, char *s2, size_t s2len)
     }
     if (collation_errno)
     {
-      exit(-1);
+      {
+      }
     }
 
     return diff;
   }
 }
 
-
+void *x2realloc(void *p, size_t *pn);
 __inline static void *x2nrealloc(void *p, size_t *pn, size_t s)
 {
   size_t n;
@@ -1944,7 +1910,8 @@ __inline static void *x2nrealloc(void *p, size_t *pn, size_t s)
     {
       if ((0xaaaaaaaaaaaaaaaaUL / s) <= n)
       {
-        exit(-1);
+        {
+        }
       }
 
       n += (n + 1UL) / 2UL;
@@ -1958,15 +1925,14 @@ __inline static void *x2nrealloc(void *p, size_t *pn, size_t s)
   }
 }
 
-
-
-
+extern void *calloc(size_t __nmemb, size_t __size);
+extern void *memset(void *__s, int __c, size_t __n);
+void *xmalloc(size_t n);
 void *xmalloc(size_t n)
 {
-  exit(-1);
 }
 
-
+void *xrealloc(void *p, size_t n);
 void *xrealloc(void *p, size_t n)
 {
   {
@@ -1974,7 +1940,6 @@ void *xrealloc(void *p, size_t n)
     {
       if (p)
       {
-        exit(-1);
       }
 
     }
@@ -1986,7 +1951,6 @@ void *xrealloc(void *p, size_t n)
     {
       if (n)
       {
-        exit(-1);
       }
 
     }
@@ -2006,13 +1970,12 @@ void *x2realloc(void *p, size_t *pn)
   }
 }
 
-
-
-
-
+extern int gethostname(char *__name, size_t __len);
+extern char *getcwd(char *__buf, size_t __size);
+FILE *freopen_safer(const char *name, const char *mode, FILE *f);
+void xalloc_die(void);
 void xalloc_die(void)
 {
-  exit(-1);
 }
 
 
@@ -2031,24 +1994,21 @@ void xalloc_die(void)
 
 
 
-
-
-
-
+const char version_etc_copyright[47];
+void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors);
+void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors);
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc_arn(FILE *stream, const char *command_name, const char *package, const char *version, const char *const *authors, size_t n_authors)
 {
-  exit(-1);
 }
 
 void version_etc_va(FILE *stream, const char *command_name, const char *package, const char *version, va_list authors)
 {
-  exit(-1);
 }
 
-
+void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...);
 void version_etc(FILE *stream, const char *command_name, const char *package, const char *version, ...)
 {
-  exit(-1);
 }
 
 
@@ -2155,83 +2115,70 @@ void version_etc(FILE *stream, const char *command_name, const char *package, co
 
 
 
-
-
-
-
-
+char *quotearg_char(const char *arg, char ch);
+char *quotearg_char_mem(const char *arg, size_t argsize, char ch);
+struct quoting_options quote_quoting_options;
+__inline static char *xcharalloc(size_t n);
+__inline static char *xcharalloc(size_t n);
 __inline static char *xcharalloc(size_t n)
 {
-  exit(-1);
 }
 
-
-
-
-
+extern int iswprint(wint_t __wc);
+const char *const quoting_style_args[9] = {(const char *) "literal", (const char *) "shell", (const char *) "shell-always", (const char *) "c", (const char *) "c-maybe", (const char *) "escape", (const char *) "locale", (const char *) "clocale", (const char *) 0};
+const enum quoting_style quoting_style_vals[8] = {(const enum quoting_style) 0, (const enum quoting_style) 1, (const enum quoting_style) 2, (const enum quoting_style) 3, (const enum quoting_style) 4, (const enum quoting_style) 5, (const enum quoting_style) 6, (const enum quoting_style) 7};
+static struct quoting_options default_quoting_options;
 int set_char_quoting(struct quoting_options *o, char c, int i)
 {
-  exit(-1);
 }
 
 static struct quoting_options quoting_options_from_style(enum quoting_style style)
 {
-  exit(-1);
 }
 
 static const char *gettext_quote(const char *msgid, enum quoting_style s)
 {
-  exit(-1);
 }
 
 static size_t quotearg_buffer_restyled(char *buffer, size_t buffersize, const char *arg, size_t argsize, enum quoting_style quoting_style, int flags, const unsigned int *quote_these_too, const char *left_quote, const char *right_quote)
 {
-  exit(-1);
 }
 
-
-
-
-
+static char slot0[256];
+static unsigned int nslots = 1U;
+static struct slotvec slotvec0 = {sizeof(slot0), slot0};
+static struct slotvec *slotvec = & slotvec0;
 static char *quotearg_n_options(int n, const char *arg, size_t argsize, const struct quoting_options *options)
 {
-  exit(-1);
 }
 
 char *quotearg_n_style(int n, enum quoting_style s, const char *arg)
 {
-  exit(-1);
 }
 
 char *quotearg_n_style_mem(int n, enum quoting_style s, const char *arg, size_t argsize)
 {
-  exit(-1);
 }
 
 char *quotearg_char_mem(const char *arg, size_t argsize, char ch)
 {
-  exit(-1);
 }
 
 char *quotearg_char(const char *arg, char ch)
 {
-  exit(-1);
 }
 
 char *quotearg_colon(const char *arg)
 {
-  exit(-1);
 }
 
-
+struct quoting_options quote_quoting_options = {(enum quoting_style) 6, 0, {0U}, (const char *) ((void *) 0), (const char *) ((void *) 0)};
 const char *quote_n(int n, const char *name)
 {
-  exit(-1);
 }
 
 const char *quote(const char *name)
 {
-  exit(-1);
 }
 
 #pragma GCC diagnostic ignored "-Wsuggest-attribute=const"
@@ -2239,10 +2186,10 @@ extern int iswalnum(wint_t __wc);
 const char *program_name;
 void set_program_name(const char *argv0);
 extern char *program_invocation_name;
-
-
-
-
+extern char *program_invocation_short_name;
+extern int fputs(const char *__restrict __s, FILE *__restrict __stream);
+extern char *strrchr(const char *__s, int __c);
+const char *program_name = (const char *) ((void *) 0);
 void set_program_name(const char *argv0)
 {
   const char *slash;
@@ -2252,7 +2199,8 @@ void set_program_name(const char *argv0)
   {
     if (((unsigned long) argv0) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -2270,9 +2218,10 @@ void set_program_name(const char *argv0)
       }
       if (tmp___0 == 0)
       {
+        {
+        }
         if (tmp == 0)
         {
-          exit(-1);
         }
 
       }
@@ -2285,15 +2234,14 @@ void set_program_name(const char *argv0)
   }
 }
 
-
-
-
-
-
-
+extern long double frexpl(long double __x, int *__exponent);
+extern long double ldexpl(long double __x, int __exponent);
+extern double frexp(double __x, int *__exponent);
+extern double ldexp(double __x, int __exponent);
+static const wchar_t wide_null_string[7] = {(const wchar_t) '(', (const wchar_t) 'N', (const wchar_t) 'U', (const wchar_t) 'L', (const wchar_t) 'L', (const wchar_t) ')', (const wchar_t) 0};
+int posix2_version(void);
 int posix2_version(void)
 {
-  exit(-1);
 }
 
 
@@ -2336,9 +2284,9 @@ int posix2_version(void)
 
 
 
-
-
-
+extern int getgroups(int __size, __gid_t *__list);
+extern int getgrouplist(const char *__user, __gid_t __group, __gid_t *__groups, int *__ngroups);
+extern int strcoll(const char *__s1, const char *__s2);
 __inline static int strcoll_loop(const char *s1, size_t s1size, const char *s2, size_t s2size)
 {
   int diff;
@@ -2367,9 +2315,10 @@ __inline static int strcoll_loop(const char *s1, size_t s1size, const char *s2, 
         }
         else
         {
+          {
+          }
           if (* tmp___2)
           {
-            exit(-1);
           }
 
         }
@@ -2383,12 +2332,10 @@ __inline static int strcoll_loop(const char *s1, size_t s1size, const char *s2, 
         }
         if (s1size == 0UL)
         {
-          exit(-1);
         }
 
         if (s2size == 0UL)
         {
-          exit(-1);
         }
 
       }
@@ -2447,8 +2394,8 @@ int memcoll(char *s1, size_t s1len, char *s2, size_t s2len)
   }
 }
 
-
-
+int memcasecmp(const void *vs1, const void *vs2, size_t n);
+int memcasecmp(const void *vs1, const void *vs2, size_t n);
 int memcasecmp(const void *vs1, const void *vs2, size_t n)
 {
   size_t i;
@@ -2548,18 +2495,16 @@ extern int optind;
 
 static const char *get_charset_aliases(void)
 {
-  exit(-1);
 }
 
 const char *locale_charset(void)
 {
-  exit(-1);
 }
 
-
-
-
-
+extern int linkat(int __fromfd, const char *__from, int __tofd, const char *__to, int __flags);
+static int have_follow_really;
+void initbuffer(struct linebuffer *linebuffer);
+struct linebuffer *readlinebuffer_delim(struct linebuffer *linebuffer, FILE *stream, char delimiter);
 void initbuffer(struct linebuffer *linebuffer)
 {
   {
@@ -2589,7 +2534,6 @@ struct linebuffer *readlinebuffer_delim(struct linebuffer *linebuffer, FILE *str
     }
     if (tmp)
     {
-      exit(-1);
     }
 
     {
@@ -2609,16 +2553,16 @@ struct linebuffer *readlinebuffer_delim(struct linebuffer *linebuffer, FILE *str
           }
           else
           {
+            {
+            }
             if (tmp___0)
             {
-              exit(-1);
             }
 
           }
 
           if (((int) (* (p + (- 1)))) == ((int) delimiter))
           {
-            exit(-1);
           }
 
         }
@@ -2660,7 +2604,7 @@ struct linebuffer *readlinebuffer_delim(struct linebuffer *linebuffer, FILE *str
 
 
 
-static struct userid *nogroup_alist;
+
 extern struct lconv *localeconv(void);
 static const char power_letter[9] = {(const char) 0, (const char) 'K', (const char) 'M', (const char) 'G', (const char) 'T', (const char) 'P', (const char) 'E', (const char) 'Z', (const char) 'Y'};
 static const char *const block_size_args[3] = {(const char *) "human-readable", (const char *) "si", (const char *) 0};
@@ -2694,7 +2638,6 @@ _Bool hard_locale(int category)
         }
         if (tmp___0 == 0)
         {
-          exit(-1);
         }
         else
         {
@@ -2703,7 +2646,6 @@ _Bool hard_locale(int category)
           }
           if (tmp___1 == 0)
           {
-            exit(-1);
           }
 
         }
@@ -2778,23 +2720,21 @@ _Bool hard_locale(int category)
 
 
 
-
-
-
-
-
-
-
+static size_t bufsize;
+extern void qsort(void *__base, size_t __nmemb, size_t __size, int (*__compar)(const void *, const void *));
+extern int fstatfs(int __fildes, struct statfs *__buf);
+extern float strtof(const char *__restrict __nptr, char **__restrict __endptr);
+extern int statfs(const char *__file, struct statfs *__buf);
+extern int fseeko(FILE *__stream, __off_t __off, int __whence);
+extern __off_t lseek(int __fd, __off_t __offset, int __whence);
 int rpl_fseeko(FILE *fp, off_t offset, int whence)
 {
-  exit(-1);
 }
 
-
-
+extern FILE *freopen(const char *__restrict __filename, const char *__restrict __modes, FILE *__restrict __stream);
+extern int dup2(int __fd, int __fd2);
 static _Bool protect_fd(int fd)
 {
-  exit(-1);
 }
 
 FILE *freopen_safer(const char *name, const char *mode, FILE *f)
@@ -2822,12 +2762,10 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
     {
       if (tmp == 2)
       {
-        exit(-1);
       }
 
       if (tmp == 1)
       {
-        exit(-1);
       }
 
       if (tmp == 0)
@@ -2842,7 +2780,6 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
       }
       if (tmp___0 != 2)
       {
-        exit(-1);
       }
 
       case_2:
@@ -2852,7 +2789,6 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
       }
       if (tmp___1 != 1)
       {
-        exit(-1);
       }
 
       case_1:
@@ -2862,7 +2798,6 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
       }
       if (tmp___2 != 0)
       {
-        exit(-1);
       }
 
       case_0:
@@ -2875,9 +2810,10 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
     }
     if (protect_in)
     {
+      {
+      }
       if (tmp___5)
       {
-        exit(-1);
       }
 
     }
@@ -2886,9 +2822,10 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
       _L___0:
       if (protect_out)
       {
+        {
+        }
         if (tmp___4)
         {
-          exit(-1);
         }
 
       }
@@ -2897,9 +2834,10 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
         _L:
         if (protect_err)
         {
+          {
+          }
           if (tmp___3)
           {
-            exit(-1);
           }
 
         }
@@ -2922,39 +2860,44 @@ FILE *freopen_safer(const char *name, const char *mode, FILE *f)
     }
     if (protect_err)
     {
-      exit(-1);
+      {
+      }
     }
 
     if (protect_out)
     {
-      exit(-1);
+      {
+      }
     }
 
     if (protect_in)
     {
-      exit(-1);
+      {
+      }
     }
 
     if (! f)
     {
-      exit(-1);
+      {
+      }
     }
 
     return f;
   }
 }
 
-
-
-
-
-
+extern void __fpurge(FILE *__fp);
+extern int fputc(int __c, FILE *__stream);
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=const"
+extern int fflush(FILE *__stream);
+extern int __freading(FILE *__fp);
 __inline static void clear_ungetc_buffer_preserving_position(FILE *fp)
 {
   {
     if (fp->_flags & 256)
     {
-      exit(-1);
+      {
+      }
     }
 
     return;
@@ -2969,7 +2912,8 @@ int rpl_fflush(FILE *stream)
   {
     if (((unsigned long) stream) == ((unsigned long) ((void *) 0)))
     {
-      exit(-1);
+      {
+      }
     }
     else
     {
@@ -2994,9 +2938,9 @@ int rpl_fflush(FILE *stream)
   }
 }
 
-
-
-
+extern int fcntl(int __fd, int __cmd, ...);
+static int have_dupfd_cloexec = 0;
+extern int fclose(FILE *__stream);
 int rpl_fclose(FILE *fp)
 {
   int saved_errno;
@@ -3017,7 +2961,8 @@ int rpl_fclose(FILE *fp)
     }
     if (fd < 0)
     {
-      exit(-1);
+      {
+      }
     }
 
     {
@@ -3038,7 +2983,8 @@ int rpl_fclose(FILE *fp)
 
         if (tmp___4)
         {
-          exit(-1);
+          {
+          }
         }
 
       }
@@ -3054,7 +3000,8 @@ int rpl_fclose(FILE *fp)
     }
     if (saved_errno != 0)
     {
-      exit(-1);
+      {
+      }
     }
 
     return result;
@@ -3070,13 +3017,13 @@ extern int sigemptyset(sigset_t *__set);
 
 
 
-
-
-
-
-
-
-
+static struct sigaction saved_sigactions[64];
+static _Bool cleanup_initialized = (_Bool) 0;
+static sigset_t fatal_signal_set;
+static _Bool fatal_signal_set_initialized = (_Bool) 0;
+extern int posix_fadvise(int __fd, off_t __offset, off_t __len, int __advise);
+void fdadvise(int fd, off_t offset, off_t len, fadvice_t advice);
+void fadvise(FILE *fp, fadvice_t advice);
 void fdadvise(int fd, off_t offset, off_t len, fadvice_t advice)
 {
   int __x;
@@ -3137,11 +3084,11 @@ void fadvise(FILE *fp, fadvice_t advice)
 
 
 
-#pragma weak pthread_mutexattr_destroy
-#pragma weak pthread_self
-#pragma weak pthread_cancel
-#pragma GCC diagnostic ignored "-Wtype-limits"
-#pragma GCC diagnostic ignored "-Wtype-limits"
+
+
+
+
+
 #pragma GCC diagnostic ignored "-Wsuggest-attribute=const"
 const char *Version = "8.16";
 extern char *optarg;
@@ -3151,12 +3098,10 @@ extern char *optarg;
 
 __inline static void emit_ancillary_info(void)
 {
-  exit(-1);
 }
 
 __inline static void emit_try_help(void)
 {
-  exit(-1);
 }
 
 static _Bool hard_LC_COLLATE;
@@ -3168,14 +3113,13 @@ static _Bool output_unique;
 static _Bool output_first_repeated;
 static _Bool output_later_repeated;
 static _Bool ignore_case;
-static const char *const delimit_method_string[4] = {(const char *) "none", (const char *) "prepend", (const char *) "separate", (const char *) ((void *) 0)};
-static const enum delimit_method delimit_method_map[3] = {(const enum delimit_method) 0, (const enum delimit_method) 1, (const enum delimit_method) 2};
+
+
 static enum delimit_method delimit_groups;
 static const struct option longopts[12] = {{"count", 0, (int *) ((void *) 0), 'c'}, {"repeated", 0, (int *) ((void *) 0), 'd'}, {"all-repeated", 2, (int *) ((void *) 0), 'D'}, {"ignore-case", 0, (int *) ((void *) 0), 'i'}, {"unique", 0, (int *) ((void *) 0), 'u'}, {"skip-fields", 1, (int *) ((void *) 0), 'f'}, {"skip-chars", 1, (int *) ((void *) 0), 's'}, {"check-chars", 1, (int *) ((void *) 0), 'w'}, {"zero-terminated", 0, (int *) ((void *) 0), 'z'}, {"help", 0, (int *) ((void *) 0), - 130}, {"version", 0, (int *) ((void *) 0), - 131}, {(const char *) ((void *) 0), 0, (int *) ((void *) 0), 0}};
 
 void usage(int status)
 {
-  exit(-1);
 }
 
 static size_t size_opt(const char *opt, const char *msgid)
@@ -3197,7 +3141,6 @@ static size_t size_opt(const char *opt, const char *msgid)
 
       if (((unsigned int) tmp) == 1U)
       {
-        exit(-1);
       }
 
       case_0:
@@ -3394,13 +3337,13 @@ static _Bool different(char *old, char *new, size_t oldlen, size_t newlen)
       {
         if (oldlen != newlen)
         {
-          exit(-1);
         }
         else
         {
+          {
+          }
           if (tmp___2)
           {
-            exit(-1);
           }
 
         }
@@ -3502,7 +3445,8 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
       }
       if (! tmp___1)
       {
-        exit(-1);
+        {
+        }
       }
 
     }
@@ -3512,9 +3456,10 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
     }
     if (! (tmp___3 == 0))
     {
+      {
+      }
       if (! tmp___4)
       {
-        exit(-1);
       }
 
     }
@@ -3543,7 +3488,6 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
               }
               if (tmp___7)
               {
-                exit(-1);
               }
 
               {
@@ -3626,7 +3570,6 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
 
       if (((unsigned long) tmp___8) == ((unsigned long) ((struct linebuffer *) 0)))
       {
-        exit(-1);
       }
 
       {
@@ -3644,7 +3587,6 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
           }
           if (tmp___14)
           {
-            exit(-1);
           }
 
           {
@@ -3657,7 +3599,6 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
             }
             if (tmp___9)
             {
-              exit(-1);
             }
 
             goto while_break___1;
@@ -3681,20 +3622,17 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
           match_count += (uintmax_t) match;
           if (match_count == 0xffffffffffffffffUL)
           {
-            exit(-1);
           }
 
           if (((unsigned int) delimit_groups) != 0U)
           {
             if (! match)
             {
-              exit(-1);
             }
             else
             {
               if (match_count == 1UL)
               {
-                exit(-1);
               }
 
             }
@@ -3760,7 +3698,8 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
 
     if (tmp___16)
     {
-      exit(-1);
+      {
+      }
     }
     else
     {
@@ -3769,7 +3708,8 @@ static void check_file(const char *infile, const char *outfile, char delimiter)
       }
       if (tmp___17 != 0)
       {
-        exit(-1);
+        {
+        }
       }
 
     }
@@ -3851,7 +3791,6 @@ int main(int argc, char **argv)
 
         if (optc == (- 1))
         {
-          exit(-1);
         }
         else
         {
@@ -3859,7 +3798,6 @@ int main(int argc, char **argv)
           {
             if (nfiles != 0)
             {
-              exit(-1);
             }
 
           }
@@ -3881,7 +3819,6 @@ int main(int argc, char **argv)
 
               if (nfiles == 2)
               {
-                exit(-1);
               }
 
             }
@@ -3895,52 +3832,42 @@ int main(int argc, char **argv)
 
                 if (optc == 48)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 49)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 50)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 51)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 52)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 53)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 54)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 55)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 56)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 57)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 99)
@@ -3955,7 +3882,6 @@ int main(int argc, char **argv)
 
                 if (optc == 68)
                 {
-                  exit(-1);
                 }
 
                 if (optc == 102)
@@ -3985,25 +3911,23 @@ int main(int argc, char **argv)
 
                 if (optc == 122)
                 {
-                  exit(-1);
                 }
 
                 if (optc == (- 130))
                 {
-                  exit(-1);
                 }
 
                 if (optc == (- 131))
                 {
-                  exit(-1);
                 }
 
                 case_1:
                 if (((int) (* (optarg + 0))) == 43)
                 {
+                  {
+                  }
                   if (tmp___7 < 200112)
                   {
-                    exit(-1);
                   }
 
                 }
@@ -4012,7 +3936,8 @@ int main(int argc, char **argv)
                   _L___1:
                   if (nfiles == 2)
                   {
-                    exit(-1);
+                    {
+                    }
                   }
                   else
                   {
@@ -4058,7 +3983,6 @@ int main(int argc, char **argv)
 
                 if (((unsigned int) skip_field_option_type) == 2U)
                 {
-                  exit(-1);
                 }
 
                 case_99:
@@ -4075,7 +3999,6 @@ int main(int argc, char **argv)
                 output_unique = (_Bool) 0;
                 if (((unsigned long) optarg) == ((unsigned long) ((void *) 0)))
                 {
-                  exit(-1);
                 }
 
                 case_102:
@@ -4145,7 +4068,8 @@ int main(int argc, char **argv)
     {
       if (output_later_repeated)
       {
-        exit(-1);
+        {
+        }
       }
 
     }

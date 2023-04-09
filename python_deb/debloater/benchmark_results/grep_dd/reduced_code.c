@@ -1036,8 +1036,8 @@ size_t safe_read(int fd, void *buf, size_t count);
 extern ssize_t read(int __fd, void *__buf, size_t __nbytes);
 size_t safe_read(int fd, void *buf, size_t count)
 {
-  ssize_t result;
-  ssize_t tmp;
+
+
   int *tmp___0;
 
   {
@@ -1047,15 +1047,15 @@ size_t safe_read(int fd, void *buf, size_t count)
 
 
 
-        {
-          tmp = read(fd, buf, count);
-          result = tmp;
-        }
-        if (0L <= result)
-        {
-          return (size_t) result;
-        }
-        else
+
+
+
+
+
+
+
+
+
         {
           {
           }
@@ -2059,9 +2059,9 @@ kwset_t kwsalloc(const char *trans___0)
 {
   struct kwset *kwset___1;
   struct kwset *tmp;
-  struct obstack *__h;
-  struct obstack *__o;
-  int __len;
+
+
+
   struct obstack *__o1;
   void *__value;
   char *tmp___0;
@@ -2071,29 +2071,29 @@ kwset_t kwsalloc(const char *trans___0)
       tmp = (struct kwset *) xmalloc(sizeof(* kwset___1));
       kwset___1 = tmp;
       _obstack_begin(& kwset___1->obstack, 0, 0, (void *(*)(long)) (& xmalloc), & free);
-      kwset___1->words = (ptrdiff_t) 0;
-      __h = & kwset___1->obstack;
-      __o = __h;
+
+
+
 
     }
-    if ((__o->chunk_limit - __o->next_free) < ((long) __len))
-    {
-      {
-      }
-    }
 
-    __o->next_free += __len;
-    __o1 = __h;
-    __value = (void *) __o1->object_base;
 
-    {
-    }
 
-    if ((sizeof(long)) < (sizeof(void *)))
-    {
-      tmp___0 = __o1->object_base;
-    }
-    else
+
+
+
+
+
+
+    if (((unsigned long) __o1->next_free) == ((unsigned long) __value))
+
+
+
+
+
+
+
+
     {
       tmp___0 = (char *) 0;
     }
@@ -2109,23 +2109,23 @@ kwset_t kwsalloc(const char *trans___0)
 
 
 
-    {
-    }
 
-    __o1->object_base = __o1->next_free;
+
+
+
     kwset___1->trie = (struct trie *) __value;
 
+    kwset___1->trie->links = (struct tree *) ((void *) 0);
+
+
+    kwset___1->trie->fail = (struct trie *) ((void *) 0);
 
 
 
 
 
 
-    kwset___1->mind = 2147483647;
-
-
-
-
+    return kwset___1;
   }
 }
 
@@ -2134,40 +2134,40 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
   struct trie *trie;
 
 
-  unsigned char label___0;
+
 
   struct tree *kwset_link;
   struct tree *links[12];
-  enum __anonenum_dirs_58 dirs[12];
+
   int depth___0;
 
 
-  struct obstack *__h;
-  struct obstack *__o;
-  int __len;
-  struct obstack *__o1;
-  void *__value;
-  char *tmp___2;
-  char *tmp___3;
-  struct obstack *__h___0;
-  struct obstack *__o___0;
-  int __len___0;
-  struct obstack *__o1___0;
-  void *__value___0;
-  char *tmp___4;
-  char *tmp___5;
-  struct tree *t;
-  struct tree *r;
-  struct tree *l;
 
 
 
 
-  size_t tmp___8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   {
-    trie = kwset___1->trie;
+
 
 
     {
@@ -2176,12 +2176,61 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-        tmp___8 = len;
-        len--;
-        if (! tmp___8)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
-          goto while_break;
-        }
 
 
 
@@ -2194,13 +2243,6 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-        kwset_link = trie->links;
-        links[0] = (struct tree *) (& trie->links);
-        dirs[0] = (enum __anonenum_dirs_58) 0;
-        depth___0 = 1;
-        {
-          while (1)
-          {
 
 
 
@@ -2212,37 +2254,18 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-            {
-              goto while_break___0;
-            }
 
-            if (((int) label___0) < ((int) kwset_link->label))
-            {
-            }
 
-          }
 
 
 
 
-        }
-        while_break___0:
 
 
 
-        {
-          __h = & kwset___1->obstack;
 
-          __len = (int) (sizeof(* kwset_link));
 
-          {
-            {
-            }
-          }
 
-          __o->next_free += __len;
-          __o1 = __h;
-          __value = (void *) __o1->object_base;
 
 
 
@@ -2252,40 +2275,15 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-          {
-            tmp___2 = (char *) 0;
-          }
 
-          if ((sizeof(long)) < (sizeof(void *)))
-          {
-            tmp___3 = __o1->object_base;
-          }
-          else
-          {
-            tmp___3 = (char *) 0;
-          }
 
 
 
-          {
-          }
 
-          __o1->object_base = __o1->next_free;
-          kwset_link = (struct tree *) __value;
 
 
-          __h___0 = & kwset___1->obstack;
-          __o___0 = __h___0;
-          __len___0 = (int) (sizeof(* kwset_link->trie));
 
-          {
-            {
-            }
-          }
 
-          __o___0->next_free += __len___0;
-          __o1___0 = __h___0;
-          __value___0 = (void *) __o1___0->object_base;
 
 
 
@@ -2295,44 +2293,23 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-          {
-            tmp___4 = (char *) 0;
-          }
 
-          if ((sizeof(long)) < (sizeof(void *)))
-          {
-            tmp___5 = __o1___0->object_base;
-          }
-          else
-          {
-            tmp___5 = (char *) 0;
-          }
 
 
 
-          {
-          }
 
-          __o1___0->object_base = __o1___0->next_free;
-          kwset_link->trie = (struct trie *) __value___0;
 
 
-          kwset_link->trie->parent = trie;
 
 
-          kwset_link->trie->depth = trie->depth + 1;
 
 
 
-          depth___0--;
 
-          {
-            links[depth___0]->llink = kwset_link;
 
 
 
 
-            {
 
 
 
@@ -2349,15 +2326,38 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-              {
-              }
 
-            }
 
 
 
 
-          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2402,9 +2402,6 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-                  ;
-
-                  r = links[depth___0];
 
 
 
@@ -2437,14 +2434,17 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
-                  ;
 
-                  l = links[depth___0];
 
-                  {
-                  }
 
-                  if (((int) t->balance) != (- 1))
+
+
+
+
+
+
+
+
 
 
 
@@ -2484,27 +2484,27 @@ void kwsincr(kwset_t kwset___1, const char *text, size_t len)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-    while_break:
 
-
-
-
-
-
-
-    kwset___1->words++;
-
-    {
-      kwset___1->mind = trie->depth;
-    }
-
-
-
-
-
-
-
+    return;
   }
 }
 
@@ -2724,31 +2724,31 @@ void kwsprep(kwset_t kwset___1)
   struct trie *curr;
   struct trie *last;
   struct trie *fail;
-  int tmp___1;
-  struct trie *nextbuf[256];
-  struct trie **next;
-  struct trie **tmp___2;
-
-  struct obstack *__h;
 
 
-  struct obstack *__o1;
-  void *__value;
-  char *tmp___4;
-  char *tmp___5;
-  struct obstack *__h___0;
 
 
-  struct obstack *__o1___0;
-  void *__value___0;
-  char *tmp___6;
-  char *tmp___7;
-  char gc1;
-  char tmp___8;
-  int gc1help;
 
 
-  const char *equiv2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2756,40 +2756,40 @@ void kwsprep(kwset_t kwset___1)
 
 
   {
-    trans___0 = kwset___1->trans;
+
+
+
+
+
+
+
 
 
 
 
     {
-      tmp = kwset___1->delta;
-    }
-
-
-
-    {
 
 
 
 
 
-      last = kwset___1->trie;
-      curr = last;
-    }
-    {
-      while (1)
+
+
+
+
+
       {
 
 
 
-        if (! curr)
-        {
-          goto while_break;
-        }
 
         {
-          enqueue(curr->links, & last);
-          curr->shift = kwset___1->mind;
+
+
+
+
+
+
 
 
 
@@ -2803,27 +2803,27 @@ void kwsprep(kwset_t kwset___1)
 
 
             {
-              goto while_break___0;
 
 
 
 
-            }
-            if (! tmp___1)
-            {
-              if ((curr->depth - fail->depth) < fail->shift)
-              {
-                fail->shift = curr->depth - fail->depth;
-              }
 
-            }
 
-            if (curr->accepting)
-            {
-              if (fail->maxshift > (curr->depth - fail->depth))
-              {
-                fail->maxshift = curr->depth - fail->depth;
-              }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             }
 
@@ -2834,8 +2834,8 @@ void kwsprep(kwset_t kwset___1)
 
 
         }
-        while_break___0:
-        curr = curr->next;
+
+
 
       }
 
@@ -2843,7 +2843,7 @@ void kwsprep(kwset_t kwset___1)
 
 
     }
-    while_break:
+
 
 
     {
@@ -2853,21 +2853,21 @@ void kwsprep(kwset_t kwset___1)
 
 
 
-        {
-          goto while_break___1;
-        }
 
-        if (curr->maxshift > curr->parent->maxshift)
-        {
-          curr->maxshift = curr->parent->maxshift;
-        }
 
-        if (curr->shift > curr->maxshift)
-        {
-          curr->shift = curr->maxshift;
-        }
 
-        curr = curr->next;
+
+
+
+
+
+
+
+
+
+
+
+
       }
 
 
@@ -2875,7 +2875,7 @@ void kwsprep(kwset_t kwset___1)
 
     }
     while_break___1:
-    ;
+
 
 
 
@@ -2889,11 +2889,200 @@ void kwsprep(kwset_t kwset___1)
 
 
 
-    }
-    if (trans___0)
-    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {
-        while (1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
 
 
@@ -2915,203 +3104,14 @@ void kwsprep(kwset_t kwset___1)
 
     }
 
-    if (kwset___1->words == 1L)
-    {
-      __h = & kwset___1->obstack;
-
-
-
-
-
-
-
-
-
-      __o1 = __h;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      __o1->next_free = tmp___4 + (((__o1->next_free - tmp___5) + ((long) __o1->alignment_mask)) & ((long) (~ __o1->alignment_mask)));
-
-
-
-
-
-      kwset___1->target = (char *) __value;
-
-      curr = kwset___1->trie;
-      {
-        while (1)
-        {
-
-
-
-
-          {
-            goto while_break___3;
-          }
-
-          * (kwset___1->target + i) = (char) curr->links->label;
-
-
-        }
-
-        while_break___10:
-        ;
-
-      }
-      while_break___3:
-
-
-
-      {
-        __h___0 = & kwset___1->obstack;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {
-          tmp___6 = (char *) 0;
-        }
-
-        if ((sizeof(long)) < (sizeof(void *)))
-        {
-          tmp___7 = __o1___0->object_base;
-        }
-        else
-        {
-          tmp___7 = (char *) 0;
-        }
-
-
-
-
-
-
-
-        kwset___1->shift = (int *) __value___0;
-        i = 0;
-
-        {
-          while (1)
-          {
-            while_continue___4:
-            ;
-
-            if (! (i < (kwset___1->mind - 1)))
-            {
-              goto while_break___4;
-            }
-
-            * (kwset___1->shift + i) = curr->shift;
-
-            i++;
-          }
-
-          while_break___11:
-          ;
-
-        }
-        while_break___4:
-
-
-
-
-
-
-
-        gc1help = - 1;
-      }
-      if (trans___0)
-      {
-        {
-        }
-        if (equiv2)
-        {
-        }
-
-      }
-
-      kwset___1->gc1 = gc1;
-      kwset___1->gc1help = gc1help;
-
-      {
-        {
-          kwset___1->gc2 = tr(trans___0, * (kwset___1->target + (kwset___1->mind - 2)));
-        }
-      }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return;
   }
 }
 
 static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, int len, const char *trans___0, char gc1, char gc2, const unsigned char *d1, kwset_t kwset___1)
 {
-  const char *tp;
-  int d;
+
+
   int skip;
   int i;
 
@@ -3122,7 +3122,7 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
 
 
   {
-    tp = * tpp;
+
 
 
     {
@@ -3132,7 +3132,7 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
 
 
         {
-          i = 2;
+
 
         }
         if (((int) tmp___3) == ((int) gc2))
@@ -3145,58 +3145,58 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               {
 
 
 
 
-                {
-                  goto while_break___1;
 
 
 
 
 
-
-
-
-
-                }
 
               }
 
-
-
-
             }
-            while_break___1:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3209,8 +3209,8 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
 
         }
 
-        d = * (kwset___1->shift + (i - 2));
-        tp += d;
+
+
 
         {
 
@@ -3222,14 +3222,14 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
 
 
 
-          {
-            {
 
 
-            }
-          }
 
-          goto while_break;
+
+
+
+
+
         }
 
         skip = i - 1;
@@ -3239,10 +3239,10 @@ static _Bool bm_delta2_search(const char **tpp, const char *ep, const char *sp, 
 
 
     }
-    while_break:
-    * tpp = tp;
 
-    return (_Bool) 0;
+
+
+
   }
 }
 
@@ -3308,11 +3308,11 @@ static size_t bmexec_trans(kwset_t kwset___1, const char *text, size_t size)
 
 
 
-  const char *tp;
 
 
 
-  long tmp;
+
+
 
 
 
@@ -3345,18 +3345,6 @@ static size_t bmexec_trans(kwset_t kwset___1, const char *text, size_t size)
 
     {
       {
-        tp = memchr_kwset(text, size, kwset___1);
-      }
-      if (tp)
-      {
-        tmp = tp - text;
-      }
-      else
-      {
-        tmp = - 1L;
-      }
-
-      return (size_t) tmp;
 
 
 
@@ -3367,8 +3355,20 @@ static size_t bmexec_trans(kwset_t kwset___1, const char *text, size_t size)
 
 
 
-      {
-        while (1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
 
 
@@ -3584,28 +3584,28 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0);
 size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *start_ptr);
 static _Bool wordchar___0(wint_t wc)
 {
-
-
+  int tmp;
+  int tmp___0;
   {
+    if (wc == 95U)
+    {
+    }
+    else
+    {
+      {
+        tmp = iswalnum(wc);
+      }
+      if (tmp)
+      {
+      }
+      else
+      {
+        tmp___0 = 0;
+      }
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return (_Bool) tmp___0;
   }
 }
 
@@ -3640,12 +3640,12 @@ static void kwsmusts(void)
   {
     {
       tmp = (const struct dfamust *) dfamusts((const struct dfa *) dfa);
-      dm = tmp;
+
     }
     if (dm)
     {
       {
-        kwsinit(& kwset___0);
+
 
 
 
@@ -3659,32 +3659,32 @@ static void kwsmusts(void)
 
 
 
+          {
 
 
 
 
 
 
+            old_len = tmp___0;
+
+
+            must___0 = tmp___1;
 
 
 
 
 
+          }
+          if (dm->endline)
+          {
+            * (mp + old_len) = (char) eolbyte;
+          }
 
+          {
+            kwsincr(kwset___0, (const char *) must___0, new_len);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+          }
 
 
 
@@ -3693,14 +3693,14 @@ static void kwsmusts(void)
 
 
 
+
+
+
+
       }
-      while_break:
+
       {
-
-
-
-
-
+        while (1)
         {
 
 
@@ -3717,10 +3717,10 @@ static void kwsmusts(void)
 
           {
             tmp___2 = strlen((const char *) dm->must);
-            kwsincr(kwset___0, (const char *) dm->must, tmp___2);
+
           }
           __Cont___0:
-
+          dm = (const struct dfamust *) dm->next;
 
         }
 
@@ -3749,26 +3749,26 @@ static const char word_beg_bk[23] = {(const char) '\\', (const char) '(', (const
 static const char word_end_bk[23] = {(const char) '\\', (const char) ')', (const char) '\\', (const char) '(', (const char) '[', (const char) '^', (const char) '[', (const char) ':', (const char) 'a', (const char) 'l', (const char) 'n', (const char) 'u', (const char) 'm', (const char) ':', (const char) ']', (const char) '_', (const char) ']', (const char) '\\', (const char) '|', (const char) '$', (const char) '\\', (const char) ')', (const char) '\000'};
 void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
 {
-  size_t total;
-  char *motif;
-  const char *p;
 
 
 
 
 
-  int bk;
+
+
+
+
   char *n;
   char *tmp___1;
-  const char *tmp___2;
-  const char *tmp___3;
-  const char *tmp___4;
-  const char *tmp___5;
-  const char *tmp___6;
-  const char *tmp___7;
-  size_t tmp___8;
+
+
+
+
+
+
+
   {
-    total = size;
+
 
     {
 
@@ -3776,7 +3776,7 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
 
 
 
-      dfasyntax(syntax_bits___0, match_icase, eolbyte);
+
 
 
 
@@ -3785,6 +3785,39 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
 
 
 
+        {
+
+
+        }
+
+
+
+
+        {
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+      }
 
 
 
@@ -3800,48 +3833,15 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
 
 
 
+      {
+        _L:
+        {
 
 
+          n = tmp___1;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (match_lines)
         {
 
 
@@ -3902,9 +3902,9 @@ void GEAcompile(const char *pattern, size_t size, reg_syntax_t syntax_bits___0)
     }
 
     {
-      dfa = dfaalloc();
-      dfacomp(pattern, size, dfa, 1);
-      kwsmusts();
+
+
+
 
     }
     return;
@@ -3922,7 +3922,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
-
+  regoff_t start;
   size_t len;
 
 
@@ -3936,7 +3936,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
-
+  size_t offset;
 
 
 
@@ -3977,13 +3977,18 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
-
+        if (! start_ptr)
         {
 
 
 
 
           {
+            {
+
+
+            }
+            if (offset == 0xffffffffffffffffUL)
             {
 
 
@@ -4000,6 +4005,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+            }
 
 
 
@@ -4008,11 +4014,13 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+            {
 
 
 
 
 
+              {
 
 
 
@@ -4026,6 +4034,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+                {
 
 
 
@@ -4035,6 +4044,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+                  {
 
 
 
@@ -4111,17 +4121,24 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+                    {
 
 
 
 
 
+                    }
 
+                  }
 
+                  {
+                  }
+                }
 
 
 
 
+              }
 
 
 
@@ -4129,6 +4146,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+              {
 
 
 
@@ -4141,8 +4159,11 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+              }
 
+            }
 
+          }
 
 
 
@@ -4152,6 +4173,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+          {
 
 
 
@@ -4178,6 +4200,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+          }
 
 
 
@@ -4197,10 +4220,12 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+          {
 
 
 
 
+            {
 
 
 
@@ -4208,40 +4233,15 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
+            }
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            {
+              if (0 <= start)
               {
 
 
@@ -4405,7 +4405,7 @@ size_t EGexecute(const char *buf, size_t size, size_t *match_size, const char *s
 
 
 
-    return (size_t) (- 1);
+
 
 
 
@@ -4457,11 +4457,11 @@ static void regexp(void);
 static void dfambcache(struct dfa *d)
 {
   int i;
+  char c;
 
-
-
-
-
+  mbstate_t s;
+  wchar_t wc;
+  size_t tmp___0;
 
   {
     i = - 128;
@@ -4471,17 +4471,17 @@ static void dfambcache(struct dfa *d)
 
 
 
-
+        if (! (i <= 127))
         {
           goto while_break;
+        }
+
+        {
+          c = (char) i;
 
 
 
-
-
-
-
-
+          tmp___0 = mbrtowc((wchar_t *) (& wc), (const char *) ((const char *) (& c)), (size_t) 1, (mbstate_t *) (& s));
         }
 
 
@@ -4492,7 +4492,7 @@ static void dfambcache(struct dfa *d)
 
 
 
-
+        i++;
       }
 
 
@@ -4588,9 +4588,9 @@ static void notset(charclass_word *s)
 
 
 
-        {
-          goto while_break;
-        }
+
+
+
 
 
 
@@ -4820,7 +4820,7 @@ static int utf8 = - 1;
 int using_utf8(void)
 {
 
-  mbstate_t mbs;
+
 
   int tmp___0;
 
@@ -5000,21 +5000,21 @@ static const struct dfa_ctype *find_pred(const char *str)
 
 
 
+        {
+          goto while_break;
+        }
 
-
-
-
-
+        i++;
       }
 
 
 
 
     }
+    while_break:
+    ;
 
-
-
-
+    return (const struct dfa_ctype *) (& prednames[i]);
   }
 }
 
@@ -5034,29 +5034,29 @@ static token parse_bracket_exp(void)
   struct mb_char_classes *work_mbc;
   size_t chars_al;
   size_t ranges_al;
-  size_t ch_classes_al;
-  size_t equivs_al;
-  size_t coll_elems_al;
-  size_t tmp;
 
-  char *tmp___1;
-  wint_t _wc;
-  size_t nbytes;
-  size_t tmp___2;
-  unsigned char tmp___3;
 
-  char *tmp___5;
-  wint_t _wc___0;
-  size_t nbytes___0;
-  size_t tmp___6;
-  unsigned char tmp___7;
 
-  char *tmp___9;
-  wint_t _wc___1;
-  size_t nbytes___1;
-  size_t tmp___10;
-  unsigned char tmp___11;
-  char str[33];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   size_t len;
 
 
@@ -5141,7 +5141,7 @@ static token parse_bracket_exp(void)
 
 
 
-  _Bool tmp___73;
+
 
 
 
@@ -5293,11 +5293,11 @@ static token parse_bracket_exp(void)
 
 
 
-    }
 
-    colon_warning_state = c == 58;
-    {
-      while (1)
+
+
+
+
       {
 
 
@@ -5322,26 +5322,26 @@ static token parse_bracket_exp(void)
 
 
 
-              {
-                {
-                  tmp___10 = mbs_to_wchar(& _wc___1, lexptr, lexleft, dfa___0);
-                  nbytes___1 = tmp___10;
 
 
-                }
-                if (nbytes___1 == 1UL)
-                {
-                  {
 
 
-                  }
-                }
 
-                lexptr += nbytes___1;
 
-              }
 
-              goto while_break___2;
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
 
 
@@ -5644,11 +5644,11 @@ static token parse_bracket_exp(void)
 
           }
 
-        }
 
-        if (c == 92)
-        {
-          if (syntax_bits & 1UL)
+
+
+
+
 
 
 
@@ -6055,17 +6055,17 @@ static token parse_bracket_exp(void)
 
 
 
-          ;
-
-        }
 
 
 
 
 
 
-        {
-          goto while_break___1;
+
+
+
+
+
         }
 
       }
@@ -6073,8 +6073,6 @@ static token parse_bracket_exp(void)
 
 
 
-    }
-    while_break___1:
 
 
 
@@ -6084,29 +6082,31 @@ static token parse_bracket_exp(void)
 
 
 
-    {
-      return (token) 257;
-    }
-
-    if (dfa___0->multibyte)
-    {
-      {
-
-
-      }
-      if (tmp___73)
 
 
 
 
-      {
-        {
 
 
-        }
-      }
 
-      return (token) 273;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     if (invert)
@@ -6127,8 +6127,8 @@ static token lex(void)
   int i;
   wint_t _wc;
   size_t nbytes;
-  size_t tmp;
-  unsigned char tmp___0;
+
+
 
 
   int tmp___3;
@@ -6176,32 +6176,32 @@ static token lex(void)
 
 
 
-            if (! lexleft)
-            {
-              lasttok = (token) (- 1);
-              return lasttok;
-            }
-            else
-            {
-              {
-                tmp = mbs_to_wchar(& _wc, lexptr, lexleft, dfa___0);
-                nbytes = tmp;
 
 
-              }
-              if (nbytes == 1UL)
-              {
-                {
 
 
-                }
-              }
 
-              lexptr += nbytes;
-              lexleft -= nbytes;
-            }
 
-            goto while_break___0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           }
 
 
@@ -6270,7 +6270,6 @@ static token lex(void)
 
 
 
-        {
 
 
 
@@ -6312,16 +6311,17 @@ static token lex(void)
 
 
 
-        }
 
 
 
 
 
 
-        {
-          goto case_40;
-        }
+
+
+
+
+
 
 
 
@@ -6538,6 +6538,7 @@ static token lex(void)
 
 
 
+        {
 
 
 
@@ -6553,11 +6554,10 @@ static token lex(void)
 
 
 
+          {
+          }
 
-
-
-
-
+        }
 
 
 
@@ -6752,14 +6752,9 @@ static token lex(void)
 
 
 
-            {
-            }
 
-          }
 
-        }
 
-        case_40:
 
 
 
@@ -6814,10 +6809,6 @@ static token lex(void)
 
 
 
-        if (! backslash)
-        {
-          goto normal_char;
-        }
 
 
 
@@ -6828,11 +6819,20 @@ static token lex(void)
 
 
 
-        {
-          {
-          }
-          {
-            while (1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {
 
 
@@ -6951,13 +6951,13 @@ static token lex(void)
 
 
 
-        normal_char:
+
 
 
 
         {
-          lasttok = (token) 274;
-          return lasttok;
+
+
         }
 
 
@@ -7085,8 +7085,8 @@ static void addtok(token t)
     {
       if (t == 273L)
       {
-
-
+        need_or = (_Bool) 0;
+        work_mbc = dfa___0->mbcsets + (dfa___0->nmbcsets - 1UL);
 
         {
           i = (size_t) 0;
@@ -7097,13 +7097,13 @@ static void addtok(token t)
 
 
 
+              {
+                goto while_break;
+              }
 
-
-
-
-
-
-
+              {
+              }
+              if (need_or)
               {
               }
 
@@ -7113,26 +7113,26 @@ static void addtok(token t)
 
 
           }
+          while_break:
+
+
+        }
 
 
 
 
 
-
-
-
-
-
+        {
 
 
 
 
           {
-
-
-
-
-
+            if (work_mbc->nranges != 0UL)
+            {
+              goto _L;
+            }
+            else
             {
 
 
@@ -7141,8 +7141,8 @@ static void addtok(token t)
               {
                 if (work_mbc->ncoll_elems != 0UL)
                 {
-
-
+                  _L:
+                  ;
 
 
 
@@ -7153,10 +7153,10 @@ static void addtok(token t)
                     }
                   }
 
-
-
-
-
+                }
+                else
+                {
+                  if (work_mbc->cset != (- 1L))
                   {
                     {
                       addtok(275L + work_mbc->cset);
@@ -7196,25 +7196,16 @@ static void addtok(token t)
 static void addtok_wc(wint_t wc)
 {
   unsigned char buf[16];
-  mbstate_t s;
 
 
-  size_t tmp;
+
+
   int tmp___0;
 
 
 
   {
     {
-
-
-      tmp = wcrtomb((char *) ((char *) buf), (wchar_t) wc, (mbstate_t *) (& s));
-
-
-
-
-
-
 
 
 
@@ -7224,6 +7215,15 @@ static void addtok_wc(wint_t wc)
 
 
     }
+
+
+
+
+
+
+
+
+
 
     {
       addtok_mb((token) buf[0], tmp___0);
@@ -7285,7 +7285,7 @@ static void add_utf8_anychar(void)
 
 
           {
-
+            goto while_break;
 
 
 
@@ -7319,7 +7319,7 @@ static void add_utf8_anychar(void)
 
 
       }
-
+      while_break:
 
 
 
@@ -7412,7 +7412,7 @@ static void atom(void)
 
 
             {
-              while_continue:
+
 
 
 
@@ -7431,79 +7431,79 @@ static void atom(void)
 
 
           }
-          while_break:
-          ;
+
+
 
         }
 
       }
 
-      {
-        tok = lex();
-      }
-    }
-    else
-    {
-      if (tok == 272L)
+
+
+
+
+
+
+
       {
         {
           tmp___1 = using_utf8();
         }
-        if (tmp___1)
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {
 
 
-          }
-        }
-
-
-
-
-
-        if (tok >= 0L)
-        {
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          {
-            if (tok == 257L)
             {
+
+
+
+
+
+
+
+
               {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -7527,14 +7527,14 @@ static void atom(void)
 
 
                     {
-                      if (tok == 273L)
-                      {
-                        {
 
 
-                        }
-                      }
-                      else
+
+
+
+
+
+
                       {
 
 
@@ -7550,7 +7550,7 @@ static void atom(void)
 
 
                           {
-                            if (tok == 263L)
+
 
 
 
@@ -7780,10 +7780,10 @@ static void branch(void)
 
 
 
+        }
 
-
-
-
+        {
+          closure();
 
         }
       }
@@ -7808,7 +7808,7 @@ static void regexp(void)
 
 
       {
-        while_continue:
+
 
 
 
@@ -7895,13 +7895,13 @@ static void copy(const position_set *src, position_set *dst)
       {
 
 
-
+        dst->elems = (position *) x2nrealloc((void *) 0, & dst->alloc, sizeof(* dst->elems));
       }
     }
 
     {
-
-
+      memcpy((void *) ((void *) dst->elems), (const void *) ((const void *) src->elems), (size_t) (src->nelem * ((const size_t) (sizeof(* dst->elems)))));
+      dst->nelem = (size_t) src->nelem;
     }
     return;
   }
@@ -7912,8 +7912,8 @@ static void alloc_position_set(position_set *s, size_t size)
   {
     {
       s->elems = (position *) xnmalloc(size, sizeof(* s->elems));
-      s->alloc = size;
-      s->nelem = (size_t) 0;
+
+
     }
     return;
   }
@@ -8001,7 +8001,7 @@ static void insert(position p, position_set *s)
 
 static void merge(const position_set *s1, const position_set *s2, position_set *m)
 {
-  size_t i;
+
 
 
 
@@ -8030,21 +8030,21 @@ static void merge(const position_set *s1, const position_set *s2, position_set *
 
 
 
-        if (i < ((size_t) s1->nelem))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -8201,156 +8201,16 @@ static void delete(position p, position_set *s)
 
 static state_num state_index(struct dfa *d, const position_set *s, int context)
 {
-  size_t hash;
-  int constraint;
-  state_num i;
-  state_num j;
+
+
+
+
   {
 
 
     {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      while (1)
       {
-
-
-
-
-        {
-          goto while_break___0;
-        }
-
-        if (hash != (d->states + i)->hash)
-
-
-
-
-        {
-
-
-
-
-          {
-
-
-
-
-
-          }
-
-
-
-
-
-
-          {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          }
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-        __Cont:
-
-
-
-      }
-
-
-
-
-    }
-    while_break___0:
-    {
-      d->states = (dfa_state *) maybe_realloc((void *) d->states, (size_t) d->sindex, & d->salloc, sizeof(* d->states));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {
-        while_continue___2:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -8366,8 +8226,148 @@ static state_num state_index(struct dfa *d, const position_set *s, int context)
 
 
 
+
+
+
+
+
+
+      {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      }
+
+
+
+
     }
-    while_break___2:
+
 
 
 
@@ -8635,7 +8635,7 @@ void dfaanalyze(struct dfa *d, int searchflag)
 
 
 
-
+  size_t i;
 
 
 
@@ -8669,16 +8669,6 @@ void dfaanalyze(struct dfa *d, int searchflag)
 
 
 
-        {
-          goto while_break;
-        }
-
-
-
-
-
-
-        {
 
 
 
@@ -8700,7 +8690,17 @@ void dfaanalyze(struct dfa *d, int searchflag)
 
 
 
-        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8818,137 +8818,137 @@ void dfaanalyze(struct dfa *d, int searchflag)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {
+
+
+
+
+
+
+            {
+              if ((* (d->tokens + i)) == 273L)
+              {
+
+
+
+
+
+
+
+
+
+                {
+                  {
+
+
+
+                  }
+                }
+
+              }
+
+            }
+
+          }
+
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        i++;
       }
 
 
 
 
-    }
-    while_break:
 
 
-    {
-      while (1)
+
+
+
+
+
       {
 
 
 
 
         {
-          goto while_break___3;
-        }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      }
-
-
-
-
-    }
-    while_break___3:
-
-
-
-    {
-      while (1)
-      {
-
-
-
-
-        {
-          goto while_break___4;
-        }
-
-        {
 
 
         }
@@ -8958,7 +8958,7 @@ void dfaanalyze(struct dfa *d, int searchflag)
 
 
     }
-    while_break___4:
+
 
 
 
@@ -9073,40 +9073,6 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
-            {
-              if ((* (d->tokens + pos.index)) == 272L)
-              {
-
-
-
-
-
-
-
-
-                {
-                }
-
-                {
-                }
-              }
-
-            }
-
-            goto __Cont;
-          }
-
-
-
-
-
-
-
-          {
-            j = (size_t) 0;
-            {
-              while (1)
-              {
 
 
 
@@ -9117,14 +9083,21 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
-              }
 
 
 
 
-            }
-            while_break___0:
-            ;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9185,16 +9158,43 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ;
+
+
+
+
+
+
             {
-              while_continue___3:
-              ;
+
+
 
               if (j < 8UL)
               {
-                if (! (! matches[j]))
-                {
-                  goto while_break___3;
-                }
+
+
+
+
 
 
 
@@ -9211,13 +9211,13 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
-          }
-          while_break___3:
 
 
 
-          {
-            goto __Cont;
+
+
+
+
           }
 
 
@@ -9346,18 +9346,18 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
-        {
-          {
 
 
 
 
 
 
-          }
-        }
 
-        __Cont:
+
+
+
+
+
 
 
       }
@@ -9422,13 +9422,13 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
-            {
 
 
 
 
 
-            }
+
+
 
           }
 
@@ -9439,7 +9439,7 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
       }
-      while_break___7:
+
 
 
     }
@@ -9574,8 +9574,6 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
         {
 
 
-        }
-        if ((separate_contexts & possible_contexts) != possible_contexts)
 
 
 
@@ -9588,7 +9586,9 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
 
 
 
-        {
+
+
+
 
 
 
@@ -9630,10 +9630,10 @@ void dfastate(ptrdiff_t s, struct dfa *d, ptrdiff_t *trans___0)
                 {
                   c = (int) ((j * 32UL) + k);
                   if (c == ((int) eolbyte___0))
-                  {
-                    * (trans___0 + c) = state_newline;
-                  }
-                  else
+
+
+
+
                   {
                     {
                       tmp___7 = __ctype_b_loc();
@@ -9785,9 +9785,9 @@ static void realloc_trans_if_necessary(struct dfa *d, state_num new_state)
 
 static void build_state(state_num s, struct dfa *d)
 {
-  state_num *trans___0;
-  state_num i;
-  state_num maxstate;
+
+
+
 
   {
     if (d->trcount >= 1024)
@@ -9810,7 +9810,7 @@ static void build_state(state_num s, struct dfa *d)
 
 
       }
-      while_break:
+
 
 
 
@@ -9841,6 +9841,7 @@ static void build_state(state_num s, struct dfa *d)
 
 
 
+      {
 
 
 
@@ -9855,14 +9856,13 @@ static void build_state(state_num s, struct dfa *d)
 
 
 
-
-
+      }
 
 
 
 
     }
-    while_break___0:
+
 
 
 
@@ -9884,17 +9884,17 @@ static void build_state(state_num s, struct dfa *d)
 
 static void build_state_zero(struct dfa *d)
 {
-
+  int initial_tab_size;
   {
     {
+      initial_tab_size = 1;
 
 
 
 
 
 
-
-
+      realloc_trans_if_necessary(d, (state_num) initial_tab_size);
 
     }
     return;
@@ -9927,9 +9927,9 @@ static state_num transit_state(struct dfa *d, state_num s, const unsigned char *
 
 char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t *count, int *backref)
 {
-
-
-
+  state_num s;
+  state_num s1;
+  const unsigned char *p;
 
 
 
@@ -9947,11 +9947,11 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
 
 
 
-
-
-
-
-
+    {
+      {
+        build_state_zero(d);
+      }
+    }
 
 
 
@@ -10151,8 +10151,8 @@ char *dfaexec(struct dfa *d, const char *begin, char *end, int allow_nl, size_t 
 
         }
 
-
-
+        s = (state_num) 0;
+        __Cont:
         ;
 
       }
@@ -10236,7 +10236,7 @@ static void free_mbdata(struct dfa *d)
 
 
         }
-        while_break___0:
+
 
 
 
@@ -10395,8 +10395,8 @@ static void dfassbuild(struct dfa *d)
   charclass ccl;
   _Bool have_achar;
   _Bool have_nchar;
-  struct dfa *sup;
-  struct dfa *tmp;
+
+
 
 
 
@@ -10490,20 +10490,8 @@ static void dfassbuild(struct dfa *d)
 
 
 
-        {
 
 
-
-
-          {
-            if ((* (d->tokens + (i + 1UL))) == 266L)
-            {
-              i++;
-            }
-
-          }
-
-        }
 
 
 
@@ -10534,7 +10522,19 @@ static void dfassbuild(struct dfa *d)
 
 
         {
-          _L:
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10559,15 +10559,15 @@ static void dfassbuild(struct dfa *d)
     if (have_nchar)
     {
       if (have_achar)
+
+
+
+
       {
 
 
 
 
-
-        {
-          d->superset = sup;
-        }
 
       }
 
@@ -10589,12 +10589,12 @@ void dfacomp(const char *s, size_t len, struct dfa *d, int searchflag)
   {
     {
       dfainit(d);
+      dfambcache(d);
+      dfaparse(s, len, d);
+      dfamust(d);
 
-
-
-
-
-
+      dfaoptimize(d);
+      dfaanalyze(d, searchflag);
     }
     if (d->superset)
     {
@@ -10738,26 +10738,26 @@ void dfafree(struct dfa *d)
 
 static char *icatalloc(char *old, const char *new)
 {
-
-
-
-
+  char *result;
+  size_t oldsize;
+  size_t newsize;
+  size_t tmp;
   {
     {
-
-
+      tmp = strlen(new);
+      newsize = tmp;
+    }
+    if (newsize == 0UL)
+    {
+      return old;
     }
 
+    {
+      oldsize = strlen((const char *) old);
+      result = (char *) xrealloc((void *) old, (oldsize + newsize) + 1UL);
 
-
-
-
-
-
-
-
-
-
+    }
+    return result;
   }
 }
 
@@ -10800,7 +10800,7 @@ static char *istrstr(const char *lookin, const char *lookfor)
 
 
 
-
+    return (char *) ((char *) ((void *) 0));
   }
 }
 
@@ -10816,7 +10816,7 @@ static void freelist(char **cpp)
 
 
         {
-
+          goto while_break;
 
 
 
@@ -10830,7 +10830,7 @@ static void freelist(char **cpp)
 
 
     }
-
+    while_break:
 
 
 
@@ -10840,8 +10840,8 @@ static void freelist(char **cpp)
 static char **enlist(char **cpp, char *new, size_t len)
 {
   size_t i;
-  size_t j;
-  void *tmp;
+
+
   char *tmp___0;
   char *tmp___1;
   {
@@ -10864,13 +10864,13 @@ static char **enlist(char **cpp, char *new, size_t len)
 
 
 
-
-
-
-
-
-
-
+        }
+        if (((unsigned long) tmp___0) != ((unsigned long) ((void *) 0)))
+        {
+          {
+            free((void *) new);
+          }
+          return cpp;
         }
 
         i++;
@@ -10883,6 +10883,22 @@ static char **enlist(char **cpp, char *new, size_t len)
 
 
 
+    {
+      while (1)
+      {
+
+
+
+
+        {
+
+
+
+
+
+        }
+        if (((unsigned long) tmp___1) == ((unsigned long) ((void *) 0)))
+        {
 
 
 
@@ -10898,30 +10914,14 @@ static char **enlist(char **cpp, char *new, size_t len)
 
 
 
+        }
+
+      }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 
@@ -11054,7 +11054,7 @@ static char **addlists(char **old, char **new)
 
 
         {
-
+          goto while_break;
 
 
 
@@ -11068,7 +11068,7 @@ static char **addlists(char **old, char **new)
 
 
     }
-
+    while_break:
 
 
 
@@ -11096,13 +11096,13 @@ static char **inboth(char **left, char **right)
 
 
 
-
-
-
-
-
         {
-          while (1)
+
+
+
+
+
+
           {
 
 
@@ -11145,18 +11145,18 @@ static char **inboth(char **left, char **right)
 static must *allocmust(must *mp)
 {
   must *new_mp;
-
+  must *tmp;
   {
     {
+      tmp = (must *) xmalloc(sizeof(* new_mp));
+      new_mp = tmp;
+      new_mp->in = (char **) xzalloc(sizeof(* new_mp->in));
+      new_mp->left = (char *) xzalloc((size_t) 2);
+      new_mp->right = (char *) xzalloc((size_t) 2);
+      new_mp->is = (char *) xzalloc((size_t) 2);
 
 
-
-
-
-
-
-
-
+      new_mp->prev = mp;
     }
     return new_mp;
   }
@@ -11164,7 +11164,7 @@ static must *allocmust(must *mp)
 
 static void resetmust(must *mp)
 {
-
+  char tmp;
 
   {
     {
@@ -11174,7 +11174,7 @@ static void resetmust(must *mp)
 
 
 
-
+      * (mp->left + 0) = tmp;
 
 
     }
@@ -12022,22 +12022,22 @@ wint_t mb_prev_wc(const char *buf, const char *cur, const char *end)
 
 wint_t mb_next_wc(const char *cur, const char *end)
 {
-
-
+  wchar_t wc;
+  mbstate_t mbs;
   unsigned int tmp___0;
-
+  size_t tmp___1;
 
   {
-
+    mbs.__count = 0;
 
 
     {
       {
-
-
-
-
-
+        tmp___1 = mbrtowc((wchar_t *) (& wc), (const char *) cur, (size_t) (end - cur), (mbstate_t *) (& mbs));
+      }
+      if (tmp___1 < 0xfffffffffffffffeUL)
+      {
+        tmp___0 = (unsigned int) wc;
       }
 
     }
@@ -12323,7 +12323,7 @@ static off_t bufoffset;
 static off_t after_last_match;
 static int reset(int fd, const struct stat *st)
 {
-  size_t tmp;
+
 
 
 
@@ -12349,27 +12349,27 @@ static int reset(int fd, const struct stat *st)
 
 
 
-      {
-        tmp = (size_t) 32768;
-      }
 
-      {
-        bufalloc = (tmp + pagesize) + 1UL;
-        buffer = (char *) xmalloc(bufalloc);
-      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
 
 
-
-    {
-      buflim = (buffer + 1) + (pagesize - (((size_t) (buffer + 1)) % pagesize));
-    }
-
-
-
-    bufdesc = fd;
 
     {
       if (fd != 0)
@@ -12394,9 +12394,9 @@ static int reset(int fd, const struct stat *st)
 
 static int fillbuf(size_t save, const struct stat *st)
 {
+  ssize_t fillsize;
+  int cc;
 
-
-  char *readbuf;
 
 
 
@@ -12410,12 +12410,12 @@ static int fillbuf(size_t save, const struct stat *st)
   {
 
 
-    if (pagesize <= ((size_t) ((buffer + bufalloc) - buflim)))
-    {
-      readbuf = buflim;
-      bufbeg = buflim - save;
-    }
-    else
+
+
+
+
+
+
     {
       {
         while (1)
@@ -12474,16 +12474,16 @@ static int fillbuf(size_t save, const struct stat *st)
 
 
     }
+    if (fillsize < 0L)
+    {
+    }
+
+    {
 
 
 
-
-
-
-
-
-
-
+    }
+    return cc;
   }
 }
 
@@ -13702,7 +13702,7 @@ static intmax_t grep(int fd, const struct stat *st)
 
 
         {
-          goto while_break;
+
 
 
 
@@ -13840,7 +13840,7 @@ static intmax_t grep(int fd, const struct stat *st)
 
 
     }
-    while_break:
+
 
 
 
