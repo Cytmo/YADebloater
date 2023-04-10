@@ -176,7 +176,7 @@ if __name__ == '__main__':
         os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter"+str(i+2)+".c")
         # try:
         # utils.process_labels(source_path)
-        if_removed = delta_debugging.run_dd(function_execution_count,deleted_functions)
+        if_removed = delta_debugging.run_dd(function_execution_count,deleted_functions,iter=True)
         # except Exception as e:
         #     logger.error(e)
         #     logger.info("Parse error, stop delta debugging")

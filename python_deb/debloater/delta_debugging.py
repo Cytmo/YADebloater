@@ -58,7 +58,11 @@ def process_labels(input_file):
        lines = f.readlines()
        for line in label_lines:
             logger.debug("Adding semicolon to label at line {}, content: {}".format(line, lines[line-1]))
-            lines[line-1] = lines[line-1].replace('\n','') + ';\n'
+            if lines[line].strip() == ';':
+                logger.debug("Semicolon already exists, skip")
+                continue
+            else:
+                lines[line-1] = lines[line-1].replace('\n','') + ';\n'
        with open(input_file,'w') as f:
            f.writelines(lines)
 
@@ -426,7 +430,7 @@ def ddmin_function_level(code, test_func, function_list, num):
 
                     if (
                         not check_brackets_balance(skip_indicator) or skip_indicator.strip()
-                            .replace(";", "")
+                            # .replace(";", "")
                             == "" 
                     ):
                         logger.debug("Skipped")
@@ -646,7 +650,7 @@ def extract_other_lines(src, func_list):
 
 def reorder_function_list(function_list, function_execute_count):
     # Sort the function list by execution count
-    function_list = sorted(function_list, key=lambda func: function_execute_count.get(func["name"], 0), reverse=True)
+    function_list = sorted(function_list, key=lambda func: int(function_execute_count.get(func["name"], 0)), reverse=True)
 
     # Sort functions with the same execution count by code length
     function_list = sorted(function_list, key=lambda func: func["end_line"] - func["start_line"])
@@ -658,8 +662,9 @@ def reorder_function_list(function_list, function_execute_count):
 
 
 
-def run_dd(deleted_functions=[],function_execution_count={}):
-
+def run_dd(deleted_functions=[],function_execution_count={},iter=False):
+    global total_removed
+    total_removed = 0
 
     # Rewrite the code to get correct line numbers
     with open("temp/pp.c.debloated.c", "r") as f:
@@ -708,6 +713,8 @@ def run_dd(deleted_functions=[],function_execution_count={}):
     function_list = begin_to_get_functions()
     # remove deleted functions from function list
     logger.info("Running delta debugging to reduce functions...")
+
+
 
     # Reorder the function list by the execution count and length
     function_list = reorder_function_list(function_list, function_execution_count)

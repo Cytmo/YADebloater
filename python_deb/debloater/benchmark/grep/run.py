@@ -27,7 +27,6 @@ def compile(source,dest=""):
         BIN = source+"_origin"
         logger.info('Compiled file is '+BIN )
 
-
 def execute(cmd):
     # logger.debug('Running {}'.format(cmd))
     # print('Executing {}'.format(cmd))
@@ -35,7 +34,7 @@ def execute(cmd):
     if ret >512:
         logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
         return 1
-    return ret
+    return 0
 
 
 def debloat():

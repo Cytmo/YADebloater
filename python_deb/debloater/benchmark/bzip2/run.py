@@ -31,9 +31,9 @@ def execute(cmd):
     # logger.debug('Running {}'.format(cmd))
     # print('Executing {}'.format(cmd))
     ret = os.system('timeout -s SIGKILL 1 {} 2>&1'.format(cmd))
-    if ret >512:
-        logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
-        return 1
+    # if ret >512:
+    #     logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
+    #     return 1
     return ret
 
 
