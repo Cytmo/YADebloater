@@ -28,8 +28,46 @@ def profile(func, *args, **kwargs):
 # init logger
 logger = utils.GetLog().get_log()
 
+lines_removed = 0
 
 
+
+
+label_lines = []
+
+def get_labels(input_file):
+    global label_lines
+    label_lines = []
+    # read input file
+    with open(input_file, 'r') as f:
+        input_text = f.read()
+        # parse the C code into an AST
+    parser = GnuCParser()
+    ast = parser.parse(input_text)
+
+    # use the visitor to modify labels
+    label_visitor = LabelVisitor()
+    label_visitor.visit(ast)
+    
+def process_labels(input_file):
+    global label_lines
+    # generate modified C code from the AST
+    if len(label_lines) == 0:
+        return
+    with open(input_file, 'r') as f:
+       lines = f.readlines()
+       for line in label_lines:
+            logger.debug("Adding semicolon to label at line {}, content: {}".format(line, lines[line-1]))
+            lines[line-1] = lines[line-1].replace('\n','') + ';\n'
+       with open(input_file,'w') as f:
+           f.writelines(lines)
+
+# define a visitor class to modify labels
+class LabelVisitor(c_ast.NodeVisitor):
+    def visit_Label(self, node):
+        # add a semicolon to the end of the label
+        global label_lines
+        label_lines.append(node.coord.line)
 
 class FuncListVisitor(c_ast.NodeVisitor):
     def __init__(self):
@@ -196,11 +234,12 @@ def ddmin_execute(code, test_func, line_list):
                         )
                     )
                 for j in range(i, min(i + granularity, max_length)):
-                    if j in line_list and candidate[j].strip() not in ("", "{", "}", ";"):
-                            removed_code.append(candidate[j])
-                            logger.debug("deleted {}".format(candidate[j]))
-                            candidate[j] = "\n"
-                            line_list_reduced.remove(j)
+                    if j in line_list:
+                    # if j in line_list and candidate[j].strip() not in ("", "{", "}", ";"):
+                        removed_code.append(candidate[j])
+                        logger.debug("deleted {}".format(candidate[j]))
+                        candidate[j] = "\n"
+                        line_list_reduced.remove(j)
 
 
                 line_list_str = ''.join(str(line_list_reduced))
@@ -248,6 +287,10 @@ def ddmin_execute(code, test_func, line_list):
                 else:
                     break
     logger.info('Removed {} lines'.format(original_length - len(line_list)))
+    # set if_removed
+    global lines_removed
+    lines_removed = original_length - len(line_list)
+
         # Return the reduced code
     # output the smallest_code for debug use
 
@@ -383,8 +426,6 @@ def ddmin_function_level(code, test_func, function_list, num):
 
                     if (
                         not check_brackets_balance(skip_indicator) or skip_indicator.strip()
-                            .replace("}", "")
-                            .replace("{", "")
                             .replace(";", "")
                             == "" 
                     ):
@@ -419,11 +460,12 @@ def ddmin_function_level(code, test_func, function_list, num):
                         total_removed += 1
                         reduced = True
                         # Update the smallest set of lines for the function
-                        new_smallest_func = []
-                        for i in range(func["start_line"] + 1, func["end_line"]):
-                            if code[i] != "\n":
-                                new_smallest_func.append(candidate[i])
-                        smallest_set[func['name']] = new_smallest_func
+                        """"Temporarily disable the smallest code generation """    
+                        # new_smallest_func = []
+                        # for i in range(func["start_line"] + 1, func["end_line"]):
+                        #     if code[i] != "\n":
+                        #         new_smallest_func.append(candidate[i])
+                        # smallest_set[func['name']] = new_smallest_func
 
 
                     else:
@@ -474,12 +516,24 @@ def ddmin_function_level(code, test_func, function_list, num):
     #         del code[func['lines'][0]:func['lines'][-1]+1]
     # Return the reduced code
     logger.info("Total removed {} lines".format(total_removed))
-    with open("temp/reduced_code.c", "w") as f:
+    # with open("temp/reduced_code.c", "w") as f:
+    #     f.writelines(code)
+    global lines_removed
+    lines_removed += total_removed
+
+
+    with open("temp/pp.c.debloated.c", 'w') as f:
         f.writelines(code)
 
-    with open('smallest_code', 'w') as f:
-        f.write(str(smallest_set))
-        f.write(str(function_list))
+
+
+
+    """"Temporarily disable the smallest code generation """    
+    # with open('smallest_code', 'w') as f:
+    #     f.write(str(smallest_set))
+    #     f.write(str(function_list))
+
+
     return [code, function_list]
 
 
@@ -601,6 +655,9 @@ def reorder_function_list(function_list, function_execute_count):
 
 
 
+
+
+
 def run_dd(deleted_functions=[],function_execution_count={}):
 
 
@@ -627,6 +684,12 @@ def run_dd(deleted_functions=[],function_execution_count={}):
         exit(0)
     function_list = begin_to_get_functions()
     # Q_learning(code=code_lines, test_func=verifier,num=0)
+
+    for func in deleted_functions:
+        for f in function_list:
+            if f["name"] == func:
+                function_list.remove(f)
+                logger.debug("Removed function " + func)
     other_lines = extract_other_lines(code_lines, function_list)
     logger.info("Running delta debugging to reduce global variables and other codes...")
     # reduced_code = profile(ddmin_execute,code_lines, verifier, other_lines)
@@ -640,23 +703,20 @@ def run_dd(deleted_functions=[],function_execution_count={}):
     # new_code = remove_function(code, "abort_gzip")
     # logger.info(function_list)
 
+    get_labels("temp/pp.c.debloated.c")
     logger.info("Reducing functions...")
     function_list = begin_to_get_functions()
     # remove deleted functions from function list
     logger.info("Running delta debugging to reduce functions...")
-    for func in deleted_functions:
-        for f in function_list:
-            if f["name"] == func:
-                function_list.remove(f)
-                logger.debug("Removed function " + func)
+
     # Reorder the function list by the execution count and length
     function_list = reorder_function_list(function_list, function_execution_count)
     # reduced_code = profile( ddmin_function_level,reduced_code, verifier, function_list,1)
     reduced_code = ddmin_function_level(reduced_code, verifier, function_list, 1)
-
+    process_labels("temp/pp.c.debloated.c")
+    return lines_removed
     # reduced_code= ddmin_function_level_multiprocess(code_lines,run_test,function_list,1)
-    # with open('reduced.c', 'w') as f:
-    #     f.writelines(reduced_code)
+
 
 
 if __name__ == "__main__":

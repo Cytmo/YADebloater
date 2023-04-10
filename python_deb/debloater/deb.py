@@ -2,6 +2,9 @@ import os
 from platform import platform
 from shutil import copyfile
 import subprocess
+from pycparser import c_parser, c_ast
+from pycparserext.ext_c_parser import GnuCParser
+from pycparserext.ext_c_generator import GnuCGenerator
 import argparse
 import sys
 import utils
@@ -122,7 +125,16 @@ def run_prog(arg,dest):
     # else:
     #     logger.info("Program exited normally")
         
-
+def rewrite_c_file():
+    # Rewrite the code to get correct line numbers
+    with open("temp/pp.c.debloated.c", "r") as f:
+        code = f.read()
+    p = GnuCParser()
+    ast = p.parse(code)
+    lines = GnuCGenerator().visit(ast)
+    logger.info("Rewriting file...")   
+    with open('temp/pp.c.debloated.c','w') as f:
+        f.write(lines)
 
 if __name__ == '__main__':
     # Redirect output to print.log
@@ -147,12 +159,40 @@ if __name__ == '__main__':
     cmd = "python3 %s/run.py debloat %s" %(dir_name,source_path)
     utils.exec_cmd(cmd)
     file_name,deleted_functions,function_execution_count = json_code_remover.code_remove(source_path+".gcov.json",source_path)
+    
+    
     security_ops.begin_ops(only_remove_comments=True)
+
+    logger.info("Start delta debugging, iteration 1")
     delta_debugging.run_dd(deleted_functions,function_execution_count) 
+    # utils.process_labels(source_path)
+
+    os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter1.c")
+
+    for i in range(6):
+        logger.info("Start delta debugging, iteration "+str(i+2))
+        # security_ops.begin_ops(only_remove_comments=True)
+        # rewrite_c_file()
+        os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter"+str(i+2)+".c")
+        # try:
+        # utils.process_labels(source_path)
+        if_removed = delta_debugging.run_dd(function_execution_count,deleted_functions)
+        # except Exception as e:
+        #     logger.error(e)
+        #     logger.info("Parse error, stop delta debugging")
+        #     break
+        if if_removed <=0:
+            logger.info("Nothing reduced in this iteration, stop delta debugging")
+            break
+    
+    
     if robust_mode:
         security_ops.begin_ops(only_remove_comments=False)
     else:
-        security_ops.begin_ops(only_remove_comments=True)
+        try :
+            security_ops.begin_ops(only_remove_comments=True)
+        except:
+            logger.info("No security operations are performed")
     
     logger.info(f'time cost:{time.time() - t:.4f}s')
     

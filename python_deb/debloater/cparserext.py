@@ -30,7 +30,7 @@ from pycparserext.ext_c_parser import GnuCParser
 current_work_dir = os.path.dirname(__file__)
 import logging
 import colorlog
-
+from pycparser import c_parser, c_ast
 
 
 class GetLog(object):
@@ -135,18 +135,30 @@ def begin_parse(filename):
     logger.info("Parsing %s"%filename)
     parse(f.read())
     return 'temp/pp.c'
-    
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        filename  = sys.argv[1]
-    else:
-        filename = 'grep-2.19.c'
-    os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
-    f = open(filename+".p.c",'r')
-    parse(f.read())
-    
+    # if len(sys.argv) > 1:
+    #     filename  = sys.argv[1]
+    # else:
+    #     filename = 'grep-2.19.c'
+    # os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
+    # f = open(filename+".p.c",'r')
+    # parse(f.read())
+    # process_labels('temp/pp.c.debloated.c')
     
     # ast = parse_file(filename, use_cpp=True,
     #         cpp_path='gcc',
     #         cpp_args=['-E', r'-Iutils/fake_libc_include'])
     # ast.show()
+    pass

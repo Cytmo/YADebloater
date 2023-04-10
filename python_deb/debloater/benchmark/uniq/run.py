@@ -19,14 +19,21 @@ def compile_with_cov(source,dest=""):
         BIN = source+"_origin"
         logger.info('Compiled file is '+BIN )
 
-
+def compile(source,dest=""):
+    logger.info('Compiling to '+source+"_origin")
+    abspath = os.path.abspath(source)
+    ret = subprocess.call(["gcc",abspath,"-w", "-o",abspath+"_origin"])
+    if(utils.exit_status(ret,"Compile")==0):
+        global BIN 
+        BIN = source+"_origin"
+        logger.info('Compiled file is '+BIN )
 
 def execute(cmd):
     ret = os.system(f'timeout -s SIGKILL 1 {cmd} 2>&1')
     if ret > 512:
         # logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
         return 1
-    return 0
+    return ret
 
 
 def begin_run(arg):
@@ -159,7 +166,7 @@ def main():
 
     elif sys.argv[1] == 'verify':
         source_path = sys.argv[2]
-        compile_with_cov(source_path)
+        compile(source_path)
         BIN =  "./"+source_path + "_origin"
         verify()
     elif sys.argv[1] == 'dd_verify':

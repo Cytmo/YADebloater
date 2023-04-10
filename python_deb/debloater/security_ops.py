@@ -1,3 +1,4 @@
+import re
 import utils
 import json_code_remover
 import os
@@ -21,6 +22,18 @@ class deb_files():
         utils.copy_file(self.debloated_path,'temp/pp.c.debloated.ori.c')
         utils.remove_comments(self.debloated_path)
 
+def remove_redundant_braces(file_path):
+    with open(file_path, 'r') as f:
+        c_file = f.read()
+    
+    # Define a regex pattern to match redundant braces
+    pattern = r'{\s*({.*?}|[^{}])*?\s*}'
+    
+    # Replace all instances of the pattern with the inner content
+    c_file = re.sub(pattern, r'\1', c_file)
+    
+    with open(file_path, 'w') as f:
+        f.write(c_file)
 
 
 

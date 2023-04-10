@@ -26,7 +26,7 @@ def execute(cmd):
     if ret >512:
         logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
         return 1
-    return 0
+    return ret
 
 
 def debloat():
