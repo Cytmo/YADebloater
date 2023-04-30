@@ -1,12 +1,43 @@
 typedef unsigned long size_t;
-
+typedef long __off_t;
 typedef long __off64_t;
+
 typedef struct _IO_FILE FILE;
 typedef void _IO_lock_t;
 struct _IO_marker
 {
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  void *__pad3;
+  void *__pad4;
   size_t __pad5;
   int _mode;
   char _unused2[((15UL * (sizeof(int))) - (4UL * (sizeof(void *)))) - (sizeof(size_t))];
@@ -19,10 +50,10 @@ typedef char string[100];
 extern void exit();
 extern struct _IO_FILE *stdin;
 extern struct _IO_FILE *stdout;
-
-
-
-
+extern int fprintf(FILE *__restrict __stream, const char *__restrict __format, ...);
+extern int fputc(int __c, FILE *__stream);
+extern char *fgets(char *__restrict __s, int __n, FILE *__restrict __stream);
+void Caseerror(int n);
 bool getline_in_replace(char *s, int maxsize)
 {
   char *result;
@@ -97,12 +128,23 @@ void change(char *pat, char *sub);
 extern int isalnum();
 void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
 {
+  int k;
+  bool junk;
+  char escjunk;
+  int tmp;
   int tmp___0;
+  int tmp___1;
+  int tmp___2;
+  int tmp___3;
+  int tmp___4;
+  int tmp___5;
   {
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (((int) (* (src + (* i)))) != ((int) delim))
         {
           if (! (((int) (* (src + (* i)))) != 0))
@@ -115,28 +157,90 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
           goto while_break;
         }
 
+        if (((int) (* (src + ((* i) - 1)))) == 64)
+        {
+          {
+            escjunk = esc(src, i);
+            tmp = addstr(escjunk, dest, j, maxset);
+            junk = (bool) tmp;
+          }
+        }
+        else
         {
           if (((int) (* (src + (* i)))) != 45)
           {
             {
               tmp___0 = addstr(* (src + (* i)), dest, j, maxset);
+              junk = (bool) tmp___0;
             }
           }
           else
           {
+            if ((* j) <= 1)
             {
+              {
+              }
+            }
+            else
+            {
+              if (((int) (* (src + ((* i) + 1)))) == 0)
+              {
+                {
+                }
+              }
+              else
+              {
+                {
+                  tmp___4 = isalnum((int) (* (src + ((* i) - 1))));
+                  tmp___5 = isalnum((int) (* (src + ((* i) + 1))));
+                }
+                if (tmp___4 & tmp___5)
+                {
+                  if (((int) (* (src + ((* i) - 1)))) <= ((int) (* (src + ((* i) + 1)))))
+                  {
+                    k = ((int) (* (src + ((* i) - 1)))) + 1;
+                    {
+                      while (1)
+                      {
+                        while_continue___0:
+                        ;
 
+                        if (! (k <= ((int) (* (src + ((* i) + 1))))))
+                        {
+                          goto while_break___0;
+                        }
 
+                        {
+                          tmp___2 = addstr((char) k, dest, j, maxset);
+                          junk = (bool) tmp___2;
+                          k++;
+                        }
+                      }
 
+                      while_break___0:
+                      ;
 
+                    }
+                    (* i)++;
+                  }
 
+                }
+                else
+                {
+                  {
+                    tmp___3 = addstr((char) '-', dest, j, maxset);
+                    junk = (bool) tmp___3;
+                  }
+                }
 
-
+              }
 
             }
+
           }
 
         }
+
         (* i)++;
       }
 
@@ -151,7 +255,9 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
 bool getccl(char *arg, int *i, char *pat, int *j)
 {
   int jstart;
+  bool junk;
   int tmp;
+  int tmp___0;
   int tmp___1;
   {
     (* i)++;
@@ -159,17 +265,22 @@ bool getccl(char *arg, int *i, char *pat, int *j)
     {
       {
         tmp = addstr((char) '!', pat, j, 100);
+        junk = (bool) tmp;
+        (* i)++;
       }
     }
     else
     {
       {
+        tmp___0 = addstr((char) '[', pat, j, 100);
+        junk = (bool) tmp___0;
       }
     }
 
     {
       jstart = * j;
       tmp___1 = addstr((char) 0, pat, j, 100);
+      junk = (bool) tmp___1;
       dodash((char) ']', arg, i, pat, j, 100);
       * (pat + jstart) = (char) (((* j) - jstart) - 1);
     }
@@ -181,13 +292,16 @@ void stclose(char *pat, int *j, int lastj)
 {
   int jt;
   int jp;
+  bool junk;
   int tmp;
   {
     jp = (* j) - 1;
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (! (jp >= lastj))
         {
           goto while_break;
@@ -196,6 +310,7 @@ void stclose(char *pat, int *j, int lastj)
         {
           jt = jp + 1;
           tmp = addstr(* (pat + jp), pat, & jt, 100);
+          junk = (bool) tmp;
           jp--;
         }
       }
@@ -206,6 +321,7 @@ void stclose(char *pat, int *j, int lastj)
     }
     (* j)++;
     * (pat + lastj) = (char) '*';
+    return;
   }
 }
 
@@ -308,17 +424,27 @@ int makepat(char *arg, int start, char delim, char *pat)
   int lastj;
   int lj;
   bool done;
+  bool junk;
   bool getres;
   char escjunk;
   int tmp;
+  int tmp___0;
+  int tmp___1;
   bool tmp___2;
   int tmp___3;
   int tmp___4;
+  int tmp___5;
   {
+    j = 0;
+    i = start;
+    lastj = 0;
+    done = (bool) 0;
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (! done)
         {
           if (((int) (* (arg + i))) != ((int) delim))
@@ -344,6 +470,7 @@ int makepat(char *arg, int start, char delim, char *pat)
         {
           {
             tmp = addstr((char) '?', pat, & j, 100);
+            junk = (bool) tmp;
           }
         }
         else
@@ -353,19 +480,34 @@ int makepat(char *arg, int start, char delim, char *pat)
             if (i == start)
             {
               {
+                tmp___0 = addstr((char) '%', pat, & j, 100);
+                junk = (bool) tmp___0;
               }
             }
 
           }
           else
           {
-            ;
+            _L___0:
+            if (((int) (* (arg + i))) == 36)
+            {
+              if (((int) (* (arg + (i + 1)))) == ((int) delim))
+              {
+                {
+                  tmp___1 = addstr((char) '$', pat, & j, 100);
+                  junk = (bool) tmp___1;
+                }
+              }
+
+            }
+            else
             {
               _L:
               if (((int) (* (arg + i))) == 91)
               {
                 {
                   getres = getccl(arg, & i, pat, & j);
+                  done = (bool) (((int) getres) == 0);
                 }
               }
               else
@@ -396,8 +538,10 @@ int makepat(char *arg, int start, char delim, char *pat)
                 {
                   {
                     tmp___3 = addstr((char) 'c', pat, & j, 100);
+                    junk = (bool) tmp___3;
                     escjunk = esc(arg, & i);
                     tmp___4 = addstr(escjunk, pat, & j, 100);
+                    junk = (bool) tmp___4;
                   }
                 }
 
@@ -405,18 +549,27 @@ int makepat(char *arg, int start, char delim, char *pat)
 
 
             }
+
+
           }
 
         }
 
+        lastj = lj;
+        if (! done)
         {
           i++;
         }
+
       }
 
       while_break:
       ;
 
+    }
+    {
+      tmp___5 = addstr((char) '\000', pat, & j, 100);
+      junk = (bool) tmp___5;
     }
     if (done)
     {
@@ -424,11 +577,21 @@ int makepat(char *arg, int start, char delim, char *pat)
     }
     else
     {
+      if (((int) (* (arg + i))) != ((int) delim))
       {
+      }
+      else
+      {
+        if (! junk)
+        {
+        }
+        else
         {
           result = i;
         }
+
       }
+
     }
 
     return result;
@@ -451,6 +614,7 @@ int makesub(char *arg, int from, character delim, char *sub)
   int result;
   int i;
   int j;
+  bool junk;
   character escjunk;
   int tmp;
   int tmp___0;
@@ -461,7 +625,9 @@ int makesub(char *arg, int from, character delim, char *sub)
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (((int) (* (arg + i))) != ((int) delim))
         {
           if (! (((int) (* (arg + i))) != 0))
@@ -478,6 +644,7 @@ int makesub(char *arg, int from, character delim, char *sub)
         {
           {
             tmp = addstr((char) (- 1), sub, & j, 100);
+            junk = (bool) tmp;
           }
         }
         else
@@ -485,6 +652,7 @@ int makesub(char *arg, int from, character delim, char *sub)
           {
             escjunk = esc(arg, & i);
             tmp___0 = addstr(escjunk, sub, & j, 100);
+            junk = (bool) tmp___0;
           }
         }
 
@@ -495,11 +663,25 @@ int makesub(char *arg, int from, character delim, char *sub)
       ;
 
     }
+    if (((int) (* (arg + i))) != ((int) delim))
+    {
+    }
+    else
     {
       {
         tmp___1 = addstr((char) '\000', sub, & j, 100);
+        junk = (bool) tmp___1;
       }
+      if (! junk)
+      {
+      }
+      else
+      {
+        result = i;
+      }
+
     }
+
     return result;
   }
 }
@@ -521,15 +703,27 @@ bool locate(character c, char *pat, int offset)
   int i;
   bool flag;
   {
+    flag = (bool) 0;
+    i = offset + ((int) (* (pat + offset)));
     {
       while (1)
       {
+        while_continue:
         ;
+
+        if (! (i > offset))
         {
           goto while_break;
         }
+
         if (((int) c) == ((int) (* (pat + i))))
         {
+          flag = (bool) 1;
+          i = offset;
+        }
+        else
+        {
+          i--;
         }
 
       }
@@ -547,10 +741,15 @@ bool omatch(char *lin, int *i, char *pat, int j)
 {
   char advance;
   bool result;
+  bool tmp;
   bool tmp___0;
   bool tmp___1;
   {
     advance = (char) (- 1);
+    if (((int) (* (lin + (* i)))) == 0)
+    {
+    }
+    else
     {
       {
         tmp___1 = in_pat_set(* (pat + j));
@@ -558,12 +757,26 @@ bool omatch(char *lin, int *i, char *pat, int j)
       if (tmp___1)
       {
         {
+          if (((int) (* (pat + j))) == 99)
+          {
+            goto case_99;
+          }
+
           if (((int) (* (pat + j))) == 37)
           {
             goto case_37;
           }
 
           if (((int) (* (pat + j))) == 63)
+          {
+            goto case_63;
+          }
+
+          if (((int) (* (pat + j))) == 36)
+          {
+          }
+
+          if (((int) (* (pat + j))) == 91)
           {
             goto case_91;
           }
@@ -574,31 +787,48 @@ bool omatch(char *lin, int *i, char *pat, int j)
           }
 
           case_99:
-          ;
-
           if (((int) (* (lin + (* i)))) == ((int) (* (pat + (j + 1)))))
           {
             advance = (char) 1;
           }
 
+
           goto switch_break;
           case_37:
+          if ((* i) == 0)
+          {
+            advance = (char) 0;
+          }
 
 
+          goto switch_break;
+          case_63:
+          if (((int) (* (lin + (* i)))) != 10)
+          {
+            advance = (char) 1;
+          }
 
 
+          goto switch_break;
+          case_36:
+          ;
 
-
-
-
+          if (((int) (* (lin + (* i)))) == 10)
           {
           }
+
           case_91:
-          ;
+          {
+            tmp = locate(* (lin + (* i)), pat, j + 1);
+          }
 
+          if (tmp)
+          {
+            advance = (char) 1;
+          }
+
+          goto switch_break;
           case_33:
-          ;
-
           if (((int) (* (lin + (* i)))) != 10)
           {
             {
@@ -611,7 +841,11 @@ bool omatch(char *lin, int *i, char *pat, int j)
 
           }
 
+
+          goto switch_break;
+          switch_default:
           ;
+
           {
           }
           switch_break:
@@ -621,6 +855,7 @@ bool omatch(char *lin, int *i, char *pat, int j)
       }
 
     }
+
     if (((int) advance) >= 0)
     {
       * i += (int) advance;
@@ -654,24 +889,24 @@ int patsize(char *pat, int n)
         if (((int) (* (pat + n))) == 63)
         {
           goto case_63;
+        }
 
+        if (((int) (* (pat + n))) == 36)
+        {
+        }
 
-
-
-
-
-
-
+        if (((int) (* (pat + n))) == 37)
+        {
           goto case_63;
         }
 
         if (((int) (* (pat + n))) == 33)
         {
           goto case_33;
+        }
 
-
-
-
+        if (((int) (* (pat + n))) == 91)
+        {
           goto case_33;
         }
 
@@ -681,25 +916,30 @@ int patsize(char *pat, int n)
         }
 
         case_99:
-        ;
-
         size = 2;
+
         goto switch_break;
         case_63:
-        ;
-
+        case_36:
+        case_37:
         size = 1;
+
+
+
         goto switch_break;
         case_33:
-        ;
-
+        case_91:
         size = ((int) (* (pat + (n + 1)))) + 2;
+
+
         goto switch_break;
         case_42:
+        size = 1;
+
+        goto switch_break;
+        switch_default:
         ;
 
-        size = 1;
-        ;
         {
         }
         switch_break:
@@ -726,7 +966,9 @@ int amatch(char *lin, int offset, char *pat, int j)
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (! done)
         {
           if (! (((int) (* (pat + j))) != 0))
@@ -750,12 +992,14 @@ int amatch(char *lin, int offset, char *pat, int j)
           {
             while (1)
             {
+              while_continue___0:
               ;
+
               if (! done)
               {
-
-
-
+                if (! (((int) (* (lin + i))) != 0))
+                {
+                }
 
               }
               else
@@ -774,14 +1018,16 @@ int amatch(char *lin, int offset, char *pat, int j)
             }
 
             while_break___0:
-
+            ;
 
           }
           done = (bool) 0;
           {
             while (1)
             {
+              while_continue___1:
               ;
+
               if (! done)
               {
                 if (! (i >= offset))
@@ -811,10 +1057,11 @@ int amatch(char *lin, int offset, char *pat, int j)
             }
 
             while_break___1:
-
+            ;
 
           }
           offset = k;
+          done = (bool) 1;
         }
         else
         {
@@ -839,7 +1086,7 @@ int amatch(char *lin, int offset, char *pat, int j)
       }
 
       while_break:
-
+      ;
 
     }
     return offset;
@@ -855,7 +1102,9 @@ void putsub(char *lin, int s1, int s2, char *sub)
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (! (((int) (* (sub + i))) != 0))
         {
           goto while_break;
@@ -867,7 +1116,9 @@ void putsub(char *lin, int s1, int s2, char *sub)
           {
             while (1)
             {
+              while_continue___0:
               ;
+
               if (! (j < s2))
               {
                 goto while_break___0;
@@ -880,7 +1131,7 @@ void putsub(char *lin, int s1, int s2, char *sub)
             }
 
             while_break___0:
-
+            ;
 
           }
         }
@@ -895,7 +1146,7 @@ void putsub(char *lin, int s1, int s2, char *sub)
       }
 
       while_break:
-
+      ;
 
     }
     return;
@@ -913,7 +1164,9 @@ void subline(char *lin, char *pat, char *sub)
     {
       while (1)
       {
+        while_continue:
         ;
+
         if (! (((int) (* (lin + i))) != 0))
         {
           goto while_break;
@@ -960,7 +1213,7 @@ void subline(char *lin, char *pat, char *sub)
       }
 
       while_break:
-
+      ;
 
     }
     return;
@@ -974,11 +1227,13 @@ void change(char *pat, char *sub)
   {
     {
       result = getline_in_replace(line, 100);
-
-
+    }
+    {
       while (1)
       {
+        while_continue:
         ;
+
         if (! result)
         {
           goto while_break;
@@ -991,7 +1246,7 @@ void change(char *pat, char *sub)
       }
 
       while_break:
-
+      ;
 
     }
     return;
@@ -1007,8 +1262,8 @@ int main(int argc, char **argv)
   {
     if (argc < 2)
     {
-
-
+      {
+      }
     }
 
     {
@@ -1030,8 +1285,8 @@ int main(int argc, char **argv)
       }
       if (! result)
       {
-
-
+        {
+        }
       }
 
     }
@@ -1039,7 +1294,11 @@ int main(int argc, char **argv)
     {
       change(pat, sub);
     }
-
+    return 0;
   }
 }
+
+
+
+
 

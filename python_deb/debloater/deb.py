@@ -160,30 +160,30 @@ if __name__ == '__main__':
     utils.exec_cmd(cmd)
     file_name,deleted_functions,function_execution_count = json_code_remover.code_remove(source_path+".gcov.json",source_path)
     
-    
-    security_ops.begin_ops(only_remove_comments=True)
+    if not robust_mode:
+        security_ops.begin_ops(only_remove_comments=True)
 
-    logger.info("Start delta debugging, iteration 1")
-    delta_debugging.run_dd(deleted_functions,function_execution_count) 
-    # utils.process_labels(source_path)
-
-    os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter1.c")
-
-    for i in range(6):
-        logger.info("Start delta debugging, iteration "+str(i+2))
-        # security_ops.begin_ops(only_remove_comments=True)
-        # rewrite_c_file()
-        os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter"+str(i+2)+".c")
-        # try:
+        logger.info("Start delta debugging, iteration 1")
+        delta_debugging.run_dd(deleted_functions,function_execution_count) 
         # utils.process_labels(source_path)
-        if_removed = delta_debugging.run_dd(function_execution_count,deleted_functions,iter=True)
-        # except Exception as e:
-        #     logger.error(e)
-        #     logger.info("Parse error, stop delta debugging")
-        #     break
-        if if_removed <=0:
-            logger.info("Nothing reduced in this iteration, stop delta debugging")
-            break
+
+        os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter1.c")
+
+        # for i in range(6):
+        #     logger.info("Start delta debugging, iteration "+str(i+2))
+        #     # security_ops.begin_ops(only_remove_comments=True)
+        #     # rewrite_c_file()
+        #     os.system("cp temp/pp.c.debloated.c temp/pp.c.debloated.c_iter"+str(i+2)+".c")
+        #     # try:
+        #     # utils.process_labels(source_path)
+        #     if_removed = delta_debugging.run_dd(deleted_functions,function_execution_count,iter=True)
+        #     # except Exception as e:
+        #     #     logger.error(e)
+        #     #     logger.info("Parse error, stop delta debugging")
+        #     #     break
+        #     if if_removed <=0:
+        #         logger.info("Nothing reduced in this iteration, stop delta debugging")
+        #         break
     
     
     if robust_mode:

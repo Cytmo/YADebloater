@@ -15,13 +15,31 @@ def run_tests(output_file="standard_output"):
         os.system("cp temp/pp.c_origin temp/deb.out")
         global BIN
         BIN = "temp/deb.out"
-    # if output_file == "standard_output":
-    #     for fname in os.listdir('temp/train'):
-    #         for i in range(0,10):
-    #             fpath = os.path.join('temp/train', fname)
-    #             cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
-    #             logger.info('Generating fuzzed testfiles, cmd is {}'.format(cmd))
-    #             execute(cmd)
+    if output_file == "standard_output":
+        for fname in os.listdir('temp/train_input/trainc'):
+            for i in range(0,10):
+                fpath = os.path.join('temp/train_input/trainc', fname)
+                cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+                logger.info('Generating testfiles, cmd is {}'.format(cmd))
+                execute(cmd)
+        for fname in os.listdir('temp/train_input/traind'):
+            for i in range(0,10):
+                fpath = os.path.join('temp/train_input/traind', fname)
+                cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+                logger.info('Generating testfiles, cmd is {}'.format(cmd))
+                execute(cmd)
+        for fname in os.listdir('temp/train_input/trainf'):
+            for i in range(0,10):
+                fpath = os.path.join('temp/train_input/trainf', fname)
+                cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+                logger.info('Generating testfiles, cmd is {}'.format(cmd))
+                execute(cmd)
+        for fname in os.listdir('temp/train_input/traint'):
+            for i in range(0,10):
+                fpath = os.path.join('temp/train_input/traint', fname)
+                cmd = 'radamsa --seed {} {} > {}_rad_{}'.format(i,fpath, fpath,i)
+                logger.info('Generating testfiles, cmd is {}'.format(cmd))
+                execute(cmd)
     current_work_dir = os.path.dirname(__file__)
     output_file = current_work_dir + os.sep + output_file
 
@@ -44,7 +62,7 @@ def run_tests(output_file="standard_output"):
     for fname in os.listdir(traind):
         fpath = os.path.join(traind, fname)
         # -d
-        cmd = BIN + ' -d < ' + fpath + ' >> '+output_file
+        cmd = BIN + ' -d -c < ' + fpath + ' >> '+output_file
         ret = execute(cmd)
         if ret != 0 and ret != 256 and ret != 512:
             logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
@@ -55,7 +73,7 @@ def run_tests(output_file="standard_output"):
     for fname in os.listdir(trainf):
         fpath = os.path.join(trainf, fname)
         # -f
-        cmd = BIN + ' -f ' + fpath + ' >> '+output_file
+        cmd = BIN + ' -f -c ' + fpath + ' >> '+output_file
         ret = execute(cmd)
         if ret != 0 and ret != 256 and ret != 512:
             logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
@@ -144,7 +162,7 @@ def verify(dd=False,num=-1):
         run_tests("tmp.log2")
 
         cmd = 'diff temp/standard_output temp/tmp.log2 > /dev/null 2>&1'
-        ret = execute(cmd)   
+        ret = os.system(cmd)    
         os.system('rm temp/tmp.log2')  
         if(ret==0):
             logger.info("Verify successed!")
@@ -155,7 +173,7 @@ def verify(dd=False,num=-1):
     else:
         assert num!=-1
         cmd2 = 'diff temp/standard_output temp/output_{} > /dev/null 2>&1'.format(num)
-        ret = execute(cmd2)
+        ret = os.system(cmd2)  
         os.system('rm temp/output_{}'.format(num))
         if(ret==0):
             logger.debug("Verify successed!")

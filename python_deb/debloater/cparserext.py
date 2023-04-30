@@ -25,6 +25,7 @@
 import os
 import sys
 from typing import TextIO
+from matplotlib import pyplot as plt
 from pycparserext.ext_c_generator import GnuCGenerator
 from pycparserext.ext_c_parser import GnuCParser
 current_work_dir = os.path.dirname(__file__)
@@ -32,6 +33,7 @@ import logging
 import colorlog
 from pycparser import c_parser, c_ast
 
+import networkx as nx
 
 class GetLog(object):
     def __init__(self):
@@ -101,6 +103,7 @@ def parse(src):
         ast= p.parse(f.read())
 
 
+
     logger.info("Generating AST for the rewrited file...")    
     with open('temp/trans.txt', 'w') as f:
         # Define a recursive function to traverse the AST
@@ -144,17 +147,51 @@ def begin_parse(filename):
 
 
 
+def cfg():
+    with open('benchmark_results/tcas/pp.c','r') as f:
+        src = f.read()
+    p = GnuCParser()
+    ast = p.parse(src)
+    cfg = generate_cfg(ast)
+    nx.draw(cfg, with_labels=True)
+    # save the figure
+    plt.savefig("temp/cfg.png")
+    
+
+
+def generate_cfg(ast):
+    cfg = nx.DiGraph()
+    current_node = None
+
+    def visit_node(node):
+        nonlocal current_node
+        if node is None:
+            return
+
+        prev_node = current_node
+        current_node = node
+        if prev_node:
+            cfg.add_edge(prev_node, current_node)
+
+        for c_name, c in node.children():
+            visit_node(c)
+
+    visit_node(ast)
+    return cfg
+
 
 
 
 if __name__ == "__main__":
+    cfg()
     # if len(sys.argv) > 1:
     #     filename  = sys.argv[1]
     # else:
     #     filename = 'grep-2.19.c'
-    # os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
+    # # os.system("gcc -E %s -o %s"%(filename,filename+".p.c"))
     # f = open(filename+".p.c",'r')
     # parse(f.read())
+    # f.close()   
     # process_labels('temp/pp.c.debloated.c')
     
     # ast = parse_file(filename, use_cpp=True,

@@ -17,15 +17,6 @@ def compile_with_cov(source,dest=""):
         BIN = source+"_origin"
         logger.info('Compiled file is '+BIN )
 
-def compile(source,dest=""):
-    logger.info('Compiling to '+source+"_origin")
-    # gcc will cause the program to seg fault, use clang instead
-    abspath = os.path.abspath(source)
-    ret = subprocess.call(["gcc",abspath,"-w", "-o",abspath+"_origin","-D __msan_unpoison(s,z)","-lpcre"])    
-    if(utils.exit_status(ret,"Compile")==0):
-        global BIN 
-        BIN = source+"_origin"
-        logger.info('Compiled file is '+BIN )
 
 
 def execute(cmd):
@@ -35,7 +26,7 @@ def execute(cmd):
     if ret >512:
         logger.debug("Failed to execute command: {}, ret code is {}".format(cmd, ret))
         return 1
-    return ret
+    return 0
 
 
 def debloat():
@@ -177,7 +168,7 @@ def main():
 
     elif sys.argv[1] == 'verify':
         source_path = sys.argv[2]
-        compile(source_path)
+        compile_with_cov(source_path)
         BIN =  "./"+source_path + "_origin"
         verify()
     elif sys.argv[1] == 'dd_verify':

@@ -1,41 +1,41 @@
 typedef unsigned long size_t;
 typedef long __off_t;
 typedef long __off64_t;
-struct _IO_FILE;
+
 typedef struct _IO_FILE FILE;
 typedef void _IO_lock_t;
 struct _IO_marker
 {
-  struct _IO_marker *_next;
-  struct _IO_FILE *_sbuf;
-  int _pos;
-};
-struct _IO_FILE
-{
-  int _flags;
-  char *_IO_read_ptr;
-  char *_IO_read_end;
-  char *_IO_read_base;
-  char *_IO_write_base;
-  char *_IO_write_ptr;
-  char *_IO_write_end;
-  char *_IO_buf_base;
-  char *_IO_buf_end;
-  char *_IO_save_base;
-  char *_IO_backup_base;
-  char *_IO_save_end;
-  struct _IO_marker *_markers;
-  struct _IO_FILE *_chain;
-  int _fileno;
-  int _flags2;
-  __off_t _old_offset;
-  unsigned short _cur_column;
-  signed char _vtable_offset;
-  char _shortbuf[1];
-  _IO_lock_t *_lock;
-  __off64_t _offset;
-  void *__pad1;
-  void *__pad2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   void *__pad3;
   void *__pad4;
   size_t __pad5;
@@ -71,7 +71,6 @@ int addstr(char c, char *outset, int *j, int maxset)
   {
     if ((* j) >= maxset)
     {
-//      result = (bool) 0;
     }
     else
     {
@@ -96,7 +95,6 @@ char esc(char *s, int *i)
     {
       if (((int) (* (s + ((* i) + 1)))) == 0)
       {
-//        result = (char) '@';
       }
       else
       {
@@ -151,7 +149,6 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
         {
           if (! (((int) (* (src + (* i)))) != 0))
           {
-//            goto while_break;
           }
 
         }
@@ -182,8 +179,6 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
             if ((* j) <= 1)
             {
               {
-//                tmp___1 = addstr((char) '-', dest, j, maxset);
-//                junk = (bool) tmp___1;
               }
             }
             else
@@ -191,8 +186,6 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
               if (((int) (* (src + ((* i) + 1)))) == 0)
               {
                 {
-//                  tmp___1 = addstr((char) '-', dest, j, maxset);
-//                  junk = (bool) tmp___1;
                 }
               }
               else
@@ -230,13 +223,6 @@ void dodash(char delim, char *src, int *i, char *dest, int *j, int maxset)
                     }
                     (* i)++;
                   }
-//                  else
-//                  {
-//                    {
-//                      tmp___3 = addstr((char) '-', dest, j, maxset);
-//                      junk = (bool) tmp___3;
-//                    }
-//                  }
 
                 }
                 else
@@ -345,13 +331,11 @@ bool in_set_2(char c)
   {
     if (((int) c) == 37)
     {
-//      tmp = 1;
     }
     else
     {
       if (((int) c) == 36)
       {
-//        tmp = 1;
       }
       else
       {
@@ -390,7 +374,6 @@ bool in_pat_set(char c)
       {
         if (((int) c) == 36)
         {
-//          tmp = 1;
         }
         else
         {
@@ -416,10 +399,6 @@ bool in_pat_set(char c)
                 {
                   tmp = 1;
                 }
-//                else
-//                {
-//                  tmp = 0;
-//                }
 
               }
 
@@ -472,7 +451,6 @@ int makepat(char *arg, int start, char delim, char *pat)
           {
             if (! (((int) (* (arg + i))) != 0))
             {
-//              goto while_break;
             }
 
           }
@@ -506,10 +484,6 @@ int makepat(char *arg, int start, char delim, char *pat)
                 junk = (bool) tmp___0;
               }
             }
-//            else
-//            {
-//              goto _L___0;
-//            }
 
           }
           else
@@ -524,10 +498,6 @@ int makepat(char *arg, int start, char delim, char *pat)
                   junk = (bool) tmp___1;
                 }
               }
-//              else
-//              {
-//                goto _L;
-//              }
 
             }
             else
@@ -562,16 +532,6 @@ int makepat(char *arg, int start, char delim, char *pat)
                     }
 
                   }
-//                  else
-//                  {
-//                    {
-//                      tmp___3 = addstr((char) 'c', pat, & j, 100);
-//                      junk = (bool) tmp___3;
-//                      escjunk = esc(arg, & i);
-//                      tmp___4 = addstr(escjunk, pat, & j, 100);
-//                      junk = (bool) tmp___4;
-//                    }
-//                  }
 
                 }
                 else
@@ -619,13 +579,11 @@ int makepat(char *arg, int start, char delim, char *pat)
     {
       if (((int) (* (arg + i))) != ((int) delim))
       {
-//        result = 0;
       }
       else
       {
         if (! junk)
         {
-//          result = 0;
         }
         else
         {
@@ -674,7 +632,6 @@ int makesub(char *arg, int from, character delim, char *sub)
         {
           if (! (((int) (* (arg + i))) != 0))
           {
-//            goto while_break;
           }
 
         }
@@ -708,7 +665,6 @@ int makesub(char *arg, int from, character delim, char *sub)
     }
     if (((int) (* (arg + i))) != ((int) delim))
     {
-//      result = 0;
     }
     else
     {
@@ -718,7 +674,6 @@ int makesub(char *arg, int from, character delim, char *sub)
       }
       if (! junk)
       {
-//        result = 0;
       }
       else
       {
@@ -793,7 +748,6 @@ bool omatch(char *lin, int *i, char *pat, int j)
     advance = (char) (- 1);
     if (((int) (* (lin + (* i)))) == 0)
     {
-//      result = (bool) 0;
     }
     else
     {
@@ -820,7 +774,6 @@ bool omatch(char *lin, int *i, char *pat, int j)
 
           if (((int) (* (pat + j))) == 36)
           {
-//            goto case_36;
           }
 
           if (((int) (* (pat + j))) == 91)
@@ -833,7 +786,6 @@ bool omatch(char *lin, int *i, char *pat, int j)
             goto case_33;
           }
 
-//          goto switch_default;
           case_99:
           if (((int) (* (lin + (* i)))) == ((int) (* (pat + (j + 1)))))
           {
@@ -858,14 +810,13 @@ bool omatch(char *lin, int *i, char *pat, int j)
 
 
           goto switch_break;
-          case_36:;
+          case_36:
+          ;
+
           if (((int) (* (lin + (* i)))) == 10)
           {
-//            advance = (char) 0;
           }
 
-
-//          goto switch_break;
           case_91:
           {
             tmp = locate(* (lin + (* i)), pat, j + 1);
@@ -892,23 +843,16 @@ bool omatch(char *lin, int *i, char *pat, int j)
 
 
           goto switch_break;
-          switch_default:;
-          {
-//            Caseerror((int) (* (pat + j)));
-          }
+          switch_default:
+          ;
 
+          {
+          }
           switch_break:
           ;
 
         }
       }
-//      else
-//      {
-//        {
-//          fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "in omatch: can\'t happen\n");
-//          abort();
-//        }
-//      }
 
     }
 
@@ -949,7 +893,6 @@ int patsize(char *pat, int n)
 
         if (((int) (* (pat + n))) == 36)
         {
-//          goto case_63;
         }
 
         if (((int) (* (pat + n))) == 37)
@@ -972,7 +915,6 @@ int patsize(char *pat, int n)
           goto case_42;
         }
 
-//        goto switch_default;
         case_99:
         size = 2;
 
@@ -995,23 +937,16 @@ int patsize(char *pat, int n)
         size = 1;
 
         goto switch_break;
-        switch_default:;
-        {
-//          Caseerror((int) (* (pat + n)));
-        }
+        switch_default:
+        ;
 
+        {
+        }
         switch_break:
         ;
 
       }
     }
-//    else
-//    {
-//      {
-//        fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "in patsize: can\'t happen\n");
-//        abort();
-//      }
-//    }
 
     return size;
   }
@@ -1064,7 +999,6 @@ int amatch(char *lin, int offset, char *pat, int j)
               {
                 if (! (((int) (* (lin + i))) != 0))
                 {
-//                  goto while_break___0;
                 }
 
               }
@@ -1329,8 +1263,6 @@ int main(int argc, char **argv)
     if (argc < 2)
     {
       {
-//        fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "usage: change from [to]\n");
-//        exit(1);
       }
     }
 
@@ -1354,16 +1286,10 @@ int main(int argc, char **argv)
       if (! result)
       {
         {
-//          fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "change: illegal \"to\" string\n");
-//          exit(3);
         }
       }
 
     }
-//    else
-//    {
-//      sub[0] = (char) '\000';
-//    }
 
     {
       change(pat, sub);
@@ -1372,13 +1298,7 @@ int main(int argc, char **argv)
   }
 }
 
-void Caseerror(int n)
-{
-//  {
-//    {
-//      fprintf((FILE *__restrict ) stdout, (const char *__restrict ) "Missing case limb: line %d\n", n);
-//      exit(4);
-//    }
-//  }
-}
+
+
+
 
