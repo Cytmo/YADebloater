@@ -46,6 +46,10 @@ def generate_tree_from_c_file(file_path):
     return root
 
 def main():
+
+    for i in range(1,2):
+        print(i)
+    exit(1)
     if len(sys.argv) != 2:
         print("Usage: python script.py <path_to_c_file>")
         return

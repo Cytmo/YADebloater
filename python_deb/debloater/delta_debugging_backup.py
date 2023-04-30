@@ -3,12 +3,9 @@ import hashlib
 from pycparser import c_parser, c_ast
 from pycparserext.ext_c_parser import GnuCParser
 from pycparserext.ext_c_generator import GnuCGenerator
-from pycparser.c_ast import NodeVisitor
-from pycparser.c_ast import If, While, For, Switch, Compound, FuncDef, Decl, ID, FuncCall, ExprList, BinaryOp, UnaryOp
 import os
 import security_ops
 import copy
-import re
 import subprocess
 import multiprocessing
 import utils
@@ -205,7 +202,6 @@ def verifier(src, num=0, run_tests=False):
 
 
 def ddmin_execute(code, test_func, line_list):
-    return code
     # add a test_cache to reduce the unnecessary exec of same reduced functions
     cache = {}
     # logger.info("line list is "+str(line_list))
@@ -294,7 +290,7 @@ def ddmin_execute(code, test_func, line_list):
                     logger.debug("decrease granularity to {}".format(granularity))
                 else:
                     break
-    # logger.info('Removed {} lines'.format(original_length - len(line_list)))
+    logger.info('Removed {} lines'.format(original_length - len(line_list)))
     # set if_removed
     global lines_removed
     lines_removed = original_length - len(line_list)
@@ -304,103 +300,6 @@ def ddmin_execute(code, test_func, line_list):
 
     return code
 
-def ddmin(code, test_func, line_list):
-    # add a test_cache to reduce the unnecessary exec of same reduced functions
-    cache = {}
-    # logger.info("line list is "+str(line_list))
-    # Initialize the starting granularity to the size of code (coarsest granularity)
-    max_length = len(code)
-    original_length = len(line_list)
-    granularity = 1
-    last_reduced_line = 0
-    # decrease line number in line_list by 1
-    line_list = [x - 1 for x in line_list]
-    while len(code) > 0 and granularity >= 1 and len(line_list) > 0:
-        # Initialize the candidate to the original code
-        candidate = copy.deepcopy(code)
-        line_list_reduced = copy.deepcopy(line_list)
-        # Flag to indicate if the code was reduced in the current iteration
-        reduced = False
-
-        if last_reduced_line > 0:
-            i = last_reduced_line
- 
-        else:
-            i = 0
-
-        while i < len(candidate):
-            removed_code = []
-            if not i in line_list:
-                i += 1
-                continue
-            deleted = False
-            # Remove the code at the current index if it is in the line list
-            logger.debug(
-                    "Removing code from line {} to line {} ... ".format(
-                        i, max_length
-                    )
-                )
-            for j in range(i, min(i + granularity, max_length)):
-                if j in line_list:
-                # if j in line_list and candidate[j].strip() not in ("", "{", "}", ";"):
-                    removed_code.append(candidate[j])
-                    logger.debug("deleted {}".format(candidate[j]))
-                    candidate[j] = "\n"
-                    line_list_reduced.remove(j)
-
-
-            line_list_str = ''.join(str(line_list_reduced))
-            cache_key = hashlib.md5(line_list_str.encode('utf-8')).hexdigest()
-            if cache_key in cache:
-                test_result = cache[cache_key]
-                logger.debug('Already have result in cache, skip the test')
-            else:
-                test_result = test_func(candidate,run_tests=True)
-                cache[cache_key] = test_result
-
-            # line_list = [x - (max_length - i) if x >= max_length else x for x in line_list]
-            # Call the test function with the reduced code
-            if removed_code and test_result:                    # write_to_file(removed_code,True)
-                # If the test passes, update the original code and reduce granularity
-                code = copy.deepcopy(candidate)
-                reduced = True
-                last_reduced_line = i
-                line_list = copy.deepcopy(line_list_reduced)
-                # if granularity > 1:
-                #     granularity //= 2  # Reduce granularity
-                #     logger.info('decrease granularity to {}'.format(granularity))
-                # fixme
-                # write_to_file(code,True)
-                break
-            # write_to_file(code,False)
-            # If the test fails, restore the removed code and move to the next index
-            if i in line_list:
-                logger.debug("Restored line {}".format(i))
-            # write_to_file(removed_code,False)
-            candidate = copy.deepcopy(code)
-            line_list_reduced = copy.deepcopy(line_list)
-
-            i += 1
-            # If no code was reduced in the current iteration, decrease the granularity
-        if reduced:
-            if granularity < 4:
-                granularity *= 2  # Increase granularity
-                logger.debug("increase granularity to {}".format(granularity))
-        else:
-            if granularity > 1:
-                granularity //= 2  # Reduce granularity
-                logger.debug("decrease granularity to {}".format(granularity))
-            else:
-                break
-    # logger.info('Removed {} lines'.format(original_length - len(line_list)))
-    # set if_removed
-    global lines_removed
-    lines_removed = original_length - len(line_list)
-
-        # Return the reduced code
-    # output the smallest_code for debug use
-
-    return code
 
 def write_to_file(removed_code, result, file_path="dataset.txt"):
     """
@@ -461,46 +360,7 @@ def write_to_file(removed_code, result, file_path="dataset.txt"):
 #             # Escape any commas in the code sub-aggregate to avoid parsing issues
 #             code = code.replace(',', '\\,')
 #             f.write(f'{code},{result}\n')
-def organize_blocks(code, line_numbers):
 
-    # Define a function to split the code into basic blocks
-    def split_into_blocks(lines):
-        blocks = []
-        current_block = []
-        for line in lines:
-            if line.startswith("}") or line.startswith("return"):
-                current_block.append(line_numbers.pop(0))
-                blocks.append(current_block)
-                current_block = []
-            else:
-                current_block.append(line_numbers.pop(0))
-        if current_block:
-            blocks.append(current_block)
-        return blocks
-
-    # Split the code into basic blocks
-    blocks = split_into_blocks(code)
-
-    # Define a function to create the tree data structure
-    def create_tree(blocks):
-        tree = []
-        for block in blocks:
-            parent = None
-            for node in tree:
-                if block[0] in node:
-                    parent = node
-                    break
-            if parent:
-                parent.append(block)
-            else:
-                tree.append(block)
-        return tree
-
-    # Create the tree data structure
-    tree = create_tree(blocks)
-
-    # Return the tree
-    return tree
 
 def ddmin_function_level(code, test_func, function_list, num):
     # Sort functions by their complexity (number of lines)
@@ -515,18 +375,11 @@ def ddmin_function_level(code, test_func, function_list, num):
     for func in function_list:
         smallest_set.update({func['name']: None})
     # Flag to indicate if the code was reduced in the current iteration
-    for func in tqdm(function_list, position=1,desc="Reducing functions {}...".format(func['name'])):
+    for func in tqdm(function_list, position=1,desc="Reducing functions...",):
         reduced = False
         cnt = 0
 
         max_length = func["end_line"] + 1 - func["start_line"] - 2
-
-        line_list = list(range(func["start_line"] + 1, func["end_line"]))
-
-
-
-
-
         granularity = max(4, max_length // 4)
         code_length = len(code)
 
@@ -880,292 +733,12 @@ def run_dd(deleted_functions=[],function_execution_count={},iter=False):
     # Reorder the function list by the execution count and length
     function_list = reorder_function_list(function_list, function_execution_count)
     # reduced_code = profile( ddmin_function_level,reduced_code, verifier, function_list,1)
-    reduced_code = tree_based_hdd_for_functions(reduced_code, verifier, function_list, 1)
-    # reduced_code = ddmin_function_level(reduced_code, verifier, function_list, 1)
+    reduced_code = ddmin_function_level(reduced_code, verifier, function_list, 1)
     process_labels("temp/pp.c.debloated.c")
     return lines_removed
     # reduced_code= ddmin_function_level_multiprocess(code_lines,run_test,function_list,1)
 
-import re
-
-class TreeNode:
-    def __init__(self, data):
-        self.data = data
-        self.children = []
-
-    def add_child(self, child):
-        self.children.append(child)
-
-    def __repr__(self):
-        return str(self.data)
-
-    def pretty_print(self, level=0):
-        ret = "\t" * level + str(self.data) + "\n"
-        for child in self.children:
-            ret += child.pretty_print(level + 1)
-        return ret
-
-    def get_nodes_at_level(self, level):
-        if level == 0:
-            return [self]
-
-        nodes = []
-        for child in self.children:
-            nodes.extend(child.get_nodes_at_level(level - 1))
-        return nodes
-    
-    def get_tree_level(self):
-        if not self.children:
-            return 1
-
-        max_child_level = 0
-        for child in self.children:
-            child_level = child.get_tree_level()
-            if child_level > max_child_level:
-                max_child_level = child_level
-
-        return max_child_level + 1
-    
-    def print_tree(self, level=0):
-        print("\t" * level + str(self.data))
-        for child in self.children:
-            child.print_tree(level + 1)
-
-    def get_nodes_from_level(self, level, start_index,  granularity,count=1):
-        nodes_at_level = self.get_nodes_at_level(level)
-        if not nodes_at_level:
-            return []
-
-        end_index = min(start_index + count * granularity, len(nodes_at_level))
-        nodes = nodes_at_level[start_index:end_index:granularity]
-
-        if True:
-            for node in nodes:
-                node.parent.children.remove(node)
-
-        return nodes
-
-def get_line_number(line, current_line):
-    return current_line if '{' in line else None
-
-
-def if_remove_line(code, line_number):
-    # if line of code is empty or a compound statement, branch or loop, return False
-    line = code[line_number - 1].strip()
-
-    if not line or line.startswith(('if', 'else', 'for', 'while', 'do', 'switch', 'case','{','}')):
-        return False
-    for i in range(line_number - 2, -1, -1):
-        prev_line = code[i].strip()
-        if not prev_line:
-            continue
-        if prev_line.endswith('\\'):
-            continue
-        if prev_line.endswith(':'):
-            return False
-        return True
-    return True
-
-
-
-
-def generate_tree_from_c_file(code_lines, line_list):
-    stack = []
-    root = TreeNode("Root")
-    current_line = 0
-
-    lines = code_lines
-
-    for line_number in line_list:
-        line = lines[line_number - 1]
-        current_line = line_number
-
-        if '{' in line:
-            line_number = get_line_number(line, current_line)
-            new_node = TreeNode([str(line_number+1), None])
-            
-            if not stack:
-                root.add_child(new_node)
-            else:
-                stack[-1].add_child(new_node)
-
-            stack.append(new_node)
-
-        elif '}' in line:
-            if stack:
-                stack[-1].data[1] = str(current_line-1)
-                stack.pop()
-
-    return root
-
-
-
-
-def tree_based_hdd_for_functions(code, test_func, function_list, num):
-    # Sort functions by their complexity (number of lines)
-    total_removed = 0
-    # Initialize the starting granularity to 1 (line by line)
-
-    # keep track of each function's smaller set for multiprocessing
-    smallest_set = {}
-    # add a test_cache to reduce the unnecessary exec of same reduced functions
-    test_cache={}
-    # Flag to indicate if the code was reduced in the current iteration
-    for func in tqdm(function_list, position=1,desc="Reducing functions ..."):
-
-
-        reduced = False
-        cnt = 0
-        max_length = func["end_line"] + 1 - func["start_line"] - 2
-        line_list = list(range(func["start_line"] + 1, func["end_line"]))
-        line_tree = generate_tree_from_c_file(code, line_list)
-        logger.debug("Reducing function: %s" % func["name"])
-        logger.debug("Line tree: %s" % line_tree.pretty_print())
-        tree_level = line_tree.get_tree_level()
-        logger.debug("Tree level: %d" % tree_level)
-        function_length = func["end_line"] + 1 - func["start_line"] - 2
-        if function_length == 0:
-            continue
-        # use normal dd to reduce functions with length <= 128 or tree_level==1
-        if function_length <= 128 or tree_level==1:
-            logger.debug("Skipping tbhdd for function %s with length %d" % (func["name"], function_length))
-            function_line_list = list(range(func["start_line"]+1, func["end_line"]))
-            logger.debug("Line list: %s" % function_line_list)
-            lines_in_node_to_remove = []
-            for i in function_line_list:
-                # logger.debug("Processing line %d" % i)
-                if not if_remove_line(code, i):
-                    lines_in_node_to_remove.append(i)
-            for i in lines_in_node_to_remove:
-                function_line_list.remove(i)
-            # remove compounds, branches, and loops from line list
-            logger.debug("Reducing function %s with ddmin" % func["name"])
-            # logger.debug("Line list: %s" % function_line_list)
-            if len(function_line_list) > 0:
-                code = ddmin(code, test_func,function_line_list)
-            continue
-        # run hdd on each level of the tree
-        for i in range(tree_level):
-            if i == 0:
-                continue
-            nodes = line_tree.get_nodes_at_level(i)
-            logger.debug("Reducing nodes at level %d: %s" % (i, nodes))
-            number_of_nodes = len(nodes)
-            granularity = max(1, number_of_nodes // 2)
-            # remove nodes based on granularity
-            # Initialize the candidate to the original code
-            removed_code=[]
-            removed_count_temp = 0
-            candidate = copy.deepcopy(code)
-            start_index = 0
-            # get some nodes based on granularity from the current level
-            while start_index < number_of_nodes:
-                logger.debug("Reducing nodes at level %d, start_index: %d, granularity: %d" % (i, start_index, granularity))
-                line_tree_backup = copy.deepcopy(line_tree)
-                nodes_to_remove = line_tree.get_nodes_from_level(i, start_index, granularity)
-                if not nodes_to_remove:
-                    # No more nodes to remove at this granularity level, exit loop
-                    break
-                # it the node is a leaf, run ddmin for the lines in the node
-                need_test = False
-                # if the nodes contains a node that is not a leaf, run the following test
-                for node in nodes_to_remove:
-                    start_index += 1
-                    if not nodes.children:
-                        lines_in_node = list(range(int(node.data[0]), int(node.data[1])))
-                        code = ddmin(code, test_func, lines_in_node)
-                        continue
-                    need_test = True
-                    removed_count_temp = 0
-                    for code_idx in range(int(node.data[0]), int(node.data[1])):
-                        removed_count_temp += 1
-                        removed_code.append(candidate[code_idx])
-                        candidate[code_idx] = "\n"
-                if not need_test:
-                    continue
-                candidate_func_code = ''.join(candidate[func["start_line"]-2:func["end_line"]])
-                candidate_func_code_no_blank_lines = ''.join(line for line in candidate_func_code.splitlines(True) if line.strip())
-                cache_key = candidate_func_code_no_blank_lines
-                if cache_key in test_cache:
-                    result = test_cache[cache_key]
-                    logger.debug('Already have result in cache, skip the test')
-                else:
-                    # get the reduced version of the function to check if it is syntaxly correct or not
-                    # to save the time to compile whole file
-                    result = test_func(candidate, num,run_tests=True)
-                test_cache[cache_key] = result
-
-                
-                if result:
-                    # If the test passes, update the original code and reduce granularity
-                    code = copy.deepcopy(candidate)
-                    reduced = True
-                    total_removed += removed_count_temp
-                    # reset start_index for the tree has been modified
-                    start_index -= len(nodes_to_remove)
-                else:
-                    total_removed -= removed_count_temp
-                    reduced = False
-                    logger.debug("Test failed, restoring code {}".format(removed_code))
-                    # If the test fails, restore the removed code and move to the next index
-                    candidate = copy.deepcopy(code)
-                    line_tree = copy.deepcopy(line_tree_backup)
-
-                # If no code was reduced in the current iteration, increase the granularity
-                if reduced:
-                    if granularity <= 8:
-                    # if granularity < max_length:
-                        granularity = min(max_length, granularity * 2)
-                        logger.debug("increase granularity to {}".format(granularity))
-                        reduced = False
-                    else:
-                        break
-                elif granularity == 1 and not reduced:
-                    break
-                else:
-                    granularity = 1
-                    logger.debug(
-                        "No code is reduced during last iteration, granularity is now {}".format(
-                            granularity
-                        )
-                    )
-        # After reducing the current function, remove the lines outside of the blocks outside of the tree
-        lines_outside_of_blocks = []
-        lines_outside_of_blocks.extend(range(func["start_line"]-2,func["end_line"]))
-        for node in line_tree.get_nodes_at_level(1):
-            for i in range(int(node.data[0]), int(node.data[1])):
-                if i in lines_outside_of_blocks:
-                    lines_outside_of_blocks.remove(i)
-        if len(lines_outside_of_blocks) > 0:
-            code = ddmin(code, test_func,lines_outside_of_blocks)
-        # Clear the cache for the current function before moving to the next one
-        test_cache.clear()
-    # logger.info("Total removed {} lines".format(total_removed))
-    # with open("temp/reduced_code.c", "w") as f:
-    #     f.writelines(code)
-    global lines_removed
-    lines_removed += total_removed
-
-
-    with open("temp/pp.c.debloated.c", 'w') as f:
-        f.writelines(code)
-
-
-
-
-    """"Temporarily disable the smallest code generation """    
-    # with open('smallest_code', 'w') as f:
-    #     f.write(str(smallest_set))
-    #     f.write(str(function_list))
-
-
-    return [code, function_list]
 
 
 if __name__ == "__main__":
     run_dd()
-    # get the length of the code
-    pass
-  
-
-    # line_tree.print_tree()
