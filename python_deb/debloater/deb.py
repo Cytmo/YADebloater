@@ -190,7 +190,7 @@ if __name__ == '__main__':
         security_ops.begin_ops(only_remove_comments=False)
     else:
         try :
-            security_ops.begin_ops(only_remove_comments=True)
+            security_ops.begin_ops(only_remove_comments=False)
         except:
             logger.info("No security operations are performed")
     

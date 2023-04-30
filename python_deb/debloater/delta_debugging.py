@@ -205,7 +205,6 @@ def verifier(src, num=0, run_tests=False):
 
 
 def ddmin_execute(code, test_func, line_list):
-    return code
     # add a test_cache to reduce the unnecessary exec of same reduced functions
     cache = {}
     # logger.info("line list is "+str(line_list))
