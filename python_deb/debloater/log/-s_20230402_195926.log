@@ -1,3 +1,0 @@
-[line:16]-INFO-Debloating start...
-[line:28]-INFO-Namespace(source_file='benchmark/small_progs/totinfo/tcas.c', input_folder='benchmark/small_progs/tcas', robust_mode=False)
-[line:33]-ERROR-Error: source_file does not exist

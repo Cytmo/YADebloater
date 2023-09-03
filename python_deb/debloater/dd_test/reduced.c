@@ -1,2 +1,0 @@
-python3 GSA.py --output_metrics --output_addresses ../samples/CHISEL/date/date-8.21.origin "{'Aggressive':'../samples/CHISEL/date/date-8.21.reduced'}"
- python3 GadgetSetAnalyzer/src/GSA.py --output_metrics --output_addresses Simple_debloater/python_deb/debloater/temp/pp.c_origin "{'Aggressive':'Simple_debloater/python_deb/debloater/temp/pp.c.debloated.c_origin'}"
